@@ -1,0 +1,52 @@
+# Node.js (Frontend)
+node_modules/
+npm-debug.log
+yarn-error.log
+package-lock.json
+
+# Python (Backend)
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+env/
+venv/
+*.log
+
+# Virtual Environment (Python)
+env/
+venv/
+*.env
+*.venv/
+
+# JetBrains IDEs (IntelliJ, PyCharm, etc.)
+.idea/
+
+# VSCode
+.vscode/
+
+# macOS
+.DS_Store
+
+# Windows
+Thumbs.db
+Desktop.ini
+
+# Logs and temp files
+*.log
+*.tmp
+*.swp
+
+# Build files (Frontend/Backend)
+build/
+dist/
+
+# Docker files
+docker-compose.yml
+Dockerfile
+
+# Other Files to Ignore
+*.bak
+*.orig
+*.sublime-workspace
+*.sublime-project
