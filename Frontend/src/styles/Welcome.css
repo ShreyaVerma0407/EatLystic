@@ -1,14 +1,24 @@
-* { box-sizing: border-box; margin: 0; padding: 0; }
-html, body { height: 100%; width: 100%; }
-body {
+.welcome-page * {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+.welcome-page {
   min-height: 100vh;
   min-width: 100vw;
   overflow: hidden;
-  font-family: 'Poppins', sans-serif; /* Better font style */
-  animation: slideLeft 2s 2s forwards; /* Add the slide animation after a delay */
+  font-family: 'Poppins', sans-serif;
+  position: relative;
+  transform: translateX(0);
+  transition: transform 2s ease-in-out; /* Smooth slide */
 }
 
-.bg-img {
+.welcome-page.slide-out {
+  transform: translateX(-100%);
+}
+
+.welcome-page .bg-img {
   background: url('/images/welcome.png') no-repeat center center;
   background-size: cover;
   position: fixed;
@@ -18,7 +28,7 @@ body {
   height: 100vh;
 }
 
-.center-text {
+.welcome-page .center-text {
   position: fixed;
   top: 0; left: 0;
   width: 100vw; height: 100vh;
@@ -26,26 +36,25 @@ body {
   align-items: center;
   justify-content: center;
   z-index: 1;
-  pointer-events: none;
 }
 
-.welcome-container {
+.welcome-page .welcome-container {
   text-align: center;
   color: #fff;
   text-shadow: 0 2px 16px rgba(0,0,0,0.45);
 }
 
-.welcome {
-  font-size: 3rem; /* Increased font size */
-  font-weight: 600; /* Slightly lighter weight */
+.welcome-page .welcome {
+  font-size: 3rem;
+  font-weight: 600;
   margin-bottom: 0.5em;
   animation: bounceInTop 1.3s cubic-bezier(.47,1.64,.41,.8);
   opacity: 0;
   animation-fill-mode: forwards;
 }
 
-.eatlystic {
-  font-size: 4rem; /* Increased font size */
+.welcome-page .eatlystic {
+  font-size: 4rem;
   font-weight: 900;
   letter-spacing: 3px;
   animation: bounceInTop 1.3s 0.6s cubic-bezier(.47,1.64,.41,.8);
@@ -57,7 +66,6 @@ body {
   display: inline-block;
 }
 
-/* Bouncing in from top */
 @keyframes bounceInTop {
   0% {
     opacity: 0;
@@ -76,18 +84,7 @@ body {
   }
 }
 
-/* Slide to the left animation */
-@keyframes slideLeft {
-  0% {
-    transform: translateX(0);
-  }
-  100% {
-    transform: translateX(-100%);
-  }
-}
-
-/* Responsive tweaks */
 @media (max-width: 600px) {
-  .welcome { font-size: 2.5rem; }
-  .eatlystic { font-size: 3.5rem; }
+  .welcome-page .welcome { font-size: 2.5rem; }
+  .welcome-page .eatlystic { font-size: 3.5rem; }
 }
