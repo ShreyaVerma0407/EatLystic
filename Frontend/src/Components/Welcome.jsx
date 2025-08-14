@@ -1,16 +1,23 @@
-import React, { useEffect } from 'react';
-import '../styles/Welcome.css'; // Importing the styles for the Welcome page
+import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import "../styles/Welcome.css";
 
 const Welcome = () => {
-  useEffect(() => {
-    // Redirect after animation is done (2s slide + 1.3s text animation)
+  const navigate = useNavigate();
+  const [slideOut, setSlideOut] = useState(false);
+
+  const handleSlide = () => {
+    setSlideOut(true);
     setTimeout(() => {
-      window.location.href = 'Home.jsx'; // Redirect to index.html
-    }, 4000); // Adjust delay as needed (2s slide + 1.3s text animation)
-  }, []);
+      navigate("/home");
+    }, 2000); // match CSS transition time
+  };
 
   return (
-    <div className="App">
+    <div
+      className={`welcome-page ${slideOut ? "slide-out" : ""}`}
+      onMouseEnter={handleSlide} // hover triggers slide
+    >
       <div className="bg-img"></div>
       <div className="center-text">
         <div className="welcome-container">
@@ -20,6 +27,6 @@ const Welcome = () => {
       </div>
     </div>
   );
-}
+};
 
 export default Welcome;
