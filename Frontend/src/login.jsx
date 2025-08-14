@@ -24,7 +24,7 @@ function Login() {
 
       if (response.data.status === "success") {
         alert(response.data.message);
-        navigate("/home");
+        navigate("/homepage");
       } else {
         alert(response.data.message || "Invalid email or password");
       }
