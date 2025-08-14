@@ -4,7 +4,7 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import Signup from './Signup'; // Make sure the casing matches the actual file name
 import Login from './Login';
 import Welcome from './components/Welcome';
-import Homepage from './components/Homepage'; // <-- Import your home page component
+
 
 function App() {
   return (
@@ -13,7 +13,7 @@ function App() {
         <Route path="/register" element={<Signup />} />
         <Route path="/login" element={<Login />} />
         <Route path="/welcome" element={<Welcome />} />
-        <Route path="/home" element={<Homepage />} />
+        
       </Routes>
     </BrowserRouter>
   );
