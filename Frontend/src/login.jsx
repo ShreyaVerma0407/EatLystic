@@ -71,7 +71,7 @@ function Login() {
 
         <p className="mt-3">Don't have an account?</p>
         <Link
-          to="/signup"
+          to="/register"
           className="btn btn-default border w-100 bg-light rounded-0 text-decoration-none"
         >
           Register
