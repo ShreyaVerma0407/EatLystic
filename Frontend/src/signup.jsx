@@ -1,13 +1,13 @@
 import { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
+import Welcome from "./Components/Welcome";  // Import the Welcome component
 import "./Auth.css";
 
 function Signup() {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const navigate = useNavigate();
+  const [registrationSuccess, setRegistrationSuccess] = useState(false); // Track registration success
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -26,7 +26,7 @@ function Signup() {
 
       if (response.data.status === "success") {
         alert(response.data.message);
-        navigate("/login");
+        setRegistrationSuccess(true); // Set success to true to render Welcome page
       } else {
         alert(response.data.message || "Registration failed");
       }
@@ -35,6 +35,11 @@ function Signup() {
       alert("Server error. Please try again later.");
     }
   };
+
+  // If registration is successful, render the Welcome component
+  if (registrationSuccess) {
+    return <Welcome />;
+  }
 
   return (
     <div className="auth-container">
@@ -84,12 +89,12 @@ function Signup() {
         </form>
 
         <p className="mt-3">Already have an account?</p>
-        <Link
-          to="/login"
+        <button
+          onClick={() => window.location.href = "/login"} // Simulate navigation to login page
           className="btn btn-default border w-100 bg-light rounded-0 text-decoration-none"
         >
           Login
-        </Link>
+        </button>
       </div>
     </div>
   );
