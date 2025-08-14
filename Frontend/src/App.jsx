@@ -1,18 +1,22 @@
-import { useState } from 'react'
-import 'bootstrap/dist/css/bootstrap.min.css'
-import Signup from './signup'
- import{BrowserRouter, Routes, Route} from 'react-router-dom'
-import Login from './login'
+import 'bootstrap/dist/css/bootstrap.min.css';
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
+
+import Signup from './Signup'; // Make sure the casing matches the actual file name
+import Login from './Login';
+import Welcome from './components/Welcome';
+import Homepage from './components/Homepage'; // <-- Import your home page component
 
 function App() {
   return (
-   <BrowserRouter>
-   <Routes>
-    <Route path='/register' element={<Signup /> }></Route>
-    <Route path='/login' element={<Login /> }></Route>
-   </Routes>
-   </BrowserRouter>
-  )
+    <BrowserRouter>
+      <Routes>
+        <Route path="/register" element={<Signup />} />
+        <Route path="/login" element={<Login />} />
+        <Route path="/welcome" element={<Welcome />} />
+        <Route path="/home" element={<Homepage />} />
+      </Routes>
+    </BrowserRouter>
+  );
 }
 
-export default App
+export default App;
