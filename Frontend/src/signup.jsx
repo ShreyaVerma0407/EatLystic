@@ -2,6 +2,7 @@ import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 import "./auth.css";
+
 function Signup() {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
@@ -21,7 +22,7 @@ function Signup() {
       });
       if (response.data.status === "success") {
         alert(response.data.message);
-        navigate("/login");
+        navigate("/welcome");
       } else {
         alert(response.data.message || "Registration failed");
       }
