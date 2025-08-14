@@ -1,5 +1,5 @@
 import React, { useRef, useState } from "react";
-import "../styles/Homepage.css";
+
 import { featureData, feedbacks } from "../data/content";
 
 const Homepage = ({ onExploreFeature }) => {
