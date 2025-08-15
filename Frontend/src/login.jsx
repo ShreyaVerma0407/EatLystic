@@ -1,9 +1,10 @@
+// Login.js
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 import "./Auth.css";
 
-function Login() {
+function Login({ setCurrentUserId }) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
@@ -24,7 +25,10 @@ function Login() {
 
       if (response.data.status === "success") {
         alert(response.data.message);
-        navigate("/home");
+        const userId = response.data.user._id; // get user ID from response
+        setCurrentUserId(userId);
+        localStorage.setItem("userId", userId); // persist user ID locally
+        navigate("/home"); // or pantry page route
       } else {
         alert(response.data.message || "Invalid email or password");
       }
@@ -82,4 +86,3 @@ function Login() {
 }
 
 export default Login;
-
