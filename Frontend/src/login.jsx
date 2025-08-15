@@ -24,7 +24,7 @@ function Login() {
 
       if (response.data.status === "success") {
         alert(response.data.message);
-        navigate("/homepage");
+        navigate("/home");
       } else {
         alert(response.data.message || "Invalid email or password");
       }
@@ -82,3 +82,4 @@ function Login() {
 }
 
 export default Login;
+
