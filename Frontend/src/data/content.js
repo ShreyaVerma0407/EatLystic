@@ -1,0 +1,42 @@
+// Feature and feedback content
+
+export const featureData = [
+  {
+    title: "Nutrient Tracker",
+    desc: "Monitor your daily nutrition intake with personalized charts and suggestions.",
+    thumbnail: "https://img.youtube.com/vi/LXb3EKWsInQ/hqdefault.jpg",
+    videoId: "LXb3EKWsInQ"
+  },
+  {
+    title: "Recipe Generator",
+    desc: "Get AI-powered recipe ideas from what's in your kitchen.",
+    thumbnail: "https://img.youtube.com/vi/M7lc1UVf-VE/hqdefault.jpg",
+    videoId: "M7lc1UVf-VE"
+  },
+  {
+    title: "KitchenSync",
+    desc: "Sync your pantry and grocery lists to never miss a meal idea.",
+    thumbnail: "https://img.youtube.com/vi/aqz-KE-bpKQ/hqdefault.jpg",
+    videoId: "aqz-KE-bpKQ"
+  },
+  {
+    title: "Calorie Counter",
+    desc: "Log your meals and accurately track your calories the easy way.",
+    thumbnail: "https://img.youtube.com/vi/ScMzIvxBSi4/hqdefault.jpg",
+    videoId: "ScMzIvxBSi4"
+  },
+  {
+    title: "Fitness Goals",
+    desc: "Set and smash personalized fitness targets with our tools.",
+    thumbnail: "https://img.youtube.com/vi/bxqLsrlakK8/hqdefault.jpg",
+    videoId: "bxqLsrlakK8"
+  }
+];
+
+export const feedbacks = [
+  { name: "Anya S.", text: "Changed the way I eat—tracking macros is fun now!", color: "#cff6dd" },
+  { name: "Rohit T.", text: "The recipe generator saved me on so many busy nights.", color: "#f0e9ff" },
+  { name: "Maya G.", text: "Love calorie counter—it’s so motivating and easy to use.", color: "#fdeaff" },
+  { name: "Kartik P.", text: "KitchenSync keeps my kitchen organized perfectly!", color: "#feecc8" },
+  { name: "Ayesha L.", text: "Reached my fitness goals with Eatlystic. Amazing platform.", color: "#e0f7fa" }
+];
