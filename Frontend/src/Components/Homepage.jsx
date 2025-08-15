@@ -1,10 +1,12 @@
 import React, { useRef, useState } from "react";
 import "../styles/Homepage.css";
 import { featureData, feedbacks } from "../data/content";
+import { useNavigate } from "react-router-dom"; // ✅ Added for navigation
 
 const Homepage = ({ onExploreFeature }) => {
   const featuresRef = useRef(null);
   const [hoveredIndex, setHoveredIndex] = useState(null);
+  const navigate = useNavigate(); // ✅ Hook for navigating
 
   const scrollToFeatures = () => {
     featuresRef.current?.scrollIntoView({ behavior: "smooth" });
@@ -50,6 +52,8 @@ const Homepage = ({ onExploreFeature }) => {
             className={`feature-card ${hoveredIndex === index ? "hovered" : ""}`}
             onMouseEnter={() => setHoveredIndex(index)}
             onMouseLeave={() => setHoveredIndex(null)}
+            onClick={() => navigate("/pantry")} // ✅ Redirect to /pantry on click
+            style={{ cursor: "pointer" }} // ✅ Make it look clickable
           >
             <div className="feature-media">
               {hoveredIndex === index ? (
@@ -68,9 +72,11 @@ const Homepage = ({ onExploreFeature }) => {
             <p>{f.desc}</p>
             <button
               className="feature-explore-btn"
-              onClick={() =>
-                onExploreFeature && onExploreFeature(f.title)
-              }
+              onClick={(e) => {
+                e.stopPropagation(); // ✅ Prevent card click from firing
+                onExploreFeature && onExploreFeature(f.title);
+                navigate("/pantry"); // ✅ Redirect when clicking button too
+              }}
             >
               Explore
             </button>
