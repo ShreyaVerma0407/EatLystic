@@ -33,7 +33,8 @@ const Homepage = ({ onExploreFeature }) => {
         <div className="hero-overlay">
           <h1 className="hero-title">EATLYSTIC</h1>
           <p className="hero-description">
-            Track, cook, and fuel your body with Eatlystic – where healthy eating meets convenience.
+            Track, cook, and fuel your body with Eatlystic – where healthy
+            eating meets convenience.
           </p>
           <button className="explore-btn" onClick={scrollToFeatures}>
             EXPLORE NOW
@@ -46,14 +47,14 @@ const Homepage = ({ onExploreFeature }) => {
         {featureData.map((f, index) => (
           <div
             key={f.title}
-            className={feature-card ${hoveredIndex === index ? "hovered" : ""}}
+            className={`feature-card ${hoveredIndex === index ? "hovered" : ""}`}
             onMouseEnter={() => setHoveredIndex(index)}
             onMouseLeave={() => setHoveredIndex(null)}
           >
             <div className="feature-media">
               {hoveredIndex === index ? (
                 <iframe
-                  src={https://www.youtube.com/embed/${f.videoId}?autoplay=1&mute=1&loop=1&playlist=${f.videoId}}
+                  src={`https://www.youtube.com/embed/${f.videoId}?autoplay=1&mute=1&loop=1&playlist=${f.videoId}`}
                   title={f.title}
                   frameBorder="0"
                   allow="autoplay; encrypted-media"
@@ -67,7 +68,9 @@ const Homepage = ({ onExploreFeature }) => {
             <p>{f.desc}</p>
             <button
               className="feature-explore-btn"
-              onClick={() => onExploreFeature && onExploreFeature(f.title)}
+              onClick={() =>
+                onExploreFeature && onExploreFeature(f.title)
+              }
             >
               Explore
             </button>
