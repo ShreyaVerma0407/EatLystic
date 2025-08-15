@@ -5,7 +5,7 @@ import Signup from './Signup'; // Make sure the casing matches the actual file n
 import Login from './Login';
 import Welcome from './components/Welcome';
 import Homepage from './Components/Homepage';
-
+import LandingPage from "./Components/LandingPage";
 
 function App() {
   return (
@@ -15,7 +15,7 @@ function App() {
         <Route path="/login" element={<Login />} />
         <Route path="/welcome" element={<Welcome />} />
         <Route path="/home" element={<Homepage />} />
-        
+        <Route path="/" element={<LandingPage />} />
       </Routes>
     </BrowserRouter>
   );
