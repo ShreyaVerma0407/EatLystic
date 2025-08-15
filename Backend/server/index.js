@@ -1,17 +1,20 @@
-// index.js
 import express from "express";
 import mongoose from "mongoose";
 import cors from "cors";
+
 import EmployeeModel from "./models/Employee.js";
+import pantryRoutes from "./routes/pantryRoutes.js";
 
 const app = express();
 app.use(express.json());
 app.use(cors());
 
-// Correct MongoDB Atlas connection string with database
-mongoose.connect("mongodb+srv://shera1:pass1234@testd.uaa1xum.mongodb.net/employee?retryWrites=true&w=majority&appName=testd")
+// Connect to MongoDB database
+mongoose.connect(
+  "mongodb+srv://shera1:pass1234@testd.uaa1xum.mongodb.net/employee?retryWrites=true&w=majority&appName=testd"
+)
   .then(() => console.log("✅ MongoDB connected"))
-  .catch(err => console.error("❌ MongoDB connection error:", err));
+  .catch((err) => console.error("❌ MongoDB connection error:", err));
 
 // Register route
 app.post("/register", (req, res) => {
@@ -21,14 +24,14 @@ app.post("/register", (req, res) => {
     return res.json({ status: "error", message: "All fields are required" });
   }
 
-  // Check if the email already exists in the 'register' collection
+  // Check if email already exists
   EmployeeModel.findOne({ email })
     .then(existingUser => {
       if (existingUser) {
         return res.json({ status: "error", message: "Email already registered" });
       }
 
-      // Create a new user in the 'register' collection
+      // Create new user
       EmployeeModel.create(req.body)
         .then(employee => res.json({ status: "success", message: "User registered successfully", data: employee }))
         .catch(err => res.json({ status: "error", message: err.message }));
@@ -44,14 +47,14 @@ app.post("/login", (req, res) => {
     return res.json({ status: "error", message: "Email and password are required" });
   }
 
-  // Check if the email exists in the 'register' collection
+  // Find user by email
   EmployeeModel.findOne({ email })
     .then(user => {
       if (!user) {
         return res.json({ status: "error", message: "No record exists" });
       }
 
-      // Check if the password matches
+      // Check password
       if (user.password === password) {
         res.json({ status: "success", message: "Login successful", user });
       } else {
@@ -61,6 +64,10 @@ app.post("/login", (req, res) => {
     .catch(err => res.json({ status: "error", message: err.message }));
 });
 
+// Use the pantry routes for any /api/pantry calls
+app.use("/api/pantry", pantryRoutes);
+
+// Start server
 app.listen(3001, () => {
   console.log("🚀 Server is running on port 3001");
 });
