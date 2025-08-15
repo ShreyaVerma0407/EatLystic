@@ -1,12 +1,59 @@
-/* Pantry.css (Full corrected with icon separator line and no overlap fix) */
+/* Pantry.css with fixed footer overlap fix and dynamic theming */
 
+/* Base pantry page and default orange theme */
 .pantry-page {
   font-family: 'Inter', 'Segoe UI', Arial, Helvetica, sans-serif;
-  background: #fff8f1;
+  background: var(--background-color, #fff8f1);
   min-height: 100vh;
   display: flex;
   flex-direction: column;
   padding-bottom: 120px; /* for fixed footer */
+  box-sizing: border-box;
+  position: relative;
+
+  /* Make pantry-page the scroll container */
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+  
+  /* Default orange theme variables */
+  --primary-color: #ff7f32;
+  --primary-color-light: #ff9247;
+  --primary-color-dark: #cc6a24;
+  --primary-shadow: rgba(255, 127, 50, 0.15);
+  --primary-shadow-hover: rgba(255, 127, 50, 0.4);
+  --border-highlight: #ff7f32;
+  --background-color: #fff8f1;
+  --footer-background: #fff2e6;
+  --footer-border-color: #ffc9a5;
+  --footer-text-color: #222;
+}
+
+/* Veg theme overrides */
+.veg-theme {
+  --primary-color: #4caf50;
+  --primary-color-light: #81c784;
+  --primary-color-dark: #2e7d32;
+  --primary-shadow: rgba(76, 175, 80, 0.15);
+  --primary-shadow-hover: rgba(76, 175, 80, 0.4);
+  --border-highlight: #4caf50;
+  --background-color: #e8f5e9;
+  --footer-background: #e0f2e9;
+  --footer-border-color: #a5d6a7;
+  --footer-text-color: #1b5e20;
+}
+
+/* Non-veg theme overrides */
+.nonveg-theme {
+  --primary-color: #f44336;
+  --primary-color-light: #e57373;
+  --primary-color-dark: #b71c1c;
+  --primary-shadow: rgba(244, 67, 54, 0.15);
+  --primary-shadow-hover: rgba(244, 67, 54, 0.4);
+  --border-highlight: #f44336;
+  --background-color: #ffebee;
+  --footer-background: #fce4e6;
+  --footer-border-color: #ef9a9a;
+  --footer-text-color: #b71c1c;
 }
 
 /* Header */
@@ -81,7 +128,7 @@
 }
 
 .btn-add {
-  background: #ff7f32;
+  background: var(--primary-color);
   color: #fff;
   border: none;
   padding: 10px 18px;
@@ -94,7 +141,7 @@
 }
 
 .btn-add:hover {
-  background: #ff9247;
+  background: var(--primary-color-light);
 }
 
 /* Global filters */
@@ -109,7 +156,7 @@
 .global-filters select {
   padding: 8px;
   font-size: 14px;
-  border: 1px solid #ff7f32;
+  border: 1px solid var(--primary-color);
   border-radius: 6px;
   background: #fff;
   min-width: 120px;
@@ -134,14 +181,14 @@
   font-weight: 600;
   margin-bottom: 4px;
   display: block;
-  color: #ff7f32;
+  color: var(--primary-color);
   font-size: 14px;
 }
 
 .add-item-form input,
 .add-item-form select {
   width: 100%;
-  border: 1px solid #ff7f32;
+  border: 1px solid var(--primary-color);
   border-radius: 7px;
   padding: 8px;
   font-size: 14px;
@@ -149,7 +196,7 @@
 }
 
 .add-item-form button {
-  background: #ff7f32;
+  background: var(--primary-color);
   color: #fff;
   border: none;
   border-radius: 8px;
@@ -161,7 +208,7 @@
 }
 
 .add-item-form button:hover {
-  background: #ff9247;
+  background: var(--primary-color-light);
 }
 
 /* Container with 2 category boxes side by side */
@@ -170,6 +217,9 @@
   grid-template-columns: repeat(2, 1fr);
   gap: 32px;
   margin: 0 5% 80px 5%;
+
+  /* Bottom padding to prevent overlap with fixed footer */
+  padding-bottom: 140px;
 }
 
 /* Single category box styling */
@@ -177,7 +227,7 @@
   background: white;
   border-radius: 18px;
   padding: 24px 20px 30px 20px;
-  box-shadow: 0 2px 8px rgba(255, 127, 50, 0.15);
+  box-shadow: 0 2px 8px var(--primary-shadow);
   transition: box-shadow 0.3s ease, border 0.3s ease;
   border: 2px solid transparent;
   display: flex;
@@ -186,14 +236,14 @@
 }
 
 .category-section:hover {
-  box-shadow: 0 8px 24px rgba(255, 127, 50, 0.4);
-  border-color: #ff7f32;
+  box-shadow: 0 8px 24px var(--primary-shadow-hover);
+  border-color: var(--border-highlight);
 }
 
 .category-title {
   font-size: 2rem;
   font-weight: 900;
-  color: #ff7f32;
+  color: var(--primary-color);
   margin-bottom: 16px;
   user-select: none;
   text-align: center;
@@ -213,7 +263,7 @@
   flex-grow: 1;
   padding: 8px;
   font-size: 14px;
-  border: 1px solid #ff7f32;
+  border: 1px solid var(--primary-color);
   border-radius: 6px;
   background: #fff;
   min-width: 120px;
@@ -257,7 +307,7 @@
   transition: transform 0.6s ease;
   transform-style: preserve-3d;
   border-radius: 15px;
-  box-shadow: 0 5px 18px rgba(255, 127, 50, 0.4);
+  box-shadow: 0 5px 18px var(--primary-shadow-hover);
   background: none;
   overflow: visible;
 }
@@ -282,7 +332,7 @@
   justify-content: center;
   padding: 8px 6px;
   position: relative;
-  color: #ff7f32;
+  color: var(--primary-color);
   text-align: center;
   min-height: 130px;
   max-height: none;
@@ -310,7 +360,7 @@
   font-weight: bold;
   font-size: 13px;
   margin-top: 5px;
-  color: #ff7f32;
+  color: var(--primary-color);
   user-select: none;
   white-space: normal;
   word-break: break-word;
@@ -335,7 +385,7 @@
   overflow-y: auto;
   background-color: #fff5e1;
   border-radius: 15px;
-  color: #ff7f32;
+  color: var(--primary-color);
   transform: rotateY(180deg);
   display: flex;
   flex-direction: column;
@@ -354,7 +404,7 @@
 }
 
 .flip-card-back::-webkit-scrollbar-thumb {
-  background-color: rgba(255, 127, 50, 0.7);
+  background-color: var(--primary-color);
   border-radius: 3px;
 }
 
@@ -370,7 +420,7 @@
   gap: 6px;
   padding-bottom: 6px;
   width: calc(100% - 12px);
-  border-bottom: 1px solid #ff7f32;
+  border-bottom: 1px solid var(--primary-color);
   z-index: 10;
   background: rgba(255 245 225 / 0.95);
 }
@@ -403,7 +453,7 @@
 }
 
 .btn-icon.edit {
-  color: #ff7f32;
+  color: var(--primary-color);
 }
 
 .btn-icon:hover {
@@ -419,13 +469,14 @@
   bottom: 0;
   left: 0;
   right: 0;
-  background: #fff2e6;
-  color: #222;
+  background: var(--footer-background);
+  color: var(--footer-text-color);
   padding: 20px 0;
   font-size: 16px;
   text-align: center;
   user-select: none;
-  border-top: 1px solid #ffc9a5;
+  border-top: 1px solid var(--footer-border-color);
+  z-index: 1000;
 }
 
 /* Responsive */
