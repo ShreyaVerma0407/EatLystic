@@ -1,0 +1,212 @@
+body {
+  margin: 0;
+  font-family: 'Poppins', sans-serif;
+  background-color: #fafafa;
+}
+
+/* Navbar */
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #fc8019;
+  padding: 1rem 2rem;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+}
+.logo-cluster {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+.logo-text {
+  font-size: 1.8rem;
+  font-weight: bold;
+  color: white;
+}
+.emoji {
+  font-size: 1.5rem;
+}
+.nav-links {
+  list-style: none;
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+}
+.nav-links li {
+  color: white;
+  font-weight: 500;
+  font-size: 1.2rem;
+  cursor: pointer;
+}
+.nav-links li:hover {
+  text-decoration: underline;
+}
+
+/* Hero Section */
+.hero {
+  background-image: url('https://images.unsplash.com/photo-1504674900247-0877df9cc836');
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed;
+  height: 90vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.hero-overlay {
+  background: rgba(0, 0, 0, 0.5);
+  padding: 2rem;
+  text-align: center;
+  color: white;
+  border-radius: 10px;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.5);
+}
+.hero-title {
+  font-size: 3rem;
+  margin-bottom: 1rem;
+}
+.hero-description {
+  font-size: 1.2rem;
+  margin-bottom: 1.5rem;
+}
+/* Neon Explore Button */
+.explore-btn {
+  background-color: #fc8019;
+  color: white;
+  padding: 0.75rem 1.5rem;
+  font-size: 1rem;
+  border-radius: 5px;
+  cursor: pointer;
+  border: 1.5px solid #fff;
+  box-shadow: 0 0 5px #fff, 0 0 10px #fff inset;
+  transition: all 0.3s ease;
+}
+.explore-btn:hover {
+  background-color: rgba(239, 125, 3, 0.08);
+  box-shadow: 0 0 8px #fff, 0 0 15px #fff inset;
+}
+
+/* Features Section */
+.features {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr); /* exactly 3 per row */
+  gap: 2rem;
+  padding: 3rem 2rem;
+}
+.feature-card {
+  background: white;
+  padding: 1.5rem;
+  border-radius: 15px;
+  text-align: center;
+  box-shadow: 0 6px 20px rgba(0,0,0,0.1);
+  transition: all 0.3s ease;
+}
+.feature-card.hovered {
+  box-shadow: 0 0 20px 4px #fc8019; /* neon orange glow */
+  transform: translateY(-6px);
+}
+.feature-media {
+  width: 100%;
+  height: 250px; /* larger video/image height */
+  border-radius: 10px;
+  overflow: hidden;
+  margin-bottom: 1rem;
+}
+.feature-media img,
+.feature-media iframe {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.feature-card h3 {
+  color: #fc8019;
+  font-size: 1.4rem;
+  margin: 0.5rem 0;
+}
+.feature-card p {
+  font-size: 1rem;
+  color: #444;
+}
+.feature-explore-btn {
+  margin-top: 1rem;
+  padding: 0.6rem 1.4rem;
+  border: 1.5px solid #fc8019;
+  color: #fc8019;
+  background: transparent;
+  border-radius: 5px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+.feature-explore-btn:hover {
+  background: #fc8019;
+  color: white;
+}
+
+/* Reviews Section */
+.reviews-section {
+  background: #fff;
+  padding: 3rem 2rem;
+  text-align: center;
+}
+.feedback-bubbles {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 1.5rem;
+  margin-top: 2rem;
+}
+.feedback-bubble {
+  max-width: 270px;
+  padding: 1rem;
+  border-radius: 20px;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.12);
+  transition: transform 0.2s ease;
+}
+.feedback-bubble:hover {
+  transform: translateY(-5px) scale(1.03);
+}
+.feedback-text {
+  font-size: 1rem;
+  color: #333;
+}
+.feedback-name {
+  margin-top: 0.5rem;
+  color: #fc8019;
+  font-weight: bold;
+}
+
+/* How it Works Video */
+.video-section {
+  padding: 3rem 2rem;
+  text-align: center;
+}
+.video-container iframe {
+  width: 80%;
+  height: 400px;
+  border-radius: 10px;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+}
+
+/* Footer */
+.footer {
+  background-color: #333;
+  color: white;
+  padding: 1rem;
+  text-align: center;
+}
+
+/* Responsive breakpoints */
+@media (max-width: 992px) {
+  .features {
+    grid-template-columns: repeat(2, 1fr); /* 2 per row on tablets */
+  }
+}
+@media (max-width: 600px) {
+  .features {
+    grid-template-columns: 1fr; /* single column on mobile */
+  }
+}
