@@ -6,6 +6,7 @@ import Login from './Login';
 import Welcome from './components/Welcome';
 import Homepage from './Components/Homepage';
 import LandingPage from "./Components/LandingPage";
+import Pantry from './Components/Pantry';
 
 function App() {
   return (
@@ -16,6 +17,7 @@ function App() {
         <Route path="/welcome" element={<Welcome />} />
         <Route path="/home" element={<Homepage />} />
         <Route path="/" element={<LandingPage />} />
+        <Route path="/pantry" element={<Pantry />} />
       </Routes>
     </BrowserRouter>
   );
