@@ -60,13 +60,14 @@ export default function NutrientPage() {
 
   // Pastel colors for nutrients
   const nutrientColors = {
-    sugar: "#FFB3BA",   // soft pink
-    protein: "#BAFFC9", // mint green
-    fat: "#FFDFBA",     // pastel orange
-    fiber: "#BAE1FF",   // pastel blue
-    carb: "#E2BAFF",    // lavender
-    default: "#F0F0F0", // light gray
-  };
+  sugar: "#FF7F7F",   // darker pink
+  protein: "#7FFF9F", // stronger mint green
+  fat: "#FFB870",     // richer pastel orange
+  fiber: "#7FBFFF",   // medium pastel blue
+  carb: "#B870FF",    // deeper lavender
+  default: "#D9D9D9", // soft gray, still light
+};
+
 
   // Chart data
   const chartData = productData
@@ -207,3 +208,4 @@ export default function NutrientPage() {
     </div>
   );
 }
+
