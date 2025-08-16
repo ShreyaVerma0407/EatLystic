@@ -1,12 +1,13 @@
 import React, { useRef, useState } from "react";
 import "../styles/Homepage.css";
 import { featureData, feedbacks } from "../data/content";
-import { useNavigate } from "react-router-dom"; // ✅ Added for navigation
+import { useNavigate } from "react-router-dom";
+import Navbar from "./Navbar"; 
 
 const Homepage = ({ onExploreFeature }) => {
   const featuresRef = useRef(null);
   const [hoveredIndex, setHoveredIndex] = useState(null);
-  const navigate = useNavigate(); // ✅ Hook for navigating
+  const navigate = useNavigate();
 
   const scrollToFeatures = () => {
     featuresRef.current?.scrollIntoView({ behavior: "smooth" });
@@ -15,20 +16,7 @@ const Homepage = ({ onExploreFeature }) => {
   return (
     <div className="homepage">
       {/* Navbar */}
-      <nav className="navbar">
-        <div className="logo-cluster">
-          <span className="emoji">🍴</span>
-          <span className="logo-text">EATLYSTIC</span>
-          <span className="emoji">🏃</span>
-        </div>
-        <ul className="nav-links">
-          <li>KitchenVault</li>
-          <li>MealCraft</li>
-          <li>HealthSync</li>
-          <li>Settings</li>
-          <li>Login</li>
-        </ul>
-      </nav>
+      <Navbar/>
 
       {/* Hero */}
       <section className="hero">
@@ -49,11 +37,13 @@ const Homepage = ({ onExploreFeature }) => {
         {featureData.map((f, index) => (
           <div
             key={f.title}
-            className={`feature-card ${hoveredIndex === index ? "hovered" : ""}`}
+            className={`feature-card ${
+              hoveredIndex === index ? "hovered" : ""
+            }`}
             onMouseEnter={() => setHoveredIndex(index)}
             onMouseLeave={() => setHoveredIndex(null)}
-            onClick={() => navigate("/pantry")} // ✅ Redirect to /pantry on click
-            style={{ cursor: "pointer" }} // ✅ Make it look clickable
+            onClick={() => navigate("/pantry")}
+            style={{ cursor: "pointer" }}
           >
             <div className="feature-media">
               {hoveredIndex === index ? (
@@ -73,9 +63,9 @@ const Homepage = ({ onExploreFeature }) => {
             <button
               className="feature-explore-btn"
               onClick={(e) => {
-                e.stopPropagation(); // ✅ Prevent card click from firing
+                e.stopPropagation();
                 onExploreFeature && onExploreFeature(f.title);
-                navigate("/pantry"); // ✅ Redirect when clicking button too
+                navigate("/pantry");
               }}
             >
               Explore

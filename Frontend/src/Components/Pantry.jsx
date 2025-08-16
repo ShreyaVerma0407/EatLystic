@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Navigate } from "react-router-dom";
 import "../styles/Pantry.css";
+import Navbar from "./Navbar"; // Added Navbar import
 
 const CATEGORIES = [
   "Fruits",
@@ -14,7 +15,7 @@ const CATEGORIES = [
 ];
 
 const NON_VEG_INGREDIENTS = [
-    "meat",
+  "meat",
   "Chicken",
   "Beef",
   "Lamb",
@@ -313,6 +314,8 @@ function Pantry({ currentUserId }) {
         isVegFilter ? "veg-theme" : isNonVegFilter ? "nonveg-theme" : ""
       }`}
     >
+      <Navbar /> {/* Navbar added at the top */}
+
       <header
         className="pantry-header"
         style={{ backgroundImage: headerBackgroundImage }}
@@ -320,7 +323,8 @@ function Pantry({ currentUserId }) {
         <div className="pantry-header-text">
           <div className="title">WELCOME TO PANTRY</div>
           <div className="subtitle">
-            Stock up with your favorite ingredients and create delicious meals every day!
+            Stock up with your favorite ingredients and create delicious meals
+            every day!
           </div>
         </div>
       </header>
@@ -339,17 +343,23 @@ function Pantry({ currentUserId }) {
         <div className="global-filters">
           <select
             value={globalFilters.category}
-            onChange={(e) => setGlobalFilters((prev) => ({ ...prev, category: e.target.value }))}
+            onChange={(e) =>
+              setGlobalFilters((prev) => ({ ...prev, category: e.target.value }))
+            }
           >
             <option value="">Categories</option>
             {CATEGORIES.map((cat) => (
-              <option key={cat} value={cat}>{cat}</option>
+              <option key={cat} value={cat}>
+                {cat}
+              </option>
             ))}
           </select>
 
           <select
             value={globalFilters.expiry}
-            onChange={(e) => setGlobalFilters((prev) => ({ ...prev, expiry: e.target.value }))}
+            onChange={(e) =>
+              setGlobalFilters((prev) => ({ ...prev, expiry: e.target.value }))
+            }
           >
             <option value="">Expiry</option>
             <option value="expired">Expired</option>
@@ -358,7 +368,9 @@ function Pantry({ currentUserId }) {
 
           <select
             value={globalFilters.items}
-            onChange={(e) => setGlobalFilters((prev) => ({ ...prev, items: e.target.value }))}
+            onChange={(e) =>
+              setGlobalFilters((prev) => ({ ...prev, items: e.target.value }))
+            }
           >
             <option value="">Quantity</option>
             <option value="low">Low (less than 3)</option>
@@ -367,7 +379,9 @@ function Pantry({ currentUserId }) {
 
           <select
             value={globalFilters.vegNonVeg}
-            onChange={(e) => setGlobalFilters((prev) => ({ ...prev, vegNonVeg: e.target.value }))}
+            onChange={(e) =>
+              setGlobalFilters((prev) => ({ ...prev, vegNonVeg: e.target.value }))
+            }
           >
             <option value="">Veg / Non-Veg</option>
             <option value="veg">🟩 Vegetarian</option>
@@ -430,7 +444,9 @@ function Pantry({ currentUserId }) {
             >
               <option value="">Select Category</option>
               {CATEGORIES.map((cat) => (
-                <option key={cat} value={cat}>{cat}</option>
+                <option key={cat} value={cat}>
+                  {cat}
+                </option>
               ))}
             </select>
           </label>
@@ -506,13 +522,17 @@ function Pantry({ currentUserId }) {
                       onMouseEnter={() => flip(item._id, true)}
                       onMouseLeave={() => flip(item._id, false)}
                     >
-                      <div className={`flip-card-inner${flipped[item._id] ? " is-flipped" : ""}`}>
+                      <div
+                        className={`flip-card-inner${flipped[item._id] ? " is-flipped" : ""}`}
+                      >
                         <div className="flip-card-front">
                           <div className="image-wrapper">
                             <img
                               src={
                                 item.imageUrl ||
-                                `https://via.placeholder.com/110?text=${encodeURIComponent(item.name)}`
+                                `https://via.placeholder.com/110?text=${encodeURIComponent(
+                                  item.name
+                                )}`
                               }
                               alt={item.name}
                               className="item-image"
