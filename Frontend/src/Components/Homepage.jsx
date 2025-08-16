@@ -1,13 +1,14 @@
 import React, { useRef, useState } from "react";
 import "../styles/Homepage.css";
 import { featureData, feedbacks } from "../data/content";
-import { useNavigate } from "react-router-dom";
-import Navbar from "./Navbar"; 
+import { useNavigate } from "react-router-dom"; // ✅ Added for navigation
+
+
 
 const Homepage = ({ onExploreFeature }) => {
   const featuresRef = useRef(null);
   const [hoveredIndex, setHoveredIndex] = useState(null);
-  const navigate = useNavigate();
+  const navigate = useNavigate(); // ✅ Hook for navigating
 
   const scrollToFeatures = () => {
     featuresRef.current?.scrollIntoView({ behavior: "smooth" });
@@ -16,7 +17,20 @@ const Homepage = ({ onExploreFeature }) => {
   return (
     <div className="homepage">
       {/* Navbar */}
-      <Navbar/>
+      <nav className="navbar">
+        <div className="logo-cluster">
+          <span className="emoji">🍴</span>
+          <span className="logo-text">EATLYSTIC</span>
+          <span className="emoji">🏃</span>
+        </div>
+        <ul className="nav-links">
+          <li>KitchenVault</li>
+          <li>MealCraft</li>
+          <li>HealthSync</li>
+          <li>Settings</li>
+          <li>Login</li>
+        </ul>
+      </nav>
 
       {/* Hero */}
       <section className="hero">
@@ -32,47 +46,60 @@ const Homepage = ({ onExploreFeature }) => {
         </div>
       </section>
 
-      {/* Features */}
-      <section className="features" ref={featuresRef}>
-        {featureData.map((f, index) => (
-          <div
-            key={f.title}
-            className={`feature-card ${
-              hoveredIndex === index ? "hovered" : ""
-            }`}
-            onMouseEnter={() => setHoveredIndex(index)}
-            onMouseLeave={() => setHoveredIndex(null)}
-            onClick={() => navigate("/pantry")}
-            style={{ cursor: "pointer" }}
-          >
-            <div className="feature-media">
-              {hoveredIndex === index ? (
-                <iframe
-                  src={`https://www.youtube.com/embed/${f.videoId}?autoplay=1&mute=1&loop=1&playlist=${f.videoId}`}
-                  title={f.title}
-                  frameBorder="0"
-                  allow="autoplay; encrypted-media"
-                  allowFullScreen
-                ></iframe>
-              ) : (
-                <img src={f.thumbnail} alt={f.title} />
-              )}
-            </div>
-            <h3>{f.title}</h3>
-            <p>{f.desc}</p>
-            <button
-              className="feature-explore-btn"
-              onClick={(e) => {
-                e.stopPropagation();
-                onExploreFeature && onExploreFeature(f.title);
-                navigate("/pantry");
-              }}
-            >
-              Explore
-            </button>
-          </div>
-        ))}
-      </section>
+    {/* Features Section */}
+<section className="features" ref={featuresRef}>
+  {featureData.map((feature, index) => {
+    // Map feature titles to routes
+    const FEATURE_ROUTES = {
+      "Nutrient Tracker": "/nutrient",
+      "Recipe Generator": "/recipe-generator",
+      KitchenSync: "/pantry", // ✅ Make sure this matches featureData exactly
+      "Calorie Counter": "/calorie-counter",
+      "Fitness Goals": "/fitness-goals",
+    };
+
+    const route = FEATURE_ROUTES[feature.title] || "/";
+
+    return (
+      <div
+        key={feature.title}
+        className={`feature-card ${hoveredIndex === index ? "hovered" : ""}`}
+        onMouseEnter={() => setHoveredIndex(index)}
+        onMouseLeave={() => setHoveredIndex(null)}
+        onClick={() => navigate(route)} // Navigate on card click
+        style={{ cursor: "pointer" }}
+      >
+        <div className="feature-media">
+          {hoveredIndex === index ? (
+            <iframe
+              src={`https://www.youtube.com/embed/${feature.videoId}?autoplay=1&mute=1&loop=1&playlist=${feature.videoId}`}
+              title={feature.title}
+              frameBorder="0"
+              allow="autoplay; encrypted-media"
+              allowFullScreen
+            ></iframe>
+          ) : (
+            <img src={feature.thumbnail} alt={feature.title} />
+          )}
+        </div>
+        <h3>{feature.title}</h3>
+        <p>{feature.desc}</p>
+        <button
+          className="feature-explore-btn"
+          onClick={(e) => {
+            e.stopPropagation(); // Prevent triggering card click
+            onExploreFeature && onExploreFeature(feature.title);
+            navigate(route); // Navigate on button click
+          }}
+        >
+          Explore
+        </button>
+      </div>
+    );
+  })}
+</section>
+
+
 
       {/* Reviews */}
       <section className="reviews-section">
