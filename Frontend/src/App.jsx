@@ -8,6 +8,7 @@ import Welcome from './components/Welcome';
 import Homepage from './Components/Homepage';
 import LandingPage from "./Components/LandingPage";
 import Pantry from './Components/Pantry';
+import NutrientPage from './Components/NutrientPage';
 import { useState, useEffect } from 'react';
 
 function App() {
@@ -29,6 +30,7 @@ function App() {
         <Route path="/home" element={<Homepage />} />
         <Route path="/" element={<LandingPage />} />
         <Route path="/pantry" element={<Pantry currentUserId={currentUserId} />} />
+        <Route path="/nutrient" element={<NutrientPage />} /> {/* Nutrient page */}
       </Routes>
     </BrowserRouter>
   );
