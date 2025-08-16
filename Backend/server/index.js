@@ -1,11 +1,10 @@
-// index.js
 import express from "express";
 import mongoose from "mongoose";
 import cors from "cors";
 
 import EmployeeModel from "./models/Employee.js";
 import pantryRoutes from "./routes/pantryRoutes.js";
-import nutritionApp from "./server.js"; // Import nutrition server
+import nutritionApp from "./server.js"; // Nutrition server imported
 
 const app = express();
 app.use(express.json());
@@ -31,9 +30,7 @@ app.post("/register", async (req, res) => {
 
   try {
     const existingUser = await EmployeeModel.findOne({ email });
-    if (existingUser) {
-      return res.json({ status: "error", message: "Email already registered" });
-    }
+    if (existingUser) return res.json({ status: "error", message: "Email already registered" });
 
     const employee = await EmployeeModel.create(req.body);
     res.json({ status: "success", message: "User registered successfully", data: employee });
@@ -47,21 +44,14 @@ app.post("/register", async (req, res) => {
 // --------------------
 app.post("/login", async (req, res) => {
   const { email, password } = req.body;
-  if (!email || !password) {
-    return res.json({ status: "error", message: "Email and password are required" });
-  }
+  if (!email || !password) return res.json({ status: "error", message: "Email and password required" });
 
   try {
     const user = await EmployeeModel.findOne({ email });
-    if (!user) {
-      return res.json({ status: "error", message: "No record exists" });
-    }
+    if (!user) return res.json({ status: "error", message: "No record exists" });
 
-    if (user.password === password) {
-      res.json({ status: "success", message: "Login successful", user });
-    } else {
-      res.json({ status: "error", message: "The password is incorrect" });
-    }
+    if (user.password === password) res.json({ status: "success", message: "Login successful", user });
+    else res.json({ status: "error", message: "The password is incorrect" });
   } catch (err) {
     res.json({ status: "error", message: err.message });
   }
@@ -73,7 +63,7 @@ app.post("/login", async (req, res) => {
 app.use("/api/pantry", pantryRoutes);
 
 // --------------------
-// Start Main Server
+// Start Servers
 // --------------------
 const MAIN_PORT = 3001;
 const NUTRITION_PORT = 5000;
