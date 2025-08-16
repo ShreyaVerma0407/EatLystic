@@ -58,16 +58,15 @@ export default function NutrientPage() {
     }
   };
 
-  // Pastel colors for nutrients
+  // Updated, more visible colors
   const nutrientColors = {
-  sugar: "#FF7F7F",   // darker pink
-  protein: "#7FFF9F", // stronger mint green
-  fat: "#FFB870",     // richer pastel orange
-  fiber: "#7FBFFF",   // medium pastel blue
-  carb: "#B870FF",    // deeper lavender
-  default: "#D9D9D9", // soft gray, still light
-};
-
+    sugar: "#FF4D4D",   // stronger pink
+    protein: "#32CD32", // brighter green
+    fat: "#FFA500",     // orange
+    fiber: "#1E90FF",   // blue
+    carb: "#9932CC",    // purple
+    default: "#A9A9A9", // dark gray
+  };
 
   // Chart data
   const chartData = productData
@@ -96,13 +95,16 @@ export default function NutrientPage() {
                 else if (key.includes("carb")) return nutrientColors.carb;
                 else return nutrientColors.default;
               }),
-            borderColor: "#fff",
+            borderColor: "#555",
             borderWidth: 2,
+            hoverBorderColor: "#222",
+            hoverBorderWidth: 3,
           },
         ],
       }
     : null;
 
+  // Chart options with visible bars
   const chartOptions = {
     responsive: true,
     animation: { duration: 800, easing: "easeOutQuart" },
@@ -114,6 +116,19 @@ export default function NutrientPage() {
             return `${context.label}: ${context.raw}`;
           },
         },
+      },
+    },
+    scales: {
+      y: {
+        beginAtZero: true,
+        ticks: { stepSize: 5, color: "#333", font: { size: 14 } },
+        grid: { color: "#eee" },
+      },
+      x: {
+        ticks: { color: "#333", font: { size: 14 } },
+        grid: { color: "#eee" },
+        barPercentage: 0.7,
+        categoryPercentage: 0.6,
       },
     },
   };
@@ -208,4 +223,3 @@ export default function NutrientPage() {
     </div>
   );
 }
-
