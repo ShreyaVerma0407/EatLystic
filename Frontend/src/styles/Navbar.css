@@ -1,0 +1,56 @@
+/* Navbar.css */
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #fc8019;
+  padding: 1rem 2rem;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+}
+
+.logo-cluster {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.logo-text {
+  font-size: 1.8rem;
+  font-weight: bold;
+  color: white;
+}
+
+.emoji {
+  font-size: 1.5rem;
+}
+
+.nav-links {
+  list-style: none;
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+}
+
+.nav-links li {
+  color: white;
+  font-weight: 500;
+  font-size: 1.2rem;
+  cursor: pointer;
+}
+
+/* Style for Home link */
+.nav-links li a {
+  color: white;              /* Set the color of all links to white */
+  text-decoration: none;     /* Remove underline */
+}
+
+.nav-links li a:hover {
+  text-decoration: underline;  /* Underline on hover */
+}
+
+.nav-links li a:visited {
+  color: white;             /* Ensure the visited links are still white */
+}
