@@ -1,3 +1,5 @@
+/* src/styles/Homepage.css */
+
 body {
   margin: 0;
   font-family: 'Poppins', sans-serif;
@@ -15,6 +17,7 @@ body {
   justify-content: center;
   align-items: center;
 }
+
 .hero-overlay {
   background: rgba(0, 0, 0, 0.5);
   padding: 2rem;
@@ -23,14 +26,17 @@ body {
   border-radius: 10px;
   box-shadow: 0 8px 20px rgba(0,0,0,0.5);
 }
+
 .hero-title {
   font-size: 3rem;
   margin-bottom: 1rem;
 }
+
 .hero-description {
   font-size: 1.2rem;
   margin-bottom: 1.5rem;
 }
+
 /* Neon Explore Button */
 .explore-btn {
   background-color: #fc8019;
@@ -43,6 +49,7 @@ body {
   box-shadow: 0 0 5px #fff, 0 0 10px #fff inset;
   transition: all 0.3s ease;
 }
+
 .explore-btn:hover {
   background-color: rgba(239, 125, 3, 0.08);
   box-shadow: 0 0 8px #fff, 0 0 15px #fff inset;
@@ -55,6 +62,7 @@ body {
   gap: 2rem;
   padding: 3rem 2rem;
 }
+
 .feature-card {
   background: white;
   padding: 1.5rem;
@@ -63,10 +71,12 @@ body {
   box-shadow: 0 6px 20px rgba(0,0,0,0.1);
   transition: all 0.3s ease;
 }
+
 .feature-card.hovered {
   box-shadow: 0 0 20px 4px #fc8019;
   transform: translateY(-6px);
 }
+
 .feature-media {
   width: 100%;
   height: 250px;
@@ -74,21 +84,25 @@ body {
   overflow: hidden;
   margin-bottom: 1rem;
 }
+
 .feature-media img,
 .feature-media iframe {
   width: 100%;
   height: 100%;
   object-fit: cover;
 }
+
 .feature-card h3 {
   color: #fc8019;
   font-size: 1.4rem;
   margin: 0.5rem 0;
 }
+
 .feature-card p {
   font-size: 1rem;
   color: #444;
 }
+
 .feature-explore-btn {
   margin-top: 1rem;
   padding: 0.6rem 1.4rem;
@@ -100,6 +114,7 @@ body {
   cursor: pointer;
   transition: all 0.3s ease;
 }
+
 .feature-explore-btn:hover {
   background: #fc8019;
   color: white;
@@ -110,32 +125,96 @@ body {
   background: #fff;
   padding: 3rem 2rem;
   text-align: center;
+  overflow: hidden;
 }
-.feedback-bubbles {
+
+.reviews-section h2 {
+  font-size: 2rem;
+  margin-bottom: 40px;
+}
+
+.feedback-bubbles-row {
   display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: 1.5rem;
-  margin-top: 2rem;
+  gap: 20px;
+  white-space: nowrap;
+  will-change: transform;
+  animation-duration: 40s;
+  animation-iteration-count: infinite;
+  animation-timing-function: linear;
+  padding-bottom: 20px;
+  overflow-x: visible;
 }
+
+.row-right {
+  animation-name: moveRight;
+  animation-fill-mode: forwards;
+}
+
+.row-left {
+  animation-name: moveLeft;
+  animation-fill-mode: forwards;
+}
+
+/* Animations */
+@keyframes moveRight {
+  0% {
+    transform: translateX(-40%);
+  }
+  100% {
+    transform: translateX(100%);
+  }
+}
+
+@keyframes moveLeft {
+  0% {
+    transform: translateX(100%);
+  }
+  100% {
+    transform: translateX(-40%);
+  }
+}
+
 .feedback-bubble {
-  max-width: 270px;
-  padding: 1rem;
+  flex: 0 0 320px;
+  background: #fff;
   border-radius: 20px;
-  box-shadow: 0 8px 20px rgba(0,0,0,0.12);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.12);
+  padding: 20px;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  white-space: normal;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
   transition: transform 0.2s ease;
 }
+
 .feedback-bubble:hover {
   transform: translateY(-5px) scale(1.03);
 }
+
+.stars {
+  color: #ffb400; /* gold stars */
+  font-size: 1.3rem;
+  margin-bottom: 12px;
+}
+
+.star {
+  margin-right: 2px;
+}
+
 .feedback-text {
+  font-style: italic;
   font-size: 1rem;
+  margin-bottom: 16px;
+  min-height: 100px;
   color: #333;
 }
+
 .feedback-name {
-  margin-top: 0.5rem;
-  color: #fc8019;
   font-weight: bold;
+  color: #fc8019;
+  font-size: 0.85rem;
+  margin-top: 0.5rem;
 }
 
 /* How it Works Video */
@@ -143,6 +222,7 @@ body {
   padding: 3rem 2rem;
   text-align: center;
 }
+
 .video-container iframe {
   width: 80%;
   height: 400px;
@@ -164,8 +244,14 @@ body {
     grid-template-columns: repeat(2, 1fr);
   }
 }
+
 @media (max-width: 600px) {
   .features {
     grid-template-columns: 1fr;
+  }
+
+  .feedback-bubbles-row {
+    animation: none !important;
+    overflow-x: auto;
   }
 }
