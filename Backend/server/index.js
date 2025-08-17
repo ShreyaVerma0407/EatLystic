@@ -4,7 +4,6 @@ import cors from "cors";
 
 import EmployeeModel from "./models/Employee.js";
 import pantryRoutes from "./routes/pantryRoutes.js";
-import nutritionApp from "./server.js"; // Nutrition server imported
 
 const app = express();
 app.use(express.json());
@@ -66,13 +65,10 @@ app.use("/api/pantry", pantryRoutes);
 // Start Servers
 // --------------------
 const MAIN_PORT = 3001;
-const NUTRITION_PORT = 5000;
+
 
 app.listen(MAIN_PORT, () => {
   console.log(`🚀 Main server running on port ${MAIN_PORT}`);
 
-  // Start Nutrition Server
-  nutritionApp.listen(NUTRITION_PORT, () => {
-    console.log(`✅ Nutrition server running on port ${NUTRITION_PORT}`);
-  });
-});
+  
+
