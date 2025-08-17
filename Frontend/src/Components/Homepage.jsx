@@ -51,7 +51,7 @@ const Homepage = ({ onExploreFeature }) => {
   {featureData.map((feature, index) => {
     // Map feature titles to routes
     const FEATURE_ROUTES = {
-      "Nutrient Tracker": "/nutrient",
+      "Nutrient Tracker": "/Nut",
       "Recipe Generator": "/recipe-generator",
       KitchenSync: "/pantry", // ✅ Make sure this matches featureData exactly
       "Calorie Counter": "/calorie-counter",
