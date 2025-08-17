@@ -84,7 +84,7 @@ const Homepage = ({ onExploreFeature }) => {
             "Nutrient Tracker": "/Nut",
             "Recipe Generator": "/recipe-generator",
             KitchenSync: "/pantry", // Make sure matches featureData exactly
-            "Calorie Counter": "/calorie-counter",
+            "Calorie Counter": "/calorie",
             "Fitness Goals": "/fitness-goals",
           };
 
