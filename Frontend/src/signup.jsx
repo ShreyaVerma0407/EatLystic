@@ -2,9 +2,9 @@
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
-import "./Auth.css";
+import "./auth.css";
 
-function Signup({ setCurrentUserId }) {
+function Signup() {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -26,12 +26,10 @@ function Signup({ setCurrentUserId }) {
       });
 
       if (response.data.status === "success") {
-        alert(response.data.message);
-        // after registration, save user ID and redirect
         const userId = response.data.data._id;
-        setCurrentUserId(userId);
-        localStorage.setItem("userId", userId);
-        navigate("/welcome"); // or pantry page route
+        localStorage.setItem("userId", userId); // persist user ID
+        alert(response.data.message);
+        navigate("/welcome"); // redirect after registration
       } else {
         alert(response.data.message || "Registration failed");
       }
