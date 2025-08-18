@@ -12,7 +12,7 @@ import {
   Tooltip,
   Legend,
 } from "chart.js";
-import nutrientData from "../data/nutrient.json"; // Adjust path as needed
+// import nutrientData from "../data/nutrient.json"; // Adjust path as needed
 
 ChartJS.register(CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend);
 
