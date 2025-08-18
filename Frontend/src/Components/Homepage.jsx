@@ -1,11 +1,9 @@
 // src/Components/Homepage.jsx
 
-import React, { useRef, useState } from "react";
+import React, { useRef, useState, useEffect } from "react";
 import "../styles/Homepage.css";
-import { featureData, feedbacks } from "../data/content";
 import { useNavigate } from "react-router-dom"; // ✅ Added for navigation
 import Navbar from "./Navbar";
-
 
 const reviewsData = [
   {
@@ -48,11 +46,23 @@ const repeatedReviews = Array(20)
 const Homepage = ({ onExploreFeature }) => {
   const featuresRef = useRef(null);
   const [hoveredIndex, setHoveredIndex] = useState(null);
+  const [featureData, setFeatureData] = useState([]);
+  const [feedbacks, setFeedbacks] = useState([]);
   const navigate = useNavigate(); // ✅ Hook for navigating
 
   const scrollToFeatures = () => {
     featuresRef.current?.scrollIntoView({ behavior: "smooth" });
   };
+
+  useEffect(() => {
+    fetch("/data/content.json")
+      .then((res) => res.json())
+      .then((data) => {
+        setFeatureData(data.featureData);
+        setFeedbacks(data.feedbacks);
+      })
+      .catch((err) => console.error("Failed to load content:", err));
+  }, []);
 
   // Split repeatedReviews into two rows
   const row1Reviews = repeatedReviews.slice(0, 10);
@@ -81,7 +91,7 @@ const Homepage = ({ onExploreFeature }) => {
         {featureData.map((feature, index) => {
           // Map feature titles to routes
           const FEATURE_ROUTES = {
-            "Nutrient Tracker": "/Nut",
+            "Nutrient Tracker": "/nutrient",
             "Recipe Generator": "/recipe-generator",
             KitchenSync: "/pantry", // Make sure matches featureData exactly
             "Calorie Counter": "/calorie",

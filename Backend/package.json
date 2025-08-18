@@ -16,6 +16,7 @@
     "express": "^5.1.0",
     "mongoose": "^8.17.1",
     "nodemon": "^3.1.10",
+    "oauth-1.0a": "^2.2.6",
     "prompt-sync": "^4.2.0"
   }
 }
