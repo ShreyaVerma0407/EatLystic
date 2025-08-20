@@ -250,6 +250,47 @@ const NutrientPageContent = () => {
     };
     fetchAllNutritionLimited(pantryItems);
   }, [pantryItems]);
+  // -------------------- ADD AUTO-SAVE CONSUMED NUTRIENTS HERE --------------------
+  useEffect(() => {
+    if (!userId || pantryItems.length === 0 || Object.keys(nutritionCache).length === 0) return;
+
+    const saveConsumedNutrients = async () => {
+      try {
+        const payload = pantryItems.map((item) => {
+          const consumedQty = item.consumed || 1;
+          const nutrients = nutritionCache[item.name]?.nutrients || {};
+          return {
+            userId,
+            itemName: item.name,
+            consumedQuantity: consumedQty,
+            nutrients: {
+              calories: (nutrients.calories || 0) * consumedQty,
+              protein_g: (nutrients.protein_g || 0) * consumedQty,
+              fat_total_g: (nutrients.fat_total_g || 0) * consumedQty,
+              carbohydrates_total_g: (nutrients.carbohydrates_total_g || 0) * consumedQty,
+              fiber_g: (nutrients.fiber_g || 0) * consumedQty,
+              sugar_g: (nutrients.sugar_g || 0) * consumedQty,
+            },
+          };
+        });
+
+        console.log("Auto-saving consumed nutrients:", payload);
+
+        await Promise.all(
+          payload.map((item) =>
+            axios.post("http://localhost:3001/api/consumed", item)
+          )
+        );
+
+        console.log("Consumed nutrients saved successfully!");
+      } catch (err) {
+        console.error("Error saving consumed nutrients:", err.message);
+      }
+    };
+
+    saveConsumedNutrients();
+  }, [pantryItems, nutritionCache, userId]);
+
 
   // Search handlers
   const handleSearchByBarcode = async () => {
