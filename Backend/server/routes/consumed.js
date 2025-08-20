@@ -1,15 +1,20 @@
-// routes/consumed.js
 import express from "express";
 import ConsumedNutrient from "../models/ConsumedNutrient.js";
 
 const router = express.Router();
 
-// Save consumed nutrient
+// Save or update consumed nutrient
 router.post("/", async (req, res) => {
   try {
     const { userId, itemName, consumedQuantity, nutrients } = req.body;
-    const record = new ConsumedNutrient({ userId, itemName, consumedQuantity, nutrients });
-    await record.save();
+
+    // Update if exists, otherwise create
+    const record = await ConsumedNutrient.findOneAndUpdate(
+      { userId, itemName }, // match by user + item
+      { consumedQuantity, nutrients, consumedAt: new Date() }, // new values
+      { upsert: true, new: true, setDefaultsOnInsert: true } // create if not exist
+    );
+
     res.json({ status: "success", data: record });
   } catch (e) {
     console.error(e);
