@@ -6,6 +6,7 @@ import EmployeeModel from "./server/models/Employee.js"; // Use correct path as 
 import pantryRoutes from "./server/routes/pantryRoutes.js";
 import calorieRouter from "./server/routes/calorieRoutes.js";
 import consumptionRoutes from "./server/routes/consumptionRoutes.js";
+import consumedRoutes from "./server/routes/consumed.js"; // <-- new route
 
 const app = express();
 app.use(express.json());
@@ -72,6 +73,7 @@ app.post("/login", async (req, res) => {
 app.use("/api/pantry", pantryRoutes);
 app.use("/api/calorie", calorieRouter);
 app.use("/api/consumption", consumptionRoutes);
+app.use("/api/consumed", consumedRoutes);
 
 // --------------------
 // Start Server
