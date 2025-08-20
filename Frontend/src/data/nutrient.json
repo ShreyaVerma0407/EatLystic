@@ -823,45 +823,7 @@
     "Preparation_Time_mins": 1,
     "Cost_per_Portion_usd": 0.26
   },
-  {
-    "name": "Meat",
-    "protein": 26,
-    "carbs": 0,
-    "fat": 15
-  },{
-    "name": "Lemon",
-    "protein": 1.1,
-    "carbs": 9,
-    "fat": 0.3,
-    "vitaminC": "88% DV"
-  },
-  {
-    "name": "Fish",
-    "protein": 22,
-    "carbs": 0,
-    "fat": 12,
-    "omega3": "good source"
-  },
-   {
-    "name": "Chicken Thigh",
-    "protein": 26,
-    "carbs": 0,
-    "fat": 10.9
-  },{
-    "name": "Chicken Breast",
-    "protein": 31,
-    "carbs": 0,
-    "fat": 3.6
-  },
-  {
-  "name": "Juice",
-    "carbohydrates": 11,
-    "sugars": 10,
-    "protein": 0.3,
-    "fat": 0.1,
-    "fiber": 0.2,
-    "vitaminC": 20
-  },
+  
   {"name": "Butter", "protein_g": 0.85, "carbohydrates_g": 0.06, "fat_g": 81, "saturated_fat_g": 51, "monounsaturated_fat_g": 21, "polyunsaturated_fat_g": 3.5, "smoke_point_c": 150, "uses": ["Cooking", "Baking", "Condiment", "Sauces"]},
   {"name": "Ghee (Clarified Butter)", "protein_g": 0, "carbohydrates_g": 0, "fat_g": 99, "saturated_fat_g": 60, "monounsaturated_fat_g": 30, "polyunsaturated_fat_g": 3.5, "smoke_point_c": 190, "uses": ["Deep Frying", "Cooking", "Sautéing", "Flavoring"]},
   {"name": "Lard (Pork Fat)", "protein_g": 0, "carbohydrates_g": 0, "fat_g": 100, "saturated_fat_g": 39, "monounsaturated_fat_g": 45, "polyunsaturated_fat_g": 11, "smoke_point_c": 190, "uses": ["Cooking", "Baking", "Frying"]},
