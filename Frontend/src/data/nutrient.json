@@ -271,7 +271,7 @@
   {"name":"Buffalo Meat","protein_g":22,"carbohydrates_g":0,"fat_g":2,"fiber_g":0,"vitamin_c_mg":0,"calcium_mg":11,"iron_mg":2.1},
   {"name":"Quail","protein_g":25,"carbohydrates_g":0,"fat_g":9,"fiber_g":0,"vitamin_c_mg":0,"calcium_mg":13,"iron_mg":2.3},
   {"name":"Wild Boar","protein_g":23,"carbohydrates_g":0,"fat_g":3,"fiber_g":0,"vitamin_c_mg":0,"calcium_mg":10,"iron_mg":2.0},
-  {"name":"Fish (e.g., Salmon)","protein_g":25,"carbohydrates_g":0,"fat_g":13,"fiber_g":0,"vitamin_c_mg":0,"calcium_mg":9,"iron_mg":0.8},
+  {"name":"Fish","protein_g":25,"carbohydrates_g":0,"fat_g":13,"fiber_g":0,"vitamin_c_mg":0,"calcium_mg":9,"iron_mg":0.8},
   {"name":"Shrimp/Prawns","protein_g":24,"carbohydrates_g":0,"fat_g":0.3,"fiber_g":0,"vitamin_c_mg":0,"calcium_mg":70,"iron_mg":0.3},
   {"name":"Lobster","protein_g":19,"carbohydrates_g":0,"fat_g":1.5,"fiber_g":0,"vitamin_c_mg":5,"calcium_mg":91,"iron_mg":1},
   {"name":"Crab","protein_g":19,"carbohydrates_g":0,"fat_g":1.5,"fiber_g":0,"vitamin_c_mg":5,"calcium_mg":91,"iron_mg":1},
@@ -860,7 +860,31 @@
 {"name": "Ginger", "calories": 80, "protein_g": 1.8, "carbohydrates_g": 18, "fat_g": 0.7, "fiber_g": 2, "vitamin_c_mg": 5, "calcium_mg": 16, "iron_mg": 0.6},
 {"name": "Paprika", "calories": 282, "protein_g": 14.1, "carbohydrates_g": 54.9, "fat_g": 12.9, "fiber_g": 34.9, "vitamin_c_mg": 80, "calcium_mg": 210, "iron_mg": 9.4},
 {"name": "Chili Powder", "calories": 282, "protein_g": 14.1, "carbohydrates_g": 54.9, "fat_g": 12.9, "fiber_g": 19, "vitamin_c_mg": 76, "calcium_mg": 310, "iron_mg": 8.6},
-{"name": "Cayenne Pepper", "calories": 318, "protein_g": 12.0, "carbohydrates_g": 56.0, "fat_g": 17.0, "fiber_g": 37.0, "vitamin_c_mg": 76, "calcium_mg": 152, "iron_mg": 7.2}]
+{"name": "Cayenne Pepper", "calories": 318, "protein_g": 12.0, "carbohydrates_g": 56.0, "fat_g": 17.0, "fiber_g": 37.0, "vitamin_c_mg": 76, "calcium_mg": 152, "iron_mg": 7.2},
+  {
+  "name": "meat",
+  "protein_g": 26,
+  "fat_g": 15,
+  "carbohydrates_g": 0,
+  "fiber_g": 0,
+  "sugar_g": 0,
+  "vitamin_c_mg": 0,
+  "calcium_mg": 11,
+  "iron_mg": 2.6
+},
+  {
+  "name": "juice",
+  "protein_g": 0.5,
+  "fat_g": 0.0,
+  "carbohydrates_g": 13.3,
+  "fiber_g": 0.1,
+  "sugar_g": 12.2,
+  "vitamin_c_mg": 30,
+  "calcium_mg": 20,
+  "iron_mg": 0.1
+}
+
+]
 
 
 
