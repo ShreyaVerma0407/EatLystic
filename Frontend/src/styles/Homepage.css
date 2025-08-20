@@ -138,44 +138,13 @@ body {
   gap: 20px;
   white-space: nowrap;
   will-change: transform;
-  animation-duration: 40s;
-  animation-iteration-count: infinite;
-  animation-timing-function: linear;
   padding-bottom: 20px;
+  min-width: max-content; /* ensures continuous row for framer motion */
   overflow-x: visible;
 }
 
-.row-right {
-  animation-name: moveRight;
-  animation-fill-mode: forwards;
-}
-
-.row-left {
-  animation-name: moveLeft;
-  animation-fill-mode: forwards;
-}
-
-/* Animations */
-@keyframes moveRight {
-  0% {
-    transform: translateX(-40%);
-  }
-  100% {
-    transform: translateX(100%);
-  }
-}
-
-@keyframes moveLeft {
-  0% {
-    transform: translateX(100%);
-  }
-  100% {
-    transform: translateX(-40%);
-  }
-}
-
 .feedback-bubble {
-  flex: 0 0 320px;
+  flex: 0 0 320px; /* fixed width for each bubble */
   background: #fff;
   border-radius: 20px;
   box-shadow: 0 8px 20px rgba(0, 0, 0, 0.12);
@@ -251,7 +220,6 @@ body {
   }
 
   .feedback-bubbles-row {
-    animation: none !important;
-    overflow-x: auto;
+    overflow-x: auto; /* fallback scroll on small screens */
   }
 }
