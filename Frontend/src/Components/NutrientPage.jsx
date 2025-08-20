@@ -1,24 +1,22 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import axios from "axios";
 import Navbar from "./Navbar";
 import pLimit from "p-limit";
-import { Bar } from "react-chartjs-2";
 import {
-  Chart as ChartJS,
-  CategoryScale,
-  LinearScale,
-  BarElement,
-  Title,
+  BarChart,
+  Bar,
+  XAxis,
+  YAxis,
   Tooltip,
+  ResponsiveContainer,
+  Cell,
   Legend,
-} from "chart.js";
-// import nutrientData from "../data/nutrient.json"; // Adjust path as needed
+  PieChart,
+  Pie,
+} from "recharts";
+import nutrientData from "../data/nutrient.json";
 
-ChartJS.register(CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend);
-
-// --------------------
-// Error Boundary
-// --------------------
+// -------------------- Error Boundary --------------------
 class ErrorBoundary extends React.Component {
   constructor(props) {
     super(props);
@@ -46,9 +44,7 @@ class ErrorBoundary extends React.Component {
   }
 }
 
-// --------------------
-// Constants
-// --------------------
+// -------------------- Constants --------------------
 const CATEGORIES = [
   "All",
   "Fruits",
@@ -61,72 +57,59 @@ const CATEGORIES = [
   "Other",
 ];
 
+const BAR_COLORS = [
+  "#f28b82", "#fbbc04", "#fff475", "#ccff90",
+  "#a7ffeb", "#cbf0f8", "#aecbfa", "#d7aefb",
+];
+
+const PIE_COLORS = [
+  "#FF6F61", "#6B5B95", "#88B04B", "#FFA07A",
+  "#20B2AA", "#FF6347", "#9ACD32", "#4682B4",
+];
+
+const NUTRIENTS = ["protein_g", "fat_total_g", "carbohydrates_total_g", "fiber_g", "sugar_g"];
+
+// -------------------- API KEYS --------------------
 const NINJAS_API_KEY = "LJcbyLP0Ka89agOhKykJCQ==vAqHCOEHEgTYJ61I";
 const USDA_API_KEY = "CX0hGlYtG7cX9dyhSAsZnoLgJtTly9aa02hIqwpQ";
 
-// --------------------
-// Helpers
-// --------------------
-const normalizeName = (name) =>
-  name.toLowerCase().replace(/[^a-z\s]/gi, "").trim();
-
-const formatNutrient = (val) => {
-  const num = Number(val);
-  return !isNaN(num) && isFinite(num) ? num.toFixed(2) : "N/A";
-};
-
-// --------------------
-// Fetch from local JSON
-// --------------------
-function fetchFromLocalJson(query) {
+// -------------------- Fetch Functions --------------------
+const fetchFromLocalJson = (query) => {
   if (!query) return null;
-  const lowerQuery = query.toLowerCase();
   const found = nutrientData.find(
-    (item) =>
-      item.name &&
-      typeof item.name === "string" &&
-      item.name.toLowerCase().includes(lowerQuery)
+    (item) => item.name && item.name.toLowerCase() === query.toLowerCase()
   );
   if (found) {
     return {
       source: "Local JSON",
       nutrients: {
-        calories: found.calories || 0,
-        protein_g: found.protein_g || 0,
-        fat_total_g: found.fat_g || 0,
-        carbohydrates_total_g: found.carbohydrates_g || 0,
-        fiber_g: found.fiber_g || 0,
-        sugar_g: found.sugar_g || 0,
+        calories: Number(found.calories) || 0,
+        protein_g: Number(found.protein_g) || 0,
+        fat_total_g: Number(found.fat_g) || 0,
+        carbohydrates_total_g: Number(found.carbohydrates_g) || 0,
+        fiber_g: Number(found.fiber_g) || 0,
+        sugar_g: Number(found.sugar_g) || 0,
       },
     };
   }
   return null;
-}
+};
 
-// --------------------
-// Fetch from APIs
-// --------------------
-async function fetchFromNinjas(query) {
+const fetchFromNinjas = async (query) => {
   try {
     const res = await axios.get(
-      `https://api.api-ninjas.com/v1/nutrition?query=${encodeURIComponent(
-        query
-      )}`,
+      `https://api.api-ninjas.com/v1/nutrition?query=${encodeURIComponent(query)}`,
       { headers: { "X-Api-Key": NINJAS_API_KEY } }
     );
     if (res.data && res.data.length > 0) {
-      const combined = res.data.reduce(
-        (acc, item) => ({
-          calories: (acc.calories || 0) + item.calories,
-          protein_g: (acc.protein_g || 0) + item.protein_g,
-          fat_total_g: (acc.fat_total_g || 0) + item.fat_total_g,
-          carbohydrates_total_g:
-            (acc.carbohydrates_total_g || 0) + item.carbohydrates_total_g,
-          fiber_g: (acc.fiber_g || 0) + item.fiber_g,
-          sugar_g: (acc.sugar_g || 0) + item.sugar_g,
-        }),
-        {}
-      );
+      const combined = res.data.reduce((acc, item) => ({
+        calories: (acc.calories || 0) + (item.calories || 0),
+        protein_g: (acc.protein_g || 0) + (item.protein_g || 0),
+        fat_total_g: (acc.fat_total_g || 0) + (item.fat_total_g || 0),
+        carbohydrates_total_g: (acc.carbohydrates_total_g || 0) + (item.carbohydrates_total_g || 0),
+        fiber_g: (acc.fiber_g || 0) + (item.fiber_g || 0),
+        sugar_g: (acc.sugar_g || 0) + (item.sugar_g || 0),
+      }), {});
       return { source: "Ninjas API", nutrients: combined };
     }
     return null;
@@ -134,9 +117,9 @@ async function fetchFromNinjas(query) {
     console.error("Ninjas API error:", e.message);
     return null;
   }
-}
+};
 
-async function fetchFromUSDA(query) {
+const fetchFromUSDA = async (query) => {
   try {
     const res = await axios.post(
       `https://api.nal.usda.gov/fdc/v1/foods/search?api_key=${USDA_API_KEY}`,
@@ -150,25 +133,15 @@ async function fetchFromUSDA(query) {
         switch (name) {
           case "energy":
           case "energy (kilocalories)":
-            nutrients.calories = nutrient.value;
-            break;
-          case "protein":
-            nutrients.protein_g = nutrient.value;
-            break;
-          case "total lipid (fat)":
-            nutrients.fat_total_g = nutrient.value;
-            break;
-          case "carbohydrate, by difference":
-            nutrients.carbohydrates_total_g = nutrient.value;
-            break;
-          case "fiber, total dietary":
-            nutrients.fiber_g = nutrient.value;
-            break;
-          case "sugars, total including nlea":
+            nutrients.calories = Number(nutrient.value) || 0; break;
+          case "protein": nutrients.protein_g = Number(nutrient.value) || 0; break;
+          case "total lipid (fat)": nutrients.fat_total_g = Number(nutrient.value) || 0; break;
+          case "carbohydrate, by difference": nutrients.carbohydrates_total_g = Number(nutrient.value) || 0; break;
+          case "fiber, total dietary": nutrients.fiber_g = Number(nutrient.value) || 0; break;
           case "sugars, total":
-            nutrients.sugar_g = nutrient.value;
-            break;
-          default:
+          case "sugars, total including nlea":
+            nutrients.sugar_g = Number(nutrient.value) || 0; break;
+          default: break;
         }
       });
       return { source: "USDA API", nutrients };
@@ -178,36 +151,35 @@ async function fetchFromUSDA(query) {
     console.error("USDA API error:", e.message);
     return null;
   }
-}
+};
 
-async function fetchFromOpenFoodFacts(query) {
+const fetchFromOpenFoodFacts = async (query) => {
   try {
-    const encoded = encodeURIComponent(query);
     const res = await axios.get(
-      `https://world.openfoodfacts.org/cgi/search.pl?search_terms=${encoded}&search_simple=1&action=process&json=1&page_size=5`
+      `https://world.openfoodfacts.org/cgi/search.pl?search_terms=${encodeURIComponent(query)}&search_simple=1&action=process&json=1&page_size=5`
     );
     if (res.data.products && res.data.products.length > 0) {
-      const product = res.data.products[0];
-      const n = product.nutriments || {};
-      const nutrients = {
-        calories: n["energy-kcal_100g"] || n["energy_100g"] || 0,
-        protein_g: n["proteins_100g"] || 0,
-        fat_total_g: n["fat_100g"] || 0,
-        carbohydrates_total_g: n["carbohydrates_100g"] || 0,
-        fiber_g: n["fiber_100g"] || 0,
-        sugar_g: n["sugars_100g"] || 0,
+      const n = res.data.products[0].nutriments || {};
+      return {
+        source: "Open Food Facts",
+        nutrients: {
+          calories: Number(n["energy-kcal_100g"] || n["energy_100g"] || 0),
+          protein_g: Number(n["proteins_100g"] || 0),
+          fat_total_g: Number(n["fat_100g"] || 0),
+          carbohydrates_total_g: Number(n["carbohydrates_100g"] || 0),
+          fiber_g: Number(n["fiber_100g"] || 0),
+          sugar_g: Number(n["sugars_100g"] || 0),
+        },
       };
-      return { source: "Open Food Facts", nutrients };
     }
     return null;
   } catch (e) {
     console.error("Open Food Facts API error:", e.message);
     return null;
   }
-}
+};
 
-// Combined fetcher
-async function fetchNutritionData(query) {
+const fetchNutritionData = async (query) => {
   if (!query) return null;
   const localResult = fetchFromLocalJson(query);
   if (localResult) return localResult;
@@ -218,53 +190,13 @@ async function fetchNutritionData(query) {
   result = await fetchFromUSDA(query);
   if (result) return result;
 
-  result = await fetchFromOpenFoodFacts(query);
-  return result;
-}
-
-// --------------------
-// Nutrition Chart
-// --------------------
-const NutritionChart = ({ nutrients }) => {
-  const data = {
-    labels: ["Calories", "Protein", "Fat", "Carbs", "Fiber", "Sugar"],
-    datasets: [
-      {
-        label: "Total Nutrients",
-        data: [
-          nutrients.calories,
-          nutrients.protein_g,
-          nutrients.fat_total_g,
-          nutrients.carbohydrates_total_g,
-          nutrients.fiber_g,
-          nutrients.sugar_g,
-        ],
-        backgroundColor: [
-          "#fc8019",
-          "#ffb347",
-          "#ffcc99",
-          "#66b3ff",
-          "#99ff99",
-          "#ff9999",
-        ],
-      },
-    ],
-  };
-
-  const options = {
-    responsive: true,
-    plugins: {
-      legend: { display: false },
-      title: { display: true, text: "Nutrients per Category" },
-    },
-  };
-
-  return <Bar data={data} options={options} />;
+  return await fetchFromOpenFoodFacts(query);
 };
 
-// --------------------
-// Main Content
-// --------------------
+const formatNutrient = (val) =>
+  typeof val === "number" && isFinite(val) ? Number(val).toFixed(2) : "N/A";
+
+// -------------------- Nutrient Page Component --------------------
 const NutrientPageContent = () => {
   const [pantryItems, setPantryItems] = useState([]);
   const [nutritionCache, setNutritionCache] = useState({});
@@ -275,10 +207,9 @@ const NutrientPageContent = () => {
   const [searchNutrition, setSearchNutrition] = useState(null);
 
   const [selectedCategory, setSelectedCategory] = useState("All");
+  const [loadingPantryNutri, setLoadingPantryNutri] = useState(false);
 
   const userId = localStorage.getItem("userId");
-  const [loadingPantryNutri, setLoadingPantryNutri] = useState(false);
-  const limit = pLimit(5);
 
   // Fetch pantry items
   useEffect(() => {
@@ -291,10 +222,10 @@ const NutrientPageContent = () => {
       .catch(() => setError("Error fetching pantry items"));
   }, [userId]);
 
-  // Fetch nutrition for pantry
+  // Fetch nutrition for pantry items (with pLimit)
+  const limit = pLimit(5);
   useEffect(() => {
     if (pantryItems.length === 0) return;
-
     const fetchAllNutritionLimited = async (items) => {
       setLoadingPantryNutri(true);
       const newCache = { ...nutritionCache };
@@ -302,23 +233,10 @@ const NutrientPageContent = () => {
         await Promise.all(
           items.map((item) =>
             limit(async () => {
-              const key = item.name.toLowerCase();
-              if (newCache[key]) return;
-              const simpleName = normalizeName(item.name);
-              const nutrition = await fetchNutritionData(simpleName);
-              if (nutrition) newCache[key] = nutrition;
-              else
-                newCache[key] = {
-                  source: "Not Found",
-                  nutrients: {
-                    calories: 0,
-                    protein_g: 0,
-                    fat_total_g: 0,
-                    carbohydrates_total_g: 0,
-                    fiber_g: 0,
-                    sugar_g: 0,
-                  },
-                };
+              if (!item.name) return;
+              if (newCache[item.name]) return;
+              const nutrition = await fetchNutritionData(item.name);
+              if (nutrition) newCache[item.name] = nutrition;
             })
           )
         );
@@ -333,23 +251,19 @@ const NutrientPageContent = () => {
     fetchAllNutritionLimited(pantryItems);
   }, [pantryItems]);
 
-  // --------------------
-  // Search Handlers
-  // --------------------
+  // Search handlers
   const handleSearchByBarcode = async () => {
-    setError("");
-    setSearchNutrition(null);
+    setError(""); setSearchNutrition(null);
     if (!selectedBarcode) return;
-    const nutrition = await fetchNutritionData(normalizeName(selectedBarcode));
+    const nutrition = await fetchNutritionData(selectedBarcode);
     if (nutrition) setSearchNutrition(nutrition);
     else setError("No nutrition data found for this barcode");
   };
 
   const handleSearchByName = async () => {
-    setError("");
-    setSearchNutrition(null);
+    setError(""); setSearchNutrition(null);
     if (!manualName) return;
-    const nutrition = await fetchNutritionData(normalizeName(manualName));
+    const nutrition = await fetchNutritionData(manualName);
     if (nutrition) setSearchNutrition(nutrition);
     else setError("No nutrition data found for this name");
   };
@@ -360,371 +274,281 @@ const NutrientPageContent = () => {
       : pantryItems.filter((item) => item.category === selectedCategory);
 
   const pantryByCategory = CATEGORIES.reduce((grouped, category) => {
-    grouped[category] = filteredPantry.filter(
-      (item) => item.category === category
-    );
+    grouped[category] = filteredPantry.filter((item) => item.category === category);
     return grouped;
   }, {});
 
-  const categoriesWithItems = CATEGORIES.filter(
-    (category) =>
-      (pantryByCategory[category] || []).length > 0 && category !== "All"
+  const filteredCategories = CATEGORIES.filter(
+    (category) => category !== "All" && (pantryByCategory[category] || []).length > 0
   );
 
-  const rowsOfCategories = [];
-  for (let i = 0; i < categoriesWithItems.length; i += 2) {
-    rowsOfCategories.push(categoriesWithItems.slice(i, i + 2));
-  }
+  // -------------------- Charts --------------------
+  const barChartData = filteredPantry.map(item => {
+    const nutrients = nutritionCache[item.name]?.nutrients || {};
+    const data = { name: item.name };
+    NUTRIENTS.forEach(n => data[n] = (nutrients[n] || 0) * (item.consumed || 1));
+    return data;
+  });
+
+  const pieChartData = filteredCategories.map((category, idx) => {
+    const items = pantryByCategory[category] || [];
+    return { name: category, value: items.length };
+  });
+
+  // -------------------- High / Medium / Low Logic --------------------
+  const categorizeNutrient = (val, nutrient) => {
+    if (!val) return "Low";
+    switch (nutrient) {
+      case "calories": return val >= 500 ? "High" : val >= 200 ? "Medium" : "Low";
+      case "protein_g": return val >= 10 ? "High" : val >= 5 ? "Medium" : "Low";
+      case "fat_total_g": return val >= 20 ? "High" : val >= 10 ? "Medium" : "Low";
+      case "carbohydrates_total_g": return val >= 50 ? "High" : val >= 25 ? "Medium" : "Low";
+      case "fiber_g": return val >= 10 ? "High" : val >= 5 ? "Medium" : "Low";
+      case "sugar_g": return val >= 20 ? "High" : val >= 10 ? "Medium" : "Low";
+      default: return "Low";
+    }
+  };
+
+  const nutrientColor = (level) => {
+    switch(level) {
+      case "High": return "#FF6B6B";
+      case "Medium": return "#FFA500";
+      case "Low": return "#4CAF50";
+      default: return "#ddd";
+    }
+  };
 
   return (
     <>
-      <Navbar
-        style={{ position: "fixed", top: 0, left: 0, right: 0, zIndex: 1000 }}
-      />
+      <Navbar />
       <div
-        style={{ padding: "100px 24px 40px", maxWidth: 1200, margin: "0 auto" }}
+        style={{
+          minHeight: "100vh",
+          margin: 0,
+          padding: "120px 24px 50px",
+          background: "linear-gradient(to bottom, #fff8f0, #ffe6cc)",
+          position: "relative",
+          overflowX: "hidden",
+        }}
       >
-        {/* Search Section */}
-        <div style={cardStyle}>
-          <h2 style={headerHighlightStyle}>
-            Search Nutrients of Any Ingredient
-          </h2>
-          <div
-            style={{ display: "flex", flexWrap: "wrap", gap: 8, marginBottom: 8 }}
-          >
-            <input
-              type="text"
-              placeholder="Enter Barcode or Product Name..."
-              value={selectedBarcode}
-              onChange={(e) => setSelectedBarcode(e.target.value)}
-              style={inputStyle}
-            />
-            <button onClick={handleSearchByBarcode} style={buttonStyle}>
-              Search by Barcode
-            </button>
-            <span style={{ alignSelf: "center", fontWeight: "bold" }}>OR</span>
-            <input
-              type="text"
-              placeholder="Enter Product Name..."
-              value={manualName}
-              onChange={(e) => setManualName(e.target.value)}
-              style={inputStyle}
-            />
-            <button onClick={handleSearchByName} style={buttonStyle}>
-              Search by Name
-            </button>
-          </div>
-          {error && <p style={{ color: "red" }}>{error}</p>}
-          {searchNutrition && (
-            <div style={{ marginTop: 20 }}>
-              <h3>Nutrition Info (Source: {searchNutrition.source})</h3>
-              <table style={tableStyle}>
-                <thead>
-                  <tr>
-                    <th style={thStyle}>Nutrient</th>
-                    <th style={thStyle}>Amount (g)</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {Object.entries(searchNutrition.nutrients).map(
-                    ([nutrient, val]) => (
-                      <tr key={nutrient}>
-                        <td style={tdStyle}>{nutrient.replace(/_/g, " ")}</td>
-                        <td style={tdStyle}>{formatNutrient(val)}</td>
-                      </tr>
-                    )
-                  )}
-                </tbody>
-              </table>
+        {/* Wave at Top */}
+        <svg viewBox="0 0 1440 120" style={{ position: "absolute", top: 0, left: 0, width: "100%", height: "120px", zIndex: 0 }}>
+          <path
+            fill="#FFA07A"
+            fillOpacity="0.3"
+            d="M0,32L48,37.3C96,43,192,53,288,64C384,75,480,85,576,80C672,75,768,53,864,48C960,43,1056,53,1152,64C1248,75,1344,85,1392,90.7L1440,96L1440,0L1392,0C1344,0,1248,0,1152,0C1056,0,960,0,864,0C768,0,672,0,576,0C480,0,384,0,288,0C192,0,96,0,48,0L0,0Z"
+          ></path>
+        </svg>
+
+        <div style={{ position: "relative", zIndex: 1 }}>
+          {/* Search Section */}
+          <div style={cardStyle}>
+            <h2 style={headerHighlightStyle}>Search Nutrients</h2>
+            <div style={{ display: "flex", gap: 8 }}>
+              <input
+                placeholder="Barcode..."
+                value={selectedBarcode}
+                onChange={(e) => setSelectedBarcode(e.target.value)}
+                style={inputStyle}
+              />
+              <button onClick={handleSearchByBarcode} style={buttonStyle}>Search Barcode</button>
+              <span style={{ alignSelf: "center", fontWeight: "bold" }}>OR</span>
+              <input
+                placeholder="Product name..."
+                value={manualName}
+                onChange={(e) => setManualName(e.target.value)}
+                style={inputStyle}
+              />
+              <button onClick={handleSearchByName} style={buttonStyle}>Search Name</button>
             </div>
-          )}
-        </div>
+            {error && <p style={{ color: "red" }}>{error}</p>}
+            {searchNutrition && (
+              <div>
+                <h4>Nutrition Info (Source: {searchNutrition.source})</h4>
+                <ul>
+                  {Object.entries(searchNutrition.nutrients).map(([k, v]) => (
+                    <li key={k}>{k}: {formatNutrient(v)}</li>
+                  ))}
+                </ul>
+              </div>
+            )}
+          </div>
 
-        {/* Filter by Category */}
-        <div style={{ marginBottom: 16, textAlign: "center" }}>
-          <label style={{ fontWeight: "bold", marginRight: 8 }}>
-            Filter by Category:
-          </label>
-          <select
-            value={selectedCategory}
-            onChange={(e) => setSelectedCategory(e.target.value)}
-            style={{
-              padding: "6px 12px",
-              borderRadius: 6,
-              border: "1px solid #ccc",
-              fontSize: 16,
-              minWidth: 160,
-            }}
-          >
-            {CATEGORIES.map((cat) => (
-              <option key={cat} value={cat}>
-                {cat}
-              </option>
-            ))}
-          </select>
-        </div>
-
-        {loadingPantryNutri && (
-          <p
-            style={{ textAlign: "center", color: "#666", fontStyle: "italic" }}
-          >
-            Loading pantry nutrition data...
-          </p>
-        )}
-
-        {/* Pantry Tables */}
-        {rowsOfCategories.map((row, idx) => (
-          <div key={idx} style={{ display: "flex", gap: 24, marginBottom: 32 }}>
-            {row.map((category) => {
-              const items = pantryByCategory[category];
-              if (!items || items.length === 0) return null;
-
-              return (
-                <section
-                  key={category}
-                  style={{ ...sectionStyle, borderColor: "#fc8019" }}
-                >
-                  <h2 style={categoryTitleStyle}>{category}</h2>
-                  <table
-                    style={{
-                      width: "100%",
-                      borderCollapse: "collapse",
-                      marginBottom: 8,
-                    }}
-                  >
-                    <thead>
-                      <tr style={{ backgroundColor: "#f0f0f0" }}>
+          {/* Pantry Tables */}
+          {filteredCategories.map((category) => {
+            const items = pantryByCategory[category];
+            if (!items || items.length === 0) return null;
+            return (
+              <section key={category} style={sectionStyle}>
+                <h2 style={{ textAlign: "center", color: "#333", borderBottom: "2px solid #f0f0f0", paddingBottom: 8 }}>{category}</h2>
+                <div style={{ overflowX: "auto" }}>
+                  <table style={{ width: "100%", borderCollapse: "collapse", minWidth: 600 }}>
+                    <thead style={{ backgroundColor: "#f7f7f7" }}>
+                      <tr>
                         <th style={thStyle}>Picture</th>
                         <th style={thStyle}>Name</th>
                         <th style={thStyle}>Quantity</th>
-                        <th style={thStyle}>Nutritional Content (per unit)</th>
+                        {NUTRIENTS.map((n) => <th key={n} style={thStyle}>{n.replace("_", " ")}</th>)}
                       </tr>
                     </thead>
                     <tbody>
                       {items.map((item) => {
-                        const nutrition =
-                          nutritionCache[item.name.toLowerCase()];
+                        const nutrients = nutritionCache[item.name]?.nutrients || {};
                         return (
-                          <tr
-                            key={item._id}
-                            style={{ borderBottom: "1px solid #ddd" }}
-                          >
+                          <tr key={item._id} style={{ borderBottom: "1px solid #e0e0e0" }}>
                             <td style={tdStyle}>
                               <img
-                                src={
-                                  item.imageUrl ||
-                                  `https://via.placeholder.com/50?text=${encodeURIComponent(
-                                    item.name
-                                  )}`
-                                }
+                                src={item.imageUrl || `https://via.placeholder.com/50?text=${encodeURIComponent(item.name)}`}
                                 alt={item.name}
-                                style={{
-                                  width: 50,
-                                  height: 50,
-                                  objectFit: "cover",
-                                  borderRadius: 6,
-                                }}
+                                style={{ width: 50, height: 50, objectFit: "cover", borderRadius: 4 }}
                               />
                             </td>
                             <td style={tdStyle}>{item.name}</td>
                             <td style={tdStyle}>{item.quantity}</td>
-                            <td
-                              style={{
-                                ...tdStyle,
-                                fontSize: 14,
-                                whiteSpace: "nowrap",
-                              }}
-                            >
-                              {nutrition && nutrition.nutrients ? (
-                                <>
-                                  <div>
-                                    Calories:{" "}
-                                    {formatNutrient(
-                                      nutrition.nutrients.calories
-                                    )}
-                                  </div>
-                                  <div>
-                                    Protein:{" "}
-                                    {formatNutrient(
-                                      nutrition.nutrients.protein_g
-                                    )}
-                                  </div>
-                                  <div>
-                                    Fat:{" "}
-                                    {formatNutrient(
-                                      nutrition.nutrients.fat_total_g
-                                    )}
-                                  </div>
-                                  <div>
-                                    Carbs:{" "}
-                                    {formatNutrient(
-                                      nutrition.nutrients
-                                        .carbohydrates_total_g
-                                    )}
-                                  </div>
-                                  <div>
-                                    Fiber:{" "}
-                                    {formatNutrient(
-                                      nutrition.nutrients.fiber_g
-                                    )}
-                                  </div>
-                                </>
-                              ) : (
-                                <span style={{ color: "#aaa" }}>Loading...</span>
-                              )}
-                            </td>
+                            {NUTRIENTS.map((n) => (
+                              <td key={n} style={tdStyle}>{formatNutrient((nutrients[n] || 0) * (item.consumed || 1))}</td>
+                            ))}
                           </tr>
                         );
                       })}
                     </tbody>
                   </table>
-                </section>
-              );
-            })}
+                </div>
+              </section>
+            );
+          })}
+
+          {/* Charts Row */}
+          <div style={{ display: "flex", gap: 20, flexWrap: "wrap", marginTop: 40 }}>
+            {/* Bar Chart */}
+            <div style={chartCardStyle}>
+              <h3>Consumed Nutrients by Item</h3>
+              <ResponsiveContainer width="100%" height={300}>
+                <BarChart data={barChartData} margin={{ top: 20, right: 30, left: 0, bottom: 20 }}>
+                  <XAxis dataKey="name" />
+                  <YAxis />
+                  <Tooltip />
+                  <Legend />
+                  {NUTRIENTS.map((n, idx) => (
+                    <Bar key={n} dataKey={n} fill={BAR_COLORS[idx % BAR_COLORS.length]} />
+                  ))}
+                </BarChart>
+              </ResponsiveContainer>
+            </div>
+
+            {/* Pie Chart */}
+            <div style={chartCardStyle}>
+              <h3>Items by Category</h3>
+              <ResponsiveContainer width="100%" height={300}>
+                <PieChart>
+                  <Pie
+                    data={pieChartData}
+                    dataKey="value"
+                    nameKey="name"
+                    outerRadius={100}
+                    fill="#8884d8"
+                    label={(entry) => `${entry.name} (${entry.value})`}
+                  >
+                    {pieChartData.map((entry, index) => (
+                      <Cell key={`cell-${index}`} fill={PIE_COLORS[index % PIE_COLORS.length]} />
+                    ))}
+                  </Pie>
+                  <Tooltip />
+                </PieChart>
+              </ResponsiveContainer>
+            </div>
           </div>
-        ))}
 
-        {/* Nutrition Graphs */}
-        <div style={{ marginTop: 40 }}>
-          <h2 style={{ color: "#fc8019", textAlign: "center", marginBottom: 24 }}>
-            Nutrition Graphs by Category
-          </h2>
-
-          {(() => {
-            const categoriesWithData = CATEGORIES.filter((cat) => {
-              const items = pantryByCategory[cat];
-              return cat !== "All" && items && items.length > 0;
-            });
-
-            const rows = [];
-            for (let i = 0; i < categoriesWithData.length; i += 2) {
-              rows.push(categoriesWithData.slice(i, i + 2));
-            }
-
-            return rows.map((row, rowIndex) => (
-              <div
-                key={rowIndex}
-                style={{ display: "flex", gap: 24, marginBottom: 32 }}
-              >
-                {row.map((category) => {
-                  const items = pantryByCategory[category];
-                  const combined = items.reduce(
-                    (acc, item) => {
-                      const nutri = nutritionCache[item.name.toLowerCase()];
-                      if (!nutri || !nutri.nutrients) return acc;
-                      acc.calories += nutri.nutrients.calories || 0;
-                      acc.protein_g += nutri.nutrients.protein_g || 0;
-                      acc.fat_total_g += nutri.nutrients.fat_total_g || 0;
-                      acc.carbohydrates_total_g +=
-                        nutri.nutrients.carbohydrates_total_g || 0;
-                      acc.fiber_g += nutri.nutrients.fiber_g || 0;
-                      acc.sugar_g += nutri.nutrients.sugar_g || 0;
-                      return acc;
-                    },
-                    {
-                      calories: 0,
-                      protein_g: 0,
-                      fat_total_g: 0,
-                      carbohydrates_total_g: 0,
-                      fiber_g: 0,
-                      sugar_g: 0,
-                    }
-                  );
-
+          {/* High / Medium / Low Summary Table */}
+          <div style={{ marginTop: 40, overflowX: "auto" }}>
+            <h3>High / Medium / Low Nutrient Summary</h3>
+            <table style={{ width: "100%", borderCollapse: "collapse", minWidth: 800 }}>
+              <thead style={{ backgroundColor: "#f7f7f7" }}>
+                <tr>
+                  <th style={thStyle}>Name</th>
+                  {NUTRIENTS.map((n) => <th key={n} style={thStyle}>{n.replace("_", " ")}</th>)}
+                </tr>
+              </thead>
+              <tbody>
+                {pantryItems.map((item) => {
+                  const nutrients = nutritionCache[item.name]?.nutrients || {};
                   return (
-                    <div
-                      key={category}
-                      style={{
-                        flex: 1,
-                        padding: 16,
-                        borderRadius: 8,
-                        border: "2px solid #fc8019",
-                        backgroundColor: "#fff",
-                        boxShadow: "0 2px 6px rgba(0,0,0,0.1)",
-                      }}
-                    >
-                      <h3 style={{ color: "#333", marginBottom: 16 }}>{category}</h3>
-                      <NutritionChart nutrients={combined} />
-                    </div>
+                    <tr key={item._id} style={{ borderBottom: "1px solid #e0e0e0" }}>
+                      <td style={tdStyle}>{item.name}</td>
+                      {NUTRIENTS.map((n) => {
+                        const level = categorizeNutrient(nutrients[n], n);
+                        return (
+                          <td key={n} style={{ ...tdStyle, fontWeight: "bold", color: nutrientColor(level) }}>
+                            {level}
+                          </td>
+                        );
+                      })}
+                    </tr>
                   );
                 })}
-              </div>
-            ));
-          })()}
+              </tbody>
+            </table>
+          </div>
+
         </div>
       </div>
     </>
   );
 };
 
-// --------------------
-// Styles
-// --------------------
+// -------------------- Styles --------------------
 const cardStyle = {
+  background: "#fff",
   padding: 20,
-  marginBottom: 32,
-  backgroundColor: "#fff",
   borderRadius: 8,
-  boxShadow: "0 2px 8px rgba(0,0,0,0.1)",
+  boxShadow: "0 1px 6px rgba(0,0,0,0.1)",
+  marginBottom: 20,
 };
 
 const inputStyle = {
   padding: 8,
-  borderRadius: 6,
+  borderRadius: 4,
   border: "1px solid #ccc",
   flex: 1,
-  minWidth: 200,
 };
 
 const buttonStyle = {
   padding: "8px 16px",
-  borderRadius: 6,
-  border: "none",
-  backgroundColor: "#fc8019",
+  backgroundColor: "#FFA07A",
   color: "#fff",
+  border: "none",
+  borderRadius: 4,
   cursor: "pointer",
 };
 
-const headerHighlightStyle = {
-  color: "#fc8019",
-  textAlign: "center",
-  marginBottom: 16,
-};
-
-const sectionStyle = {
-  flex: 1,
-  padding: 16,
-  borderRadius: 8,
-  border: "2px solid",
-  backgroundColor: "#fff",
-  boxShadow: "0 2px 6px rgba(0,0,0,0.1)",
-};
-
-const categoryTitleStyle = {
-  marginBottom: 8,
-  color: "#fc8019",
-};
-
-const tableStyle = {
-  width: "100%",
-  borderCollapse: "collapse",
-};
-
 const thStyle = {
-  border: "1px solid #ccc",
-  padding: 6,
-  backgroundColor: "#f5f5f5",
+  padding: 8,
+  textAlign: "center",
+  borderBottom: "1px solid #ddd",
 };
 
 const tdStyle = {
-  border: "1px solid #ccc",
-  padding: 6,
+  padding: 8,
   textAlign: "center",
 };
 
-// --------------------
-// Export Page
-// --------------------
+const sectionStyle = {
+  marginTop: 40,
+};
+
+const chartCardStyle = {
+  flex: 1,
+  minWidth: 320,
+  backgroundColor: "#fff",
+  padding: 16,
+  borderRadius: 8,
+  boxShadow: "0 1px 4px rgba(0,0,0,0.1)",
+};
+
+const headerHighlightStyle = {
+  color: "#FF6347",
+};
+
 export default function NutrientPage() {
   return (
     <ErrorBoundary>
