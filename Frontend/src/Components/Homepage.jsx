@@ -2,8 +2,9 @@
 
 import React, { useRef, useState, useEffect } from "react";
 import "../styles/Homepage.css";
-import { useNavigate } from "react-router-dom"; // ✅ Added for navigation
+import { useNavigate } from "react-router-dom";
 import Navbar from "./Navbar";
+import { motion } from "framer-motion";
 
 const reviewsData = [
   {
@@ -26,7 +27,7 @@ const reviewsData = [
   },
   {
     text:
-      '"The BEST meal/health/fitness tracking app ever. #1. They care. #2. Gold membership is worth it. #3. It links to Apple health. It’s just all there. I love it. #4. I would 100% work for this organization if I could. Love you guys and appreciate all you do."',
+      "The BEST meal/health/fitness tracking app ever. #1. They care. #2. Gold membership is worth it. #3. It links to Apple health. It’s just all there. I love it. #4. I would 100% work for this organization if I could. Love you guys and appreciate all you do.",
     stars: 5,
     source: "App Store Review",
   },
@@ -47,8 +48,7 @@ const Homepage = ({ onExploreFeature }) => {
   const featuresRef = useRef(null);
   const [hoveredIndex, setHoveredIndex] = useState(null);
   const [featureData, setFeatureData] = useState([]);
-  const [feedbacks, setFeedbacks] = useState([]);
-  const navigate = useNavigate(); // ✅ Hook for navigating
+  const navigate = useNavigate();
 
   const scrollToFeatures = () => {
     featuresRef.current?.scrollIntoView({ behavior: "smooth" });
@@ -58,13 +58,12 @@ const Homepage = ({ onExploreFeature }) => {
     fetch("/data/content.json")
       .then((res) => res.json())
       .then((data) => {
-        setFeatureData(data.featureData);
-        setFeedbacks(data.feedbacks);
+        setFeatureData(data.featureData || []);
       })
       .catch((err) => console.error("Failed to load content:", err));
   }, []);
 
-  // Split repeatedReviews into two rows
+  // Split reviews into 2 rows
   const row1Reviews = repeatedReviews.slice(0, 10);
   const row2Reviews = repeatedReviews.slice(10, 20);
 
@@ -78,7 +77,8 @@ const Homepage = ({ onExploreFeature }) => {
         <div className="hero-overlay">
           <h1 className="hero-title">EATLYSTIC</h1>
           <p className="hero-description">
-            Track, cook, and fuel your body with Eatlystic – where healthy eating meets convenience.
+            Track, cook, and fuel your body with Eatlystic – where healthy
+            eating meets convenience.
           </p>
           <button className="explore-btn" onClick={scrollToFeatures}>
             EXPLORE NOW
@@ -89,13 +89,12 @@ const Homepage = ({ onExploreFeature }) => {
       {/* Features */}
       <section className="features" ref={featuresRef}>
         {featureData.map((feature, index) => {
-          // Map feature titles to routes
           const FEATURE_ROUTES = {
             "Nutrient Tracker": "/nutrient",
-            "Recipe Generator": "/recipe-generator",
-            KitchenSync: "/pantry", // Make sure matches featureData exactly
+            "Recipe Generator": "/recipe",
+            KitchenSync: "/pantry",
             "Calorie Counter": "/calorie",
-            "Fitness Goals": "/fitness-goals",
+            "Fitness Goals": "/fit",
           };
 
           const route = FEATURE_ROUTES[feature.title] || "/";
@@ -103,10 +102,12 @@ const Homepage = ({ onExploreFeature }) => {
           return (
             <div
               key={feature.title}
-              className={`feature-card ${hoveredIndex === index ? "hovered" : ""}`}
+              className={`feature-card ${
+                hoveredIndex === index ? "hovered" : ""
+              }`}
               onMouseEnter={() => setHoveredIndex(index)}
               onMouseLeave={() => setHoveredIndex(null)}
-              onClick={() => navigate(route)} // Navigate on card click
+              onClick={() => navigate(route)}
               style={{ cursor: "pointer" }}
             >
               <div className="feature-media">
@@ -127,7 +128,7 @@ const Homepage = ({ onExploreFeature }) => {
               <button
                 className="feature-explore-btn"
                 onClick={(e) => {
-                  e.stopPropagation(); // Prevent triggering card click
+                  e.stopPropagation();
                   onExploreFeature && onExploreFeature(feature.title);
                   navigate(route);
                 }}
@@ -139,45 +140,47 @@ const Homepage = ({ onExploreFeature }) => {
         })}
       </section>
 
-      {/* Reviews Section */}
+      {/* Reviews Section with Framer Motion */}
       <section className="reviews-section">
         <h2>What Our Users Say</h2>
 
-        <div className="feedback-bubbles-row row-right">
-          {row1Reviews.map((fb, index) => (
+        {/* Row 1 - scrolls left */}
+        <motion.div
+          className="feedback-bubbles-row row-right"
+          animate={{ x: ["0%", "-100%"] }}
+          transition={{ repeat: Infinity, duration: 60, ease: "linear" }}
+        >
+          {[...row1Reviews, ...row1Reviews].map((fb, index) => (
             <div className="feedback-bubble" key={`fb-top-${index}`}>
               <div className="stars">
-                {Array(fb.stars)
-                  .fill(0)
-                  .map((_, i) => (
-                    <span key={i} className="star">
-                      ★
-                    </span>
-                  ))}
+                {Array(fb.stars).fill(0).map((_, i) => (
+                  <span key={i} className="star">★</span>
+                ))}
               </div>
               <p className="feedback-text">"{fb.text}"</p>
               <p className="feedback-name">{fb.source}</p>
             </div>
           ))}
-        </div>
+        </motion.div>
 
-        <div className="feedback-bubbles-row row-left">
-          {row2Reviews.map((fb, index) => (
+        {/* Row 2 - scrolls right */}
+        <motion.div
+          className="feedback-bubbles-row row-left"
+          animate={{ x: ["-100%", "0%"] }}
+          transition={{ repeat: Infinity, duration: 60, ease: "linear" }}
+        >
+          {[...row2Reviews, ...row2Reviews].map((fb, index) => (
             <div className="feedback-bubble" key={`fb-bottom-${index}`}>
               <div className="stars">
-                {Array(fb.stars)
-                  .fill(0)
-                  .map((_, i) => (
-                    <span key={i} className="star">
-                      ★
-                    </span>
-                  ))}
+                {Array(fb.stars).fill(0).map((_, i) => (
+                  <span key={i} className="star">★</span>
+                ))}
               </div>
               <p className="feedback-text">"{fb.text}"</p>
               <p className="feedback-name">{fb.source}</p>
             </div>
           ))}
-        </div>
+        </motion.div>
       </section>
 
       {/* How It Works */}
