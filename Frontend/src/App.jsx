@@ -9,6 +9,7 @@ import LandingPage from "./Components/LandingPage";
 import Pantry from './Components/Pantry';
 import CaloriePage from './Components/CaloriePage';
 import NutrientPage from './Components/NutrientPage'; // Import Calorie page component
+import FitnessTrackerPremium from "./Components/FitnessTracker";
 import { useState, useEffect } from 'react';
 
 function App() {
@@ -33,6 +34,7 @@ function App() {
         <Route path="/calorie" element={<CaloriePage currentUserId={currentUserId} />} /> 
         {/* Calorie route */}
         <Route path="/nutrient" element={<NutrientPage />} />
+        <Route path="/fitness" element={<FitnessTrackerPremium />} />
       </Routes>
     </BrowserRouter>
   );
