@@ -21,5 +21,15 @@ router.post("/", async (req, res) => {
     res.status(500).json({ status: "error", message: e.message });
   }
 });
-
+// -------------------- GET: Fetch all consumed nutrients for a user --------------------
+router.get("/user/:userId", async (req, res) => {
+  try {
+    const { userId } = req.params;
+    const data = await ConsumedNutrient.find({ userId }).sort({ consumedAt: -1 });
+    res.json({ status: "success", data });
+  } catch (e) {
+    console.error(e);
+    res.status(500).json({ status: "error", message: e.message });
+  }
+});
 export default router;
