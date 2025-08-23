@@ -8,11 +8,14 @@ import calorieRouter from "./server/routes/calorieRoutes.js";
 import consumptionRoutes from "./server/routes/consumptionRoutes.js";
 import consumedRoutes from "./server/routes/consumed.js"; // <-- new route
 import totalNutrientRoutes from "./server/routes/nutrientsTotal.js";
+import bodyParser from "body-parser";
+import fitnessRoutes from "./server/routes/fitnessRoutes.js";
 
 
 const app = express();
 app.use(express.json());
 app.use(cors());
+app.use(bodyParser.json());
 
 // --------------------
 // MongoDB Connection
@@ -77,6 +80,7 @@ app.use("/api/calorie", calorieRouter);
 app.use("/api/consumption", consumptionRoutes);
 app.use("/api/consumed", consumedRoutes);
 app.use("/api/nutrients-total", totalNutrientRoutes);
+app.use("/api/fitness", fitnessRoutes);
 
 // --------------------
 // Start Server
