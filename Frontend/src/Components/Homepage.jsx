@@ -94,7 +94,7 @@ const Homepage = ({ onExploreFeature }) => {
             "Recipe Generator": "/recipe",
             KitchenSync: "/pantry",
             "Calorie Counter": "/calorie",
-            "Fitness Goals": "/fit",
+            "Fitness Goals": "/fitness",
           };
 
           const route = FEATURE_ROUTES[feature.title] || "/";

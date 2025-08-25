@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import axios from "axios";
 import Navbar from "./Navbar";
 import pLimit from "p-limit";
@@ -67,7 +67,7 @@ const PIE_COLORS = [
   "#20B2AA", "#FF6347", "#9ACD32", "#4682B4",
 ];
 
-const NUTRIENTS = ["protein_g", "fat_total_g", "carbohydrates_total_g", "fiber_g", "sugar_g"];
+const NUTRIENTS = ["protein_g", "fat_total_g", "carbohydrates_total_g", "fiber_g"];
 
 // -------------------- API KEYS --------------------
 const NINJAS_API_KEY = "LJcbyLP0Ka89agOhKykJCQ==vAqHCOEHEgTYJ61I";
@@ -83,12 +83,10 @@ const fetchFromLocalJson = (query) => {
     return {
       source: "Local JSON",
       nutrients: {
-        calories: Number(found.calories) || 0,
         protein_g: Number(found.protein_g) || 0,
         fat_total_g: Number(found.fat_g) || 0,
         carbohydrates_total_g: Number(found.carbohydrates_g) || 0,
         fiber_g: Number(found.fiber_g) || 0,
-        sugar_g: Number(found.sugar_g) || 0,
       },
     };
   }
@@ -103,12 +101,10 @@ const fetchFromNinjas = async (query) => {
     );
     if (res.data && res.data.length > 0) {
       const combined = res.data.reduce((acc, item) => ({
-        calories: (acc.calories || 0) + (item.calories || 0),
         protein_g: (acc.protein_g || 0) + (item.protein_g || 0),
         fat_total_g: (acc.fat_total_g || 0) + (item.fat_total_g || 0),
         carbohydrates_total_g: (acc.carbohydrates_total_g || 0) + (item.carbohydrates_total_g || 0),
         fiber_g: (acc.fiber_g || 0) + (item.fiber_g || 0),
-        sugar_g: (acc.sugar_g || 0) + (item.sugar_g || 0),
       }), {});
       return { source: "Ninjas API", nutrients: combined };
     }
@@ -131,16 +127,10 @@ const fetchFromUSDA = async (query) => {
       food.foodNutrients.forEach((nutrient) => {
         const name = nutrient.nutrientName.toLowerCase();
         switch (name) {
-          case "energy":
-          case "energy (kilocalories)":
-            nutrients.calories = Number(nutrient.value) || 0; break;
           case "protein": nutrients.protein_g = Number(nutrient.value) || 0; break;
           case "total lipid (fat)": nutrients.fat_total_g = Number(nutrient.value) || 0; break;
           case "carbohydrate, by difference": nutrients.carbohydrates_total_g = Number(nutrient.value) || 0; break;
           case "fiber, total dietary": nutrients.fiber_g = Number(nutrient.value) || 0; break;
-          case "sugars, total":
-          case "sugars, total including nlea":
-            nutrients.sugar_g = Number(nutrient.value) || 0; break;
           default: break;
         }
       });
@@ -163,12 +153,10 @@ const fetchFromOpenFoodFacts = async (query) => {
       return {
         source: "Open Food Facts",
         nutrients: {
-          calories: Number(n["energy-kcal_100g"] || n["energy_100g"] || 0),
           protein_g: Number(n["proteins_100g"] || 0),
           fat_total_g: Number(n["fat_100g"] || 0),
           carbohydrates_total_g: Number(n["carbohydrates_100g"] || 0),
           fiber_g: Number(n["fiber_100g"] || 0),
-          sugar_g: Number(n["sugars_100g"] || 0),
         },
       };
     }
@@ -201,15 +189,15 @@ const NutrientPageContent = () => {
   const [pantryItems, setPantryItems] = useState([]);
   const [nutritionCache, setNutritionCache] = useState({});
   const [error, setError] = useState("");
-
   const [selectedBarcode, setSelectedBarcode] = useState("");
   const [manualName, setManualName] = useState("");
   const [searchNutrition, setSearchNutrition] = useState(null);
-
   const [selectedCategory, setSelectedCategory] = useState("All");
   const [loadingPantryNutri, setLoadingPantryNutri] = useState(false);
-
   const userId = localStorage.getItem("userId");
+  const lastSavedConsumed = useRef({});
+  const lastSavedTotal = useRef({});
+  const limit = pLimit(5);
 
   // Fetch pantry items
   useEffect(() => {
@@ -217,29 +205,33 @@ const NutrientPageContent = () => {
     fetch(`http://localhost:3001/api/pantry/${userId}`)
       .then((res) => res.json())
       .then((data) => {
-        if (data.status === "success") setPantryItems(data.data);
+        if (data.status === "success") {
+          const itemsWithConsumed = data.data.map(item => ({
+            ...item,
+            consumed: item.consumed ?? undefined,
+          }));
+          setPantryItems(itemsWithConsumed);
+        }
       })
       .catch(() => setError("Error fetching pantry items"));
   }, [userId]);
 
-  // Fetch nutrition for pantry items (with pLimit)
-  const limit = pLimit(5);
+  // Fetch nutrition for pantry items
   useEffect(() => {
     if (pantryItems.length === 0) return;
+
     const fetchAllNutritionLimited = async (items) => {
       setLoadingPantryNutri(true);
       const newCache = { ...nutritionCache };
       try {
-        await Promise.all(
-          items.map((item) =>
-            limit(async () => {
-              if (!item.name) return;
-              if (newCache[item.name]) return;
-              const nutrition = await fetchNutritionData(item.name);
-              if (nutrition) newCache[item.name] = nutrition;
-            })
-          )
-        );
+        await Promise.all(items.map((item) =>
+          limit(async () => {
+            if (!item.name) return;
+            if (newCache[item.name]) return;
+            const nutrition = await fetchNutritionData(item.name);
+            if (nutrition) newCache[item.name] = nutrition;
+          })
+        ));
         setNutritionCache(newCache);
       } catch (e) {
         console.error("Error fetching pantry nutrition:", e);
@@ -248,51 +240,85 @@ const NutrientPageContent = () => {
         setLoadingPantryNutri(false);
       }
     };
+
     fetchAllNutritionLimited(pantryItems);
   }, [pantryItems]);
-  // -------------------- ADD AUTO-SAVE CONSUMED NUTRIENTS HERE --------------------
-  useEffect(() => {
-    if (!userId || pantryItems.length === 0 || Object.keys(nutritionCache).length === 0) return;
 
-    const saveConsumedNutrients = async () => {
-      try {
-        const payload = pantryItems.map((item) => {
-          const consumedQty = item.consumed || 1;
-          const nutrients = nutritionCache[item.name]?.nutrients || {};
-          return {
-            userId,
-            itemName: item.name,
-            consumedQuantity: consumedQty,
-            nutrients: {
-              calories: (nutrients.calories || 0) * consumedQty,
-              protein_g: (nutrients.protein_g || 0) * consumedQty,
-              fat_total_g: (nutrients.fat_total_g || 0) * consumedQty,
-              carbohydrates_total_g: (nutrients.carbohydrates_total_g || 0) * consumedQty,
-              fiber_g: (nutrients.fiber_g || 0) * consumedQty,
-              sugar_g: (nutrients.sugar_g || 0) * consumedQty,
-            },
-          };
-        });
+  // -------------------- Save Consumed & Total Nutrients --------------------
+useEffect(() => {
+  if (!userId || pantryItems.length === 0 || Object.keys(nutritionCache).length === 0) return;
 
-        console.log("Auto-saving consumed nutrients:", payload);
+  const consumedToSave = [];
+  const totalToSave = [];
 
-        await Promise.all(
-          payload.map((item) =>
-            axios.post("http://localhost:3001/api/consumed", item)
-          )
-        );
+  pantryItems.forEach(item => {
+    const nutrients = nutritionCache[item.name]?.nutrients || {};
+    const key = `${userId}-${item.name}`; // Unique key
 
-        console.log("Consumed nutrients saved successfully!");
-      } catch (err) {
-        console.error("Error saving consumed nutrients:", err.message);
+    // -------------------- Consumed --------------------
+    const consumedQuantity = item.consumed != null ? item.consumed : 0; // default to 0
+    const consumedPayload = {
+      userId,
+      itemName: item.name,
+      consumedQuantity,
+      nutrients: {
+        protein_g: (nutrients.protein_g || 0) * consumedQuantity,
+        fat_total_g: (nutrients.fat_total_g || 0) * consumedQuantity,
+        carbohydrates_total_g: (nutrients.carbohydrates_total_g || 0) * consumedQuantity,
+        fiber_g: (nutrients.fiber_g || 0) * consumedQuantity,
       }
     };
 
-    saveConsumedNutrients();
-  }, [pantryItems, nutritionCache, userId]);
+    // Save only if changed
+    const prevConsumed = lastSavedConsumed.current[key];
+    const currentConsumedStr = JSON.stringify(consumedPayload);
+    if (currentConsumedStr !== prevConsumed) {
+      consumedToSave.push(consumedPayload);
+      lastSavedConsumed.current[key] = currentConsumedStr;
+    }
 
+    // -------------------- Total --------------------
+    const totalPayload = {
+      userId,
+      itemName: item.name,
+      nutrients: {
+        protein_g: Number(nutrients.protein_g || 0),
+        fat_total_g: Number(nutrients.fat_total_g || 0),
+        carbohydrates_total_g: Number(nutrients.carbohydrates_total_g || 0),
+        fiber_g: Number(nutrients.fiber_g || 0),
+      }
+    };
 
-  // Search handlers
+    const prevTotal = lastSavedTotal.current[key];
+    const currentTotalStr = JSON.stringify(totalPayload);
+    if (currentTotalStr !== prevTotal) {
+      totalToSave.push(totalPayload);
+      lastSavedTotal.current[key] = currentTotalStr;
+    }
+  });
+
+  // -------------------- Send to Backend --------------------
+  if (consumedToSave.length > 0) {
+    axios.all(
+      consumedToSave.map(item => axios.post("http://localhost:3001/api/consumed", item))
+    )
+    .then(() => console.log("Consumed nutrients saved!"))
+    .catch(err => console.error("Error saving consumed:", err.response?.data || err.message));
+  }
+
+  if (totalToSave.length > 0) {
+    axios.post(
+      "http://localhost:3001/api/nutrients-total",
+      totalToSave,
+      { headers: { "Content-Type": "application/json" } }
+    )
+    .then(() => console.log("Total nutrients saved!"))
+    .catch(err => console.error("Error saving total:", err.response?.data || err.message));
+  }
+
+}, [pantryItems, nutritionCache, userId]);
+
+  // -------------------- Search handlers --------------------
   const handleSearchByBarcode = async () => {
     setError(""); setSearchNutrition(null);
     if (!selectedBarcode) return;
@@ -327,7 +353,7 @@ const NutrientPageContent = () => {
   const barChartData = filteredPantry.map(item => {
     const nutrients = nutritionCache[item.name]?.nutrients || {};
     const data = { name: item.name };
-    NUTRIENTS.forEach(n => data[n] = (nutrients[n] || 0) * (item.consumed || 1));
+    NUTRIENTS.forEach(n => data[n] = (nutrients[n] || 0) * (item.consumed || 0));
     return data;
   });
 
@@ -340,12 +366,10 @@ const NutrientPageContent = () => {
   const categorizeNutrient = (val, nutrient) => {
     if (!val) return "Low";
     switch (nutrient) {
-      case "calories": return val >= 500 ? "High" : val >= 200 ? "Medium" : "Low";
       case "protein_g": return val >= 10 ? "High" : val >= 5 ? "Medium" : "Low";
       case "fat_total_g": return val >= 20 ? "High" : val >= 10 ? "Medium" : "Low";
       case "carbohydrates_total_g": return val >= 50 ? "High" : val >= 25 ? "Medium" : "Low";
       case "fiber_g": return val >= 10 ? "High" : val >= 5 ? "Medium" : "Low";
-      case "sugar_g": return val >= 20 ? "High" : val >= 10 ? "Medium" : "Low";
       default: return "Low";
     }
   };
@@ -358,6 +382,7 @@ const NutrientPageContent = () => {
       default: return "#ddd";
     }
   };
+
 
   return (
     <>
@@ -405,7 +430,6 @@ const NutrientPageContent = () => {
             {error && <p style={{ color: "red" }}>{error}</p>}
             {searchNutrition && (
               <div>
-                <h4>Nutrition Info (Source: {searchNutrition.source})</h4>
                 <ul>
                   {Object.entries(searchNutrition.nutrients).map(([k, v]) => (
                     <li key={k}>{k}: {formatNutrient(v)}</li>
@@ -447,7 +471,7 @@ const NutrientPageContent = () => {
                             <td style={tdStyle}>{item.name}</td>
                             <td style={tdStyle}>{item.quantity}</td>
                             {NUTRIENTS.map((n) => (
-                              <td key={n} style={tdStyle}>{formatNutrient((nutrients[n] || 0) * (item.consumed || 1))}</td>
+                              <td key={n} style={tdStyle}>{formatNutrient((nutrients[n] || 0) * (item.consumed ||0))}</td>
                             ))}
                           </tr>
                         );
@@ -456,6 +480,7 @@ const NutrientPageContent = () => {
                   </table>
                 </div>
               </section>
+
             );
           })}
 

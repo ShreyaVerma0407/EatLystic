@@ -13,12 +13,20 @@ import CustomRecipe from "./server/models/CustomRecipe.js";
 import pantryRoutes from "./server/routes/pantryRoutes.js";
 import calorieRouter from "./server/routes/calorieRoutes.js";
 import consumptionRoutes from "./server/routes/consumptionRoutes.js";
+<<<<<<< HEAD
 import consumedRoutes from "./server/routes/consumed.js";
 import totalNutrientRoutes from "./server/routes/nutrientsTotal.js";
 import fitnessRoutes from "./server/routes/fitnessRoutes.js";
 import likedRoutes from "./server/routes/likedRoutes.js";
 import cookedRoutes from "./server/routes/cookedRoutes.js";
 import recipeRoutes from "./server/routes/recipeRoutes.js"; // This route is not in your original but is likely needed
+=======
+import consumedRoutes from "./server/routes/consumed.js"; // <-- new route
+import totalNutrientRoutes from "./server/routes/nutrientsTotal.js";
+import bodyParser from "body-parser";
+import fitnessRoutes from "./server/routes/fitnessRoutes.js";
+
+>>>>>>> 8f11c4efa5d86bd8ebbe6a7bd4da4d0332e7a6df
 
 const app = express();
 app.use(express.json());
@@ -157,9 +165,12 @@ app.use("/api/consumption", consumptionRoutes);
 app.use("/api/consumed", consumedRoutes);
 app.use("/api/nutrients-total", totalNutrientRoutes);
 app.use("/api/fitness", fitnessRoutes);
+<<<<<<< HEAD
 app.use("/api/likes", likedRoutes);
 app.use("/api/recipes/cooked", cookedRoutes);
 app.use("/api/recipes", recipeRoutes); // Assuming you have this route file
+=======
+>>>>>>> 8f11c4efa5d86bd8ebbe6a7bd4da4d0332e7a6df
 
 // --------------------
 // Start Server

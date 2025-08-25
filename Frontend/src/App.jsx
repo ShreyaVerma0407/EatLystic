@@ -9,6 +9,7 @@ import Homepage from './Components/Homepage';
 import LandingPage from './Components/LandingPage';
 import Pantry from './Components/Pantry';
 import CaloriePage from './Components/CaloriePage';
+<<<<<<< HEAD
 import NutrientPage from './Components/NutrientPage';
 import Recipe from './Components/Recipe';
 import Try from './Components/Try';
@@ -21,6 +22,11 @@ import FitnessTrackerPremium from "./Components/FitnessTracker";
 
 // Create and export the UserContext here
 export const UserContext = createContext(null);
+=======
+import NutrientPage from './Components/NutrientPage'; // Import Calorie page component
+import FitnessTrackerPremium from "./Components/FitnessTracker";
+import { useState, useEffect } from 'react';
+>>>>>>> 8f11c4efa5d86bd8ebbe6a7bd4da4d0332e7a6df
 
 function App() {
   const [user, setUser] = useState(null);
@@ -33,6 +39,7 @@ function App() {
   }, []);
 
   return (
+<<<<<<< HEAD
     <UserContext.Provider value={{ user, setUser }}>
       <BrowserRouter>
         <Routes>
@@ -55,6 +62,22 @@ function App() {
         </Routes>
       </BrowserRouter>
     </UserContext.Provider>
+=======
+    <BrowserRouter>
+      <Routes>
+        <Route path="/register" element={<Signup setCurrentUserId={setCurrentUserId} />} />
+        <Route path="/login" element={<Login setCurrentUserId={setCurrentUserId} />} />
+        <Route path="/welcome" element={<Welcome />} />
+        <Route path="/home" element={<Homepage />} />
+        <Route path="/" element={<LandingPage />} />
+        <Route path="/pantry" element={<Pantry currentUserId={currentUserId} />} />
+        <Route path="/calorie" element={<CaloriePage currentUserId={currentUserId} />} /> 
+        {/* Calorie route */}
+        <Route path="/nutrient" element={<NutrientPage />} />
+        <Route path="/fitness" element={<FitnessTrackerPremium />} />
+      </Routes>
+    </BrowserRouter>
+>>>>>>> 8f11c4efa5d86bd8ebbe6a7bd4da4d0332e7a6df
   );
 }
 
