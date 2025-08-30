@@ -406,6 +406,12 @@ useEffect(() => {
           ></path>
         </svg>
 
+     <div style={{ position: "relative", zIndex: 1 }}>
+  <h1 style={{ textAlign: "center", color: "#FF6347", marginBottom: "30px" }}>
+    Consumed Nutrients
+  </h1>
+</div>
+
         <div style={{ position: "relative", zIndex: 1 }}>
           {/* Search Section */}
           <div style={cardStyle}>
@@ -527,7 +533,8 @@ useEffect(() => {
 
           {/* High / Medium / Low Summary Table */}
           <div style={{ marginTop: 40, overflowX: "auto" }}>
-            <h3>High / Medium / Low Nutrient Summary</h3>
+          <h3 style={{ textAlign: "center" }}>Consumed Nutrients Summary</h3>
+
             <table style={{ width: "100%", borderCollapse: "collapse", minWidth: 800 }}>
               <thead style={{ backgroundColor: "#f7f7f7" }}>
                 <tr>
