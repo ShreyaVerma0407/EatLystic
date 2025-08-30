@@ -397,98 +397,147 @@ const PantryReport = ({ userId }) => {
       </div>
 
       <style>{`
-        .center-message {
-          text-align: center;
-          margin-top: 80px;
-          color: #e67e22;
-          font-size: 18px;
-        }
-        .loading { color: #d35400; }
-        .empty { color: #f39c12; }
-        .report-container {
-          min-height: 100vh;
-          padding: 120px 24px 50px;
-          max-width: 900px;
-          margin: 0 auto;
-        }
-        .report-actions {
-          display: flex;
-          gap: 10px;
-          margin-bottom: 20px;
-          flex-wrap: wrap;
-          align-items: center;
-        }
-        .report-actions input, .report-actions select {
-          padding: 8px 10px;
-          border-radius: 6px;
-          border: 1px solid #ddd;
-        }
-        .btn {
-          padding: 6px 12px;
-          border-radius: 6px;
-          cursor: pointer;
-          font-weight: bold;
-          transition: all 0.3s ease;
-        }
-        .btn.download { background: #f39c12; color: white; border: none; }
-        .btn.send { background: #e67e22; color: white; border: none; }
-        .btn:hover { opacity: 0.85; transform: translateY(-2px); }
-        .email-status {
-          text-align: center;
-          padding: 10px 0;
-          border-radius: 8px;
-          margin-bottom: 15px;
-          font-weight: bold;
-          color: #fff;
-          animation: fadeIn 0.5s ease;
-        }
-        .email-status.sending { background: #3498db; }
-        .email-status.success { background: #2ecc71; }
-        .email-status.error { background: #e74c3c; }
+  body {
+    background: linear-gradient(to right, #fffaf5, #fff);
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    color: #333;
+  }
 
-        .category-section h3 {
-          margin-bottom: 10px;
-          color: #e67e22;
-        }
-        .pantry-list { list-style: none; padding: 0; }
-        .pantry-item {
-          background: #fff;
-          padding: 15px 20px;
-          margin-bottom: 14px;
-          border-radius: 12px;
-          box-shadow: 0 3px 8px rgba(0,0,0,0.08);
-          display: flex;
-          align-items: center;
-          gap: 15px;
-          transition: transform 0.3s ease, box-shadow 0.3s ease;
-        }
-        .pantry-item:hover {
-          transform: translateY(-3px);
-          box-shadow: 0 6px 12px rgba(0,0,0,0.15);
-        }
-        .item-img { width: 55px; height: 55px; object-fit: cover; border-radius: 8px; flex-shrink: 0; }
-        .item-info { flex-grow: 1; }
-        .item-name { font-weight: 600; color: #333; font-size: 15px; }
-        .status-badge { font-size: 12px; padding: 2px 8px; border-radius: 6px; font-weight: bold; display: inline-block; margin-top: 2px; }
-        .item-label { font-size: 13px; }
-        .progress-bar {
-          width: 100%;
-          background: #eee;
-          border-radius: 6px;
-          margin-top: 6px;
-          height: 8px;
-        }
-        .progress-fill {
-          height: 100%;
-          border-radius: 6px;
-          transition: width 0.5s ease;
-        }
+  .center-message {
+    text-align: center;
+    margin-top: 80px;
+    color: #e67e22;
+    font-size: 18px;
+  }
+  .loading { color: #d35400; }
+  .empty { color: #f39c12; }
 
-        @keyframes fadeIn {
-          0% { opacity: 0; transform: translateY(5px); }
-          100% { opacity: 1; transform: translateY(0); }
-        }
-      `}</style>
+  .report-container {
+    min-height: 100vh;
+    padding: 120px 24px 50px;
+    max-width: 1000px;
+    margin: 0 auto;
+  }
+
+  .report-actions {
+    display: flex;
+    gap: 12px;
+    margin-bottom: 25px;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .report-actions input, .report-actions select {
+    padding: 10px 14px;
+    border-radius: 8px;
+    border: 1px solid #ddd;
+    font-size: 14px;
+    outline: none;
+    transition: all 0.2s ease;
+  }
+  .report-actions input:focus, .report-actions select:focus {
+    border-color: #e67e22;
+    box-shadow: 0 0 5px rgba(230,126,34,0.3);
+  }
+
+  .btn {
+    padding: 10px 16px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: 600;
+    font-size: 14px;
+    transition: all 0.3s ease;
+    border: none;
+    box-shadow: 0 3px 6px rgba(0,0,0,0.1);
+  }
+  .btn.download { background: #f39c12; color: white; }
+  .btn.send { background: #e67e22; color: white; }
+  .btn:hover { transform: translateY(-2px); box-shadow: 0 5px 10px rgba(0,0,0,0.15); opacity: 0.95; }
+
+  .email-status {
+    text-align: center;
+    padding: 10px 0;
+    border-radius: 8px;
+    margin-bottom: 15px;
+    font-weight: bold;
+    color: #fff;
+    animation: fadeIn 0.5s ease;
+  }
+  .email-status.sending { background: #3498db; }
+  .email-status.success { background: #2ecc71; }
+  .email-status.error { background: #e74c3c; }
+
+  .category-section {
+    margin-bottom: 40px;
+  }
+  .category-section h3 {
+    margin-bottom: 15px;
+    color: #e67e22;
+    font-size: 20px;
+    font-weight: 700;
+    border-bottom: 2px solid #f39c12;
+    padding-bottom: 5px;
+  }
+
+  .pantry-list { list-style: none; padding: 0; margin: 0; }
+  .pantry-item {
+    background: #fff;
+    padding: 18px 20px;
+    margin-bottom: 16px;
+    border-radius: 14px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.07);
+    display: flex;
+    align-items: center;
+    gap: 18px;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+  .pantry-item:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 6px 14px rgba(0,0,0,0.12);
+  }
+
+  .item-img {
+    width: 60px;
+    height: 60px;
+    object-fit: cover;
+    border-radius: 10px;
+    flex-shrink: 0;
+  }
+  .item-info { flex-grow: 1; }
+  .item-name { font-weight: 600; color: #2c3e50; font-size: 16px; }
+  .status-badge {
+    font-size: 12px;
+    padding: 3px 10px;
+    border-radius: 20px;
+    font-weight: bold;
+    display: inline-block;
+    margin-top: 4px;
+    color: #fff;
+  }
+  .item-label { font-size: 13px; display: block; margin-top: 3px; color: #555; }
+
+  .progress-bar {
+    width: 100%;
+    background: #f2f2f2;
+    border-radius: 10px;
+    margin-top: 8px;
+    height: 10px;
+    overflow: hidden;
+  }
+  .progress-fill {
+    height: 100%;
+    border-radius: 10px;
+    transition: width 0.5s ease;
+    background: linear-gradient(90deg, #f39c12, #e67e22);
+  }
+
+  @keyframes fadeIn {
+    0% { opacity: 0; transform: translateY(5px); }
+    100% { opacity: 1; transform: translateY(0); }
+  }
+`}</style>
+
     </>
   );
 };
