@@ -49,13 +49,9 @@ function App() {
         <Route path ="recipe/pantrychef/dishes" element={<Dishes/>}/>
         <Route path="/recipe/macroschef" element ={<MacrosChef/>}/>
          {/* <Route path="/recipe/like" element ={<Liked/>}/> */}
-<<<<<<< HEAD
         <Route path="/recipe/customise" element ={<Customise/>}/>
         <Route path="/pantryreport" element={<PantryReport userId={currentUserId} />} />
-=======
-        <Route path="/recipe/customise" element ={<Customise/>}/> 
-        {/* <Route path="/pantryreport" element={<PantryReport userId={currentUserId} />} /> */}
->>>>>>> 7bb196977496a50eb314289ee5a150929ecd9472
+
 
       </Routes>
     </BrowserRouter>
