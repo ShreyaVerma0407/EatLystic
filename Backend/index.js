@@ -86,7 +86,7 @@ app.use("/api/consumption", consumptionRoutes);
 app.use("/api/consumed", consumedRoutes);
 app.use("/api/nutrients-total", totalNutrientRoutes);
 app.use("/api/fitness", fitnessRoutes);
-<<<<<<< HEAD
+
 app.use("/api/notifications", notificationRoutes);
 app.use("/email", emailRoutes);
 app.use("/api/email", pdfEmailRoute);
