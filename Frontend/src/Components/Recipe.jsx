@@ -1,11 +1,10 @@
 // src/Components/HeroSection.jsx
-
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
 
 const FILTERS = [
-  { name: "All", key: "" }, // Special "All" filter
+  { name: "All", key: "" },
   { name: "Chef", key: "chef" },
   { name: "Plan", key: "plan" },
   { name: "Liked", key: "liked" },
@@ -20,7 +19,7 @@ const CARD_SETS = {
     { name: "MacrosChef", route: "/recipe/macroschef", img: "/images/macroschef.jpg" },
     { name: "MealPlanChef", route: "/recipe/mealplan", img: "/images/mealplanchef.jpg" },
     { name: "FavChef", route: "/recipe/favchef", img: "/images/favchef.jpg" },
-    { name: "Trending", route: "/recipe/trending", img: "/images/trending.png" } // single trending card inside chef
+    { name: "Trending", route: "/recipe/trending", img: "/images/trending.png" }
   ],
   plan: [
     { name: "MealPlanChef", route: "/recipe/mealplan", img: "/images/mealplanchef.jpg" }
@@ -34,11 +33,10 @@ const CARD_SETS = {
   ],
   customise: [
     { name: "Customise", route: "/recipe/customise", img: "/images/customise.jpg" },
-    { name: "Alias", route: "/recipe/alias", img: "/images/alias.jpg" } // single alias card inside customise
+    { name: "Alias", route: "/recipe/alias", img: "/images/alias.jpg" }
   ]
 };
 
-// Collect all cards uniquely for "All"
 const ALL_CARDS_UNIQUE = (() => {
   const map = new Map();
   Object.values(CARD_SETS).flat().forEach(card => {
@@ -52,26 +50,15 @@ const HeroSection = () => {
   const [activeFilter, setActiveFilter] = useState("");
   const navigate = useNavigate();
 
-  const cardVariants = {
-    hidden: { opacity: 0, y: 60, scale: 0.9 },
-    visible: (i) => ({
-      opacity: 1,
-      y: 0,
-      scale: 1,
-      transition: { delay: i * 0.13, type: "spring", stiffness: 100 }
-    }),
-    exit: { opacity: 0, y: 60, scale: 0.9, transition: { duration: 0.2 } }
-  };
-
   const cardsToShow = activeFilter ? CARD_SETS[activeFilter] || [] : ALL_CARDS_UNIQUE;
 
   return (
     <div style={{ position: "relative", minHeight: "100vh" }}>
-      {/* Background Transition */}
+      {/* 🔥 Smooth sliding background */}
       <motion.div
-        initial={{ y: 0 }}
-        animate={{ y: showContent ? "-100%" : "0%" }}
-        transition={{ duration: 1, ease: "easeInOut" }}
+        initial={{ y: "0vh" }}
+        animate={{ y: showContent ? "-100vh" : "0vh" }}
+        transition={{ duration: 1.2, ease: [0.77, 0, 0.175, 1] }} // smooth cubic-bezier
         style={{
           position: "fixed",
           top: 0,
@@ -85,12 +72,9 @@ const HeroSection = () => {
         }}
       />
 
-      {/* Initial Landing Content */}
+      {/* Landing Section */}
       {!showContent && (
-        <motion.div
-          initial={{ opacity: 1 }}
-          animate={{ opacity: showContent ? 0 : 1 }}
-          transition={{ duration: 0.5 }}
+        <div
           style={{
             position: "fixed",
             top: "40%",
@@ -129,26 +113,25 @@ const HeroSection = () => {
           >
             Explore
           </button>
-        </motion.div>
+        </div>
       )}
 
       {/* Main Content */}
       <AnimatePresence>
         {showContent && (
           <motion.div
-            initial={{ y: "100%" }}
+            initial={{ y: "100vh" }}
             animate={{ y: 0 }}
-            exit={{ y: "100%" }}
-            transition={{ duration: 1, ease: "easeOut" }}
+            exit={{ y: "100vh" }}
+            transition={{ duration: 1.2, ease: [0.77, 0, 0.175, 1] }}
             style={{
               background: "#fff",
               minHeight: "100vh",
-              padding: "0",
               position: "relative",
               zIndex: 3
             }}
           >
-            {/* Recipe Title */}
+            {/* Title */}
             <div
               style={{
                 padding: "3rem 2rem 1rem 2rem",
@@ -183,37 +166,18 @@ const HeroSection = () => {
                     fontSize: "1.3rem",
                     fontWeight: 600,
                     padding: "0.7rem 1.6rem",
-                    outline: "none",
                     cursor: "pointer",
                     borderRadius: "22px",
-                    whiteSpace: "nowrap",
-                    transition: "all 0.3s ease",
                   }}
                   onClick={() => setActiveFilter(filter.key)}
-                  onMouseEnter={e => {
-                    if (activeFilter !== filter.key) {
-                      e.target.style.background = "#ffc680";
-                      e.target.style.color = "white";
-                      e.target.style.boxShadow = "0 4px 8px rgba(255, 165, 0, 0.3)";
-                      e.target.style.borderColor = "orange";
-                    }
-                  }}
-                  onMouseLeave={e => {
-                    if (activeFilter !== filter.key) {
-                      e.target.style.background = "#fff";
-                      e.target.style.color = "orange";
-                      e.target.style.boxShadow = "none";
-                      e.target.style.borderColor = "#ddd";
-                    }
-                  }}
                 >
                   {filter.name}
                 </button>
               ))}
             </div>
 
-            {/* Cards Grid */}
-            <motion.div
+            {/* Cards */}
+            <div
               style={{
                 display: "grid",
                 gridTemplateColumns: "repeat(4, 1fr)",
@@ -223,67 +187,52 @@ const HeroSection = () => {
                 backgroundColor: "#fffaf5",
               }}
             >
-              <AnimatePresence>
-                {cardsToShow.map((card, i) => (
-                  <motion.div
-                    key={card.name}
-                    custom={i}
-                    variants={cardVariants}
-                    initial="hidden"
-                    animate="visible"
-                    exit="exit"
-                    whileHover={{
-                      scale: 1.12,
-                      borderColor: "orange",
-                      boxShadow: "0 0 20px 8px #ffbe65",
-                      zIndex: 10,
-                    }}
+              {cardsToShow.map((card) => (
+                <div
+                  key={card.name}
+                  style={{
+                    background: "white",
+                    border: "4px solid #ededed",
+                    borderRadius: "22px",
+                    textAlign: "center",
+                    padding: "2rem 1.5rem 1rem 1.5rem",
+                    cursor: "pointer",
+                    minWidth: "250px",
+                    maxWidth: "300px",
+                    display: "flex",
+                    flexDirection: "column",
+                    alignItems: "center",
+                  }}
+                  onClick={() => navigate(card.route)}
+                >
+                  <img
+                    src={card.img}
+                    alt={card.name}
                     style={{
-                      background: "white",
-                      border: "4px solid #ededed",
-                      borderRadius: "22px",
-                      textAlign: "center",
-                      padding: "2rem 1.5rem 1rem 1.5rem",
-                      cursor: "pointer",
-                      transition: "all 0.3s ease",
-                      userSelect: "none",
-                      minWidth: "250px",
-                      maxWidth: "300px",
-                      display: "flex",
-                      flexDirection: "column",
-                      alignItems: "center",
+                      width: "220px",
+                      height: "220px",
+                      borderRadius: "20px",
+                      objectFit: "cover",
+                      boxShadow: "0 8px 20px #fde9c6",
+                      marginBottom: "1.6rem",
                     }}
-                    onClick={() => navigate(card.route)}
+                  />
+                  <div
+                    style={{
+                      fontWeight: "bold",
+                      fontSize: "1.4rem",
+                      color: "#222",
+                      minHeight: "2.6rem",
+                      whiteSpace: "nowrap",
+                      textOverflow: "ellipsis",
+                      overflow: "hidden",
+                    }}
                   >
-                    <img
-                      src={card.img}
-                      alt={card.name}
-                      style={{
-                        width: "220px",
-                        height: "220px",
-                        borderRadius: "20px",
-                        objectFit: "cover",
-                        boxShadow: "0 8px 20px #fde9c6",
-                        marginBottom: "1.6rem",
-                      }}
-                    />
-                    <div
-                      style={{
-                        fontWeight: "bold",
-                        fontSize: "1.4rem",
-                        color: "#222",
-                        minHeight: "2.6rem",
-                        whiteSpace: "nowrap",
-                        textOverflow: "ellipsis",
-                        overflow: "hidden",
-                      }}
-                    >
-                      {card.name}
-                    </div>
-                  </motion.div>
-                ))}
-              </AnimatePresence>
-            </motion.div>
+                    {card.name}
+                  </div>
+                </div>
+              ))}
+            </div>
           </motion.div>
         )}
       </AnimatePresence>

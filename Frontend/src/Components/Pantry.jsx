@@ -1,8 +1,7 @@
-import React, { useState, useEffect, useContext } from "react";
-import { useNavigate, useLocation } from "react-router-dom"; // 🟢 Import useNavigate and useLocation
-import { UserContext } from "../App"; // 🟢 Import UserContext
+import React, { useState, useEffect } from "react";
+import { Navigate } from "react-router-dom";
 import "../styles/Pantry.css";
-import Navbar from "./Navbar";
+import Navbar from "./Navbar"; // Added Navbar import
 
 const CATEGORIES = [
   "Fruits",
@@ -73,11 +72,7 @@ const defaultImage = "/images/pantry.png";
 const vegImage = "/images/pantrygreen.png";
 const nonVegImage = "/images/pantryred.png";
 
-function Pantry() {
-  const { user } = useContext(UserContext); // 🟢 Get user from context
-  const navigate = useNavigate(); // 🟢 Initialize useNavigate
-  const location = useLocation(); // 🟢 Initialize useLocation
-
+function Pantry({ currentUserId }) {
   const [pantry, setPantry] = useState(INITIAL);
   const [showForm, setShowForm] = useState(false);
   const [editingId, setEditingId] = useState(null);
@@ -103,6 +98,10 @@ function Pantry() {
     }, {})
   );
 
+  if (!currentUserId) {
+    return <Navigate to="/login" replace />;
+  }
+
   const isVegFilter = globalFilters.vegNonVeg === "veg";
   const isNonVegFilter = globalFilters.vegNonVeg === "nonveg";
 
@@ -112,26 +111,17 @@ function Pantry() {
     ? `url(${nonVegImage})`
     : `url(${defaultImage})`;
 
-  // 🟢 Use useEffect for authentication and data fetching
   useEffect(() => {
-    // 🟢 Check for user authentication and redirect if not found
-    if (!user?._id) {
-      navigate("/login", { state: { from: location.pathname } });
-      return;
-    }
+    if (!currentUserId) return;
 
-    // Fetch pantry items only if a user is authenticated
-    fetch(`http://localhost:3001/api/pantry/${user._id}`)
+    fetch(`http://localhost:3001/api/pantry/${currentUserId}`)
       .then((res) => res.json())
       .then((data) => {
-        if (data.status === "success") {
-          setPantry(data.data);
-        } else {
-          alert("Failed to load pantry items");
-        }
+        if (data.status === "success") setPantry(data.data);
+        else alert("Failed to load pantry items");
       })
       .catch(() => alert("Error loading pantry items"));
-  }, [user, navigate, location.pathname]); // 🟢 Add dependencies
+  }, [currentUserId]);
 
   useEffect(() => {
     if (!newItem.name.trim()) return;
@@ -236,7 +226,7 @@ function Pantry() {
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    if (!user?._id) { // 🟢 Check for user from context
+    if (!currentUserId) {
       alert("Please log in first.");
       return;
     }
@@ -253,7 +243,7 @@ function Pantry() {
     }
 
     const itemData = {
-      userId: user._id, // 🟢 Use user ID from context
+      userId: currentUserId,
       name: newItem.name.trim(),
       quantity: updatedQuantity,
       consumed: editingId ? Number(newItem.consumed) : 0,
@@ -282,7 +272,7 @@ function Pantry() {
         })
         .catch(() => alert("Error updating pantry item"));
     } else {
-      fetch("http://34.125.101.44:3001/api/pantry", {
+      fetch("http://localhost:3001/api/pantry", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(itemData),
@@ -324,7 +314,7 @@ function Pantry() {
         isVegFilter ? "veg-theme" : isNonVegFilter ? "nonveg-theme" : ""
       }`}
     >
-      <Navbar />
+      <Navbar /> {/* Navbar added at the top */}
 
       <header
         className="pantry-header"
