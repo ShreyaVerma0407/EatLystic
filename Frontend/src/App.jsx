@@ -10,11 +10,7 @@ import Pantry from './Components/Pantry';
 import CaloriePage from './Components/CaloriePage';
 import NutrientPage from './Components/NutrientPage'; // Import Calorie page component
 import FitnessTrackerPremium from "./Components/FitnessTracker";
-<<<<<<< HEAD
 import PantryReport from "./Components/PantryReport";
-=======
-// import PantryReport from "./Components/PantryReport";
->>>>>>> 7bb196977496a50eb314289ee5a150929ecd9472
 import Recipe from './Components/Recipe.jsx';
 import PantryChef from './Components/PantryChef.jsx';
 import Try from './Components/Try.jsx';
