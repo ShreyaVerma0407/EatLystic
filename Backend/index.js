@@ -10,9 +10,15 @@ import consumedRoutes from "./server/routes/consumed.js"; // <-- new route
 import totalNutrientRoutes from "./server/routes/nutrientsTotal.js";
 import bodyParser from "body-parser";
 import fitnessRoutes from "./server/routes/fitnessRoutes.js";
+<<<<<<< HEAD
  import notificationRoutes from "./server/routes/notifications.js";
  import emailRoutes from "./server/routes/emailController.js";
  import pdfEmailRoute from "./server/routes/pdfEmailRoute.js";
+=======
+// import notificationRoutes from "./server/routes/notifications.js";
+// import emailRoutes from "./server/routes/emailController.js";
+// import pdfEmailRoute from "./server/routes/pdfEmailRoute.js";
+>>>>>>> 7bb196977496a50eb314289ee5a150929ecd9472
 
 const app = express();
 app.use(express.json());
@@ -83,9 +89,15 @@ app.use("/api/consumption", consumptionRoutes);
 app.use("/api/consumed", consumedRoutes);
 app.use("/api/nutrients-total", totalNutrientRoutes);
 app.use("/api/fitness", fitnessRoutes);
+<<<<<<< HEAD
 app.use("/api/notifications", notificationRoutes);
 app.use("/email", emailRoutes);
 app.use("/api/email", pdfEmailRoute);
+=======
+// app.use("/api/notifications", notificationRoutes);
+// app.use("/email", emailRoutes);
+// app.use("/api/email", pdfEmailRoute);
+>>>>>>> 7bb196977496a50eb314289ee5a150929ecd9472
 
 // --------------------
 // Start Server

@@ -1,7 +1,7 @@
 // src/pages/FitnessTracker.jsx
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import Navbar from "../components/Navbar";
+import Navbar from "../Components/Navbar";
 import { motion } from "framer-motion";
 import { CircularProgressbar, buildStyles } from "react-circular-progressbar";
 import { FaVenusMars,FaBirthdayCake, FaWeight, FaBed, FaTint, FaBolt, FaHeartbeat, FaDrumstickBite, FaBreadSlice, FaPizzaSlice, FaLeaf, FaFire } from "react-icons/fa";
