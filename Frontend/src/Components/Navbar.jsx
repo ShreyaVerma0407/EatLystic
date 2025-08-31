@@ -67,6 +67,11 @@ const Navbar = () => {
         {/* Other menu items */}
         <li>Settings</li>
         <li>Login</li>
+       <li>
+  <Link to="/pantryreport" className="nav-link">
+    PantryReport
+  </Link>
+</li>
       </ul>
     </nav>
   );
