@@ -10,9 +10,12 @@ import consumedRoutes from "./server/routes/consumed.js"; // <-- new route
 import totalNutrientRoutes from "./server/routes/nutrientsTotal.js";
 import bodyParser from "body-parser";
 import fitnessRoutes from "./server/routes/fitnessRoutes.js";
-// import notificationRoutes from "./server/routes/notifications.js";
-// import emailRoutes from "./server/routes/emailController.js";
-// import pdfEmailRoute from "./server/routes/pdfEmailRoute.js";
+
+ import notificationRoutes from "./server/routes/notifications.js";
+ import emailRoutes from "./server/routes/emailController.js";
+ import pdfEmailRoute from "./server/routes/pdfEmailRoute.js";
+
+
 
 const app = express();
 app.use(express.json());
@@ -83,9 +86,12 @@ app.use("/api/consumption", consumptionRoutes);
 app.use("/api/consumed", consumedRoutes);
 app.use("/api/nutrients-total", totalNutrientRoutes);
 app.use("/api/fitness", fitnessRoutes);
-// app.use("/api/notifications", notificationRoutes);
-// app.use("/email", emailRoutes);
-// app.use("/api/email", pdfEmailRoute);
+
+app.use("/api/notifications", notificationRoutes);
+app.use("/email", emailRoutes);
+app.use("/api/email", pdfEmailRoute);
+
+
 
 // --------------------
 // Start Server
