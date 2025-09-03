@@ -1,23 +1,27 @@
 {
   "name": "server",
   "version": "1.0.0",
-  "description": "Backend server for Ai_kitchen",
-  "main": "index.js",
+  "description": "",
   "type": "module",
+  "main": "index.js",
+  "type": "module",  
   "scripts": {
-    "start": "node index.js"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon index.js"
   },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
   "dependencies": {
     "axios": "^1.11.0",
-    "body-parser": "^1.20.2",
     "cors": "^2.8.5",
-    "express": "^4.18.2",
-    "mongoose": "^7.6.3",
+    "express": "^5.1.0",
+    "mongoose": "^8.17.1",
     "node-fetch": "^3.3.2",
-    "nodemailer": "^7.0.6",
+    "nodemailer": "^7.0.5",
+    "nodemon": "^3.1.10",
     "oauth-1.0a": "^2.2.6",
     "pdfkit": "^0.17.1",
-    "prompt-sync": "^4.2.0",
-    "serverless-http": "^4.0.0"
+    "prompt-sync": "^4.2.0"
   }
 }
