@@ -96,7 +96,7 @@ app.use("/api/email", pdfEmailRoute);
 // --------------------
 // Start Server
 // --------------------
-const MAIN_PORT = 3001;
+const MAIN_PORT = process.env.PORT || 3001;
 
 app.listen(MAIN_PORT, () => {
   console.log(`🚀 Server is running on port ${MAIN_PORT}`);
