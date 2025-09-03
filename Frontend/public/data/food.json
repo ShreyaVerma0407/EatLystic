@@ -1,0 +1,5012 @@
+{
+  "version": "1.0",
+  "updated": "2025-08-19",
+  "source": "custom-indian-recipes",
+  "note": "All measurements are approximate and per standard teaspoons (5 ml) and tablespoons (15 ml). Adjust salt/chilli to taste.",
+  "recipes": [
+    {
+      "id": "pbm-001",
+      "name": "Paneer Butter Masala",
+      "cuisine": "Asian",
+      "category": "Lunch",
+      "tags": [
+        "vegetarian",
+        "north indian",
+        "paneer"
+      ],
+      "servings": 4,
+      "prep_minutes": 15,
+      "cook_minutes": 30,
+      "ingredients": [
+        {
+          "name": "paneer",
+          "quantity": 300,
+          "unit": "g",
+          "prep": "cut into 2–3 cm cubes"
+        },
+        {
+          "name": "butter",
+          "quantity": 2,
+          "unit": "tbsp"
+        },
+        {
+          "name": "oil",
+          "quantity": 1,
+          "unit": "tbsp",
+          "optional": true
+        },
+        {
+          "name": "onion",
+          "quantity": 1,
+          "unit": "medium",
+          "grams": 120,
+          "prep": "finely chopped"
+        },
+        {
+          "name": "tomato",
+          "quantity": 3,
+          "unit": "medium",
+          "grams": 400,
+          "prep": "pureed"
+        },
+        {
+          "name": "cashews",
+          "quantity": 12,
+          "unit": "pieces",
+          "grams": 25,
+          "prep": "soaked 10 min in hot water"
+        },
+        {
+          "name": "ginger-garlic paste",
+          "quantity": 1,
+          "unit": "tbsp"
+        },
+        {
+          "name": "kashmiri red chilli powder",
+          "quantity": 1.5,
+          "unit": "tsp"
+        },
+        {
+          "name": "turmeric",
+          "quantity": 0.25,
+          "unit": "tsp"
+        },
+        {
+          "name": "garam masala",
+          "quantity": 0.75,
+          "unit": "tsp"
+        },
+        {
+          "name": "kasuri methi (dried fenugreek)",
+          "quantity": 1,
+          "unit": "tsp",
+          "prep": "crushed"
+        },
+        {
+          "name": "fresh cream",
+          "quantity": 100,
+          "unit": "ml"
+        },
+        {
+          "name": "salt",
+          "quantity": 1,
+          "unit": "tsp",
+          "adjust_to_taste": true
+        },
+        {
+          "name": "sugar",
+          "quantity": 0.5,
+          "unit": "tsp",
+          "optional": true
+        },
+        {
+          "name": "water",
+          "quantity": 250,
+          "unit": "ml"
+        }
+      ],
+      "equipment": [
+        "kadhai",
+        "blender",
+        "spatula",
+        "measuring spoons"
+      ],
+      "steps": [
+        {
+          "step": 1,
+          "instruction": "Soak cashews in hot water for 10 minutes. Blend tomatoes and soaked cashews to a smooth puree.",
+          "duration_minutes": 10
+        },
+        {
+          "step": 2,
+          "instruction": "Heat butter and oil in a kadhai over medium heat. Add chopped onion and sauté until lightly golden (5–6 minutes).",
+          "duration_minutes": 6
+        },
+        {
+          "step": 3,
+          "instruction": "Add ginger-garlic paste; sauté 1 minute until raw smell goes.",
+          "duration_minutes": 1
+        },
+        {
+          "step": 4,
+          "instruction": "Pour in the tomato-cashew puree carefully (it may splutter). Cook, stirring, until thick, glossy, and oil separates (8–10 minutes).",
+          "duration_minutes": 10
+        },
+        {
+          "step": 5,
+          "instruction": "Stir in chilli powder, turmeric, salt, and 150 ml water. Simmer 3 minutes.",
+          "duration_minutes": 3
+        },
+        {
+          "step": 6,
+          "instruction": "Add paneer cubes, garam masala, kasuri methi, and sugar. Simmer gently 3–4 minutes.",
+          "duration_minutes": 4
+        },
+        {
+          "step": 7,
+          "instruction": "Reduce heat and stir in cream. Add more water if needed to adjust gravy consistency. Cook 1 minute and switch off.",
+          "duration_minutes": 1
+        },
+        {
+          "step": 8,
+          "instruction": "Rest 5 minutes; garnish with a knob of butter and a swirl of cream.",
+          "duration_minutes": 5
+        }
+      ],
+      "nutrition_per_serving": {
+        "energy_kcal": 380,
+        "protein_g": 14,
+        "carbs_g": 12,
+        "fat_g": 30
+      },
+      "image": "images/paneer_butter_masala.jpg",
+      "keywords": [
+        "paneer",
+        "butter",
+        "tomato",
+        "cream",
+        "north indian"
+      ]
+    },
+    {
+      "id": "chole-002",
+      "name": "Chole (Chana Masala)",
+      "cuisine": "Asian",
+      "category": "Brunch",
+      "tags": [
+        "vegan",
+        "north indian",
+        "legumes"
+      ],
+      "servings": 4,
+      "prep_minutes": 15,
+      "cook_minutes": 40,
+      "ingredients": [
+        {
+          "name": "dried chickpeas",
+          "quantity": 250,
+          "unit": "g",
+          "prep": "soaked 8 hours or overnight"
+        },
+        {
+          "name": "onion",
+          "quantity": 2,
+          "unit": "medium",
+          "grams": 200,
+          "prep": "finely chopped"
+        },
+        {
+          "name": "tomato",
+          "quantity": 3,
+          "unit": "medium",
+          "grams": 350,
+          "prep": "pureed or grated"
+        },
+        {
+          "name": "ginger-garlic paste",
+          "quantity": 1.5,
+          "unit": "tbsp"
+        },
+        {
+          "name": "oil",
+          "quantity": 2,
+          "unit": "tbsp"
+        },
+        {
+          "name": "bay leaf",
+          "quantity": 1,
+          "unit": "piece"
+        },
+        {
+          "name": "cumin seeds",
+          "quantity": 1,
+          "unit": "tsp"
+        },
+        {
+          "name": "coriander powder",
+          "quantity": 2,
+          "unit": "tsp"
+        },
+        {
+          "name": "kashmiri red chilli powder",
+          "quantity": 1.5,
+          "unit": "tsp"
+        },
+        {
+          "name": "turmeric",
+          "quantity": 0.5,
+          "unit": "tsp"
+        },
+        {
+          "name": "garam masala or chole masala",
+          "quantity": 1.5,
+          "unit": "tsp"
+        },
+        {
+          "name": "amchur (dry mango) or lemon juice",
+          "quantity": 1,
+          "unit": "tsp"
+        },
+        {
+          "name": "salt",
+          "quantity": 1.25,
+          "unit": "tsp",
+          "adjust_to_taste": true
+        },
+        {
+          "name": "water",
+          "quantity": 700,
+          "unit": "ml"
+        },
+        {
+          "name": "fresh coriander leaves",
+          "quantity": 2,
+          "unit": "tbsp",
+          "prep": "chopped",
+          "optional": true
+        }
+      ],
+      "equipment": [
+        "pressure cooker or instant pot",
+        "kadhai",
+        "spatula"
+      ],
+      "steps": [
+        {
+          "step": 1,
+          "instruction": "Drain soaked chickpeas. Pressure cook with 500 ml water and 0.5 tsp salt for 6–7 whistles (or 25 minutes in Instant Pot on high).",
+          "duration_minutes": 25
+        },
+        {
+          "step": 2,
+          "instruction": "Heat oil in kadhai. Add bay leaf and cumin; let splutter 30 seconds.",
+          "duration_minutes": 1
+        },
+        {
+          "step": 3,
+          "instruction": "Add onions; sauté until golden-brown (7–8 minutes).",
+          "duration_minutes": 8
+        },
+        {
+          "step": 4,
+          "instruction": "Add ginger-garlic paste; sauté 1 minute. Add tomato puree and cook until oil separates (8–10 minutes).",
+          "duration_minutes": 10
+        },
+        {
+          "step": 5,
+          "instruction": "Add coriander powder, chilli, turmeric, and garam masala. Cook 1 minute.",
+          "duration_minutes": 1
+        },
+        {
+          "step": 6,
+          "instruction": "Add boiled chickpeas with 200 ml of their cooking liquid. Add remaining water as needed; simmer 10–12 minutes to thicken.",
+          "duration_minutes": 12
+        },
+        {
+          "step": 7,
+          "instruction": "Stir in amchur or lemon juice, adjust salt. Garnish with coriander.",
+          "duration_minutes": 2
+        }
+      ],
+      "nutrition_per_serving": {
+        "energy_kcal": 290,
+        "protein_g": 13,
+        "carbs_g": 44,
+        "fat_g": 7
+      },
+      "image": "images/chole.jpeg",
+      "keywords": [
+        "chickpeas",
+        "garbanzo",
+        "chana",
+        "north indian"
+      ]
+    },
+    {
+      "id": "alooparatha-003",
+      "name": "Aloo Paratha",
+      "cuisine": "Asian",
+      "category": "Breakfast",
+      "tags": [
+        "vegetarian",
+        "flatbread"
+      ],
+      "servings": 4,
+      "prep_minutes": 20,
+      "cook_minutes": 25,
+      "ingredients": [
+        {
+          "name": "whole wheat flour",
+          "quantity": 300,
+          "unit": "g"
+        },
+        {
+          "name": "water",
+          "quantity": 180,
+          "unit": "ml",
+          "prep": "for dough (approx)"
+        },
+        {
+          "name": "salt",
+          "quantity": 1,
+          "unit": "tsp",
+          "split": "0.5 tsp for dough + 0.5 tsp for filling"
+        },
+        {
+          "name": "oil or ghee",
+          "quantity": 2,
+          "unit": "tbsp"
+        },
+        {
+          "name": "potatoes",
+          "quantity": 3,
+          "unit": "medium",
+          "grams": 450,
+          "prep": "boiled and mashed"
+        },
+        {
+          "name": "onion",
+          "quantity": 1,
+          "unit": "small",
+          "grams": 60,
+          "prep": "finely chopped",
+          "optional": true
+        },
+        {
+          "name": "green chilli",
+          "quantity": 1,
+          "unit": "piece",
+          "prep": "finely chopped",
+          "optional": true
+        },
+        {
+          "name": "coriander leaves",
+          "quantity": 2,
+          "unit": "tbsp",
+          "prep": "chopped"
+        },
+        {
+          "name": "cumin powder",
+          "quantity": 0.5,
+          "unit": "tsp"
+        },
+        {
+          "name": "amchur (dry mango)",
+          "quantity": 0.5,
+          "unit": "tsp"
+        },
+        {
+          "name": "red chilli powder",
+          "quantity": 0.5,
+          "unit": "tsp"
+        },
+        {
+          "name": "ghee (for cooking)",
+          "quantity": 3,
+          "unit": "tbsp"
+        }
+      ],
+      "equipment": [
+        "mixing bowl",
+        "rolling pin",
+        "tawa/griddle"
+      ],
+      "steps": [
+        {
+          "step": 1,
+          "instruction": "Make dough: Mix flour, 0.5 tsp salt, and 1 tbsp oil. Add water gradually and knead 8–10 minutes to a soft, smooth dough. Rest 15 minutes.",
+          "duration_minutes": 25
+        },
+        {
+          "step": 2,
+          "instruction": "Prepare filling: In a bowl combine mashed potatoes, onion, green chilli, coriander leaves, remaining 0.5 tsp salt, cumin powder, amchur, and red chilli powder.",
+          "duration_minutes": 5
+        },
+        {
+          "step": 3,
+          "instruction": "Divide dough into 8 balls (about 60 g each). Roll a ball to 12–13 cm circle, place 2–3 tbsp filling, gather edges and seal.",
+          "duration_minutes": 6
+        },
+        {
+          "step": 4,
+          "instruction": "Roll the stuffed ball gently to 16–18 cm paratha using dry flour to dust.",
+          "duration_minutes": 3
+        },
+        {
+          "step": 5,
+          "instruction": "Cook on a hot tawa: 30–40 sec first side, flip; apply ghee, cook 45–60 sec. Flip again, apply ghee, cook until golden spots appear.",
+          "duration_minutes": 6
+        }
+      ],
+      "nutrition_per_serving": {
+        "energy_kcal": 320,
+        "protein_g": 8,
+        "carbs_g": 52,
+        "fat_g": 9
+      },
+      "image": "images/aloo_parantha.jpg",
+      "keywords": [
+        "paratha",
+        "potato",
+        "flatbread"
+      ]
+    },
+    {
+      "id": "dosa-004",
+      "name": "Masala Dosa (with Potato Masala)",
+      "cuisine": "Asian",
+      "category": "Breakfast",
+      "tags": [
+        "south indian",
+        "vegetarian",
+        "fermented"
+      ],
+      "servings": 4,
+      "prep_minutes": 30,
+      "cook_minutes": 30,
+      "ingredients": [
+        {
+          "name": "parboiled rice (idli rice)",
+          "quantity": 1.5,
+          "unit": "cups",
+          "grams": 300
+        },
+        {
+          "name": "regular rice",
+          "quantity": 0.5,
+          "unit": "cups",
+          "grams": 100
+        },
+        {
+          "name": "urad dal (skinned black gram)",
+          "quantity": 0.5,
+          "unit": "cups",
+          "grams": 100
+        },
+        {
+          "name": "poha (flattened rice)",
+          "quantity": 0.25,
+          "unit": "cups",
+          "grams": 20
+        },
+        {
+          "name": "fenugreek seeds",
+          "quantity": 0.5,
+          "unit": "tsp"
+        },
+        {
+          "name": "salt",
+          "quantity": 1.25,
+          "unit": "tsp"
+        },
+        {
+          "name": "water",
+          "quantity": 700,
+          "unit": "ml",
+          "prep": "as needed to grind and ferment"
+        },
+        {
+          "name": "oil or ghee (for cooking dosa)",
+          "quantity": 3,
+          "unit": "tbsp"
+        },
+        {
+          "name": "potatoes",
+          "quantity": 3,
+          "unit": "medium",
+          "grams": 450,
+          "prep": "boiled and crumbled"
+        },
+        {
+          "name": "onion",
+          "quantity": 1,
+          "unit": "large",
+          "grams": 120,
+          "prep": "sliced"
+        },
+        {
+          "name": "green chilli",
+          "quantity": 2,
+          "unit": "pieces",
+          "prep": "slit"
+        },
+        {
+          "name": "mustard seeds",
+          "quantity": 0.5,
+          "unit": "tsp"
+        },
+        {
+          "name": "urad dal (for tempering)",
+          "quantity": 0.5,
+          "unit": "tsp"
+        },
+        {
+          "name": "chana dal (for tempering)",
+          "quantity": 0.5,
+          "unit": "tsp"
+        },
+        {
+          "name": "turmeric",
+          "quantity": 0.25,
+          "unit": "tsp"
+        },
+        {
+          "name": "curry leaves",
+          "quantity": 8,
+          "unit": "leaves"
+        },
+        {
+          "name": "lemon juice",
+          "quantity": 1,
+          "unit": "tsp"
+        },
+        {
+          "name": "salt (for masala)",
+          "quantity": 0.75,
+          "unit": "tsp"
+        }
+      ],
+      "equipment": [
+        "grinder/blender",
+        "bowl",
+        "tawa",
+        "ladle",
+        "spatula"
+      ],
+      "steps": [
+        {
+          "step": 1,
+          "instruction": "Soak both rices together with poha and fenugreek for 4–6 hrs. Soak urad dal separately for 4–6 hrs.",
+          "duration_minutes": 360
+        },
+        {
+          "step": 2,
+          "instruction": "Grind urad dal with some water to a fluffy batter. Grind rice mixture to a slightly coarse batter. Mix both, add 1 tsp salt, and ferment 8–12 hrs until doubled.",
+          "duration_minutes": 600
+        },
+        {
+          "step": 3,
+          "instruction": "Prepare potato masala: Heat 1 tbsp oil, splutter mustard seeds, add urad dal, chana dal, curry leaves, slit chillies; sauté 1 min. Add onions; sauté till translucent. Add turmeric, potatoes, 0.75 tsp salt, lemon juice; mix. Add a splash of water if dry.",
+          "duration_minutes": 12
+        },
+        {
+          "step": 4,
+          "instruction": "Make dosas: Heat tawa. Pour a ladle of batter and spread to thin circle. Drizzle oil/ghee; cook till crisp. Place potato masala and fold.",
+          "duration_minutes": 15
+        }
+      ],
+      "nutrition_per_serving": {
+        "energy_kcal": 360,
+        "protein_g": 9,
+        "carbs_g": 68,
+        "fat_g": 6
+      },
+      "image": "images/masala_dosa.jpg",
+      "keywords": [
+        "dosa",
+        "south indian",
+        "potato",
+        "fermented"
+      ]
+    },
+    {
+      "id": "pulao-005",
+      "name": "Vegetable Pulao",
+      "cuisine": "Asian",
+      "category": "Brunch",
+      "tags": [
+        "vegetarian",
+        "one-pot"
+      ],
+      "servings": 4,
+      "prep_minutes": 15,
+      "cook_minutes": 25,
+      "ingredients": [
+        {
+          "name": "basmati rice",
+          "quantity": 1.5,
+          "unit": "cups",
+          "grams": 300,
+          "prep": "rinse and soak 20 minutes"
+        },
+        {
+          "name": "oil or ghee",
+          "quantity": 2,
+          "unit": "tbsp"
+        },
+        {
+          "name": "cumin seeds",
+          "quantity": 1,
+          "unit": "tsp"
+        },
+        {
+          "name": "bay leaf",
+          "quantity": 1,
+          "unit": "piece"
+        },
+        {
+          "name": "cloves",
+          "quantity": 3,
+          "unit": "pieces"
+        },
+        {
+          "name": "green cardamom",
+          "quantity": 3,
+          "unit": "pods"
+        },
+        {
+          "name": "cinnamon",
+          "quantity": 1,
+          "unit": "inch"
+        },
+        {
+          "name": "onion",
+          "quantity": 1,
+          "unit": "medium",
+          "grams": 100,
+          "prep": "sliced"
+        },
+        {
+          "name": "ginger-garlic paste",
+          "quantity": 1,
+          "unit": "tsp"
+        },
+        {
+          "name": "mixed vegetables (carrot, peas, beans)",
+          "quantity": 2,
+          "unit": "cups",
+          "grams": 250,
+          "prep": "diced"
+        },
+        {
+          "name": "green chilli",
+          "quantity": 1,
+          "unit": "piece",
+          "optional": true
+        },
+        {
+          "name": "water",
+          "quantity": 2.5,
+          "unit": "cups",
+          "ml": 600
+        },
+        {
+          "name": "salt",
+          "quantity": 1.25,
+          "unit": "tsp"
+        }
+      ],
+      "equipment": [
+        "deep pan or pressure cooker",
+        "spatula"
+      ],
+      "steps": [
+        {
+          "step": 1,
+          "instruction": "Heat ghee/oil. Add cumin, bay leaf, cloves, cardamom, cinnamon; sauté 30–40 seconds until aromatic.",
+          "duration_minutes": 1
+        },
+        {
+          "step": 2,
+          "instruction": "Add onions; sauté until light golden (5 minutes). Add ginger-garlic paste; sauté 30 seconds.",
+          "duration_minutes": 6
+        },
+        {
+          "step": 3,
+          "instruction": "Add mixed vegetables and green chilli; sauté 2 minutes.",
+          "duration_minutes": 2
+        },
+        {
+          "step": 4,
+          "instruction": "Add drained rice and 2.5 cups water; add salt. Bring to boil, then cover and simmer on low 12–14 minutes until rice is cooked and water absorbed.",
+          "duration_minutes": 14
+        },
+        {
+          "step": 5,
+          "instruction": "Rest covered 5 minutes; fluff with fork.",
+          "duration_minutes": 5
+        }
+      ],
+      "nutrition_per_serving": {
+        "energy_kcal": 300,
+        "protein_g": 6,
+        "carbs_g": 58,
+        "fat_g": 6
+      },
+      "image": "images/veg_pulao.jpg",
+      "keywords": [
+        "pulao",
+        "rice",
+        "veg"
+      ]
+    },
+    {
+      "id": "dal-006",
+      "name": "Dal Tadka (Toor/Arhar)",
+      "cuisine": "Asian",
+      "category": "Dinner",
+      "tags": [
+        "vegetarian",
+        "gluten-free"
+      ],
+      "servings": 4,
+      "prep_minutes": 10,
+      "cook_minutes": 25,
+      "ingredients": [
+        {
+          "name": "toor dal (split pigeon peas)",
+          "quantity": 1,
+          "unit": "cup",
+          "grams": 200,
+          "prep": "rinsed"
+        },
+        {
+          "name": "turmeric",
+          "quantity": 0.5,
+          "unit": "tsp"
+        },
+        {
+          "name": "salt",
+          "quantity": 1,
+          "unit": "tsp"
+        },
+        {
+          "name": "water",
+          "quantity": 700,
+          "unit": "ml"
+        },
+        {
+          "name": "ghee or oil",
+          "quantity": 2,
+          "unit": "tbsp"
+        },
+        {
+          "name": "cumin seeds",
+          "quantity": 1,
+          "unit": "tsp"
+        },
+        {
+          "name": "garlic",
+          "quantity": 4,
+          "unit": "cloves",
+          "prep": "sliced"
+        },
+        {
+          "name": "green chilli",
+          "quantity": 1,
+          "unit": "piece",
+          "prep": "slit",
+          "optional": true
+        },
+        {
+          "name": "onion",
+          "quantity": 1,
+          "unit": "small",
+          "grams": 60,
+          "prep": "finely chopped"
+        },
+        {
+          "name": "tomato",
+          "quantity": 1,
+          "unit": "small",
+          "grams": 80,
+          "prep": "chopped"
+        },
+        {
+          "name": "red chilli powder",
+          "quantity": 0.5,
+          "unit": "tsp"
+        },
+        {
+          "name": "hing (asafoetida)",
+          "quantity": 1,
+          "unit": "pinch"
+        },
+        {
+          "name": "fresh coriander",
+          "quantity": 2,
+          "unit": "tbsp",
+          "prep": "chopped"
+        }
+      ],
+      "equipment": [
+        "pressure cooker or instant pot",
+        "small pan for tempering"
+      ],
+      "steps": [
+        {
+          "step": 1,
+          "instruction": "Pressure-cook dal with 500 ml water, turmeric, and 0.5 tsp salt for 4–5 whistles (Instant Pot 10 min high). Whisk to smooth.",
+          "duration_minutes": 20
+        },
+        {
+          "step": 2,
+          "instruction": "Heat ghee for tadka. Add cumin, garlic, hing, and green chilli; sauté 1 minute. Add onion; sauté till light golden. Add tomato and chilli powder; cook 2 minutes.",
+          "duration_minutes": 5
+        },
+        {
+          "step": 3,
+          "instruction": "Pour tadka into dal, add remaining salt, and simmer 3 minutes. Garnish with coriander.",
+          "duration_minutes": 5
+        }
+      ],
+      "nutrition_per_serving": {
+        "energy_kcal": 220,
+        "protein_g": 10,
+        "carbs_g": 30,
+        "fat_g": 7
+      },
+      "image": "images/dal_tadka.jpg",
+      "keywords": [
+        "dal",
+        "toor",
+        "arhar"
+      ]
+    },
+    {
+      "id": "rajma-007",
+      "name": "Rajma Masala",
+      "cuisine": "Asian",
+      "category": "Lunch",
+      "tags": [
+        "vegetarian",
+        "legumes",
+        "north indian"
+      ],
+      "servings": 4,
+      "prep_minutes": 15,
+      "cook_minutes": 45,
+      "ingredients": [
+        {
+          "name": "dried kidney beans (rajma)",
+          "quantity": 250,
+          "unit": "g",
+          "prep": "soaked 8–10 hrs"
+        },
+        {
+          "name": "onion",
+          "quantity": 2,
+          "unit": "medium",
+          "grams": 200,
+          "prep": "finely chopped"
+        },
+        {
+          "name": "tomato",
+          "quantity": 3,
+          "unit": "medium",
+          "grams": 350,
+          "prep": "pureed"
+        },
+        {
+          "name": "ginger-garlic paste",
+          "quantity": 1.5,
+          "unit": "tbsp"
+        },
+        {
+          "name": "oil",
+          "quantity": 2,
+          "unit": "tbsp"
+        },
+        {
+          "name": "cumin seeds",
+          "quantity": 1,
+          "unit": "tsp"
+        },
+        {
+          "name": "coriander powder",
+          "quantity": 2,
+          "unit": "tsp"
+        },
+        {
+          "name": "kashmiri red chilli powder",
+          "quantity": 1.5,
+          "unit": "tsp"
+        },
+        {
+          "name": "turmeric",
+          "quantity": 0.5,
+          "unit": "tsp"
+        },
+        {
+          "name": "garam masala",
+          "quantity": 1,
+          "unit": "tsp"
+        },
+        {
+          "name": "salt",
+          "quantity": 1.25,
+          "unit": "tsp"
+        },
+        {
+          "name": "water",
+          "quantity": 800,
+          "unit": "ml"
+        },
+        {
+          "name": "fresh coriander",
+          "quantity": 2,
+          "unit": "tbsp",
+          "prep": "chopped",
+          "optional": true
+        }
+      ],
+      "equipment": [
+        "pressure cooker or instant pot",
+        "kadhai"
+      ],
+      "steps": [
+        {
+          "step": 1,
+          "instruction": "Pressure-cook soaked rajma with 600 ml water and 0.5 tsp salt for 6–7 whistles (Instant Pot 30 min high).",
+          "duration_minutes": 35
+        },
+        {
+          "step": 2,
+          "instruction": "Heat oil; add cumin. Add onions and sauté until golden-brown (8–10 minutes).",
+          "duration_minutes": 10
+        },
+        {
+          "step": 3,
+          "instruction": "Add ginger-garlic paste; sauté 1 min. Add tomato puree and cook until oil separates (10 minutes).",
+          "duration_minutes": 10
+        },
+        {
+          "step": 4,
+          "instruction": "Add coriander, chilli, turmeric, and garam masala; cook 1 minute.",
+          "duration_minutes": 1
+        },
+        {
+          "step": 5,
+          "instruction": "Add boiled rajma with cooking liquid. Add extra water for desired consistency. Simmer 12–15 minutes.",
+          "duration_minutes": 15
+        },
+        {
+          "step": 6,
+          "instruction": "Adjust salt; garnish with coriander.",
+          "duration_minutes": 2
+        }
+      ],
+      "nutrition_per_serving": {
+        "energy_kcal": 310,
+        "protein_g": 14,
+        "carbs_g": 47,
+        "fat_g": 7
+      },
+      "image": "images/rajma.jpg",
+      "keywords": [
+        "rajma",
+        "kidney beans"
+      ]
+    },
+    {
+      "id": "palak-008",
+      "name": "Palak Paneer",
+      "cuisine": "Asian",
+      "category": "Dinner",
+      "tags": [
+        "vegetarian",
+        "north indian",
+        "greens"
+      ],
+      "servings": 4,
+      "prep_minutes": 15,
+      "cook_minutes": 25,
+      "ingredients": [
+        {
+          "name": "spinach (palak)",
+          "quantity": 500,
+          "unit": "g",
+          "prep": "washed and blanched 2 min"
+        },
+        {
+          "name": "paneer",
+          "quantity": 250,
+          "unit": "g",
+          "prep": "cubed"
+        },
+        {
+          "name": "oil or ghee",
+          "quantity": 2,
+          "unit": "tbsp"
+        },
+        {
+          "name": "cumin seeds",
+          "quantity": 1,
+          "unit": "tsp"
+        },
+        {
+          "name": "onion",
+          "quantity": 1,
+          "unit": "medium",
+          "grams": 100,
+          "prep": "chopped"
+        },
+        {
+          "name": "ginger-garlic paste",
+          "quantity": 1,
+          "unit": "tbsp"
+        },
+        {
+          "name": "green chilli",
+          "quantity": 1,
+          "unit": "piece",
+          "prep": "chopped"
+        },
+        {
+          "name": "tomato",
+          "quantity": 1,
+          "unit": "small",
+          "grams": 80,
+          "prep": "chopped",
+          "optional": true
+        },
+        {
+          "name": "turmeric",
+          "quantity": 0.25,
+          "unit": "tsp"
+        },
+        {
+          "name": "garam masala",
+          "quantity": 0.5,
+          "unit": "tsp"
+        },
+        {
+          "name": "fresh cream",
+          "quantity": 2,
+          "unit": "tbsp",
+          "optional": true
+        },
+        {
+          "name": "salt",
+          "quantity": 1,
+          "unit": "tsp"
+        }
+      ],
+      "equipment": [
+        "blender",
+        "kadhai"
+      ],
+      "steps": [
+        {
+          "step": 1,
+          "instruction": "Blanch spinach in boiling water for 2 minutes; drain and blend to a smooth puree.",
+          "duration_minutes": 5
+        },
+        {
+          "step": 2,
+          "instruction": "Heat oil/ghee; add cumin. Add onion and sauté till translucent. Add ginger-garlic and green chilli; sauté 1 minute.",
+          "duration_minutes": 5
+        },
+        {
+          "step": 3,
+          "instruction": "Add tomato (optional), turmeric, and salt; cook 2 minutes.",
+          "duration_minutes": 2
+        },
+        {
+          "step": 4,
+          "instruction": "Add spinach puree; cook 3–4 minutes. Add paneer and garam masala; simmer 3 minutes.",
+          "duration_minutes": 7
+        },
+        {
+          "step": 5,
+          "instruction": "Finish with cream (optional).",
+          "duration_minutes": 1
+        }
+      ],
+      "nutrition_per_serving": {
+        "energy_kcal": 260,
+        "protein_g": 12,
+        "carbs_g": 10,
+        "fat_g": 20
+      },
+      "image": "images/palak_paneer.jpg",
+      "keywords": [
+        "spinach",
+        "paneer"
+      ]
+    },
+    {
+      "id": "chicken-009",
+      "name": "Homestyle Chicken Curry",
+      "cuisine": "Asian",
+      "category": "Brunch",
+      "tags": [
+        "non-vegetarian",
+        "north indian"
+      ],
+      "servings": 4,
+      "prep_minutes": 15,
+      "cook_minutes": 35,
+      "ingredients": [
+        {
+          "name": "chicken (bone-in)",
+          "quantity": 700,
+          "unit": "g",
+          "prep": "cleaned and cut"
+        },
+        {
+          "name": "oil",
+          "quantity": 3,
+          "unit": "tbsp"
+        },
+        {
+          "name": "onion",
+          "quantity": 2,
+          "unit": "medium",
+          "grams": 220,
+          "prep": "finely sliced"
+        },
+        {
+          "name": "tomato",
+          "quantity": 2,
+          "unit": "medium",
+          "grams": 220,
+          "prep": "chopped"
+        },
+        {
+          "name": "ginger-garlic paste",
+          "quantity": 1.5,
+          "unit": "tbsp"
+        },
+        {
+          "name": "cumin seeds",
+          "quantity": 1,
+          "unit": "tsp"
+        },
+        {
+          "name": "coriander powder",
+          "quantity": 2,
+          "unit": "tsp"
+        },
+        {
+          "name": "red chilli powder",
+          "quantity": 1,
+          "unit": "tsp"
+        },
+        {
+          "name": "turmeric",
+          "quantity": 0.5,
+          "unit": "tsp"
+        },
+        {
+          "name": "garam masala",
+          "quantity": 1,
+          "unit": "tsp"
+        },
+        {
+          "name": "salt",
+          "quantity": 1.25,
+          "unit": "tsp"
+        },
+        {
+          "name": "water",
+          "quantity": 400,
+          "unit": "ml"
+        },
+        {
+          "name": "fresh coriander",
+          "quantity": 2,
+          "unit": "tbsp",
+          "prep": "chopped"
+        }
+      ],
+      "equipment": [
+        "deep pan/kadhai",
+        "lid"
+      ],
+      "steps": [
+        {
+          "step": 1,
+          "instruction": "Heat oil; add cumin. Add onions and sauté until deep golden (10–12 minutes).",
+          "duration_minutes": 12
+        },
+        {
+          "step": 2,
+          "instruction": "Add ginger-garlic paste and cook 1 minute. Add tomatoes; cook until mushy and oil separates (6–8 minutes).",
+          "duration_minutes": 8
+        },
+        {
+          "step": 3,
+          "instruction": "Add coriander, chilli, turmeric, and salt; cook 1 minute.",
+          "duration_minutes": 1
+        },
+        {
+          "step": 4,
+          "instruction": "Add chicken pieces; sauté on high heat 3–4 minutes to seal.",
+          "duration_minutes": 4
+        },
+        {
+          "step": 5,
+          "instruction": "Add water, cover, and simmer 18–20 minutes until chicken is tender.",
+          "duration_minutes": 20
+        },
+        {
+          "step": 6,
+          "instruction": "Sprinkle garam masala and coriander; simmer 1 minute.",
+          "duration_minutes": 1
+        }
+      ],
+      "nutrition_per_serving": {
+        "energy_kcal": 360,
+        "protein_g": 28,
+        "carbs_g": 8,
+        "fat_g": 22
+      },
+      "image": "images/chicken_curry.jpg",
+      "keywords": [
+        "chicken",
+        "curry"
+      ]
+    },
+    {
+      "id": "biryani-010",
+      "name": "Vegetable Biryani (Dum)",
+      "cuisine": "Asian",
+      "category": "Lunch",
+      "tags": [
+        "vegetarian",
+        "rice",
+        "festival"
+      ],
+      "servings": 4,
+      "prep_minutes": 25,
+      "cook_minutes": 45,
+      "ingredients": [
+        {
+          "name": "basmati rice",
+          "quantity": 1.5,
+          "unit": "cups",
+          "grams": 300,
+          "prep": "rinse and soak 30 min"
+        },
+        {
+          "name": "mixed vegetables (carrot, beans, peas, cauliflower)",
+          "quantity": 2,
+          "unit": "cups",
+          "grams": 300,
+          "prep": "chopped"
+        },
+        {
+          "name": "onion",
+          "quantity": 2,
+          "unit": "large",
+          "grams": 240,
+          "prep": "thinly sliced"
+        },
+        {
+          "name": "tomato",
+          "quantity": 1,
+          "unit": "medium",
+          "grams": 100,
+          "prep": "chopped"
+        },
+        {
+          "name": "yogurt",
+          "quantity": 0.5,
+          "unit": "cup",
+          "ml": 120,
+          "prep": "whisked"
+        },
+        {
+          "name": "ginger-garlic paste",
+          "quantity": 1.5,
+          "unit": "tbsp"
+        },
+        {
+          "name": "biryani masala",
+          "quantity": 2,
+          "unit": "tsp"
+        },
+        {
+          "name": "turmeric",
+          "quantity": 0.25,
+          "unit": "tsp"
+        },
+        {
+          "name": "mint leaves",
+          "quantity": 0.5,
+          "unit": "cup",
+          "prep": "chopped"
+        },
+        {
+          "name": "coriander leaves",
+          "quantity": 0.5,
+          "unit": "cup",
+          "prep": "chopped"
+        },
+        {
+          "name": "whole spices (bay leaf, cardamom 4, cloves 4, cinnamon 1 inch)",
+          "quantity": 1,
+          "unit": "set"
+        },
+        {
+          "name": "milk with saffron",
+          "quantity": 3,
+          "unit": "tbsp"
+        },
+        {
+          "name": "ghee",
+          "quantity": 3,
+          "unit": "tbsp"
+        },
+        {
+          "name": "salt",
+          "quantity": 1.5,
+          "unit": "tsp"
+        },
+        {
+          "name": "water",
+          "quantity": 2.5,
+          "unit": "cups",
+          "ml": 600
+        }
+      ],
+      "equipment": [
+        "heavy-bottom pot",
+        "lid",
+        "tawa for dum"
+      ],
+      "steps": [
+        {
+          "step": 1,
+          "instruction": "Cook rice 70%: Boil 2.5 cups salted water with whole spices. Add soaked rice; cook 6–7 minutes until just done. Drain.",
+          "duration_minutes": 10
+        },
+        {
+          "step": 2,
+          "instruction": "Fry onions in 2 tbsp ghee until golden-brown; remove half for garnish.",
+          "duration_minutes": 12
+        },
+        {
+          "step": 3,
+          "instruction": "To remaining onions add ginger-garlic, tomatoes, turmeric, biryani masala; cook 2–3 min. Add veggies, yogurt, mint, coriander, and 0.5 tsp salt; cook 5 minutes.",
+          "duration_minutes": 10
+        },
+        {
+          "step": 4,
+          "instruction": "Layer: Half rice, then veg masala, then remaining rice. Top with fried onions, saffron milk, and 1 tbsp ghee.",
+          "duration_minutes": 5
+        },
+        {
+          "step": 5,
+          "instruction": "Seal and cook on very low heat (dum) for 20 minutes. Rest 5 minutes before serving.",
+          "duration_minutes": 25
+        }
+      ],
+      "nutrition_per_serving": {
+        "energy_kcal": 420,
+        "protein_g": 9,
+        "carbs_g": 75,
+        "fat_g": 10
+      },
+      "image": "images/veg_biryani.jpg",
+      "keywords": [
+        "biryani",
+        "veg",
+        "dum"
+      ]
+    },
+    {
+      "id": "poha-011",
+      "name": "Kanda Poha",
+      "cuisine": "Asain",
+      "category": "Breakfast",
+      "tags": [
+        "vegetarian",
+        "quick"
+      ],
+      "servings": 3,
+      "prep_minutes": 10,
+      "cook_minutes": 10,
+      "ingredients": [
+        {
+          "name": "thick poha (flattened rice)",
+          "quantity": 2,
+          "unit": "cups",
+          "grams": 180
+        },
+        {
+          "name": "oil",
+          "quantity": 1.5,
+          "unit": "tbsp"
+        },
+        {
+          "name": "mustard seeds",
+          "quantity": 0.5,
+          "unit": "tsp"
+        },
+        {
+          "name": "cumin seeds",
+          "quantity": 0.5,
+          "unit": "tsp"
+        },
+        {
+          "name": "peanuts",
+          "quantity": 3,
+          "unit": "tbsp"
+        },
+        {
+          "name": "onion",
+          "quantity": 1,
+          "unit": "medium",
+          "grams": 100,
+          "prep": "finely chopped"
+        },
+        {
+          "name": "green chilli",
+          "quantity": 1,
+          "unit": "piece",
+          "prep": "chopped"
+        },
+        {
+          "name": "turmeric",
+          "quantity": 0.25,
+          "unit": "tsp"
+        },
+        {
+          "name": "salt",
+          "quantity": 0.75,
+          "unit": "tsp"
+        },
+        {
+          "name": "sugar",
+          "quantity": 0.5,
+          "unit": "tsp",
+          "optional": true
+        },
+        {
+          "name": "lemon juice",
+          "quantity": 1,
+          "unit": "tbsp"
+        },
+        {
+          "name": "fresh coriander",
+          "quantity": 2,
+          "unit": "tbsp",
+          "prep": "chopped"
+        }
+      ],
+      "equipment": [
+        "sieve",
+        "kadhai"
+      ],
+      "steps": [
+        {
+          "step": 1,
+          "instruction": "Rinse poha in a sieve under running water for 10–15 seconds; drain well. Sprinkle 2 tbsp water if very dry.",
+          "duration_minutes": 2
+        },
+        {
+          "step": 2,
+          "instruction": "Heat oil; splutter mustard and cumin. Add peanuts; fry 1–2 minutes. Add onion and green chilli; sauté till translucent.",
+          "duration_minutes": 4
+        },
+        {
+          "step": 3,
+          "instruction": "Add turmeric and salt. Add poha, sugar if using; mix gently and cook 2–3 minutes on low. Switch off; add lemon juice and coriander.",
+          "duration_minutes": 5
+        }
+      ],
+      "nutrition_per_serving": {
+        "energy_kcal": 260,
+        "protein_g": 6,
+        "carbs_g": 40,
+        "fat_g": 8
+      },
+      "image": "images/poha.jpg",
+      "keywords": [
+        "poha",
+        "breakfast"
+      ]
+    },
+    {
+      "id": "upma-012",
+      "name": "Vegetable Upma",
+      "cuisine": "Asian",
+      "category": "Breakfast",
+      "tags": [
+        "vegetarian",
+        "quick"
+      ],
+      "servings": 3,
+      "prep_minutes": 10,
+      "cook_minutes": 15,
+      "ingredients": [
+        {
+          "name": "semolina (rava/sooji)",
+          "quantity": 1,
+          "unit": "cup",
+          "grams": 180,
+          "prep": "dry roast 3–4 minutes"
+        },
+        {
+          "name": "oil or ghee",
+          "quantity": 1.5,
+          "unit": "tbsp"
+        },
+        {
+          "name": "mustard seeds",
+          "quantity": 0.5,
+          "unit": "tsp"
+        },
+        {
+          "name": "urad dal",
+          "quantity": 0.5,
+          "unit": "tsp"
+        },
+        {
+          "name": "chana dal",
+          "quantity": 0.5,
+          "unit": "tsp"
+        },
+        {
+          "name": "curry leaves",
+          "quantity": 8,
+          "unit": "leaves"
+        },
+        {
+          "name": "green chilli",
+          "quantity": 1,
+          "unit": "piece",
+          "prep": "chopped"
+        },
+        {
+          "name": "onion",
+          "quantity": 1,
+          "unit": "small",
+          "grams": 60,
+          "prep": "chopped"
+        },
+        {
+          "name": "mixed vegetables (carrot, peas)",
+          "quantity": 0.5,
+          "unit": "cup",
+          "grams": 70,
+          "prep": "chopped"
+        },
+        {
+          "name": "water",
+          "quantity": 2.5,
+          "unit": "cups",
+          "ml": 600
+        },
+        {
+          "name": "salt",
+          "quantity": 1,
+          "unit": "tsp"
+        }
+      ],
+      "equipment": [
+        "pan",
+        "spatula"
+      ],
+      "steps": [
+        {
+          "step": 1,
+          "instruction": "Dry roast semolina until aromatic; set aside.",
+          "duration_minutes": 4
+        },
+        {
+          "step": 2,
+          "instruction": "Heat oil/ghee. Splutter mustard; add urad dal, chana dal, curry leaves, and chilli; sauté 1 minute. Add onion and veggies; sauté 2–3 minutes.",
+          "duration_minutes": 4
+        },
+        {
+          "step": 3,
+          "instruction": "Add water and salt; bring to a rolling boil. Gradually add semolina, stirring constantly to avoid lumps. Cook 2–3 minutes until thick.",
+          "duration_minutes": 5
+        },
+        {
+          "step": 4,
+          "instruction": "Cover and rest 2 minutes; fluff and serve.",
+          "duration_minutes": 2
+        }
+      ],
+      "nutrition_per_serving": {
+        "energy_kcal": 260,
+        "protein_g": 7,
+        "carbs_g": 42,
+        "fat_g": 7
+      },
+      "image": "images/upma.jpg",
+      "keywords": [
+        "upma",
+        "sooji"
+      ]
+    },
+    {
+      "id": "aloogobi-013",
+      "name": "Aloo Gobi (Dry)",
+      "cuisine": "Indian",
+      "category": "Lunch",
+      "tags": [
+        "vegetarian",
+        "north indian"
+      ],
+      "servings": 4,
+      "prep_minutes": 10,
+      "cook_minutes": 25,
+      "ingredients": [
+        {
+          "name": "potatoes",
+          "quantity": 2,
+          "unit": "medium",
+          "grams": 350,
+          "prep": "cubed"
+        },
+        {
+          "name": "cauliflower florets",
+          "quantity": 3,
+          "unit": "cups",
+          "grams": 300
+        },
+        {
+          "name": "oil",
+          "quantity": 2,
+          "unit": "tbsp"
+        },
+        {
+          "name": "cumin seeds",
+          "quantity": 1,
+          "unit": "tsp"
+        },
+        {
+          "name": "turmeric",
+          "quantity": 0.5,
+          "unit": "tsp"
+        },
+        {
+          "name": "coriander powder",
+          "quantity": 1.5,
+          "unit": "tsp"
+        },
+        {
+          "name": "red chilli powder",
+          "quantity": 0.5,
+          "unit": "tsp"
+        },
+        {
+          "name": "garam masala",
+          "quantity": 0.5,
+          "unit": "tsp"
+        },
+        {
+          "name": "salt",
+          "quantity": 1,
+          "unit": "tsp"
+        },
+        {
+          "name": "fresh coriander",
+          "quantity": 2,
+          "unit": "tbsp",
+          "prep": "chopped"
+        }
+      ],
+      "equipment": [
+        "kadhai",
+        "lid"
+      ],
+      "steps": [
+        {
+          "step": 1,
+          "instruction": "Heat oil; add cumin. Add potatoes and sauté 3 minutes.",
+          "duration_minutes": 3
+        },
+        {
+          "step": 2,
+          "instruction": "Add cauliflower, turmeric, coriander powder, chilli powder, and salt; mix well.",
+          "duration_minutes": 2
+        },
+        {
+          "step": 3,
+          "instruction": "Cover and cook on low, stirring occasionally, for 12–15 minutes until tender.",
+          "duration_minutes": 15
+        },
+        {
+          "step": 4,
+          "instruction": "Sprinkle garam masala and coriander; toss and cook 1 minute.",
+          "duration_minutes": 1
+        }
+      ],
+      "nutrition_per_serving": {
+        "energy_kcal": 190,
+        "protein_g": 5,
+        "carbs_g": 28,
+        "fat_g": 6
+      },
+      "image": "images/aloo_gobi.jpg",
+      "keywords": [
+        "aloo gobi",
+        "cauliflower",
+        "potato"
+      ]
+    },
+    {
+      "id": "bhindi-014",
+      "name": "Bhindi Masala",
+      "cuisine": "Asian",
+      "category": "Dinner",
+      "tags": [
+        "vegetarian",
+        "gluten-free"
+      ],
+      "servings": 4,
+      "prep_minutes": 10,
+      "cook_minutes": 20,
+      "ingredients": [
+        {
+          "name": "bhindi (okra)",
+          "quantity": 400,
+          "unit": "g",
+          "prep": "washed, dried, cut into 3–4 cm pieces"
+        },
+        {
+          "name": "oil",
+          "quantity": 3,
+          "unit": "tbsp"
+        },
+        {
+          "name": "onion",
+          "quantity": 1,
+          "unit": "medium",
+          "grams": 100,
+          "prep": "sliced"
+        },
+        {
+          "name": "tomato",
+          "quantity": 1,
+          "unit": "medium",
+          "grams": 100,
+          "prep": "chopped"
+        },
+        {
+          "name": "cumin seeds",
+          "quantity": 1,
+          "unit": "tsp"
+        },
+        {
+          "name": "turmeric",
+          "quantity": 0.5,
+          "unit": "tsp"
+        },
+        {
+          "name": "coriander powder",
+          "quantity": 1,
+          "unit": "tsp"
+        },
+        {
+          "name": "red chilli powder",
+          "quantity": 0.5,
+          "unit": "tsp"
+        },
+        {
+          "name": "amchur",
+          "quantity": 0.5,
+          "unit": "tsp"
+        },
+        {
+          "name": "salt",
+          "quantity": 1,
+          "unit": "tsp"
+        }
+      ],
+      "equipment": [
+        "kadhai"
+      ],
+      "steps": [
+        {
+          "step": 1,
+          "instruction": "Heat 2 tbsp oil; sauté bhindi on medium until non-sticky and lightly browned (8–10 minutes). Remove.",
+          "duration_minutes": 10
+        },
+        {
+          "step": 2,
+          "instruction": "In same pan heat 1 tbsp oil; add cumin, onion and sauté 3–4 minutes. Add tomato, turmeric, coriander, chilli; cook 3 minutes.",
+          "duration_minutes": 7
+        },
+        {
+          "step": 3,
+          "instruction": "Return bhindi; add amchur and salt; toss and cook 2 minutes.",
+          "duration_minutes": 2
+        }
+      ],
+      "nutrition_per_serving": {
+        "energy_kcal": 160,
+        "protein_g": 4,
+        "carbs_g": 14,
+        "fat_g": 10
+      },
+      "image": "images/bhindi_masala.jpg",
+      "keywords": [
+        "bhindi",
+        "okra"
+      ]
+    },
+    {
+      "id": "fish-015",
+      "name": "Goan Fish Curry",
+      "cuisine": "Asian",
+      "category": "Brunch",
+      "tags": [
+        "non-vegetarian",
+        "seafood",
+        "goan"
+      ],
+      "servings": 4,
+      "prep_minutes": 15,
+      "cook_minutes": 20,
+      "ingredients": [
+        {
+          "name": "firm white fish (pomfret/cod/king fish)",
+          "quantity": 600,
+          "unit": "g",
+          "prep": "cleaned, 3–4 cm pieces"
+        },
+        {
+          "name": "oil",
+          "quantity": 2,
+          "unit": "tbsp"
+        },
+        {
+          "name": "onion",
+          "quantity": 1,
+          "unit": "medium",
+          "grams": 100,
+          "prep": "chopped"
+        },
+        {
+          "name": "curry leaves",
+          "quantity": 8,
+          "unit": "leaves"
+        },
+        {
+          "name": "coconut milk",
+          "quantity": 400,
+          "unit": "ml"
+        },
+        {
+          "name": "tamarind pulp",
+          "quantity": 1,
+          "unit": "tbsp"
+        },
+        {
+          "name": "kashmiri red chilli powder",
+          "quantity": 1.5,
+          "unit": "tsp"
+        },
+        {
+          "name": "turmeric",
+          "quantity": 0.5,
+          "unit": "tsp"
+        },
+        {
+          "name": "coriander powder",
+          "quantity": 1,
+          "unit": "tsp"
+        },
+        {
+          "name": "salt",
+          "quantity": 1,
+          "unit": "tsp"
+        }
+      ],
+      "equipment": [
+        "deep pan"
+      ],
+      "steps": [
+        {
+          "step": 1,
+          "instruction": "Heat oil; sauté onion and curry leaves 3–4 minutes.",
+          "duration_minutes": 4
+        },
+        {
+          "step": 2,
+          "instruction": "Add chilli, turmeric, coriander; cook 30 seconds. Add coconut milk, tamarind, and salt; bring to gentle simmer.",
+          "duration_minutes": 3
+        },
+        {
+          "step": 3,
+          "instruction": "Add fish pieces; simmer on low 7–8 minutes until cooked through. Rest 2 minutes before serving.",
+          "duration_minutes": 10
+        }
+      ],
+      "nutrition_per_serving": {
+        "energy_kcal": 330,
+        "protein_g": 26,
+        "carbs_g": 6,
+        "fat_g": 22
+      },
+      "image": "images/fish_curry.jpg",
+      "keywords": [
+        "fish curry",
+        "goa",
+        "coconut"
+      ]
+    },
+    {
+      "id": "jamun-016",
+      "name": "Gulab Jamun (Khoya)",
+      "cuisine": "Asn",
+      "category": "Dessert",
+      "tags": [
+        "sweet",
+        "festival"
+      ],
+      "servings": 6,
+      "prep_minutes": 20,
+      "cook_minutes": 30,
+      "ingredients": [
+        {
+          "name": "khoya/mawa (unsweetened)",
+          "quantity": 200,
+          "unit": "g"
+        },
+        {
+          "name": "paneer (fresh/soft)",
+          "quantity": 60,
+          "unit": "g"
+        },
+        {
+          "name": "maida (all-purpose flour)",
+          "quantity": 3,
+          "unit": "tbsp",
+          "grams": 24
+        },
+        {
+          "name": "baking powder",
+          "quantity": 0.25,
+          "unit": "tsp"
+        },
+        {
+          "name": "milk",
+          "quantity": 2,
+          "unit": "tbsp",
+          "prep": "as needed to bind"
+        },
+        {
+          "name": "ghee or oil (for frying)",
+          "quantity": 400,
+          "unit": "ml"
+        },
+        {
+          "name": "sugar",
+          "quantity": 2,
+          "unit": "cups",
+          "grams": 400
+        },
+        {
+          "name": "water",
+          "quantity": 1.5,
+          "unit": "cups",
+          "ml": 360
+        },
+        {
+          "name": "cardamom pods",
+          "quantity": 4,
+          "unit": "pods",
+          "prep": "crushed"
+        },
+        {
+          "name": "rose water",
+          "quantity": 1,
+          "unit": "tsp",
+          "optional": true
+        }
+      ],
+      "equipment": [
+        "deep pan/kadai",
+        "slotted spoon",
+        "saucepan"
+      ],
+      "steps": [
+        {
+          "step": 1,
+          "instruction": "Make syrup: Boil sugar and water for 5–6 minutes to a sticky (one-thread) consistency. Add cardamom and rose water; keep warm.",
+          "duration_minutes": 8
+        },
+        {
+          "step": 2,
+          "instruction": "Make dough: Crumble khoya and paneer; mix with flour and baking powder. Add milk as needed to make a soft, crack-free dough.",
+          "duration_minutes": 6
+        },
+        {
+          "step": 3,
+          "instruction": "Shape small smooth balls (about 15–18 pieces).",
+          "duration_minutes": 5
+        },
+        {
+          "step": 4,
+          "instruction": "Fry on medium-low heat in ghee/oil, stirring gently, until deep golden (6–8 minutes).",
+          "duration_minutes": 8
+        },
+        {
+          "step": 5,
+          "instruction": "Soak: Add fried jamuns to warm syrup; rest 1–2 hours before serving.",
+          "duration_minutes": 60
+        }
+      ],
+      "nutrition_per_serving": {
+        "energy_kcal": 320,
+        "protein_g": 6,
+        "carbs_g": 48,
+        "fat_g": 12
+      },
+      "image": "images/gulab_jamun.jpg",
+      "keywords": [
+        "dessert",
+        "gulab jamun"
+      ]
+    },{
+  "recipes": [
+    {
+      "name": "Congee (Rice Porridge)",
+      "cuisine": "Asian",
+      "category": "Breakfast",
+      "type": "Veg",
+      "servings": 2,
+      "time": "30 minutes",
+      "ingredients": [
+        "1/2 cup rice",
+        "4 cups water",
+        "1/2 tsp salt",
+        "1 tsp soy sauce",
+        "Spring onions for garnish"
+      ],
+      "instructions": [
+        "Rinse rice and add to boiling water.",
+        "Simmer on low flame for 25-30 minutes, stirring occasionally until thick porridge forms.",
+        "Add salt and soy sauce.",
+        "Garnish with chopped spring onions and serve hot."
+      ],
+      "tips": [
+        "Use short-grain rice for creamier texture.",
+        "Stir frequently to prevent sticking."
+      ]
+    },
+    {
+      "name": "Miso Soup with Tofu",
+      "cuisine": "Asian",
+      "category": "Breakfast",
+      "type": "Veg",
+      "servings": 2,
+      "time": "15 minutes",
+      "ingredients": [
+        "2 cups water",
+        "2 tbsp miso paste",
+        "50g tofu (cubed)",
+        "1 tsp seaweed flakes",
+        "1 tsp chopped green onions"
+      ],
+      "instructions": [
+        "Boil water, add tofu and seaweed.",
+        "Turn off flame, dissolve miso paste in hot water and add to soup.",
+        "Garnish with green onions and serve."
+      ],
+      "tips": [
+        "Do not boil miso paste to retain flavor and nutrients.",
+        "Use fresh tofu for best texture."
+      ]
+    },
+    {
+      "name": "Chicken Teriyaki Bowl",
+      "cuisine": "Asian",
+      "category": "Brunch",
+      "type": "Non-Veg",
+      "servings": 2,
+      "time": "30 minutes",
+      "ingredients": [
+        "300g chicken breast",
+        "2 tbsp soy sauce",
+        "1 tbsp mirin",
+        "1 tbsp sugar",
+        "1 tsp sesame oil",
+        "1 cup steamed rice",
+        "Sesame seeds and spring onions for garnish"
+      ],
+      "instructions": [
+        "Cut chicken into cubes and marinate with soy sauce, mirin, and sugar for 10 minutes.",
+        "Heat sesame oil, cook chicken until browned.",
+        "Serve over steamed rice, garnish with sesame seeds and spring onions."
+      ],
+      "tips": [
+        "Simmer on low flame to thicken teriyaki sauce.",
+        "Use fresh chicken for tender meat."
+      ]
+    },
+    {
+      "name": "Vegetable Fried Rice",
+      "cuisine": "Asian",
+      "category": "Lunch",
+      "type": "Veg",
+      "servings": 3,
+      "time": "25 minutes",
+      "ingredients": [
+        "2 cups cooked rice",
+        "1/2 cup carrots (diced)",
+        "1/2 cup peas",
+        "1/2 cup bell peppers (diced)",
+        "2 tbsp soy sauce",
+        "1 tsp sesame oil",
+        "1 tsp garlic (chopped)",
+        "2 tsp vegetable oil"
+      ],
+      "instructions": [
+        "Heat oil in a pan, sauté garlic.",
+        "Add vegetables, stir fry for 3-4 minutes.",
+        "Add cooked rice and soy sauce, stir well.",
+        "Drizzle sesame oil and serve hot."
+      ],
+      "tips": [
+        "Use leftover rice for best texture.",
+        "Keep vegetables slightly crunchy for taste."
+      ]
+    },
+    {
+      "name": "Thai Green Curry with Shrimp",
+      "cuisine": "Asian",
+      "category": "Dinner",
+      "type": "Non-Veg",
+      "servings": 4,
+      "time": "35 minutes",
+      "ingredients": [
+        "400g shrimp",
+        "1 can coconut milk",
+        "2 tbsp green curry paste",
+        "1 cup bell peppers (sliced)",
+        "1 cup zucchini (sliced)",
+        "1 tbsp fish sauce",
+        "1 tsp sugar",
+        "2 tbsp vegetable oil",
+        "Fresh Thai basil leaves"
+      ],
+      "instructions": [
+        "Heat oil, sauté curry paste 1 minute.",
+        "Add coconut milk, stir and bring to boil.",
+        "Add vegetables, simmer 5 minutes.",
+        "Add shrimp, fish sauce, sugar, cook 5-7 minutes until shrimp are pink.",
+        "Garnish with basil leaves and serve hot."
+      ],
+      "tips": [
+        "Do not overcook shrimp.",
+        "Adjust curry paste to taste."
+      ]
+    },
+    {
+      "name": "Japanese Matcha Green Tea Ice Cream",
+      "cuisine": "Asian",
+      "category": "Dessert",
+      "type": "Veg",
+      "servings": 4,
+      "time": "2 hours",
+      "ingredients": [
+        "2 cups heavy cream",
+        "1 cup milk",
+        "3/4 cup sugar",
+        "2 tbsp matcha green tea powder",
+        "1 tsp vanilla extract"
+      ],
+      "instructions": [
+        "Mix matcha powder with sugar.",
+        "Heat milk, add sugar-matcha mixture and dissolve.",
+        "Whisk cream and fold into milk mixture.",
+        "Churn in ice cream maker for 40 minutes or freeze for 2 hours.",
+        "Serve chilled."
+      ],
+      "tips": [
+        "Sift matcha to avoid lumps.",
+        "Do not overwhip cream."
+      ]
+    },
+    {
+      "name": "Vegetable Spring Rolls",
+      "cuisine": "Asian",
+      "category": "Snacks",
+      "type": "Veg",
+      "servings": 4,
+      "time": "25 minutes",
+      "ingredients": [
+        "10 spring roll wrappers",
+        "1 cup cabbage (shredded)",
+        "1/2 cup carrots (julienned)",
+        "1/2 cup bell peppers (sliced)",
+        "1 tsp soy sauce",
+        "1 tsp sesame oil",
+        "Oil for frying"
+      ],
+      "instructions": [
+        "Mix vegetables with soy sauce and sesame oil.",
+        "Place filling on wrapper, roll tightly, seal edges with water.",
+        "Heat oil, fry rolls until golden brown.",
+        "Serve hot with chili sauce."
+      ],
+      "tips": [
+        "Do not overfill wrappers.",
+        "Serve immediately for best crunch."
+      ]
+    },
+    {
+      "name": "Edamame Salad",
+      "cuisine": "Asian",
+      "category": "Salads",
+      "type": "Veg",
+      "servings": 2,
+      "time": "15 minutes",
+      "ingredients": [
+        "1 cup edamame (shelled and boiled)",
+        "1/2 cup cherry tomatoes (halved)",
+        "1/4 cup red onion (chopped)",
+        "1 tbsp soy sauce",
+        "1 tsp sesame oil",
+        "1 tsp rice vinegar",
+        "Sesame seeds for garnish"
+      ],
+      "instructions": [
+        "Mix all ingredients in a bowl.",
+        "Drizzle sesame oil and soy sauce, toss well.",
+        "Garnish with sesame seeds and serve chilled."
+      ],
+      "tips": [
+        "Use fresh edamame for better taste.",
+        "Chill salad before serving."
+      ]
+    },
+    {
+      "name": "Bubble Tea (Taiwanese)",
+      "cuisine": "Asian",
+      "category": "Beverages",
+      "type": "Veg",
+      "servings": 2,
+      "time": "20 minutes",
+      "ingredients": [
+        "1/2 cup tapioca pearls",
+        "2 cups milk",
+        "2 tsp tea leaves (black or green)",
+        "2 tbsp sugar",
+        "Ice cubes"
+      ],
+      "instructions": [
+        "Cook tapioca pearls according to package instructions.",
+        "Brew tea leaves in hot water and mix with milk and sugar.",
+        "Add cooked tapioca pearls and ice cubes.",
+        "Serve cold with a wide straw."
+      ],
+      "tips": [
+        "Use tapioca pearls immediately after cooking.",
+        "Adjust sugar to taste."
+      ]
+    },
+    {
+      "name": "Korean Kimchi Pancakes",
+      "cuisine": "Asian",
+      "category": "Snacks",
+      "type": "Veg",
+      "servings": 3,
+      "time": "25 minutes",
+      "ingredients": [
+        "1 cup chopped kimchi",
+        "1/2 cup flour",
+        "1/4 cup water",
+        "1 tsp sesame oil",
+        "2 tsp oil for frying",
+        "Optional: green onions"
+      ],
+      "instructions": [
+        "Mix kimchi, flour, water, and sesame oil into a batter.",
+        "Heat oil in pan, pour batter, spread evenly.",
+        "Cook until golden brown on both sides.",
+        "Serve hot."
+      ],
+      "tips": [
+        "Do not make batter too thick.",
+        "Serve immediately for crisp texture."
+      ]
+    }
+  ]
+},{
+    "name": "Chana Chaat",
+    "cuisine": "Asian",
+    "category": "Salads",
+    "type": "Vegetarian",
+    "ingredients": [
+      "1 cup boiled chickpeas",
+      "1 tomato, chopped",
+      "1 onion, chopped",
+      "1 green chili, chopped",
+      "1 tbsp lemon juice",
+      "1 tsp chaat masala"
+    ],
+    "instructions": [
+      "Mix chickpeas, tomato, onion, and chili.",
+      "Add lemon juice and chaat masala.",
+      "Serve fresh."
+    ],
+    "prep_time": "10 minutes",
+    "cook_time": "0 minutes",
+    "servings": 2,
+    "nutrition": {
+      "calories": 140,
+      "protein_g": 7,
+      "carbohydrates_g": 20,
+      "fat_g": 4,
+      "fiber_g": 6
+    }
+  },
+  {
+    "name": "Fruit Custard",
+    "cuisine": "Asian",
+    "category": "Dessert",
+    "type": "Vegetarian",
+    "ingredients": [
+      "2 cups milk",
+      "2 tbsp custard powder",
+      "1/4 cup sugar",
+      "1 cup mixed fruits (apple, banana, grapes, mango)"
+    ],
+    "instructions": [
+      "Boil milk and mix custard powder with sugar.",
+      "Cool and add chopped fruits.",
+      "Refrigerate before serving."
+    ],
+    "prep_time": "15 minutes",
+    "cook_time": "10 minutes",
+    "servings": 4,
+    "nutrition": {
+      "calories": 180,
+      "protein_g": 5,
+      "carbohydrates_g": 35,
+      "fat_g": 3,
+      "fiber_g": 3
+    }
+  },
+  {
+    "name": "Gulab Jamun",
+    "cuisine": "Asian",
+    "category": "Dessert",
+    "type": "Vegetarian",
+    "ingredients": [
+      "1 cup khoya",
+      "1/4 cup all-purpose flour",
+      "1/2 tsp baking powder",
+      "1 cup sugar",
+      "1 cup water",
+      "Oil for frying"
+    ],
+    "instructions": [
+      "Make soft dough with khoya, flour, and baking powder.",
+      "Shape into balls.",
+      "Deep fry until golden.",
+      "Soak in sugar syrup."
+    ],
+    "prep_time": "20 minutes",
+    "cook_time": "25 minutes",
+    "servings": 6,
+    "nutrition": {
+      "calories": 180,
+      "protein_g": 4,
+      "carbohydrates_g": 28,
+      "fat_g": 7,
+      "fiber_g": 1
+    }
+  },
+  {
+    "name": "Rasmalai",
+    "cuisine": "Asian",
+    "category": "Dessert",
+    "type": "Vegetarian",
+    "ingredients": [
+      "8 rasgullas",
+      "2 cups milk",
+      "1/4 cup sugar",
+      "1/4 tsp cardamom powder",
+      "Chopped pistachios"
+    ],
+    "instructions": [
+      "Boil milk with sugar and cardamom until thick.",
+      "Squeeze excess syrup from rasgullas.",
+      "Soak in thickened milk.",
+      "Garnish with pistachios and chill."
+    ],
+    "prep_time": "15 minutes",
+    "cook_time": "25 minutes",
+    "servings": 4,
+    "nutrition": {
+      "calories": 220,
+      "protein_g": 7,
+      "carbohydrates_g": 32,
+      "fat_g": 8,
+      "fiber_g": 1
+    }
+  },{
+    "name": "Rose Falooda",
+    "cuisine": "Asian",
+    "category": "Beverages",
+    "type": "Vegetarian",
+    "ingredients": [
+      "2 cups milk",
+      "2 tbsp rose syrup",
+      "1 tbsp basil seeds (soaked)",
+      "1/2 cup vermicelli (boiled)",
+      "2 scoops vanilla ice cream"
+    ],
+    "instructions": [
+      "Mix milk with rose syrup.",
+      "Add soaked basil seeds and boiled vermicelli.",
+      "Top with ice cream and serve chilled."
+    ],
+    "prep_time": "10 minutes",
+    "cook_time": "10 minutes",
+    "servings": 2,
+    "nutrition": {
+      "calories": 220,
+      "protein_g": 6,
+      "carbohydrates_g": 36,
+      "fat_g": 7,
+      "fiber_g": 2
+    }
+  },{
+    "name": "Hara Bhara Kabab",
+    "cuisine": "Asian",
+    "category": "Snacks",
+    "type": "Vegetarian",
+    "ingredients": [
+      "1 cup spinach, blanched",
+      "1/2 cup peas, boiled",
+      "2 potatoes, boiled",
+      "2 tbsp gram flour",
+      "1 tsp garam masala",
+      "1 tsp chili powder"
+    ],
+    "instructions": [
+      "Mash spinach, peas, and potatoes.",
+      "Mix with gram flour and spices.",
+      "Shape into patties and shallow fry.",
+      "Serve hot with chutney."
+    ],
+    "prep_time": "20 minutes",
+    "cook_time": "15 minutes",
+    "servings": 4,
+    "nutrition": {
+      "calories": 150,
+      "protein_g": 5,
+      "carbohydrates_g": 22,
+      "fat_g": 5,
+      "fiber_g": 4
+    }
+  },
+  {
+    "name": "Chicken Pakora",
+    "cuisine": "Asian",
+    "category": "Snacks",
+    "type": "Non-Vegetarian",
+    "ingredients": [
+      "300g chicken, boneless strips",
+      "1 cup gram flour",
+      "1 tsp chili powder",
+      "1 tsp turmeric",
+      "1 tsp garam masala",
+      "1 tsp ginger-garlic paste",
+      "Oil for frying"
+    ],
+    "instructions": [
+      "Mix chicken with gram flour and spices.",
+      "Add water to make thick batter.",
+      "Deep fry until crispy.",
+      "Serve hot with chutney."
+    ],
+    "prep_time": "15 minutes",
+    "cook_time": "15 minutes",
+    "servings": 4,
+    "nutrition": {
+      "calories": 200,
+      "protein_g": 16,
+      "carbohydrates_g": 12,
+      "fat_g": 10,
+      "fiber_g": 2
+    }
+  },
+  {
+    "name": "Samosa",
+    "cuisine": "Asian",
+    "category": "Snacks",
+    "type": "Vegetarian",
+    "ingredients": [
+      "2 cups all-purpose flour",
+      "2 tbsp oil",
+      "3 potatoes, boiled and mashed",
+      "1/2 cup peas",
+      "1 tsp cumin seeds",
+      "1 tsp garam masala",
+      "1 tsp chili powder",
+      "Oil for frying"
+    ],
+    "instructions": [
+      "Make dough with flour, oil, and water.",
+      "Cook filling with potatoes, peas, and spices.",
+      "Shape dough into cones, fill, and seal.",
+      "Deep fry until golden brown."
+    ],
+    "prep_time": "25 minutes",
+    "cook_time": "20 minutes",
+    "servings": 6,
+    "nutrition": {
+      "calories": 150,
+      "protein_g": 4,
+      "carbohydrates_g": 22,
+      "fat_g": 6,
+      "fiber_g": 3
+    }
+  },
+  {
+    "name": "Aloo Tikki Chaat",
+    "cuisine": "Asian",
+    "category": "Snacks",
+    "type": "Vegetarian",
+    "ingredients": [
+      "3 boiled potatoes, mashed",
+      "1 tsp chili powder",
+      "1 tsp garam masala",
+      "1/2 cup yogurt",
+      "2 tbsp tamarind chutney",
+      "2 tbsp green chutney"
+    ],
+    "instructions": [
+      "Shape mashed potatoes with spices into tikkis.",
+      "Shallow fry until crisp.",
+      "Serve topped with yogurt, chutneys, and sev."
+    ],
+    "prep_time": "20 minutes",
+    "cook_time": "15 minutes",
+    "servings": 4,
+    "nutrition": {
+      "calories": 180,
+      "protein_g": 5,
+      "carbohydrates_g": 28,
+      "fat_g": 6,
+      "fiber_g": 4
+    }
+  },
+  {
+    "name": "Paneer Tikka",
+    "cuisine": "Asian",
+    "category": "Snacks",
+    "type": "Vegetarian",
+    "ingredients": [
+      "200g paneer, cubed",
+      "2 tbsp yogurt",
+      "1 tbsp gram flour",
+      "1 tsp ginger-garlic paste",
+      "1 tsp chili powder",
+      "1 tsp garam masala",
+      "1 tsp lemon juice"
+    ],
+    "instructions": [
+      "Marinate paneer with yogurt, gram flour, spices, and lemon juice for 30 minutes.",
+      "Thread paneer on skewers.",
+      "Grill or bake until golden.",
+      "Serve hot with mint chutney."
+    ],
+    "prep_time": "20 minutes",
+    "cook_time": "15 minutes",
+    "servings": 3,
+    "nutrition": {
+      "calories": 220,
+      "protein_g": 12,
+      "carbohydrates_g": 10,
+      "fat_g": 15,
+      "fiber_g": 2
+    }
+  },
+  {
+    "name": "Chicken Malai Tikka",
+    "cuisine": "Asian",
+    "category": "Snacks",
+    "type": "Non-Vegetarian",
+    "ingredients": [
+      "500g chicken breast, cubed",
+      "3 tbsp fresh cream",
+      "2 tbsp yogurt",
+      "1 tsp ginger-garlic paste",
+      "1 tsp green chili paste",
+      "1 tbsp lemon juice"
+    ],
+    "instructions": [
+      "Marinate chicken with cream, yogurt, spices, and lemon juice for 1 hour.",
+      "Thread onto skewers.",
+      "Grill until tender and slightly charred.",
+      "Serve with green chutney."
+    ],
+    "prep_time": "20 minutes",
+    "cook_time": "20 minutes",
+    "servings": 4,
+    "nutrition": {
+      "calories": 280,
+      "protein_g": 24,
+      "carbohydrates_g": 4,
+      "fat_g": 18,
+      "fiber_g": 1
+    }
+  },
+  {
+    "name": "Samosa",
+    "cuisine":" Asian",
+    "category": "Snacks",
+    "type": "Vegetarian",
+    "ingredients": [
+      "2 cups all-purpose flour",
+      "2 tbsp oil",
+      "3 potatoes, boiled and mashed",
+      "1/2 cup peas",
+      "1 tsp cumin seeds",
+      "1 tsp garam masala",
+      "1 tsp chili powder",
+      "Oil for frying"
+    ],
+    "instructions": [
+      "Make dough with flour, oil, and water.",
+      "Cook filling with potatoes, peas, and spices.",
+      "Shape dough into cones, fill, and seal.",
+      "Deep fry until golden brown."
+    ],
+    "prep_time": "25 minutes",
+    "cook_time": "20 minutes",
+    "servings": 6,
+    "nutrition": {
+      "calories": 150,
+      "protein_g": 4,
+      "carbohydrates_g": 22,
+      "fat_g": 6,
+      "fiber_g": 3
+    }
+  },
+  {
+    "name": "Chicken Pakora",
+    "cuisine": "Asian",
+    "category": "Snacks",
+    "type": "Non-Vegetarian",
+    "ingredients": [
+      "300g chicken, boneless strips",
+      "1 cup gram flour",
+      "1 tsp chili powder",
+      "1 tsp turmeric",
+      "1 tsp garam masala",
+      "1 tsp ginger-garlic paste",
+      "Oil for frying"
+    ],
+    "instructions": [
+      "Mix chicken with gram flour and spices.",
+      "Add water to make thick batter.",
+      "Deep fry until crispy.",
+      "Serve hot with chutney."
+    ],
+    "prep_time": "15 minutes",
+    "cook_time": "15 minutes",
+    "servings": 4,
+    "nutrition": {
+      "calories": 200,
+      "protein_g": 16,
+      "carbohydrates_g": 12,
+      "fat_g": 10,
+      "fiber_g": 2
+    }
+  },
+  {
+    "name": "Masala Chaas",
+    "cuisine": "Asian",
+    "category": "Beverages",
+    "type": "Vegetarian",
+    "ingredients": [
+      "2 cups buttermilk",
+      "1/2 tsp roasted cumin powder",
+      "1/2 tsp black salt",
+      "1/2 tsp ginger paste",
+      "2 tbsp coriander leaves, chopped"
+    ],
+    "instructions": [
+      "Whisk buttermilk with cumin powder, black salt, and ginger.",
+      "Add coriander leaves.",
+      "Serve chilled."
+    ],
+    "prep_time": "5 minutes",
+    "cook_time": "0 minutes",
+    "servings": 2,
+    "nutrition": {
+      "calories": 60,
+      "protein_g": 3,
+      "carbohydrates_g": 6,
+      "fat_g": 2,
+      "fiber_g": 1
+    }
+  },
+  {
+    "name": "Chicken Lassi",
+    "cuisine": "Asian",
+    "category": "Beverages",
+    "type": "Non-Vegetarian",
+    "ingredients": [
+      "2 cups yogurt",
+      "150g cooked chicken, shredded",
+      "1/2 tsp black pepper",
+      "1/2 tsp cumin powder",
+      "Salt to taste"
+    ],
+    "instructions": [
+      "Blend yogurt with chicken, pepper, cumin, and salt.",
+      "Serve chilled."
+    ],
+    "prep_time": "10 minutes",
+    "cook_time": "0 minutes",
+    "servings": 2,
+    "nutrition": {
+      "calories": 150,
+      "protein_g": 12,
+      "carbohydrates_g": 8,
+      "fat_g": 7,
+      "fiber_g": 0
+    }
+  },
+  {
+    "name": "Kachumber Salad",
+    "cuisine": "Asian",
+    "category": "Salads",
+    "type": "Vegetarian",
+    "ingredients": [
+      "1 cucumber, chopped",
+      "1 tomato, chopped",
+      "1 onion, chopped",
+      "1 tbsp lemon juice",
+      "1/2 tsp black salt",
+      "1 tbsp coriander leaves"
+    ],
+    "instructions": [
+      "Mix cucumber, tomato, and onion.",
+      "Add lemon juice, black salt, and coriander.",
+      "Serve fresh."
+    ],
+    "prep_time": "10 minutes",
+    "cook_time": "0 minutes",
+    "servings": 2,
+    "nutrition": {
+      "calories": 70,
+      "protein_g": 2,
+      "carbohydrates_g": 10,
+      "fat_g": 2,
+      "fiber_g": 3
+    }
+  },
+  {
+    "name": "Egg Salad with Curry Dressing",
+    "cuisine": "Asian",
+    "category": "Salads",
+    "type": "Non-Vegetarian",
+    "ingredients": [
+      "2 boiled eggs, chopped",
+      "1/2 cup cucumber, diced",
+      "1/2 cup tomatoes, diced",
+      "2 tbsp yogurt",
+      "1/2 tsp curry powder",
+      "Salt to taste"
+    ],
+    "instructions": [
+      "Mix yogurt with curry powder and salt.",
+      "Add chopped eggs, cucumber, and tomatoes.",
+      "Toss well and serve chilled."
+    ],
+    "prep_time": "10 minutes",
+    "cook_time": "5 minutes",
+    "servings": 2,
+    "nutrition": {
+      "calories": 120,
+      "protein_g": 8,
+      "carbohydrates_g": 6,
+      "fat_g": 7,
+      "fiber_g": 1
+    }
+  },
+  {
+    "name": "Gulab Jamun",
+    "cuisine": "Asian",
+    "category": "Dessert",
+    "type": "Vegetarian",
+    "ingredients": [
+      "1 cup khoya",
+      "1/4 cup all-purpose flour",
+      "1/2 tsp baking powder",
+      "1 cup sugar",
+      "1 cup water",
+      "Oil for frying"
+    ],
+    "instructions": [
+      "Make soft dough with khoya, flour, and baking powder.",
+      "Shape into balls.",
+      "Deep fry until golden.",
+      "Soak in sugar syrup."
+    ],
+    "prep_time": "20 minutes",
+    "cook_time": "25 minutes",
+    "servings": 6,
+    "nutrition": {
+      "calories": 180,
+      "protein_g": 4,
+      "carbohydrates_g": 28,
+      "fat_g": 7,
+      "fiber_g": 1
+    }
+  },
+  {
+    "name": "Shahi Tukda",
+    "cuisine": "Asian",
+    "category": "Dessert",
+    "type": "Non-Vegetarian",
+    "ingredients": [
+      "4 slices bread, fried",
+      "1 cup milk",
+      "1/4 cup sugar",
+      "1/4 cup khoya",
+      "1/2 tsp cardamom powder",
+      "Chopped nuts"
+    ],
+    "instructions": [
+      "Boil milk with sugar, khoya, and cardamom to make rabri.",
+      "Fry bread slices until golden.",
+      "Pour rabri over fried bread.",
+      "Garnish with nuts and serve."
+    ],
+    "prep_time": "15 minutes",
+    "cook_time": "25 minutes",
+    "servings": 4,
+    "nutrition": {
+      "calories": 250,
+      "protein_g": 7,
+      "carbohydrates_g": 30,
+      "fat_g": 12,
+      "fiber_g": 1
+    }
+  },
+  {
+    "name": "Iced Matcha Latte",
+    "cuisine": "Asian",
+    "category": "Beverages",
+    "type": "Vegetarian",
+    "ingredients": [
+      "1 tsp matcha powder",
+      "1 tbsp hot water",
+      "1 cup chilled milk",
+      "1 tsp honey",
+      "Ice cubes"
+    ],
+    "instructions": [
+      "Whisk matcha powder with hot water until smooth.",
+      "Add milk and honey.",
+      "Serve over ice cubes."
+    ],
+    "prep_time": "5 minutes",
+    "cook_time": "0 minutes",
+    "servings": 1,
+    "nutrition": {
+      "calories": 120,
+      "protein_g": 6,
+      "carbohydrates_g": 15,
+      "fat_g": 4,
+      "fiber_g": 1
+    }
+  },
+  {
+    "name": "Masala Chai",
+    "cuisine": "Asian",
+    "category": "Beverages",
+    "type": "Vegetarian",
+    "ingredients": [
+      "2 cups milk",
+      "1 cup water",
+      "2 tsp tea leaves",
+      "2 cardamom pods",
+      "1 small piece ginger",
+      "Sugar to taste"
+    ],
+    "instructions": [
+      "Boil water with cardamom and ginger.",
+      "Add tea leaves and milk.",
+      "Simmer and strain.",
+      "Serve hot with sugar."
+    ],
+    "prep_time": "5 minutes",
+    "cook_time": "10 minutes",
+    "servings": 2,
+    "nutrition": {
+      "calories": 90,
+      "protein_g": 3,
+      "carbohydrates_g": 12,
+      "fat_g": 3,
+      "fiber_g": 0
+    }
+  },
+  {
+    "name": "Thai Iced Tea",
+    "cuisine": "Asian",
+    "category": "Beverages",
+    "type": "Vegetarian",
+    "ingredients": [
+      "2 black tea bags",
+      "2 cups hot water",
+      "2 tbsp condensed milk",
+      "1 tbsp sugar",
+      "Ice cubes"
+    ],
+    "instructions": [
+      "Brew tea in hot water.",
+      "Add condensed milk and sugar.",
+      "Serve chilled over ice."
+    ],
+    "prep_time": "5 minutes",
+    "cook_time": "5 minutes",
+    "servings": 2,
+    "nutrition": {
+      "calories": 140,
+      "protein_g": 2,
+      "carbohydrates_g": 25,
+      "fat_g": 4,
+      "fiber_g": 0
+    }
+  },
+  {
+    "name": "Vietnamese Egg Coffee",
+    "cuisine": "Asian",
+    "category": "Beverages",
+    "type": "Vegetarian",
+    "ingredients": [
+      "1 cup strong black coffee",
+      "1 egg yolk",
+      "2 tbsp condensed milk",
+      "1 tsp sugar"
+    ],
+    "instructions": [
+      "Whisk egg yolk with sugar and condensed milk until frothy.",
+      "Pour hot coffee into a cup.",
+      "Top with egg foam and serve."
+    ],
+    "prep_time": "5 minutes",
+    "cook_time": "5 minutes",
+    "servings": 1,
+    "nutrition": {
+      "calories": 160,
+      "protein_g": 5,
+      "carbohydrates_g": 18,
+      "fat_g": 6,
+      "fiber_g": 0
+    }
+  },
+  {
+    "name": "Mango Lassi",
+    "cuisine": "Asian",
+    "category": "Beverages",
+    "type": "Vegetarian",
+    "ingredients": [
+      "1 cup mango pulp",
+      "1 cup yogurt",
+      "1/2 cup milk",
+      "2 tsp sugar",
+      "Ice cubes"
+    ],
+    "instructions": [
+      "Blend mango pulp, yogurt, milk, and sugar.",
+      "Serve chilled with ice cubes."
+    ],
+    "prep_time": "5 minutes",
+    "cook_time": "0 minutes",
+    "servings": 2,
+    "nutrition": {
+      "calories": 180,
+      "protein_g": 6,
+      "carbohydrates_g": 30,
+      "fat_g": 4,
+      "fiber_g": 2
+    }
+  },
+  {
+    "name": "Lychee Lemonade",
+    "cuisine": "Asian",
+    "category": "Beverages",
+    "type": "Vegetarian",
+    "ingredients": [
+      "1 cup lychee juice",
+      "1 tbsp lime juice",
+      "1 tbsp sugar",
+      "1 cup soda water",
+      "Ice cubes"
+    ],
+    "instructions": [
+      "Mix lychee juice, lime juice, and sugar.",
+      "Top with soda water.",
+      "Serve chilled over ice."
+    ],
+    "prep_time": "5 minutes",
+    "cook_time": "0 minutes",
+    "servings": 2,
+    "nutrition": {
+      "calories": 100,
+      "protein_g": 0,
+      "carbohydrates_g": 24,
+      "fat_g": 0,
+      "fiber_g": 0
+    }
+  },
+  {
+    "name": "Green Tea Lemon Cooler",
+    "cuisine": "Asian",
+    "category": "Beverages",
+    "type": "Vegetarian",
+    "ingredients": [
+      "2 green tea bags",
+      "2 cups hot water",
+      "1 tbsp honey",
+      "1 tbsp lemon juice",
+      "Ice cubes"
+    ],
+    "instructions": [
+      "Brew green tea and cool it.",
+      "Mix with honey and lemon juice.",
+      "Serve over ice."
+    ],
+    "prep_time": "5 minutes",
+    "cook_time": "5 minutes",
+    "servings": 2,
+    "nutrition": {
+      "calories": 40,
+      "protein_g": 0,
+      "carbohydrates_g": 10,
+      "fat_g": 0,
+      "fiber_g": 0
+    }
+  },
+  {
+    "name": "Rose Milk",
+    "cuisine": "Asian",
+    "category": "Beverages",
+    "type": "Vegetarian",
+    "ingredients": [
+      "2 cups chilled milk",
+      "2 tbsp rose syrup",
+      "1 tsp sugar",
+      "Ice cubes"
+    ],
+    "instructions": [
+      "Mix milk with rose syrup and sugar.",
+      "Serve chilled over ice."
+    ],
+    "prep_time": "5 minutes",
+    "cook_time": "0 minutes",
+    "servings": 2,
+    "nutrition": {
+      "calories": 110,
+      "protein_g": 4,
+      "carbohydrates_g": 18,
+      "fat_g": 3,
+      "fiber_g": 0
+    }
+  },
+  {
+    "name": "Coconut Water Cooler",
+    "cuisine": "Asian",
+    "category": "Beverages",
+    "type": "Vegetarian",
+    "ingredients": [
+      "2 cups fresh coconut water",
+      "1 tbsp lime juice",
+      "1 tsp honey",
+      "Ice cubes"
+    ],
+    "instructions": [
+      "Mix coconut water, lime juice, and honey.",
+      "Serve chilled over ice."
+    ],
+    "prep_time": "5 minutes",
+    "cook_time": "0 minutes",
+    "servings": 2,
+    "nutrition": {
+      "calories": 60,
+      "protein_g": 0,
+      "carbohydrates_g": 15,
+      "fat_g": 0,
+      "fiber_g": 0
+    }
+  },
+  {
+    "name": "Japanese Iced Coffee",
+    "cuisine": "Asian",
+    "category": "Beverages",
+    "type": "Vegetarian",
+    "ingredients": [
+      "2 tbsp ground coffee",
+      "1 cup hot water",
+      "1 tsp sugar",
+      "Ice cubes"
+    ],
+    "instructions": [
+      "Brew coffee with hot water.",
+      "Add sugar and stir.",
+      "Serve immediately over ice."
+    ],
+    "prep_time": "5 minutes",
+    "cook_time": "5 minutes",
+    "servings": 1,
+    "nutrition": {
+      "calories": 30,
+      "protein_g": 0,
+      "carbohydrates_g": 8,
+      "fat_g": 0,
+      "fiber_g": 0
+    }
+  },
+  {
+    "name": "Vegetable Spring Rolls",
+    "cuisine": "Asian",
+    "category": "Snacks",
+    "type": "Vegetarian",
+    "ingredients": [
+      "12 spring roll wrappers",
+      "1 cup cabbage, shredded",
+      "1/2 cup carrots, julienned",
+      "1/2 cup bean sprouts",
+      "1 tbsp soy sauce",
+      "Oil for frying"
+    ],
+    "instructions": [
+      "Stir-fry vegetables with soy sauce.",
+      "Place filling in wrappers and roll tightly.",
+      "Deep fry until golden.",
+      "Serve with sweet chili sauce."
+    ],
+    "prep_time": "15 minutes",
+    "cook_time": "10 minutes",
+    "servings": 4,
+    "nutrition": {
+      "calories": 220,
+      "protein_g": 5,
+      "carbohydrates_g": 30,
+      "fat_g": 10,
+      "fiber_g": 3
+    }
+  },
+  {
+    "name": "Vegetable Hakka Noodles",
+    "cuisine": "Asian",
+    "category": "Lunch",
+    "type": "Vegetarian",
+    "ingredients": [
+      "200g noodles",
+      "1/2 cup carrots, julienned",
+      "1/2 cup capsicum, sliced",
+      "1/2 cup cabbage, shredded",
+      "2 tbsp soy sauce",
+      "1 tbsp chili sauce",
+      "1 tbsp oil"
+    ],
+    "instructions": [
+      "Boil noodles and drain.",
+      "Stir-fry vegetables in oil.",
+      "Add sauces and noodles, toss well.",
+      "Serve hot."
+    ],
+    "prep_time": "15 minutes",
+    "cook_time": "10 minutes",
+    "servings": 3,
+    "nutrition": {
+      "calories": 300,
+      "protein_g": 8,
+      "carbohydrates_g": 50,
+      "fat_g": 8,
+      "fiber_g": 4
+    }
+  },
+  {
+    "name": "Chicken Satay",
+    "cuisine": "Asian",
+    "category": "Snacks",
+    "type": "Non-Vegetarian",
+    "ingredients": [
+      "300g chicken strips",
+      "2 tbsp soy sauce",
+      "1 tbsp peanut butter",
+      "1 tsp garlic paste",
+      "1 tsp chili flakes"
+    ],
+    "instructions": [
+      "Marinate chicken with all ingredients for 30 minutes.",
+      "Thread onto skewers.",
+      "Grill or pan-fry until cooked.",
+      "Serve with peanut sauce."
+    ],
+    "prep_time": "20 minutes",
+    "cook_time": "15 minutes",
+    "servings": 3,
+    "nutrition": {
+      "calories": 250,
+      "protein_g": 22,
+      "carbohydrates_g": 6,
+      "fat_g": 15,
+      "fiber_g": 1
+    }
+  },
+  {
+    "name": "Vegetable Sushi Rolls",
+    "cuisine": "Asian",
+    "category": "Brunch",
+    "type": "Vegetarian",
+    "ingredients": [
+      "2 cups sushi rice, cooked",
+      "4 nori sheets",
+      "1/2 cucumber, sliced",
+      "1/2 avocado, sliced",
+      "1/2 carrot, julienned"
+    ],
+    "instructions": [
+      "Spread rice on nori sheet.",
+      "Place cucumber, avocado, and carrot.",
+      "Roll tightly and slice.",
+      "Serve with soy sauce."
+    ],
+    "prep_time": "20 minutes",
+    "cook_time": "10 minutes",
+    "servings": 4,
+    "nutrition": {
+      "calories": 200,
+      "protein_g": 4,
+      "carbohydrates_g": 40,
+      "fat_g": 5,
+      "fiber_g": 3
+    }
+  },
+  {
+    "name": "Vegetable Fried Rice",
+    "cuisine": "Asian",
+    "category": "Breakfast",
+    "type": "Vegetarian",
+    "ingredients": [
+      "2 cups cooked rice",
+      "1/2 cup peas",
+      "1/2 cup carrots, diced",
+      "2 tbsp soy sauce",
+      "1 tsp sesame oil"
+    ],
+    "instructions": [
+      "Heat sesame oil, stir-fry vegetables.",
+      "Add rice and soy sauce.",
+      "Mix well and serve hot."
+    ],
+    "prep_time": "10 minutes",
+    "cook_time": "10 minutes",
+    "servings": 3,
+    "nutrition": {
+      "calories": 15,
+      "protein_g": 5,
+      "carbohydrates_g": 12,
+      "fat_g": 1,
+      "fiber_g": 4
+    }
+  },
+  {
+    "name": "Korean Kimchi Pancakes",
+    "cuisine": "Asian",
+    "category": "Snacks",
+    "type": "Vegetarian",
+    "ingredients": [
+      "1 cup all-purpose flour",
+      "1/2 cup kimchi, chopped",
+      "1/2 cup water",
+      "1 tsp chili flakes",
+      "Oil for frying"
+    ],
+    "instructions": [
+      "Mix flour, water, kimchi, and chili flakes.",
+      "Spread batter on pan with oil.",
+      "Cook until crispy both sides.",
+      "Serve hot."
+    ],
+    "prep_time": "10 minutes",
+    "cook_time": "10 minutes",
+    "servings": 2,
+    "nutrition": {
+      "calories": 210,
+      "protein_g": 5,
+      "carbohydrates_g": 32,
+      "fat_g": 6,
+      "fiber_g": 2
+    }
+  },
+  {
+    "name": "Japanese Miso Soup",
+    "cuisine": "Asian",
+    "category": "Snacks",
+    "type": "Vegetarian",
+    "ingredients": [
+      "4 cups water",
+      "2 tbsp miso paste",
+      "1/2 cup tofu cubes",
+      "2 tbsp seaweed"
+    ],
+    "instructions": [
+      "Boil water and add miso paste.",
+      "Add tofu and seaweed.",
+      "Simmer 5 minutes and serve hot."
+    ],
+    "prep_time": "5 minutes",
+    "cook_time": "10 minutes",
+    "servings": 3,
+    "nutrition": {
+      "calories": 120,
+      "protein_g": 8,
+      "carbohydrates_g": 10,
+      "fat_g": 5,
+      "fiber_g": 2
+    }
+  },
+  {
+    "name": "Sweet Mango Sticky Rice",
+    "cuisine": "Asian",
+    "category": "Dessert",
+    "type": "Vegetarian",
+    "ingredients": [
+      "1 cup glutinous rice",
+      "1 cup coconut milk",
+      "1/2 cup sugar",
+      "1 ripe mango, sliced"
+    ],
+    "instructions": [
+      "Cook glutinous rice.",
+      "Heat coconut milk with sugar.",
+      "Mix rice with sweet coconut milk.",
+      "Serve with sliced mango."
+    ],
+    "prep_time": "15 minutes",
+    "cook_time": "20 minutes",
+    "servings": 4,
+    "nutrition": {
+      "calories": 260,
+      "protein_g": 4,
+      "carbohydrates_g": 45,
+      "fat_g": 8,
+      "fiber_g": 2
+    }
+  },
+  {
+    "name": "Honey Chili Potatoes",
+    "cuisine": "Asian",
+    "category": "Snacks",
+    "type": "Vegetarian",
+    "ingredients": [
+      "2 cups potato wedges",
+      "2 tbsp soy sauce",
+      "1 tbsp chili sauce",
+      "1 tbsp honey",
+      "1 tbsp sesame seeds"
+    ],
+    "instructions": [
+      "Fry potato wedges until crispy.",
+      "Mix sauces and toss potatoes.",
+      "Garnish with sesame seeds and serve."
+    ],
+    "prep_time": "15 minutes",
+    "cook_time": "15 minutes",
+    "servings": 3,
+    "nutrition": {
+      "calories": 280,
+      "protein_g": 4,
+      "carbohydrates_g": 45,
+      "fat_g": 10,
+      "fiber_g": 3
+    }
+  },
+  {
+    "name": "Schezwan Paneer",
+    "cuisine": "Asian",
+    "category": "Dinner",
+    "type": "Vegetarian",
+    "ingredients": [
+      "200g paneer cubes",
+      "2 tbsp schezwan sauce",
+      "1/2 cup capsicum, diced",
+      "1/2 cup onions, diced",
+      "1 tbsp oil"
+    ],
+    "instructions": [
+      "Heat oil and stir-fry onions and capsicum.",
+      "Add paneer and schezwan sauce.",
+      "Cook 5 minutes and serve hot."
+    ],
+    "prep_time": "10 minutes",
+    "cook_time": "10 minutes",
+    "servings": 3,
+    "nutrition": {
+      "calories": 240,
+      "protein_g": 10,
+      "carbohydrates_g": 15,
+      "fat_g": 14,
+      "fiber_g": 2
+    }
+  },
+  {
+    "name": "Sesame Peanut Brittle",
+    "cuisine": "Asian",
+    "category": "Dessert",
+    "type": "Vegetarian",
+    "ingredients": [
+      "1 cup roasted peanuts",
+      "1/2 cup sesame seeds",
+      "1 cup jaggery",
+      "1 tbsp ghee"
+    ],
+    "instructions": [
+      "Melt jaggery with ghee until caramelized.",
+      "Mix in sesame seeds and peanuts.",
+      "Spread on a greased plate and let it set.",
+      "Break into pieces and serve."
+    ],
+    "prep_time": "10 minutes",
+    "cook_time": "15 minutes",
+    "servings": 6,
+    "nutrition": {
+      "calories": 190,
+      "protein_g": 4,
+      "carbohydrates_g": 25,
+      "fat_g": 8,
+      "fiber_g": 2
+    }
+  },
+  {
+    "name": "Paneer Pakora",
+    "cuisine": "Asian",
+    "category": "Snacks",
+    "type": "Vegetarian",
+    "ingredients": [
+      "200g paneer cubes",
+      "1 cup chickpea flour",
+      "1 tsp red chili powder",
+      "1/2 tsp turmeric",
+      "Salt to taste",
+      "Oil for frying"
+    ],
+    "instructions": [
+      "Make batter with chickpea flour, spices, and water.",
+      "Dip paneer cubes in batter.",
+      "Deep fry until golden.",
+      "Serve with chutney."
+    ],
+    "prep_time": "10 minutes",
+    "cook_time": "15 minutes",
+    "servings": 4,
+    "nutrition": {
+      "calories": 230,
+      "protein_g": 9,
+      "carbohydrates_g": 18,
+      "fat_g": 14,
+      "fiber_g": 2
+    }
+  },
+  {
+    "name": "Chicken Lettuce Wraps",
+    "cuisine": "Asian",
+    "category": "Snacks",
+    "type": "Non-Vegetarian",
+    "ingredients": [
+      "300g minced chicken",
+      "1 tbsp soy sauce",
+      "1 tsp ginger-garlic paste",
+      "1/2 cup onions, diced",
+      "1/2 cup bell peppers, diced",
+      "Lettuce leaves"
+    ],
+    "instructions": [
+      "Cook minced chicken with soy sauce and ginger-garlic paste.",
+      "Add onions and bell peppers, sauté until tender.",
+      "Spoon mixture into lettuce leaves and serve."
+    ],
+    "prep_time": "15 minutes",
+    "cook_time": "15 minutes",
+    "servings": 4,
+    "nutrition": {
+      "calories": 210,
+      "protein_g": 20,
+      "carbohydrates_g": 8,
+      "fat_g": 10,
+      "fiber_g": 2
+    }
+  },
+  {
+    "name": "Thai Glass Noodle Salad",
+    "cuisine": "Asian",
+    "category": "Salads",
+    "type": "Non-Vegetarian",
+    "ingredients": [
+      "100g glass noodles",
+      "100g shrimp, boiled",
+      "1 tbsp fish sauce",
+      "1 tbsp lime juice",
+      "1 tsp chili flakes",
+      "Fresh coriander"
+    ],
+    "instructions": [
+      "Soak noodles in hot water until soft.",
+      "Mix fish sauce, lime juice, and chili flakes.",
+      "Toss noodles with shrimp and dressing.",
+      "Garnish with coriander."
+    ],
+    "prep_time": "15 minutes",
+    "cook_time": "5 minutes",
+    "servings": 3,
+    "nutrition": {
+      "calories": 240,
+      "protein_g": 14,
+      "carbohydrates_g": 30,
+      "fat_g": 6,
+      "fiber_g": 2
+    }
+  },
+  {
+    "name": "Falooda",
+    "cuisine": "Asian",
+    "category": "Beverages",
+    "type": "Vegetarian",
+    "ingredients": [
+      "2 cups milk",
+      "2 tbsp rose syrup",
+      "1 tbsp basil seeds, soaked",
+      "1/2 cup vermicelli, boiled",
+      "2 scoops vanilla ice cream"
+    ],
+    "instructions": [
+      "Soak basil seeds for 10 minutes.",
+      "Layer vermicelli, basil seeds, and rose syrup in a glass.",
+      "Pour chilled milk.",
+      "Top with ice cream and serve."
+    ],
+    "prep_time": "10 minutes",
+    "cook_time": "10 minutes",
+    "servings": 2,
+    "nutrition": {
+      "calories": 280,
+      "protein_g": 8,
+      "carbohydrates_g": 45,
+      "fat_g": 8,
+      "fiber_g": 2
+    }
+  },
+  {
+    "name": "Egg Rolls",
+    "cuisine": "Asian",
+    "category": "Snacks",
+    "type": "Non-Vegetarian",
+    "ingredients": [
+      "4 eggs",
+      "4 parathas or tortillas",
+      "1/2 cup onions, sliced",
+      "1/2 cup bell peppers, sliced",
+      "2 tbsp tomato ketchup"
+    ],
+    "instructions": [
+      "Cook eggs into thin omelettes.",
+      "Place omelette on paratha.",
+      "Add onions, peppers, and ketchup.",
+      "Roll tightly and serve."
+    ],
+    "prep_time": "15 minutes",
+    "cook_time": "10 minutes",
+    "servings": 4,
+    "nutrition": {
+      "calories": 250,
+      "protein_g": 10,
+      "carbohydrates_g": 28,
+      "fat_g": 10,
+      "fiber_g": 2
+    }
+  },
+  {
+    "name": "Tom Yum Soup",
+    "cuisine": "Asian",
+    "category": "Snacks",
+    "type": "Non-Vegetarian",
+    "ingredients": [
+      "4 cups chicken broth",
+      "200g shrimp",
+      "1 tbsp fish sauce",
+      "2 kaffir lime leaves",
+      "1 lemongrass stalk, chopped",
+      "1 tsp chili paste",
+      "Mushrooms, sliced"
+    ],
+    "instructions": [
+      "Boil chicken broth with lemongrass, lime leaves, and chili paste.",
+      "Add shrimp and mushrooms.",
+      "Season with fish sauce.",
+      "Simmer 5 minutes and serve hot."
+    ],
+    "prep_time": "15 minutes",
+    "cook_time": "15 minutes",
+    "servings": 3,
+    "nutrition": {
+      "calories": 190,
+      "protein_g": 18,
+      "carbohydrates_g": 10,
+      "fat_g": 8,
+      "fiber_g": 2
+    }
+  },
+  {
+    "name": "Coconut Jelly",
+    "cuisine": "Asian",
+    "category": "Dessert",
+    "type": "Vegetarian",
+    "ingredients": [
+      "2 cups coconut milk",
+      "1/2 cup sugar",
+      "2 tbsp agar-agar powder",
+      "1/2 tsp vanilla essence"
+    ],
+    "instructions": [
+      "Mix agar-agar with coconut milk and sugar.",
+      "Heat until dissolved.",
+      "Pour into molds and refrigerate until set.",
+      "Serve chilled."
+    ],
+    "prep_time": "10 minutes",
+    "cook_time": "10 minutes",
+    "servings": 6,
+    "nutrition": {
+      "calories": 160,
+      "protein_g": 3,
+      "carbohydrates_g": 20,
+      "fat_g": 7,
+      "fiber_g": 1
+    }
+  },
+  {
+    "name": "Korean Cold Noodle Salad",
+    "cuisine": "Asian",
+    "category": "Salads",
+    "type": "Non-Vegetarian",
+    "ingredients": [
+      "200g buckwheat noodles",
+      "1 boiled egg",
+      "1/2 cucumber, julienned",
+      "1/2 apple, sliced",
+      "1 tbsp gochujang",
+      "1 tbsp rice vinegar"
+    ],
+    "instructions": [
+      "Boil noodles and rinse under cold water.",
+      "Mix gochujang and rice vinegar for dressing.",
+      "Top noodles with cucumber, apple, and boiled egg.",
+      "Pour dressing and serve chilled."
+    ],
+    "prep_time": "15 minutes",
+    "cook_time": "10 minutes",
+    "servings": 2,
+    "nutrition": {
+      "calories": 260,
+      "protein_g": 9,
+      "carbohydrates_g": 40,
+      "fat_g": 6,
+      "fiber_g": 3
+    }
+  },
+  {
+    "name": "Thai Lemon Grass Cooler",
+    "cuisine": "Asian",
+    "category": "Beverages",
+    "type": "Vegetarian",
+    "ingredients": [
+      "2 cups water",
+      "2 stalks lemongrass, crushed",
+      "2 tbsp honey",
+      "1 tbsp lime juice",
+      "Ice cubes"
+    ],
+    "instructions": [
+      "Boil water with lemongrass for 5 minutes.",
+      "Strain and cool.",
+      "Mix with honey and lime juice.",
+      "Serve over ice."
+    ],
+    "prep_time": "5 minutes",
+    "cook_time": "10 minutes",
+    "servings": 2,
+    "nutrition": {
+      "calories": 60,
+      "protein_g": 0,
+      "carbohydrates_g": 16,
+      "fat_g": 0,
+      "fiber_g": 0
+    }
+  },
+  {
+    "name": "Coconut Ladoo",
+    "cuisine": "Asian",
+    "category": "Dessert",
+    "type": "Vegetarian",
+    "ingredients": [
+      "2 cups grated coconut",
+      "1 cup condensed milk",
+      "1/2 tsp cardamom powder",
+      "2 tbsp ghee"
+    ],
+    "instructions": [
+      "Heat ghee in a pan, add grated coconut.",
+      "Stir in condensed milk and cardamom powder.",
+      "Cook until mixture thickens.",
+      "Shape into small balls and serve."
+    ],
+    "prep_time": "10 minutes",
+    "cook_time": "15 minutes",
+    "servings": 6,
+    "nutrition": {
+      "calories": 180,
+      "protein_g": 3,
+      "carbohydrates_g": 20,
+      "fat_g": 10,
+      "fiber_g": 2
+    }
+  },
+  {
+    "name": "Spring Rolls",
+    "cuisine": "Asian",
+    "category": "Snacks",
+    "type": "Vegetarian",
+    "ingredients": [
+      "10 spring roll wrappers",
+      "1/2 cup cabbage, shredded",
+      "1/2 cup carrots, grated",
+      "1/4 cup bell peppers, sliced",
+      "1 tbsp soy sauce",
+      "Oil for frying"
+    ],
+    "instructions": [
+      "Stir-fry vegetables with soy sauce for 2 minutes.",
+      "Place filling inside wrappers and roll tightly.",
+      "Deep fry until golden and crispy.",
+      "Serve with sweet chili sauce."
+    ],
+    "prep_time": "20 minutes",
+    "cook_time": "15 minutes",
+    "servings": 5,
+    "nutrition": {
+      "calories": 220,
+      "protein_g": 5,
+      "carbohydrates_g": 28,
+      "fat_g": 10,
+      "fiber_g": 3
+    }
+  },
+  {
+    "name": "Chicken Gyoza",
+    "cuisine": "Asian",
+    "category": "Snacks",
+    "type": "Non-Vegetarian",
+    "ingredients": [
+      "1 cup ground chicken",
+      "1/2 cup cabbage, chopped",
+      "1 tsp soy sauce",
+      "1 tsp sesame oil",
+      "20 gyoza wrappers"
+    ],
+    "instructions": [
+      "Mix ground chicken, cabbage, soy sauce, and sesame oil.",
+      "Place filling inside wrappers and seal.",
+      "Pan fry for 2 minutes, then steam until cooked.",
+      "Serve with dipping sauce."
+    ],
+    "prep_time": "20 minutes",
+    "cook_time": "15 minutes",
+    "servings": 4,
+    "nutrition": {
+      "calories": 260,
+      "protein_g": 14,
+      "carbohydrates_g": 24,
+      "fat_g": 12,
+      "fiber_g": 2
+    }
+  },
+  {
+    "name": "Korean Kimchi Salad",
+    "cuisine": "Asian",
+    "category": "Salads",
+    "type": "Non-Vegetarian",
+    "ingredients": [
+      "1 cup kimchi, chopped",
+      "1/2 cucumber, sliced",
+      "1 tsp sesame oil",
+      "1 tbsp sesame seeds"
+    ],
+    "instructions": [
+      "Mix kimchi with cucumber slices.",
+      "Drizzle with sesame oil.",
+      "Top with sesame seeds and serve chilled."
+    ],
+    "prep_time": "10 minutes",
+    "cook_time": "0 minutes",
+    "servings": 2,
+    "nutrition": {
+      "calories": 100,
+      "protein_g": 2,
+      "carbohydrates_g": 10,
+      "fat_g": 4,
+      "fiber_g": 2
+    }
+  },
+  {
+    "name": "Taro Bubble Tea",
+    "cuisine": "Asian",
+    "category": "Beverages",
+    "type": "Vegetarian",
+    "ingredients": [
+      "1 cup taro root, boiled & mashed",
+      "2 cups milk",
+      "1/2 cup tapioca pearls",
+      "2 tbsp sugar",
+      "Ice cubes"
+    ],
+    "instructions": [
+      "Cook tapioca pearls until soft.",
+      "Blend taro with milk and sugar.",
+      "Pour into glass with ice and pearls.",
+      "Serve chilled."
+    ],
+    "prep_time": "10 minutes",
+    "cook_time": "20 minutes",
+    "servings": 2,
+    "nutrition": {
+      "calories": 220,
+      "protein_g": 5,
+      "carbohydrates_g": 40,
+      "fat_g": 6,
+      "fiber_g": 3
+    }
+  },
+  {
+    "name": "Fish Cakes",
+    "cuisine": "Asian",
+    "category": "Snacks",
+    "type": "Non-Vegetarian",
+    "ingredients": [
+      "300g white fish fillets",
+      "1 egg",
+      "1/4 cup breadcrumbs",
+      "1 tbsp soy sauce",
+      "1 tbsp green onions, chopped",
+      "Oil for frying"
+    ],
+    "instructions": [
+      "Blend fish fillets, egg, breadcrumbs, and soy sauce into a paste.",
+      "Shape into small cakes.",
+      "Fry until golden brown.",
+      "Serve hot with chili sauce."
+    ],
+    "prep_time": "15 minutes",
+    "cook_time": "15 minutes",
+    "servings": 4,
+    "nutrition": {
+      "calories": 200,
+      "protein_g": 18,
+      "carbohydrates_g": 8,
+      "fat_g": 10,
+      "fiber_g": 1
+    }
+  },
+  {
+    "name": "Miso Soup",
+    "cuisine": "Asian",
+    "category": "Snacks",
+    "type": "Vegetarian",
+    "ingredients": [
+      "3 cups dashi broth",
+      "2 tbsp miso paste",
+      "1/2 cup tofu cubes",
+      "1/4 cup seaweed",
+      "2 tbsp spring onions, chopped"
+    ],
+    "instructions": [
+      "Heat dashi broth and dissolve miso paste.",
+      "Add tofu and seaweed.",
+      "Simmer for 5 minutes.",
+      "Garnish with spring onions."
+    ],
+    "prep_time": "5 minutes",
+    "cook_time": "10 minutes",
+    "servings": 3,
+    "nutrition": {
+      "calories": 90,
+      "protein_g": 5,
+      "carbohydrates_g": 8,
+      "fat_g": 3,
+      "fiber_g": 2
+    }
+  },
+  {
+    "name": "Green Tea Matcha Cake",
+    "cuisine": "Asian",
+    "category": "Dessert",
+    "type": "Vegetarian",
+    "ingredients": [
+      "1 cup all-purpose flour",
+      "1/2 cup sugar",
+      "2 eggs",
+      "1/2 cup butter",
+      "1 tbsp matcha powder",
+      "1 tsp baking powder"
+    ],
+    "instructions": [
+      "Mix flour, baking powder, and matcha powder.",
+      "Beat eggs, sugar, and butter until fluffy.",
+      "Combine wet and dry ingredients.",
+      "Bake at 180°C for 25 minutes."
+    ],
+    "prep_time": "15 minutes",
+    "cook_time": "25 minutes",
+    "servings": 6,
+    "nutrition": {
+      "calories": 260,
+      "protein_g": 5,
+      "carbohydrates_g": 30,
+      "fat_g": 12,
+      "fiber_g": 2
+    }
+  },
+  {
+    "name": "Asian Fruit Salad",
+    "cuisine": "Asian",
+    "category": "Salads",
+    "type": "Vegetarian",
+    "ingredients": [
+      "1 cup pineapple chunks",
+      "1 cup watermelon cubes",
+      "1 cup papaya cubes",
+      "1 tbsp honey",
+      "1 tsp lime juice",
+      "Mint leaves"
+    ],
+    "instructions": [
+      "Mix fruits in a large bowl.",
+      "Drizzle with honey and lime juice.",
+      "Garnish with mint leaves."
+    ],
+    "prep_time": "10 minutes",
+    "cook_time": "0 minutes",
+    "servings": 3,
+    "nutrition": {
+      "calories": 140,
+      "protein_g": 2,
+      "carbohydrates_g": 34,
+      "fat_g": 1,
+      "fiber_g": 3
+    }
+  },
+  {
+    "name": "Thai Iced Coffee",
+    "cuisine": "Asian",
+    "category": "Beverages",
+    "type": "Vegetarian",
+    "ingredients": [
+      "2 cups strong brewed coffee",
+      "1/2 cup sweetened condensed milk",
+      "1/4 cup evaporated milk",
+      "Ice cubes"
+    ],
+    "instructions": [
+      "Brew strong coffee and let it cool.",
+      "Add condensed milk and evaporated milk.",
+      "Pour over ice and serve chilled."
+    ],
+    "prep_time": "5 minutes",
+    "cook_time": "5 minutes",
+    "servings": 2,
+    "nutrition": {
+      "calories": 180,
+      "protein_g": 4,
+      "carbohydrates_g": 28,
+      "fat_g": 6,
+      "fiber_g": 0
+    }
+  },
+  {
+    "name": "Mango Sticky Rice",
+    "cuisine": "Asian",
+    "category": "Dessert",
+    "type": "Vegetarian",
+    "ingredients": [
+      "1 cup glutinous rice",
+      "1 1/2 cups coconut milk",
+      "1/2 cup sugar",
+      "1/4 tsp salt",
+      "1 ripe mango, sliced",
+      "1 tbsp toasted sesame seeds"
+    ],
+    "instructions": [
+      "Soak sticky rice for 4 hours, then steam until cooked.",
+      "Heat coconut milk with sugar and salt until dissolved.",
+      "Mix half of the coconut milk with the rice.",
+      "Serve with mango slices, drizzle remaining coconut milk, sprinkle sesame seeds."
+    ],
+    "prep_time": "20 minutes",
+    "cook_time": "30 minutes",
+    "servings": 4,
+    "nutrition": {
+      "calories": 320,
+      "protein_g": 6,
+      "carbohydrates_g": 58,
+      "fat_g": 10,
+      "fiber_g": 3
+    }
+  },
+  {
+    "name": "Sesame Honey Balls",
+    "cuisine": "Asian",
+    "category": "Snacks",
+    "type": "Vegetarian",
+    "ingredients": [
+      "1 cup roasted sesame seeds",
+      "1/2 cup jaggery or honey",
+      "1/4 cup peanuts (optional)"
+    ],
+    "instructions": [
+      "Melt jaggery or honey until sticky.",
+      "Mix sesame seeds and peanuts.",
+      "Shape into small balls while warm.",
+      "Cool and store in airtight container."
+    ],
+    "prep_time": "10 minutes",
+    "cook_time": "10 minutes",
+    "servings": 10,
+    "nutrition": {
+      "calories": 120,
+      "protein_g": 3,
+      "carbohydrates_g": 18,
+      "fat_g": 5,
+      "fiber_g": 2
+    }
+  },
+  {
+    "name": "Chicken Satay Skewers",
+    "cuisine": "Asian",
+    "category": "Snacks",
+    "type": "Non-Vegetarian",
+    "ingredients": [
+      "500g chicken breast, cubed",
+      "2 tbsp soy sauce",
+      "1 tbsp peanut butter",
+      "1 tbsp lime juice",
+      "1 tsp chili paste",
+      "Wooden skewers"
+    ],
+    "instructions": [
+      "Marinate chicken with soy sauce, peanut butter, lime juice, and chili paste for 1 hour.",
+      "Thread onto skewers.",
+      "Grill or pan-fry until cooked through.",
+      "Serve with peanut dipping sauce."
+    ],
+    "prep_time": "15 minutes",
+    "cook_time": "15 minutes",
+    "servings": 4,
+    "nutrition": {
+      "calories": 280,
+      "protein_g": 25,
+      "carbohydrates_g": 6,
+      "fat_g": 16,
+      "fiber_g": 1
+    }
+  },
+  {
+    "name": "Asian Cucumber Salad",
+    "cuisine": "Asian",
+    "category": "Salads",
+    "type": "Vegetarian",
+    "ingredients": [
+      "2 cucumbers, sliced",
+      "2 tbsp rice vinegar",
+      "1 tbsp soy sauce",
+      "1 tsp sesame oil",
+      "1 tsp sugar",
+      "1 tbsp sesame seeds"
+    ],
+    "instructions": [
+      "Mix rice vinegar, soy sauce, sesame oil, and sugar.",
+      "Toss cucumber slices with dressing.",
+      "Sprinkle with sesame seeds and serve chilled."
+    ],
+    "prep_time": "10 minutes",
+    "cook_time": "0 minutes",
+    "servings": 2,
+    "nutrition": {
+      "calories": 90,
+      "protein_g": 2,
+      "carbohydrates_g": 10,
+      "fat_g": 4,
+      "fiber_g": 2
+    }
+  },
+  {
+    "name": "Lychee Iced Tea",
+    "cuisine": "Asian",
+    "category": "Beverages",
+    "type": "Vegetarian",
+    "ingredients": [
+      "2 cups brewed black tea",
+      "1/2 cup lychee juice",
+      "1 tbsp sugar",
+      "Ice cubes",
+      "Fresh lychee fruits"
+    ],
+    "instructions": [
+      "Brew black tea and let it cool.",
+      "Mix with lychee juice and sugar.",
+      "Serve over ice with fresh lychees."
+    ],
+    "prep_time": "5 minutes",
+    "cook_time": "5 minutes",
+    "servings": 2,
+    "nutrition": {
+      "calories": 80,
+      "protein_g": 0,
+      "carbohydrates_g": 20,
+      "fat_g": 0,
+      "fiber_g": 1
+    }
+  },
+  {
+    "name": "Prawn Tempura",
+    "cuisine": "Asian",
+    "category": "Snacks",
+    "type": "Non-Vegetarian",
+    "ingredients": [
+      "200g prawns, peeled",
+      "1 cup tempura flour",
+      "1 cup cold water",
+      "Oil for deep frying"
+    ],
+    "instructions": [
+      "Mix tempura flour with cold water to make a light batter.",
+      "Dip prawns in batter.",
+      "Deep-fry until golden and crispy.",
+      "Serve with soy dipping sauce."
+    ],
+    "prep_time": "15 minutes",
+    "cook_time": "10 minutes",
+    "servings": 3,
+    "nutrition": {
+      "calories": 250,
+      "protein_g": 16,
+      "carbohydrates_g": 18,
+      "fat_g": 12,
+      "fiber_g": 1
+    }
+  },
+  {
+    "name": "Steamed Veg Momos",
+    "cuisine": "Asian",
+    "category": "Snacks",
+    "type": "Vegetarian",
+    "ingredients": [
+      "1 cup all-purpose flour",
+      "1/2 cup cabbage, shredded",
+      "1/2 cup carrots, grated",
+      "1 tbsp soy sauce",
+      "1 tsp ginger-garlic paste"
+    ],
+    "instructions": [
+      "Make dough with flour and water.",
+      "Mix cabbage, carrots, soy sauce, and ginger-garlic paste.",
+      "Fill dough circles with stuffing and shape dumplings.",
+      "Steam for 10 minutes."
+    ],
+    "prep_time": "20 minutes",
+    "cook_time": "10 minutes",
+    "servings": 4,
+    "nutrition": {
+      "calories": 160,
+      "protein_g": 5,
+      "carbohydrates_g": 28,
+      "fat_g": 2,
+      "fiber_g": 3
+    }
+  },
+  
+  {
+    "name": "Thai Green Papaya Salad",
+    "cuisine": "Asian",
+    "category": "Salads",
+    "type": "Vegetarian",
+    "ingredients": [
+      "1 cup shredded green papaya",
+      "1 carrot, shredded",
+      "2 tbsp lime juice",
+      "1 tbsp fish sauce (or soy sauce for veg)",
+      "1 tsp chili flakes",
+      "2 tbsp crushed peanuts"
+    ],
+    "instructions": [
+      "Mix lime juice, fish sauce/soy sauce, and chili flakes.",
+      "Toss papaya and carrot in dressing.",
+      "Top with crushed peanuts."
+    ],
+    "prep_time": "15 minutes",
+    "cook_time": "0 minutes",
+    "servings": 2,
+    "nutrition": {
+      "calories": 110,
+      "protein_g": 3,
+      "carbohydrates_g": 15,
+      "fat_g": 4,
+      "fiber_g": 3
+    }
+  },
+  {
+    "name": "Matcha Mochi Ice Cream",
+    "cuisine": "Asian",
+    "category": "Dessert",
+    "type": "Vegetarian",
+    "ingredients": [
+      "1 cup glutinous rice flour",
+      "1/4 cup sugar",
+      "1/2 cup water",
+      "1 tbsp matcha powder",
+      "4 scoops vanilla ice cream"
+    ],
+    "instructions": [
+      "Mix rice flour, sugar, water, and matcha powder.",
+      "Steam until doughy.",
+      "Roll dough into circles and wrap around ice cream scoops.",
+      "Freeze before serving."
+    ],
+    "prep_time": "20 minutes",
+    "cook_time": "10 minutes",
+    "servings": 4,
+    "nutrition": {
+      "calories": 220,
+      "protein_g": 4,
+      "carbohydrates_g": 38,
+      "fat_g": 6,
+      "fiber_g": 1
+    }
+  },
+  {
+    "name": "Spiced Chai Latte",
+    "cuisine": "Asian",
+    "category": "Beverages",
+    "type": "Vegetarian",
+    "ingredients": [
+      "2 cups milk",
+      "2 black tea bags",
+      "2 cardamom pods",
+      "1 cinnamon stick",
+      "2 cloves",
+      "1 tsp ginger, grated",
+      "2 tsp sugar"
+    ],
+    "instructions": [
+      "Boil milk with spices and ginger.",
+      "Add tea bags and steep for 5 minutes.",
+      "Strain, add sugar, and serve hot."
+    ],
+    "prep_time": "5 minutes",
+    "cook_time": "10 minutes",
+    "servings": 2,
+    "nutrition": {
+      "calories": 150,
+      "protein_g": 6,
+      "carbohydrates_g": 20,
+      "fat_g": 5,
+      "fiber_g": 1
+    }
+  }
+,
+  {
+    "name": "Vegetable Congee",
+    "cuisine": "Asian",
+    "category": "Breakfast",
+    "type": "Vegetarian",
+    "ingredients": [
+      "1 cup jasmine rice",
+      "6 cups vegetable broth",
+      "1 carrot, diced",
+      "1/2 cup corn kernels",
+      "1/2 cup spinach leaves",
+      "2 tbsp soy sauce",
+      "1 tsp sesame oil",
+      "Salt to taste",
+      "Spring onions for garnish"
+    ],
+    "instructions": [
+      "Wash the rice and place it in a large pot.",
+      "Add 6 cups of vegetable broth and bring to a boil.",
+      "Reduce the heat and simmer for 40–45 minutes until the rice breaks down and becomes porridge-like.",
+      "Add diced carrots, corn, and spinach, and cook for 5 minutes.",
+      "Stir in soy sauce and sesame oil.",
+      "Season with salt and garnish with spring onions."
+    ],
+    "prep_time": "10 minutes",
+    "cook_time": "45 minutes",
+    "servings": 4,
+    "nutrition": {
+      "calories": 180,
+      "protein_g": 6,
+      "carbohydrates_g": 32,
+      "fat_g": 3,
+      "fiber_g": 2
+    }
+  },
+  {
+    "name": "Japanese Tamago Sushi",
+    "cuisine": "Asian",
+    "category": "Breakfast",
+    "type": "Non-Vegetarian",
+    "ingredients": [
+      "2 eggs",
+      "1 tsp sugar",
+      "1/2 tsp soy sauce",
+      "1 cup sushi rice, cooked",
+      "1 tbsp rice vinegar",
+      "1 tsp sugar",
+      "1/2 tsp salt",
+      "Nori seaweed strips"
+    ],
+    "instructions": [
+      "Beat eggs with sugar and soy sauce.",
+      "Cook in a non-stick pan to form a rectangular omelette.",
+      "Mix rice vinegar, sugar, and salt with warm sushi rice.",
+      "Cut omelette into strips and place over small rice balls.",
+      "Wrap with nori strip to secure."
+    ],
+    "prep_time": "15 minutes",
+    "cook_time": "10 minutes",
+    "servings": 2,
+    "nutrition": {
+      "calories": 210,
+      "protein_g": 8,
+      "carbohydrates_g": 28,
+      "fat_g": 7,
+      "fiber_g": 1
+    }
+  },
+  {
+    "name": "Thai Green Curry with Chicken",
+    "cuisine": "Asian",
+    "category": "Lunch",
+    "type": "Non-Vegetarian",
+    "ingredients": [
+      "500g chicken breast, sliced",
+      "2 tbsp green curry paste",
+      "400ml coconut milk",
+      "1 cup eggplant, diced",
+      "1 red bell pepper, sliced",
+      "2 kaffir lime leaves",
+      "1 tbsp fish sauce",
+      "1 tsp sugar",
+      "Fresh basil leaves"
+    ],
+    "instructions": [
+      "Heat a pan and cook the green curry paste until fragrant.",
+      "Add coconut milk and bring to a simmer.",
+      "Add chicken and cook until no longer pink.",
+      "Add eggplant, bell pepper, kaffir lime leaves, fish sauce, and sugar.",
+      "Simmer until vegetables are tender.",
+      "Garnish with fresh basil and serve with steamed rice."
+    ],
+    "prep_time": "15 minutes",
+    "cook_time": "25 minutes",
+    "servings": 4,
+    "nutrition": {
+      "calories": 320,
+      "protein_g": 25,
+      "carbohydrates_g": 12,
+      "fat_g": 20,
+      "fiber_g": 3
+    }
+  },
+  {
+    "name": "Vegetable Ramen Bowl",
+    "cuisine": "Asian",
+    "category": "Lunch",
+    "type": "Vegetarian",
+    "ingredients": [
+      "200g ramen noodles",
+      "4 cups vegetable broth",
+      "1 tbsp soy sauce",
+      "1 tsp miso paste",
+      "1/2 cup mushrooms, sliced",
+      "1/2 cup bok choy",
+      "1 boiled egg (optional)",
+      "Spring onions for garnish"
+    ],
+    "instructions": [
+      "Bring vegetable broth to a boil and add miso paste and soy sauce.",
+      "Cook ramen noodles separately and add to the broth.",
+      "Add mushrooms and bok choy, cook for 3–4 minutes.",
+      "Top with a boiled egg (optional) and garnish with spring onions."
+    ],
+    "prep_time": "10 minutes",
+    "cook_time": "15 minutes",
+    "servings": 2,
+    "nutrition": {
+      "calories": 280,
+      "protein_g": 10,
+      "carbohydrates_g": 45,
+      "fat_g": 6,
+      "fiber_g": 4
+    }
+  },
+  {
+    "name": "Korean Bibimbap",
+    "cuisine": "Asian",
+    "category": "Dinner",
+    "type": "Non-Vegetarian",
+    "ingredients": [
+      "2 cups cooked rice",
+      "100g beef strips",
+      "1 carrot, julienned",
+      "1 zucchini, julienned",
+      "1 cup spinach",
+      "1 fried egg",
+      "2 tbsp gochujang (Korean chili paste)",
+      "1 tbsp sesame oil",
+      "1 tsp sesame seeds"
+    ],
+    "instructions": [
+      "Sauté beef strips until cooked.",
+      "Blanch spinach and sauté carrot and zucchini separately.",
+      "Arrange rice in a bowl, place beef, vegetables, and fried egg on top.",
+      "Drizzle with sesame oil, sprinkle sesame seeds, and serve with gochujang."
+    ],
+    "prep_time": "20 minutes",
+    "cook_time": "15 minutes",
+    "servings": 2,
+    "nutrition": {
+      "calories": 450,
+      "protein_g": 18,
+      "carbohydrates_g": 60,
+      "fat_g": 15,
+      "fiber_g": 5
+    }
+  },{
+    "name": "Masala Chai (Indian Spiced Tea)",
+    "cuisine": "Asian",
+    "category": "Beverages",
+    "type": "Vegetarian",
+    "ingredients": [
+        "2 cups water",
+        "1 cup milk",
+        "2 tsp black tea leaves (or 2 teabags)",
+        "2 tsp sugar (adjust to taste)",
+        "2 green cardamom pods, lightly crushed",
+        "1 small piece of cinnamon stick",
+        "2 cloves",
+        "1 small piece of fresh ginger, sliced"
+    ],
+    "instructions": [
+        "In a saucepan, bring water to a boil with ginger, cardamom, cinnamon, and cloves.",
+        "Add tea leaves and simmer for 2–3 minutes.",
+        "Pour in milk and sugar, bring to a gentle boil and simmer for another 2 minutes.",
+        "Strain into cups and serve hot."
+    ],
+    "prep_time": "5 minutes",
+    "cook_time": "10 minutes",
+    "servings": 2,
+    "nutrition": {
+        "calories": 80,
+        "protein_g": 2,
+        "carbohydrates_g": 12,
+        "fat_g": 2,
+        "fiber_g": 0
+    }
+},{
+    "name": "Coffee",
+    "cuisine": "Asian",
+    "category": "Beverages",
+    "type": "Vegetarian",
+    "ingredients": [
+        "2 cups milk",
+        "2 tsp instant coffee powder",
+        "2 tsp sugar (adjust to taste)",
+        "1 small piece cinnamon stick",
+        "2 cardamom pods, lightly crushed",
+        "1 small piece fresh ginger (optional)"
+    ],
+    "instructions": [
+        "In a saucepan, bring milk to a gentle boil with cinnamon, cardamom, and ginger.",
+        "Add instant coffee and sugar, stir well.",
+        "Simmer for 1–2 minutes.",
+        "Strain and serve hot."
+    ],
+    "prep_time": "5 minutes",
+    "cook_time": "5 minutes",
+    "servings": 2,
+    "nutrition": {
+        "calories": 90,
+        "protein_g": 4,
+        "carbohydrates_g": 10,
+        "fat_g": 4,
+        "fiber_g": 0
+    }
+}
+,{
+    "name": "Sweet Lassi",
+    "cuisine": "Asian",
+    "category": "Beverages",
+    "type": "Vegetarian",
+    "ingredients": [
+        "2 cups plain yogurt",
+        "1/2 cup cold water (or milk)",
+        "3 tbsp sugar (adjust to taste)",
+        "1/2 tsp cardamom powder",
+        "Ice cubes (optional)",
+        "Chopped pistachios or almonds for garnish (optional)"
+    ],
+    "instructions": [
+        "In a blender, combine yogurt, water (or milk), sugar, and cardamom powder.",
+        "Blend until smooth and frothy.",
+        "Pour into glasses, add ice cubes if desired.",
+        "Garnish with chopped nuts and serve chilled."
+    ],
+    "prep_time": "5 minutes",
+    "cook_time": "0 minutes",
+    "servings": 2,
+    "nutrition": {
+        "calories": 150,
+        "protein_g": 6,
+        "carbohydrates_g": 22,
+        "fat_g": 4,
+        "fiber_g": 0
+    }
+},{
+    "name": "Chicken Seekh Kebabs",
+    "cuisine": "Middle Eastern",
+    "category": "Dinner",
+    "type": "Non-Vegetarian",
+    "ingredients": [
+        "500g minced chicken",
+        "1 medium onion, finely chopped",
+        "2 green chilies, finely chopped",
+        "1 tbsp ginger-garlic paste",
+        "2 tbsp fresh coriander leaves, chopped",
+        "1 tsp cumin powder",
+        "1 tsp garam masala",
+        "1 tsp red chili powder",
+        "1 tsp salt",
+        "1 tbsp lemon juice",
+        "2 tbsp bread crumbs",
+        "2 tbsp oil (for brushing)"
+    ],
+    "instructions": [
+        "In a bowl, mix minced chicken with onions, chilies, spices, coriander, lemon juice, and bread crumbs.",
+        "Divide the mixture into equal portions and shape around skewers to form kebabs.",
+        "Preheat grill or oven to medium-high heat.",
+        "Place kebabs on grill/oven tray, brush with oil, and cook until golden brown and fully cooked (about 12–15 minutes), turning occasionally.",
+        "Serve hot with mint chutney or yogurt dip."
+    ],
+    "prep_time": "20 minutes",
+    "cook_time": "15 minutes",
+    "servings": 4,
+    "nutrition": {
+        "calories": 250,
+        "protein_g": 22,
+        "carbohydrates_g": 8,
+        "fat_g": 15,
+        "fiber_g": 2
+    }
+},{
+    "name": "Classic Hummus",
+    "cuisine": "Middle Eastern",
+    "category": "Appetizer",
+    "type": "Vegetarian",
+    "ingredients": [
+        "1 can (400g) chickpeas, drained and rinsed",
+        "3 tbsp tahini (sesame paste)",
+        "2 tbsp olive oil",
+        "2 tbsp lemon juice",
+        "2 garlic cloves, minced",
+        "1/2 tsp cumin powder",
+        "1/2 tsp salt",
+        "2–3 tbsp cold water",
+        "Paprika & extra olive oil for garnish"
+    ],
+    "instructions": [
+        "In a food processor, blend chickpeas, tahini, olive oil, lemon juice, garlic, cumin, and salt.",
+        "Gradually add cold water until smooth and creamy consistency is reached.",
+        "Transfer to a serving bowl, drizzle with olive oil, and sprinkle with paprika.",
+        "Serve with pita bread or fresh veggies."
+    ],
+    "prep_time": "10 minutes",
+    "cook_time": "0 minutes",
+    "servings": 4,
+    "nutrition": {
+        "calories": 170,
+        "protein_g": 6,
+        "carbohydrates_g": 15,
+        "fat_g": 10,
+        "fiber_g": 4
+    }
+}
+,
+{
+    "name": "Chicken Shawarma",
+    "cuisine": "Middle Eastern",
+    "category": "Dinner",
+    "type": "Non-Vegetarian",
+    "ingredients": [
+        "500g boneless chicken thighs",
+        "3 tbsp plain yogurt",
+        "2 tbsp olive oil",
+        "2 garlic cloves, minced",
+        "1 tbsp lemon juice",
+        "1 tsp paprika",
+        "1 tsp cumin powder",
+        "1 tsp coriander powder",
+        "1/2 tsp turmeric powder",
+        "1/2 tsp cinnamon powder",
+        "1 tsp salt",
+        "1/2 tsp black pepper",
+        "4 pita breads",
+        "Sliced cucumber, tomato, and onion for filling",
+        "Tahini sauce or garlic sauce for serving"
+    ],
+    "instructions": [
+        "In a bowl, mix yogurt, olive oil, garlic, lemon juice, and spices to make a marinade.",
+        "Coat chicken with marinade, cover, and refrigerate for at least 1 hour (best overnight).",
+        "Grill or pan-cook chicken until fully cooked and slightly charred, then slice thinly.",
+        "Warm pita breads, fill with chicken, vegetables, and drizzle with tahini or garlic sauce.",
+        "Serve hot with extra sauce on the side."
+    ],
+    "prep_time": "20 minutes (plus 1 hour marination)",
+    "cook_time": "15 minutes",
+    "servings": 4,
+    "nutrition": {
+        "calories": 380,
+        "protein_g": 28,
+        "carbohydrates_g": 35,
+        "fat_g": 14,
+        "fiber_g": 4
+    }
+},{
+    "name": "Classic Beef Burger",
+    "cuisine": "American",
+    "category": "Dinner",
+    "type": "Non-Vegetarian",
+    "ingredients": [
+        "500g ground beef",
+        "1 small onion, finely chopped",
+        "1 garlic clove, minced",
+        "1 tsp salt",
+        "1/2 tsp black pepper",
+        "1 tbsp Worcestershire sauce",
+        "4 burger buns",
+        "Lettuce leaves",
+        "Tomato slices",
+        "Cheese slices",
+        "Ketchup and mayonnaise"
+    ],
+    "instructions": [
+        "In a mixing bowl, combine ground beef, onion, garlic, salt, pepper, and Worcestershire sauce.",
+        "Form into 4 patties.",
+        "Grill or pan-fry patties over medium-high heat for 4–5 minutes per side until cooked to desired doneness.",
+        "Lightly toast the burger buns.",
+        "Assemble burgers by placing lettuce, tomato, cheese, and patties inside buns.",
+        "Top with ketchup and mayonnaise, then serve hot."
+    ],
+    "prep_time": "15 minutes",
+    "cook_time": "15 minutes",
+    "servings": 4,
+    "nutrition": {
+        "calories": 450,
+        "protein_g": 28,
+        "carbohydrates_g": 35,
+        "fat_g": 23,
+        "fiber_g": 3
+    }
+},{
+    "name": "Mac and Cheese",
+    "cuisine": "American",
+    "category": "Dinner",
+    "type": "Vegetarian",
+    "ingredients": [
+        "250g elbow macaroni",
+        "2 tbsp butter",
+        "2 tbsp all-purpose flour",
+        "2 cups milk",
+        "1 1/2 cups cheddar cheese, shredded",
+        "1/2 tsp salt",
+        "1/4 tsp black pepper",
+        "1/4 cup bread crumbs (optional for topping)"
+    ],
+    "instructions": [
+        "Cook macaroni according to package instructions and drain.",
+        "In a saucepan, melt butter and stir in flour to make a roux.",
+        "Gradually whisk in milk and cook until thickened.",
+        "Add cheese, salt, and pepper; stir until smooth.",
+        "Mix sauce with cooked macaroni and transfer to a baking dish (optional: top with bread crumbs).",
+        "Bake at 180°C (350°F) for 15 minutes if desired crispy topping, otherwise serve directly."
+    ],
+    "prep_time": "10 minutes",
+    "cook_time": "20 minutes",
+    "servings": 4,
+    "nutrition": {
+        "calories": 400,
+        "protein_g": 14,
+        "carbohydrates_g": 45,
+        "fat_g": 18,
+        "fiber_g": 2
+    }
+}
+,{
+    "name": "BBQ Pork Ribs",
+    "cuisine": "American",
+    "category": "Dinner",
+    "type": "Non-Vegetarian",
+    "ingredients": [
+        "1 rack pork ribs (about 1.2 kg)",
+        "1 tbsp salt",
+        "1 tsp black pepper",
+        "1 tsp paprika",
+        "1 tsp garlic powder",
+        "1 tsp onion powder",
+        "1/2 cup BBQ sauce"
+    ],
+    "instructions": [
+        "Preheat oven to 160°C (320°F).",
+        "Remove the thin membrane from the back of the ribs.",
+        "Rub ribs with salt, pepper, paprika, garlic powder, and onion powder.",
+        "Wrap ribs in foil and place on a baking tray.",
+        "Bake for 2–2.5 hours until tender.",
+        "Remove foil, brush with BBQ sauce, and bake or grill for another 10–15 minutes until glazed.",
+        "Serve hot with extra BBQ sauce."
+    ],
+    "prep_time": "15 minutes",
+    "cook_time": "2 hours 30 minutes",
+    "servings": 4,
+    "nutrition": {
+        "calories": 600,
+        "protein_g": 42,
+        "carbohydrates_g": 20,
+        "fat_g": 38,
+        "fiber_g": 1
+    }
+},{
+    "name": "Piri Piri Chicken",
+    "cuisine": "African",
+    "category": "Dinner",
+    "type": "Non-Vegetarian",
+    "ingredients": [
+        "1 whole chicken (about 1.2 kg), spatchcocked",
+        "3 tbsp olive oil",
+        "3–4 fresh red chilies (or 2 tbsp chili paste)",
+        "4 garlic cloves, minced",
+        "2 tbsp lemon juice",
+        "1 tbsp smoked paprika",
+        "1 tsp oregano",
+        "1 tsp salt",
+        "1/2 tsp black pepper"
+    ],
+    "instructions": [
+        "Blend chilies, garlic, lemon juice, olive oil, paprika, oregano, salt, and pepper into a marinade.",
+        "Rub marinade all over the chicken and let it rest for at least 1 hour (preferably overnight).",
+        "Preheat grill or oven to 200°C (400°F).",
+        "Grill or roast chicken for 40–45 minutes, basting occasionally, until fully cooked and slightly charred.",
+        "Serve hot with fries, salad, or bread."
+    ],
+    "prep_time": "20 minutes (plus 1 hour marination)",
+    "cook_time": "45 minutes",
+    "servings": 4,
+    "nutrition": {
+        "calories": 380,
+        "protein_g": 34,
+        "carbohydrates_g": 3,
+        "fat_g": 25,
+        "fiber_g": 1
+    }
+}
+,{
+    "name": "Bunny Chow",
+    "cuisine": "African",
+    "category": "Dinner",
+    "type": "Non-Vegetarian",
+    "ingredients": [
+        "2 loaves of white bread, unsliced",
+        "500g chicken or lamb, cut into cubes",
+        "2 tbsp oil",
+        "1 large onion, chopped",
+        "2 garlic cloves, minced",
+        "1 tbsp ginger paste",
+        "2 tomatoes, chopped",
+        "2 tbsp curry powder",
+        "1 tsp turmeric",
+        "1 tsp cumin powder",
+        "1 cup chicken stock",
+        "1 tsp salt",
+        "Fresh coriander leaves for garnish"
+    ],
+    "instructions": [
+        "Heat oil in a pan, sauté onion, garlic, and ginger until golden.",
+        "Add curry powder, turmeric, and cumin; cook for 1 minute.",
+        "Add meat and sear until browned.",
+        "Stir in tomatoes and cook until softened.",
+        "Add chicken stock and salt, simmer for 30 minutes until meat is tender.",
+        "Cut loaves of bread in half, hollow out the center, and fill with curry.",
+        "Garnish with coriander and serve immediately."
+    ],
+    "prep_time": "15 minutes",
+    "cook_time": "40 minutes",
+    "servings": 4,
+    "nutrition": {
+        "calories": 520,
+        "protein_g": 32,
+        "carbohydrates_g": 60,
+        "fat_g": 18,
+        "fiber_g": 5
+    }
+}
+, {
+    "name": "Jollof Rice",
+    "cuisine": "African",
+    "category": "Dinner",
+    "type": "Vegetarian (or Non-Vegetarian if cooked with chicken stock)",
+    "ingredients": [
+        "2 cups long-grain parboiled rice",
+        "1/4 cup vegetable oil",
+        "1 onion, chopped",
+        "2 red bell peppers",
+        "2 tomatoes, chopped",
+        "2 garlic cloves, minced",
+        "1 tbsp tomato paste",
+        "2 cups vegetable stock (or chicken stock)",
+        "1 tsp thyme",
+        "1 tsp curry powder",
+        "1 bay leaf",
+        "1 tsp salt",
+        "1/2 tsp black pepper"
+    ],
+    "instructions": [
+        "Blend red bell peppers, tomatoes, onion, and garlic into a smooth paste.",
+        "Heat oil in a pot, add tomato paste, and fry for 2 minutes.",
+        "Add the blended mixture and cook for 10 minutes until thickened.",
+        "Stir in thyme, curry powder, bay leaf, salt, and pepper.",
+        "Add rice and mix until coated with sauce.",
+        "Pour in stock, cover, and cook on low heat for 25–30 minutes until rice is fluffy.",
+        "Serve hot with fried plantains or grilled meat."
+    ],
+    "prep_time": "15 minutes",
+    "cook_time": "30 minutes",
+    "servings": 4,
+    "nutrition": {
+        "calories": 390,
+        "protein_g": 7,
+        "carbohydrates_g": 70,
+        "fat_g": 10,
+        "fiber_g": 4
+    }
+},
+{
+    "name": "Margherita Pizza",
+    "cuisine": "European",
+    "category": "Dinner",
+    "type": "Vegetarian",
+    "ingredients": [
+        "250g pizza dough",
+        "1/2 cup tomato sauce",
+        "200g fresh mozzarella, sliced",
+        "2 tbsp olive oil",
+        "Fresh basil leaves",
+        "1/2 tsp salt",
+        "1/4 tsp black pepper"
+    ],
+    "instructions": [
+        "Preheat oven to 220°C (430°F).",
+        "Roll out the pizza dough on a floured surface.",
+        "Spread tomato sauce evenly over the dough.",
+        "Top with mozzarella slices and drizzle with olive oil.",
+        "Season with salt and pepper.",
+        "Bake for 10–12 minutes until crust is golden and cheese is melted.",
+        "Garnish with fresh basil before serving."
+    ],
+    "prep_time": "15 minutes",
+    "cook_time": "12 minutes",
+    "servings": 2,
+    "nutrition": {
+        "calories": 420,
+        "protein_g": 18,
+        "carbohydrates_g": 45,
+        "fat_g": 18,
+        "fiber_g": 3
+    }
+},
+{
+    "name": "Fish and Chips",
+    "cuisine": "European",
+    "category": "Dinner",
+    "type": "Non-Vegetarian",
+    "ingredients": [
+        "500g white fish fillets (cod or haddock)",
+        "1 cup all-purpose flour",
+        "1 tsp baking powder",
+        "1 cup cold sparkling water",
+        "1/2 tsp salt",
+        "1/2 tsp black pepper",
+        "500g potatoes, cut into thick fries",
+        "Oil for deep frying"
+    ],
+    "instructions": [
+        "Heat oil in a deep fryer or large pot to 180°C (350°F).",
+        "Rinse and dry potato fries, fry until golden and crispy, then drain.",
+        "In a bowl, mix flour, baking powder, salt, and cold sparkling water into a batter.",
+        "Dip fish fillets into batter, then fry until golden brown and cooked through (about 6–7 minutes).",
+        "Serve hot with fries, lemon wedges, and tartar sauce."
+    ],
+    "prep_time": "20 minutes",
+    "cook_time": "25 minutes",
+    "servings": 4,
+    "nutrition": {
+        "calories": 600,
+        "protein_g": 32,
+        "carbohydrates_g": 65,
+        "fat_g": 25,
+        "fiber_g": 6
+    }
+},
+{
+    "name": "Greek Moussaka",
+    "cuisine": "European",
+    "category": "Dinner",
+    "type": "Non-Vegetarian",
+    "ingredients": [
+        "2 large eggplants, sliced",
+        "400g ground lamb or beef",
+        "1 onion, finely chopped",
+        "2 garlic cloves, minced",
+        "2 tomatoes, chopped",
+        "2 tbsp tomato paste",
+        "1/2 cup red wine (optional)",
+        "1 tsp cinnamon powder",
+        "1 tsp oregano",
+        "3 tbsp olive oil",
+        "2 tbsp butter",
+        "2 tbsp flour",
+        "1 1/2 cups milk",
+        "1/4 cup grated parmesan",
+        "Salt and pepper to taste"
+    ],
+    "instructions": [
+        "Slice eggplants, sprinkle with salt, and let sit for 20 minutes. Pat dry and fry in olive oil until golden.",
+        "Sauté onion and garlic in olive oil, add ground meat, and cook until browned.",
+        "Add tomatoes, tomato paste, wine, cinnamon, and oregano. Simmer for 20 minutes.",
+        "Prepare a béchamel sauce with butter, flour, and milk, then stir in parmesan.",
+        "In a baking dish, layer eggplant slices, meat sauce, and repeat. Top with béchamel sauce.",
+        "Bake at 180°C (350°F) for 40 minutes until golden on top.",
+        "Cool slightly before serving."
+    ],
+    "prep_time": "30 minutes",
+    "cook_time": "1 hour",
+    "servings": 6,
+    "nutrition": {
+        "calories": 480,
+        "protein_g": 24,
+        "carbohydrates_g": 28,
+        "fat_g": 30,
+        "fiber_g": 6
+    }
+}
+  ]
+}
