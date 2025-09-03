@@ -16,13 +16,13 @@
     "chart.js": "^4.5.0",
     "framer-motion": "^12.23.12",
     "html2canvas": "^1.4.1",
-<<<<<<< HEAD
+
     "jspdf": "^3.0.2",
     "jspdf-autotable": "^5.0.2",
-=======
 
 
->>>>>>> 5b84da3 (Update backend and frontend components)
+
+
     "p-limit": "^7.0.0",
     "react": "^19.1.0",
     "react-chartjs-2": "^5.3.0",
