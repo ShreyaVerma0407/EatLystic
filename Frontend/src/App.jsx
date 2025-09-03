@@ -2,7 +2,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 
 import Signup from './signup'; 
-import Login from './Login';
+import Login from './login';
 import Welcome from './Components/Welcome';
 import Homepage from './Components/Homepage';
 import LandingPage from "./Components/LandingPage";
