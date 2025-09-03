@@ -2,6 +2,8 @@ import React, { useState, useEffect } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Navbar from '../Components/Navbar'; // ✅ Import your existing Navbar component
 
+const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
+
 const Customise = ({ userId }) => {
     const [isFormVisible, setIsFormVisible] = useState(false);
     const [recipes, setRecipes] = useState([]);
@@ -16,7 +18,8 @@ const Customise = ({ userId }) => {
     const [feedbackMessage, setFeedbackMessage] = useState({ type: '', text: '' });
     const [showDeleteModal, setShowDeleteModal] = useState(false);
     const [recipeToDelete, setRecipeToDelete] = useState(null);
-    const API_URL = "http://localhost:3001/api/custom-recipes";
+    const API_URL = `${API_BASE_URL}/custom-recipes`;
+
 
     const fetchRecipes = async () => {
         if (!userId) {

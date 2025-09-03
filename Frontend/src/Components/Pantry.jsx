@@ -63,10 +63,10 @@ function isNonVeg(name) {
 }
 
 const INITIAL = [];
-
-const UNSPLASH_ACCESS_KEY = "UJNKrsdX6sHSuq-0a21chG_RcNcmufGkmAJhBu5bWdI";
-const EDAMAM_APP_ID = "d8fcef32";
-const EDAMAM_APP_KEY = "cce36e3d448f77400622c1ec62a5b3b7";
+const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
+const UNSPLASH_ACCESS_KEY =  import.meta.env.VITE_UNSPLASH_KEY;
+const EDAMAM_APP_ID = import.meta.env.VITE_EDAMAM_APP_ID;
+const EDAMAM_APP_KEY = import.meta.env.VITE_EDAMAM_APP_KEY;
 
 const defaultImage = "/images/pantry.png";
 const vegImage = "/images/pantrygreen.png";
@@ -114,7 +114,8 @@ function Pantry({ currentUserId }) {
   useEffect(() => {
     if (!currentUserId) return;
 
-    fetch(`http://localhost:3001/api/pantry/${currentUserId}`)
+    fetch(`${API_BASE_URL}/pantry/${currentUserId}`)
+
       .then((res) => res.json())
       .then((data) => {
         if (data.status === "success") setPantry(data.data);
@@ -253,7 +254,7 @@ function Pantry({ currentUserId }) {
     };
 
     if (editingId) {
-      fetch(`http://localhost:3001/api/pantry/${editingId}`, {
+      fetch(`${API_BASE_URL}/pantry/${editingId}`, {
         method: "PUT",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(itemData),
@@ -272,7 +273,7 @@ function Pantry({ currentUserId }) {
         })
         .catch(() => alert("Error updating pantry item"));
     } else {
-      fetch("http://localhost:3001/api/pantry", {
+      fetch(`${API_BASE_URL}/pantry`,  {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(itemData),
@@ -293,7 +294,7 @@ function Pantry({ currentUserId }) {
 
   const handleDelete = (id) => {
     if (window.confirm("Are you sure you want to delete this item?")) {
-      fetch(`http://localhost:3001/api/pantry/${id}`, {
+      fetch(`${API_BASE_URL}/pantry/${id}`, {
         method: "DELETE",
       })
         .then((res) => res.json())

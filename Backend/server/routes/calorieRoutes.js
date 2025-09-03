@@ -5,8 +5,8 @@ import Calorie from "../models/Calorie.js";
 
 const calorieRouter = express.Router();
 
-const EDAMAM_APP_ID = process.env.EDAMAM_APP_ID || "d8fcef32";
-const EDAMAM_APP_KEY = process.env.EDAMAM_APP_KEY || "cce36e3d448f77400622c1ec62a5b3b7";
+const EDAMAM_APP_ID = process.env.EDAMAM_APP_ID ;
+const EDAMAM_APP_KEY = process.env.EDAMAM_APP_KEY;
 
 // GET /api/calorie?item=xxx - fetch calories from DB or Edamam API and auto-save if fetched from API
 calorieRouter.get("/", async (req, res) => {

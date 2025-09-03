@@ -18,6 +18,8 @@ import {
   CartesianGrid
 } from "recharts";
 
+const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
+
 const NUTRIENTS = ["protein_g", "fat_total_g", "carbohydrates_total_g", "fiber_g"];
 const HEART_RATE_BASE = 70;
 const DISEASES = [
@@ -280,7 +282,7 @@ heartRateVal += diseaseObj?.heartRateAdjust || 0;
 
   // ✅ Send data to backend
   try {
-    const res = await axios.post("http://localhost:3001/api/fitness/save", {
+    const res = await axios.post(`${API_BASE_URL}/fitness/save`, {
       userId,
       age,
       gender,
@@ -306,11 +308,11 @@ heartRateVal += diseaseObj?.heartRateAdjust || 0;
 
   useEffect(() => {
     if (!userId) return;
-    axios.get(`http://localhost:3001/api/consumed/user/${userId}`)
+    axios.get(`${API_BASE_URL}/consumed/user/${userId}`)
       .then(res => { if (res.data.status === "success") setConsumedData(res.data.data); })
       .catch(err => console.error(err));
 
-    axios.get(`http://localhost:3001/api/consumption/aggregate?userId=${userId}&interval=daily`)
+    axios.get(`${API_BASE_URL}/consumption/aggregate?userId=${userId}&interval=daily`)
       .then(res => {
         if (res.data.status === "success") {
           const total = res.data.data.reduce((sum, entry) => sum + entry.calories, 0);

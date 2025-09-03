@@ -10,6 +10,8 @@ function Signup() {
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
 
+ const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || "http://localhost:3001/api";
+const EMAIL_BASE_URL = API_BASE_URL.replace("/api", "");
   const handleSubmit = async (e) => {
     e.preventDefault();
 
@@ -19,7 +21,7 @@ function Signup() {
     }
 
     try {
-      const response = await axios.post("http://localhost:3001/register", {
+     const response = await axios.post(`${EMAIL_BASE_URL}/register`, {
         name: name.trim(),
         email: email.trim(),
         password,

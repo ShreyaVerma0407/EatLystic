@@ -3,6 +3,9 @@ import jsPDF from "jspdf";
 import autoTable from "jspdf-autotable";
 import Navbar from "./Navbar";
 
+const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
+const EMAIL_BASE_URL = API_BASE_URL.replace("/api", "");
+
 const PantryReport = ({ userId }) => {
   const [pantryItems, setPantryItems] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -26,7 +29,7 @@ const PantryReport = ({ userId }) => {
     }
 
     try {
-      const res = await fetch(`http://localhost:3001/api/pantry/${userId}`);
+      const res = await fetch(`${API_BASE_URL}/pantry/${userId}`);
       if (!res.ok) throw new Error("Failed to fetch pantry items");
       const data = await res.json();
       const items = Array.isArray(data.data) ? data.data : [];
@@ -59,7 +62,7 @@ const PantryReport = ({ userId }) => {
           expiringItems.map(async (item) => {
             const type = calculateDays(item.expiry) < 0 ? "expired" : "expiringSoon";
             try {
-              await fetch(`http://localhost:3001/email/send`, {
+              await fetch(`${EMAIL_BASE_URL}/email/send`, {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({
@@ -265,7 +268,7 @@ const PantryReport = ({ userId }) => {
         return;
       }
 
-      const res = await fetch("http://localhost:3001/api/email", {
+      const res = await fetch(`${API_BASE_URL}/email`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ userId, pdfBase64 }),

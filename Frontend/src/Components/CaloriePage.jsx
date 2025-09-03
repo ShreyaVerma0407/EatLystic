@@ -14,6 +14,9 @@ import {
   Pie,
 } from "recharts";
 
+const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
+
+
 const CATEGORIES = [
   "Fruits",
   "Vegetables",
@@ -59,8 +62,7 @@ const CaloriePage = ({ currentUserId }) => {
   // Fetch pantry items for the current user
   useEffect(() => {
     if (!currentUserId) return;
-    axios
-      .get(`http://localhost:3001/api/pantry/${currentUserId}`)
+    axios.get(`${API_BASE_URL}/pantry/${currentUserId}`)
       .then((res) => {
         if (res.data.status === "success") setPantry(res.data.data);
         else alert("Failed to fetch pantry");
@@ -76,9 +78,8 @@ const CaloriePage = ({ currentUserId }) => {
       const newMap = {};
       for (const item of pantry) {
         try {
-          const res = await axios.get(`http://localhost:3001/api/calorie`, {
-            params: { item: item.name },
-          });
+          const res = await axios.get(`${API_BASE_URL}/calorie`, { params: { item: item.name } });
+
           newMap[item._id] = res.data.calories || 0;
         } catch {
           newMap[item._id] = 0;
@@ -100,12 +101,13 @@ const CaloriePage = ({ currentUserId }) => {
             const caloriesPerItem = caloriesMap[item._id] || 0;
             const caloriesConsumed = caloriesPerItem * item.consumed;
 
-            await axios.post("http://localhost:3001/api/consumption/log", {
-              userId: currentUserId,
-              pantryItemId: item._id,
-              quantityConsumed: item.consumed,
-              caloriesConsumed,
-            });
+            await axios.post(`${API_BASE_URL}/consumption/log`, {
+  userId: currentUserId,
+  pantryItemId: item._id,
+  quantityConsumed: item.consumed,
+  caloriesConsumed,
+});
+
           } catch (error) {
             console.error(`Failed to save consumption log for ${item.name}`, error);
           }
@@ -164,9 +166,10 @@ const CaloriePage = ({ currentUserId }) => {
     if (!searchTerm.trim()) return;
     setLoadingSearch(true);
     try {
-      const res = await axios.get(`http://localhost:3001/api/calorie`, {
-        params: { item: searchTerm },
-      });
+      const res = await axios.get(`${API_BASE_URL}/calorie`, {
+  params: { item: searchTerm },
+});
+
       setSearchCalories(res.data.calories || 0);
     } catch {
       alert("Failed to fetch calorie info");

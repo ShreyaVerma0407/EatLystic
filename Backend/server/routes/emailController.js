@@ -15,11 +15,11 @@ router.post("/send", async (req, res) => {
     // Send email
     const transporter = nodemailer.createTransport({
       service: "gmail",
-      auth: { user: "aikitchen811@gmail.com", pass: "nfzc rhfk sejo zybi" }, // add your password or app password
+      auth: { user: process.env.EMAIL_USER, pass: process.env.EMAIL_PASS, }, // add your password or app password
     });
 
     await transporter.sendMail({
-      from: "aikitchen811@gmail.com",
+      from: process.env.EMAIL_USER,
       to: employee.email,
       subject,
       text,

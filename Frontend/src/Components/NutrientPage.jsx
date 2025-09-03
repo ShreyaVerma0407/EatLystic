@@ -16,6 +16,8 @@ import {
 } from "recharts";
 import nutrientData from "../data/nutrient.json";
 
+
+
 // -------------------- Error Boundary --------------------
 class ErrorBoundary extends React.Component {
   constructor(props) {
@@ -68,6 +70,7 @@ const PIE_COLORS = [
 ];
 
 const NUTRIENTS = ["protein_g", "fat_total_g", "carbohydrates_total_g", "fiber_g"];
+const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
 
 // -------------------- API KEYS --------------------
 const NINJAS_API_KEY = "LJcbyLP0Ka89agOhKykJCQ==vAqHCOEHEgTYJ61I";
@@ -202,7 +205,7 @@ const NutrientPageContent = () => {
   // Fetch pantry items
   useEffect(() => {
     if (!userId) return;
-    fetch(`http://localhost:3001/api/pantry/${userId}`)
+    fetch(`${API_BASE_URL}/pantry/${userId}`)
       .then((res) => res.json())
       .then((data) => {
         if (data.status === "success") {
@@ -300,7 +303,7 @@ useEffect(() => {
   // -------------------- Send to Backend --------------------
   if (consumedToSave.length > 0) {
     axios.all(
-      consumedToSave.map(item => axios.post("http://localhost:3001/api/consumed", item))
+      consumedToSave.map(item => axios.post(`${API_BASE_URL}/consumed`, item))
     )
     .then(() => console.log("Consumed nutrients saved!"))
     .catch(err => console.error("Error saving consumed:", err.response?.data || err.message));
@@ -308,10 +311,11 @@ useEffect(() => {
 
   if (totalToSave.length > 0) {
     axios.post(
-      "http://localhost:3001/api/nutrients-total",
-      totalToSave,
-      { headers: { "Content-Type": "application/json" } }
-    )
+  `${API_BASE_URL}/nutrients-total`,
+  totalToSave,
+  { headers: { "Content-Type": "application/json" } }
+)
+
     .then(() => console.log("Total nutrients saved!"))
     .catch(err => console.error("Error saving total:", err.response?.data || err.message));
   }

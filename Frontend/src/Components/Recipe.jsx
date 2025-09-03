@@ -37,6 +37,7 @@ const CARD_SETS = {
   ]
 };
 
+// Remove duplicates and get unique cards
 const ALL_CARDS_UNIQUE = (() => {
   const map = new Map();
   Object.values(CARD_SETS).flat().forEach(card => {
@@ -46,19 +47,31 @@ const ALL_CARDS_UNIQUE = (() => {
 })();
 
 const HeroSection = () => {
+  const navigate = useNavigate();
   const [showContent, setShowContent] = useState(false);
   const [activeFilter, setActiveFilter] = useState("");
-  const navigate = useNavigate();
+
+  const [centerIndex, setCenterIndex] = useState(() =>
+    Math.floor(ALL_CARDS_UNIQUE.length / 2)
+  );
 
   const cardsToShow = activeFilter ? CARD_SETS[activeFilter] || [] : ALL_CARDS_UNIQUE;
 
+  const navigateCarousel = (direction) => {
+    if (direction === "left") {
+      setCenterIndex(prev => (prev > 0 ? prev - 1 : cardsToShow.length - 1));
+    } else {
+      setCenterIndex(prev => (prev < cardsToShow.length - 1 ? prev + 1 : 0));
+    }
+  };
+
   return (
     <div style={{ position: "relative", minHeight: "100vh" }}>
-      {/* 🔥 Smooth sliding background */}
+      {/* Background */}
       <motion.div
         initial={{ y: "0vh" }}
         animate={{ y: showContent ? "-100vh" : "0vh" }}
-        transition={{ duration: 1.2, ease: [0.77, 0, 0.175, 1] }} // smooth cubic-bezier
+        transition={{ duration: 1.2, ease: [0.77, 0, 0.175, 1] }}
         style={{
           position: "fixed",
           top: 0,
@@ -169,70 +182,155 @@ const HeroSection = () => {
                     cursor: "pointer",
                     borderRadius: "22px",
                   }}
-                  onClick={() => setActiveFilter(filter.key)}
+                  onClick={() => {
+                    setActiveFilter(filter.key);
+                    const newCards = filter.key ? CARD_SETS[filter.key] : ALL_CARDS_UNIQUE;
+                    setCenterIndex(Math.floor(newCards.length / 2));
+                  }}
                 >
                   {filter.name}
                 </button>
               ))}
             </div>
 
-            {/* Cards */}
-            <div
-              style={{
-                display: "grid",
-                gridTemplateColumns: "repeat(4, 1fr)",
-                gap: "3rem",
-                padding: "3rem 5rem 5rem",
-                justifyItems: "center",
-                backgroundColor: "#fffaf5",
-              }}
-            >
-              {cardsToShow.map((card) => (
-                <div
-                  key={card.name}
+            {/* 3D Carousel */}
+            {cardsToShow.length > 0 && (
+              <div
+                style={{
+                  position: "relative",
+                  height: "420px",
+                  overflow: "hidden",
+                  padding: "3rem 0",
+                  backgroundColor: "#fffaf5",
+                  display: "flex",
+                  justifyContent: "center",
+                  alignItems: "center",
+                }}
+              >
+                {/* Left/Right Buttons */}
+                <button
                   style={{
-                    background: "white",
-                    border: "4px solid #ededed",
-                    borderRadius: "22px",
-                    textAlign: "center",
-                    padding: "2rem 1.5rem 1rem 1.5rem",
+                    position: "absolute",
+                    left: "2rem",
+                    top: "50%",
+                    transform: "translateY(-50%)",
+                    zIndex: 20,
+                    padding: "1rem",
+                    fontSize: "2rem",
                     cursor: "pointer",
-                    minWidth: "250px",
-                    maxWidth: "300px",
-                    display: "flex",
-                    flexDirection: "column",
-                    alignItems: "center",
+                    borderRadius: "50%",
+                    background: "orange",
+                    color: "white",
+                    border: "none",
                   }}
-                  onClick={() => navigate(card.route)}
+                  onClick={() => navigateCarousel("left")}
                 >
-                  <img
-                    src={card.img}
-                    alt={card.name}
-                    style={{
-                      width: "220px",
-                      height: "220px",
-                      borderRadius: "20px",
-                      objectFit: "cover",
-                      boxShadow: "0 8px 20px #fde9c6",
-                      marginBottom: "1.6rem",
-                    }}
-                  />
-                  <div
-                    style={{
-                      fontWeight: "bold",
-                      fontSize: "1.4rem",
-                      color: "#222",
-                      minHeight: "2.6rem",
-                      whiteSpace: "nowrap",
-                      textOverflow: "ellipsis",
-                      overflow: "hidden",
-                    }}
-                  >
-                    {card.name}
-                  </div>
+                  ◀
+                </button>
+                <button
+                  style={{
+                    position: "absolute",
+                    right: "2rem",
+                    top: "50%",
+                    transform: "translateY(-50%)",
+                    zIndex: 20,
+                    padding: "1rem",
+                    fontSize: "2rem",
+                    cursor: "pointer",
+                    borderRadius: "50%",
+                    background: "orange",
+                    color: "white",
+                    border: "none",
+                  }}
+                  onClick={() => navigateCarousel("right")}
+                >
+                  ▶
+                </button>
+
+                {/* Cards */}
+                <div
+                  style={{
+                    position: "relative",
+                    width: "100%",
+                    height: "100%",
+                    perspective: "1500px",
+                  }}
+                >
+                  {cardsToShow.map((card, index) => {
+                    const offset = index - centerIndex;
+                    const absOffset = Math.abs(offset);
+                    const isCenter = offset === 0;
+
+                    const scale = isCenter ? 1.15 : 0.85;
+                    const translateX = offset * 260;
+                    const translateZ = isCenter ? 100 : -200;
+                    const opacity = isCenter ? 1 : 0.5;
+                    const blur = isCenter ? "none" : "blur(3px)";
+
+                    return (
+                      <motion.div
+                        key={card.name}
+                        style={{
+                          position: "absolute",
+                          top: "50%",
+                          left: "50%",
+                          width: "280px",
+                          height: "360px",
+                          transform: `translate(-50%, -50%) translateX(${translateX}px) translateZ(${translateZ}px) scale(${scale})`,
+                          opacity,
+                          zIndex: isCenter ? 20 : 10 - absOffset,
+                          cursor: "pointer",
+                          transition: "transform 0.6s, opacity 0.6s",
+                          filter: blur,
+                        }}
+                        onClick={() => navigate(card.route)}
+                      >
+                        <div
+                          style={{
+                            background: "#fff",
+                            borderRadius: "20px",
+                            overflow: "hidden",
+                            boxShadow: isCenter
+                              ? "0 12px 30px rgba(255,165,0,0.4)"
+                              : "0 4px 10px rgba(255,165,0,0.2)",
+                          }}
+                        >
+                          <img
+                            src={card.img}
+                            alt={card.name}
+                            style={{
+                              width: "100%",
+                              height: "220px",
+                              objectFit: "cover",
+                            }}
+                          />
+                          <div
+                            style={{
+                              padding: "1rem",
+                              textAlign: "center",
+                              fontWeight: "bold",
+                              fontSize: "1.3rem",
+                              color: "orange",
+                            }}
+                          >
+                            {card.name}
+                          </div>
+                          <div
+                            style={{
+                              textAlign: "center",
+                              fontSize: "1rem",
+                              color: "#666",
+                            }}
+                          >
+                            Balanced nutrition
+                          </div>
+                        </div>
+                      </motion.div>
+                    );
+                  })}
                 </div>
-              ))}
-            </div>
+              </div>
+            )}
           </motion.div>
         )}
       </AnimatePresence>

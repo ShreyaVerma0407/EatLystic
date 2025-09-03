@@ -9,6 +9,10 @@ function Login() {
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
 
+  const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || "http://localhost:3001/api";
+const EMAIL_BASE_URL = API_BASE_URL.replace("/api", "");
+
+
   const handleSubmit = async (e) => {
     e.preventDefault();
 
@@ -18,7 +22,7 @@ function Login() {
     }
 
     try {
-      const response = await axios.post("http://localhost:3001/login", {
+      const response = await axios.post(`${EMAIL_BASE_URL}/login`, {
         email: email.trim(),
         password,
       });
