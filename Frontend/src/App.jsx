@@ -1,7 +1,7 @@
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 
-import Signup from './Signup'; 
+import Signup from './signup'; 
 import Login from './Login';
 import Welcome from './Components/Welcome';
 import Homepage from './Components/Homepage';
