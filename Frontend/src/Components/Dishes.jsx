@@ -2,11 +2,9 @@ import React, { useState, useEffect, useMemo } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import axios from "axios";
 
-const UNSPLASH_ACCESS_KEY =  import.meta.env.VITE_UNSPLASH_KEY;
-const EDAMAM_APP_ID = import.meta.env.VITE_EDAMAM_APP_ID;
-const EDAMAM_APP_KEY = import.meta.env.VITE_EDAMAM_APP_KEY;
-const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
-
+const UNSPLASH_ACCESS_KEY = "UJNKrsdX6sHSuq-0a21chG_RcNcmufGkmAJhBu5bWdI";
+const EDAMAM_APP_ID = "d8fcef32";
+const EDAMAM_APP_KEY = "cce36e3d448f77400622c1ec62a5b3b7";
 
 const Dishes = () => {
   const { id } = useParams();
@@ -18,7 +16,6 @@ const Dishes = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-<<<<<<< HEAD
     fetch("/data/recipe.json")
       .then(res => {
         if (!res.ok) throw new Error("Failed to load recipes");
@@ -32,71 +29,6 @@ const Dishes = () => {
         setError("Error loading recipe data.");
         setLoading(false);
         console.error(err);
-=======
-    (async () => {
-      const newImgs = await Promise.all(
-        ingredients.map(async (ing) => {
-          const q = typeof ing === "string" ? ing : ing.name;
-          try {
-            const unsplashResult = await axios.get(
-              `https://api.unsplash.com/search/photos?query=${encodeURIComponent(
-                q
-              )}&client_id=${UNSPLASH_ACCESS_KEY}&per_page=1`
-            );
-            if (unsplashResult.data.results?.[0]?.urls?.small) {
-              // Correctly access first result's image URL
-              return unsplashResult.data.results[0].urls.small;
-            }
-          } catch (e) {
-            console.error(e);
-          }
-          try {
-            const edaRes = await axios.get(
-              `https://api.edamam.com/api/food-database/v2/parser?ingr=${encodeURIComponent(
-                q
-              )}&app_id=${EDAMAM_APP_ID}&app_key=${EDAMAM_APP_KEY}`
-            );
-            // Correct optional chaining with array indexing
-            if (edaRes.data.hints?.[0]?.food?.image) {
-              return edaRes.data.hints[0].food.image;
-            }
-          } catch (e) {
-            console.error(e);
-          }
-          return "";
-        })
-      );
-      setImages(newImgs);
-    })();
-  }, [ingredients]);
-
-  return images;
-}
-
-const InstructionCarousel = ({ steps, recipe, onCooked }) => {
-  const [active, setActive] = useState(0);
-  const [showRating, setShowRating] = useState(false);
-  const [rating, setRating] = useState(0);
-
-  const navigate = useNavigate();
-
-  const moveLeft = () =>
-    setActive(active === 0 ? steps.length - 1 : active - 1);
-
-  const moveRight = () =>
-    setActive(active === steps.length - 1 ? 0 : active + 1);
-
-  const isLastStep = active === steps.length - 1;
-
-  const progress = ((active + 1) / steps.length) * 100;
-
-  const handleRatingSubmit = async () => {
-    if (rating === 0) return;
-    try {
-      await axios.post(`${API_BASE_URL}/ratings/rate`, {
-        dishId: recipe.id || recipe.name,
-        rating,
->>>>>>> 5b84da3 (Update backend and frontend components)
       });
   }, []);
 
@@ -133,8 +65,9 @@ const InstructionCarousel = ({ steps, recipe, onCooked }) => {
         ingredients: recipe.ingredients || [],
       };
 
-      await axios.post(`${API_BASE_URL}/recipes/cooked`, data);
-      await axios.post(`${API_BASE_URL}/pantry/reduce`, {
+      await axios.post("http://localhost:3001/api/recipes/cooked", data);
+
+      await axios.post("http://localhost:3001/api/pantry/reduce", {
         ingredients: recipe.ingredients,
       });
 
