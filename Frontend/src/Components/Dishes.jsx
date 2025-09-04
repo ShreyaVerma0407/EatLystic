@@ -33,8 +33,6 @@ const Dish = () => {
   const [currentStep, setCurrentStep] = useState(0);
   const [foodData, setFoodData] = useState([]);
   const [saving, setSaving] = useState(false);
-
-  // ⭐ NEW: states for images
   const [dishImage, setDishImage] = useState(null);
   const [ingredientImages, setIngredientImages] = useState({});
   const pageRef = useRef(); // 🔹 for container reference
@@ -43,19 +41,39 @@ const Dish = () => {
   const { id } = useParams();
   const navigate = useNavigate();
 
-  // ✅ Load recipes from public/data/food.json
-  useEffect(() => {
-    fetch("/data/food.json")
-      .then((res) => res.json())
-      .then((data) => setFoodData(data))
-      .catch((err) => console.error("Error loading food.json:", err));
-  }, []);
-
-  // Try to get recipe from navigation state OR from food.json by name
+  // ✅ Try to get recipe from navigation state (liked page) or fallback to food.json
   let recipe = location.state?.recipe;
-  if (!recipe && foodData.length > 0) {
-    recipe = foodData.find(
-      (r) => r.name.toLowerCase() === decodeURIComponent(id).toLowerCase()
+
+  useEffect(() => {
+    if (!recipe) {
+      // If no recipe in state, fetch from food.json
+      fetch("/data/food.json")
+        .then((res) => res.json())
+        .then((data) => {
+          setFoodData(data);
+          recipe = data.find(
+            (r) => r.name.toLowerCase() === decodeURIComponent(id).toLowerCase()
+          );
+        })
+        .catch((err) => console.error("Error loading food.json:", err));
+    }
+  }, [id, recipe]);
+
+  // If recipe still isn't found, show an error message
+  if (!recipe) {
+    return (
+      <div
+        style={{
+          backgroundColor: "#181824",
+          color: "white",
+          minHeight: "100vh",
+          padding: "2rem",
+          textAlign: "center",
+        }}
+      >
+        <h2>⚠ Recipe not found</h2>
+        <p>You may have refreshed the page or navigated directly.</p>
+      </div>
     );
   }
 
@@ -101,23 +119,6 @@ const Dish = () => {
       });
     }
   }, [recipe]);
-
-  if (!recipe) {
-    return (
-      <div
-        style={{
-          backgroundColor: "#181824",
-          color: "white",
-          minHeight: "100vh",
-          padding: "2rem",
-          textAlign: "center",
-        }}
-      >
-        <h2>⚠ Recipe not found</h2>
-        <p>You may have refreshed the page or navigated directly.</p>
-      </div>
-    );
-  }
 
   const totalSteps = recipe.instructions?.length || 0;
   const progress = totalSteps ? ((currentStep + 1) / totalSteps) * 100 : 0;
@@ -382,7 +383,7 @@ const Dish = () => {
             <ShoppingCart
               size={20}
               style={{ cursor: "pointer", opacity: 0.7 }}
-              onClick={() => alert(`Add "${item}" to cart (not implemented)`)}
+              onClick={() => alert(`Add "${item}" to cart (not implemented)`) }
             />
           </div>
         ))}
