@@ -1,357 +1,345 @@
-
-import React, { useState, useEffect, useMemo } from "react";
-import { AiOutlineHeart, AiFillHeart } from "react-icons/ai";
-import recipesData from "../data/recipe.json";
-import jsPDF from "jspdf";
+// src/components/PantryChef.jsx
+import React, { useState, useEffect } from "react";
+import { FaClock, FaListUl, FaHeart } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
 
-const CUISINE_OPTIONS = ["All", "Asian", "Middle Eastern", "European", "American", "African"];
-const API_BASE = import.meta.env.VITE_API_BASE_URL || "http://localhost:3001/api";
-const PREP_TIME_OPTIONS = [
-  { label: "Any", min: 0, max: Infinity },
-  { label: "< 10 min", min: 0, max: 10 },
-  { label: "< 20 min", min: 0, max: 20 },
-  { label: "< 30 min", min: 0, max: 30 },
-  { label: ">= 30 min", min: 30, max: Infinity }
-];
-const COOK_TIME_OPTIONS = [...PREP_TIME_OPTIONS];
-
-const cardMainColor = "#33353e";
-const cardTextColor = "#fff";
-const borderColor = "#23242a";
-const orange = "#ff0166ff";
-
-const modalBackgroundStyle = {
-  position: "fixed",
-  inset: 0,
-  backgroundColor: "rgba(0,0,0,0.6)",
-  display: "flex",
-  justifyContent: "center",
-  alignItems: "center",
-  zIndex: 1000,
-};
-
-const modalContentStyle = {
-  backgroundColor: "#181824",
-  borderRadius: 32,
-  width: "90%",
-  maxWidth: 640,
-  maxHeight: "80vh",
-  overflowY: "auto",
-  padding: "2.5rem 2.3rem 2.7rem 2.3rem",
-  position: "relative",
-  color: "#fff",
-  boxShadow: "0 2px 18px 0 #0007",
-  animation: "fadeIn 0.44s",
-  fontFamily: "'Helvetica Neue', Helvetica, Arial, sans-serif"
-};
-
-const closeButtonStyle = {
-  position: "absolute",
-  top: 12,
-  right: 12,
-  background: "transparent",
-  border: "none",
-  color: "#fff",
-  fontSize: 30,
-  cursor: "pointer",
-  lineHeight: 1,
-};
-
-const downloadButtonStyle = {
-  position: "absolute",
-  top: 12,
-  left: 12,
-  backgroundColor: orange,
-  border: "none",
-  borderRadius: 6,
-  color: "#fff",
-  padding: "6px 12px",
-  cursor: "pointer",
-  fontWeight: "bold",
-  zIndex: 1010,
-};
-
-const cookedButtonStyle = {
-  position: "fixed",
-  bottom: 24,
-  right: 24,
-  backgroundColor: orange,
-  color: "#fff",
-  border: "none",
-  borderRadius: 10,
-  padding: "12px 20px",
-  fontSize: 16,
-  fontWeight: "bold",
-  cursor: "pointer",
-  zIndex: 1100,
-  boxShadow: "0 2px 8px rgba(0,0,0,0.3)",
-};
-
-const filterContainerStyle = {
-  marginBottom: "2rem",
-  display: "flex",
-  gap: "1rem",
-  flexWrap: "wrap",
-  alignItems: "center",
-  justifyContent: "space-between",
-};
-
-const parseTime = (time) => {
-  if (!time) return 0;
-  if (typeof time === "number") return time;
-  if (typeof time === "string") {
-    const num = parseInt(time);
-    return isNaN(num) ? 0 : num;
-  }
-  return 0;
-};
+const UNSPLASH_KEY = import.meta.env.VITE_UNSPLASH_KEY;
+const EDAMAM_ID = import.meta.env.VITE_EDAMAM_APP_ID;
+const EDAMAM_KEY = import.meta.env.VITE_EDAMAM_APP_KEY;
 
 const PantryChef = ({ currentUserId }) => {
   const [pantryItems, setPantryItems] = useState([]);
+  const [foodItems, setFoodItems] = useState([]);
   const [matchingRecipes, setMatchingRecipes] = useState([]);
-  const [openRecipeId, setOpenRecipeId] = useState(null);
-  const [likedRecipes, setLikedRecipes] = useState(() => new Set());
-
-  const [cuisineFilter, setCuisineFilter] = useState("All");
-  const [prepFilter, setPrepFilter] = useState(PREP_TIME_OPTIONS[0]);
-  const [cookFilter, setCookFilter] = useState(COOK_TIME_OPTIONS[0]);
-  const [keywordsFilter, setKeywordsFilter] = useState("");
-  const [showLikedOnly, setShowLikedOnly] = useState(false);
+  const [images, setImages] = useState({});
+  const [favorites, setFavorites] = useState({}); // recipeId -> true/false
 
   const navigate = useNavigate();
 
-  const recipesArray = useMemo(() => {
-    if (!Array.isArray(recipesData?.recipes)) return [];
-    return recipesData.recipes.map((r, i) => ({
-      ...r,
-      id: (r.id ?? i).toString(),
-    }));
-  }, [recipesData]);
-
+  // 🔹 Fetch pantry items
   useEffect(() => {
     if (!currentUserId) return;
-    fetch(`${API_BASE}/pantry/${currentUserId}`)
-      .then(res => res.json())
-      .then(result => setPantryItems(Array.isArray(result?.data) ? result.data : []))
-      .catch(() => setPantryItems([]));
-  }, [currentUserId]);
 
-  useEffect(() => {
-    if (!currentUserId) return;
-    fetch(`${API_BASE}/likes/${currentUserId}`)
-      .then(res => res.json())
-      .then(result => {
-        if (Array.isArray(result?.liked)) setLikedRecipes(new Set(result.liked));
+    fetch(`http://localhost:3001/api/pantry/${currentUserId}`)
+      .then((res) => res.json())
+      .then((result) => {
+        if (result.status === "success" && Array.isArray(result.data)) {
+          setPantryItems(result.data);
+        }
       })
-      .catch(err => console.error("Failed to fetch liked recipes:", err));
+      .catch((err) => console.error("Error fetching pantry:", err));
   }, [currentUserId]);
 
+  // 🔹 Fetch recipe list
   useEffect(() => {
-    if (!Array.isArray(pantryItems) || pantryItems.length === 0) {
+    fetch("/data/food.json")
+      .then((res) => res.json())
+      .then((data) => {
+        if (Array.isArray(data)) setFoodItems(data);
+        else if (Array.isArray(data.recipes)) setFoodItems(data.recipes);
+      })
+      .catch((err) => console.error("Error fetching food.json:", err));
+  }, []);
+
+  // 🔹 Filter recipes with 3+ pantry matches
+  useEffect(() => {
+    if (pantryItems.length === 0 || foodItems.length === 0) {
       setMatchingRecipes([]);
       return;
     }
-    const pantryNames = pantryItems.map(i => String(i.name || "").toLowerCase());
-    const matched = recipesArray.filter(recipe => {
-      const recipeIngredients = (recipe.ingredients || []).map(ing =>
-        typeof ing === "string" ? ing.toLowerCase() : ing.name ? ing.name.toLowerCase() : ""
-      );
-      const matchCount = pantryNames.filter(pantryItem =>
-        recipeIngredients.some(recipeIng => recipeIng.includes(pantryItem))
-      ).length;
-      return matchCount >= 3;
+
+    const pantryNames = pantryItems.map((item) =>
+      item.name.toLowerCase().trim()
+    );
+
+    const filtered = foodItems.map((recipe, idx) => {
+      const recipeId = recipe.id || recipe.name || `recipe-${idx}`;
+
+      if (!Array.isArray(recipe.ingredients)) return null;
+
+      const matchCount = recipe.ingredients.reduce((count, ingredient) => {
+        if (typeof ingredient !== "string") return count;
+        const ing = ingredient.toLowerCase();
+        const found = pantryNames.some((p) => ing.includes(p));
+        return found ? count + 1 : count;
+      }, 0);
+
+      return matchCount >= 3 ? { ...recipe, recipeId } : null;
     });
-    setMatchingRecipes(matched);
-  }, [pantryItems, recipesArray]);
 
-  const filteredRecipes = useMemo(() => {
-    const keywordsArray = keywordsFilter.toLowerCase().split(",").map(s => s.trim()).filter(Boolean);
-    return matchingRecipes.filter(recipe => {
-      if (showLikedOnly && !likedRecipes.has(recipe.id)) return false;
-      if (cuisineFilter !== "All" && (recipe.cuisine || "").toLowerCase() !== cuisineFilter.toLowerCase()) return false;
+    setMatchingRecipes(filtered.filter(Boolean));
+  }, [pantryItems, foodItems]);
 
-      const prepMinutes = parseTime(recipe.prep_minutes ?? recipe.prep_time ?? recipe.time);
-      const cookMinutes = parseTime(recipe.cook_minutes ?? recipe.cook_time ?? recipe.time);
+  // 🔹 Fetch recipe images
+  useEffect(() => {
+    matchingRecipes.forEach(async (recipe) => {
+      if (images[recipe.recipeId]) return;
 
-      if (prepMinutes < prepFilter.min || prepMinutes > prepFilter.max) return false;
-      if (cookMinutes < cookFilter.min || cookMinutes > cookFilter.max) return false;
+      let imageUrl = "";
 
-      if (keywordsArray.length) {
-        const recipeKeywords = (recipe.keywords || []).map(k => k.toLowerCase());
-        if (!keywordsArray.some(k => recipeKeywords.includes(k))) return false;
-      }
-      return true;
-    });
-  }, [matchingRecipes, likedRecipes, cuisineFilter, prepFilter, cookFilter, keywordsFilter, showLikedOnly]);
-
-  const openRecipe = openRecipeId ? filteredRecipes.find(r => r.id === openRecipeId) : null;
-
-  const toggleLike = async (recipeId, e) => {
-    e.stopPropagation();
-    const isLiked = likedRecipes.has(recipeId);
-    try {
-      await fetch(`${API_BASE}/likes`, {
-        method: isLiked ? "DELETE" : "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ userId: currentUserId, recipeId }),
-      });
-      setLikedRecipes(prev => {
-        const updated = new Set(prev);
-        if (isLiked) updated.delete(recipeId);
-        else updated.add(recipeId);
-        return updated;
-      });
-    } catch (err) {
-      console.error("Failed to update like:", err);
-    }
-  };
-
-  const handleCookedClick = async () => {
-    if (!openRecipe || !currentUserId) return;
-    try {
-      await fetch(`${API_BASE}/cooked`, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ userId: currentUserId, recipeId: openRecipe.id, name: openRecipe.name, nutrition: openRecipe.nutrition || null }),
-      });
-
-      // Update pantry in parallel
-      const pantryUpdates = (openRecipe.ingredients || []).map(async ing => {
-        const ingName = typeof ing === "string" ? ing.toLowerCase() : ing.name?.toLowerCase();
-        if (!ingName) return;
-        const pantryItem = pantryItems.find(p => p.name.toLowerCase().includes(ingName));
-        if (pantryItem && pantryItem.quantity > 0) {
-          await fetch(`${API_BASE}/pantry/update`, {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ userId: currentUserId, itemName: pantryItem.name, change: -1 }),
-          });
+      try {
+        const unsplashRes = await fetch(
+          `https://api.unsplash.com/search/photos?query=${encodeURIComponent(
+            recipe.name
+          )}&client_id=${UNSPLASH_KEY}`
+        );
+        const unsplashData = await unsplashRes.json();
+        if (unsplashData?.results?.length > 0) {
+          imageUrl = unsplashData.results[0].urls.small;
         }
-      });
-      await Promise.all(pantryUpdates);
+      } catch (err) {
+        console.warn("Unsplash failed:", err);
+      }
 
-      // Refresh pantry
-      const refreshed = await fetch(`${API_BASE}/pantry/${currentUserId}`);
-      const refreshedData = await refreshed.json();
-      setPantryItems(Array.isArray(refreshedData?.data) ? refreshedData.data : []);
+      if (!imageUrl) {
+        try {
+          const edamamRes = await fetch(
+            `https://api.edamam.com/search?q=${encodeURIComponent(
+              recipe.name
+            )}&app_id=${EDAMAM_ID}&app_key=${EDAMAM_KEY}&from=0&to=1`
+          );
+          const edamamData = await edamamRes.json();
+          if (edamamData?.hits?.length > 0) {
+            imageUrl = edamamData.hits[0].recipe.image;
+          }
+        } catch (err) {
+          console.warn("Edamam failed:", err);
+        }
+      }
 
-      alert(`Marked "${openRecipe.name}" as cooked and updated pantry.`);
+      if (imageUrl) {
+        setImages((prev) => ({ ...prev, [recipe.recipeId]: imageUrl }));
+      }
+    });
+  }, [matchingRecipes]);
+
+  // 🔹 Fetch liked recipes for current user
+  useEffect(() => {
+    if (!currentUserId) return;
+
+    fetch(`http://localhost:3001/api/liked/${currentUserId}`)
+      .then((res) => res.json())
+      .then((data) => {
+        if (data.status === "success" && Array.isArray(data.liked)) {
+          const likedMap = {};
+          data.liked.forEach((id) => {
+            likedMap[id] = true;
+          });
+          setFavorites(likedMap);
+        }
+      })
+      .catch((err) => console.error("Error fetching liked recipes:", err));
+  }, [currentUserId]);
+
+  // 🔹 Toggle favorite (with backend sync + full recipe details)
+  const toggleFavorite = async (recipe, e) => {
+    e.stopPropagation();
+    const recipeId = recipe.recipeId;
+    const isFav = favorites[recipeId];
+
+    try {
+      if (isFav) {
+        // unlike
+        await fetch("http://localhost:3001/api/liked", {
+          method: "DELETE",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ userId: currentUserId, recipeId }),
+        });
+      } else {
+        // like with details
+        await fetch("http://localhost:3001/api/liked", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            userId: currentUserId,
+            recipeId,
+            name: recipe.name,
+            ingredients: recipe.ingredients,
+            prep_time: recipe.prep_time,
+            type: recipe.type,
+            image: images[recipe.recipeId] || recipe.image,
+          }),
+        });
+      }
+
+      // Update UI instantly
+      setFavorites((prev) => ({
+        ...prev,
+        [recipeId]: !isFav,
+      }));
     } catch (err) {
-      console.error(err);
-      alert("Failed to mark this dish as cooked.");
+      console.error("Error toggling favorite:", err);
     }
   };
 
-  const downloadPDF = async (recipe) => {
-    const doc = new jsPDF();
-    doc.setFontSize(18);
-    doc.text(recipe.name, 10, 20);
-    doc.setFontSize(12);
-    doc.text(`Cuisine: ${recipe.cuisine}`, 10, 30);
-    doc.text(`Category: ${recipe.category}`, 10, 36);
-    doc.text(`Servings: ${recipe.servings}`, 10, 42);
-    doc.text(`Prep Time: ${parseTime(recipe.prep_minutes ?? recipe.prep_time ?? recipe.time)} min`, 10, 48);
-    doc.text(`Cook Time: ${parseTime(recipe.cook_minutes ?? recipe.cook_time ?? recipe.time)} min`, 10, 54);
-    doc.text("Ingredients:", 10, 64);
-    (recipe.ingredients || []).forEach((ing, idx) => {
-      const text = typeof ing === "string" ? ing : `${ing.name}${ing.quantity ? ` - ${ing.quantity} ${ing.unit || ""}` : ""}`;
-      doc.text(`- ${text}`, 12, 70 + idx * 6);
+  const handleRecipeClick = (recipe) => {
+    navigate(`/recipe/pantrychef/dishes/${recipe.recipeId}`, {
+      state: { recipe, image: images[recipe.recipeId] },
     });
-    doc.text("Instructions:", 10, 70 + (recipe.ingredients?.length || 0) * 6 + 6);
-    (recipe.instructions || recipe.steps || []).forEach((step, idx) => {
-      doc.text(`${idx + 1}. ${typeof step === "string" ? step : step.instruction || step}`, 12, 76 + (recipe.ingredients?.length || 0) * 6 + idx * 6);
-    });
-    doc.save(`${recipe.name}.pdf`);
   };
 
   return (
-    <div style={{ padding: "2.5rem 0", maxWidth: 820, margin: "auto" }}>
-      <button onClick={() => navigate("/recipe")} style={{ marginBottom: 16, padding: "8px 16px", backgroundColor: orange, border: "none", color: "#fff", borderRadius: 8, cursor: "pointer", fontWeight: 700 }}>
-        &larr; Back
-      </button>
+    <div
+      style={{
+        width: "100%",
+        minHeight: "100vh",
+        backgroundColor: "#181824",
+        color: "#fff",
+        padding: "2rem 1rem",
+      }}
+    >
+      <h2
+        style={{
+          textAlign: "center",
+          paddingBottom: "2rem",
+          fontSize: "2.2rem",
+        }}
+      >
+        🍳 Matching Recipes
+      </h2>
 
-      <h2 style={{ marginBottom: 32, fontWeight: 900, textAlign: "left", background: "linear-gradient(90deg, #000, #888)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent", userSelect: "none" }}>PantryChef</h2>
+      {matchingRecipes.length > 0 ? (
+        <div
+          style={{
+            display: "flex",
+            flexDirection: "column",
+            gap: "2rem",
+            alignItems: "center",
+          }}
+        >
+          {matchingRecipes.map((recipe, index) => (
+            <div
+              key={recipe.recipeId}
+              onClick={() => handleRecipeClick(recipe)}
+              style={{
+                backgroundColor: "#2c2f3f",
+                borderRadius: "15px",
+                padding: "1.5rem",
+                display: "flex",
+                flexDirection: "row",
+                alignItems: "center",
+                maxWidth: "400px",
+                width: "100%",
+                position: "relative",
+                cursor: "pointer",
+                transition: "transform 0.2s ease",
+              }}
+              onMouseEnter={(e) =>
+                (e.currentTarget.style.transform = "scale(1.03)")
+              }
+              onMouseLeave={(e) =>
+                (e.currentTarget.style.transform = "scale(1)")
+              }
+            >
+              {/* ❤️ Heart icon */}
+              <FaHeart
+                onClick={(e) => toggleFavorite(recipe, e)}
+                style={{
+                  position: "absolute",
+                  top: "10px",
+                  right: "10px",
+                  fontSize: "1.3rem",
+                  cursor: "pointer",
+                  transition: "color 0.3s ease",
+                  color: favorites[recipe.recipeId] ? "red" : "#888",
+                }}
+              />
 
-      <div style={filterContainerStyle}>
-        <label style={{ display: "flex", alignItems: "center", gap: 6, cursor: "pointer" }}>
-          <input type="checkbox" checked={showLikedOnly} onChange={e => setShowLikedOnly(e.target.checked)} /> Show Liked Only
-        </label>
-
-        <select value={cuisineFilter} onChange={e => setCuisineFilter(e.target.value)} aria-label="Filter by Cuisine" style={{ padding: "6px 8px", borderRadius: 4 }}>
-          {CUISINE_OPTIONS.map(opt => <option key={opt} value={opt}>{opt}</option>)}
-        </select>
-
-        <select value={cookFilter.label} onChange={e => setCookFilter(COOK_TIME_OPTIONS.find(o => o.label === e.target.value))} style={{ padding: "6px 8px", borderRadius: 4 }}>
-          {COOK_TIME_OPTIONS.map(opt => <option key={opt.label} value={opt.label}>{opt.label}</option>)}
-        </select>
-
-        <select value={prepFilter.label} onChange={e => setPrepFilter(PREP_TIME_OPTIONS.find(o => o.label === e.target.value))} style={{ padding: "6px 8px", borderRadius: 4 }}>
-          {PREP_TIME_OPTIONS.map(opt => <option key={opt.label} value={opt.label}>{opt.label}</option>)}
-        </select>
-
-        <input type="text" placeholder="Filter keywords (comma separated)" value={keywordsFilter} onChange={e => setKeywordsFilter(e.target.value)} style={{ padding: "6px 8px", borderRadius: 4, minWidth: 180 }} />
-      </div>
-
-      <div style={{ display: "flex", flexDirection: "column", gap: 40 }}>
-        {filteredRecipes.length === 0 && <p>No matching recipes found.</p>}
-        {filteredRecipes.map((recipe, idx) => {
-          const imgLeft = idx % 2 === 0;
-          const isLiked = likedRecipes.has(recipe.id);
-          return (
-            <div key={recipe.id} onClick={() => setOpenRecipeId(recipe.id)} style={{ display: "flex", flexDirection: imgLeft ? "row" : "row-reverse", alignItems: "center", background: cardMainColor, color: cardTextColor, borderRadius: "2rem", cursor: "pointer", minHeight: 180, width: "99%", maxWidth: 580, margin: "0 auto", boxShadow: "0 4px 22px 0 rgba(0,0,0,0.3)" }}>
-              <div style={{ width: 150, height: 150, borderRadius: "50%", overflow: "hidden", border: `7px solid ${borderColor}`, marginLeft: imgLeft ? -45 : 24, marginRight: imgLeft ? 32 : -45, boxShadow: "0 4px 24px rgba(0,0,0,0.28)", background: "#fff", flexShrink: 0, display: "flex", justifyContent: "center", alignItems: "center" }}>
-                <img src={"/" + recipe.image} alt={recipe.name} style={{ width: "100%", height: "100%", objectFit: "cover" }} />
+              {/* Recipe Image */}
+              <div
+                style={{
+                  width: "90px",
+                  height: "90px",
+                  borderRadius: "50%",
+                  overflow: "hidden",
+                  flexShrink: 0,
+                }}
+              >
+                <img
+                  src={
+                    images[recipe.recipeId] ||
+                    recipe.image ||
+                    "https://via.placeholder.com/90"
+                  }
+                  alt={recipe.name}
+                  style={{
+                    width: "100%",
+                    height: "100%",
+                    objectFit: "cover",
+                  }}
+                />
               </div>
-              <div style={{ flex: 1, margin: "0 18px", minHeight: 150, display: "flex", flexDirection: "column", justifyContent: "space-between", position: "relative" }}>
-                <h3 style={{ margin: "0 0 16px 0", fontWeight: 700, fontSize: 26, lineHeight: 1.15 }}>{recipe.name}</h3>
-                <div style={{ fontSize: 17, color: "#aaa", marginBottom: 8 }}>
-                  <span style={{ marginRight: 16 }}>⏱ Prep: {parseTime(recipe.prep_minutes ?? recipe.prep_time ?? recipe.time)} min</span>
-                  <span>🥘 Cook: {parseTime(recipe.cook_minutes ?? recipe.cook_time ?? recipe.time)} min</span>
-                </div>
-                <div onClick={e => toggleLike(recipe.id, e)} style={{ display: "flex", alignItems: "center", gap: 6, fontWeight: 700, color: isLiked ? orange : cardTextColor, fontSize: 18, cursor: "pointer", alignSelf: imgLeft ? "flex-start" : "flex-end", paddingTop: 6 }} role="button" tabIndex={0}>
-                  <span>{isLiked ? "Liked" : "Like"} :</span> {isLiked ? <AiFillHeart size={22} /> : <AiOutlineHeart size={22} />}
-                </div>
+
+              {/* Recipe Info */}
+              <div style={{ marginLeft: "1rem", flex: 1 }}>
+                <h3
+                  style={{
+                    fontSize: "1.2rem",
+                    margin: 0,
+                    marginBottom: "0.5rem",
+                    textTransform: "lowercase",
+                  }}
+                >
+                  {recipe.name}
+                </h3>
+
+                <p
+                  style={{
+                    margin: "0.3rem 0",
+                    display: "flex",
+                    alignItems: "center",
+                    fontSize: "0.9rem",
+                    color: "#ccc",
+                  }}
+                >
+                  <FaClock style={{ marginRight: "5px" }} />
+                  {recipe.prep_time || "N/A"} min
+                </p>
+
+                <p
+                  style={{
+                    margin: "0.3rem 0",
+                    display: "flex",
+                    alignItems: "center",
+                    fontSize: "0.9rem",
+                    color: "#ccc",
+                  }}
+                >
+                  <FaListUl style={{ marginRight: "5px" }} />
+                  {recipe.ingredients ? recipe.ingredients.length : 0}{" "}
+                  ingredients
+                </p>
+
+                {/* Yellow Badge */}
+                <span
+                  style={{
+                    display: "inline-block",
+                    marginTop: "0.5rem",
+                    padding: "0.3rem 0.8rem",
+                    borderRadius: "15px",
+                    fontSize: "0.75rem",
+                    fontWeight: "bold",
+                    backgroundColor: "#ffee58",
+                    color: "#000",
+                  }}
+                >
+                  {recipe.type === "Vegetarian"
+                    ? "vegan food"
+                    : recipe.type === "Non-Vegetarian"
+                    ? "saturated with fats"
+                    : "full of protein"}
+                </span>
               </div>
             </div>
-          );
-        })}
-      </div>
-
-      {openRecipe && (
-        <div style={modalBackgroundStyle} onClick={() => setOpenRecipeId(null)}>
-          <div style={modalContentStyle} onClick={e => e.stopPropagation()}>
-            <button aria-label="Close" onClick={() => setOpenRecipeId(null)} style={closeButtonStyle}>×</button>
-            <button style={downloadButtonStyle} onClick={() => downloadPDF(openRecipe)}>Download PDF</button>
-
-            <h2 style={{ marginTop: 0, fontWeight: 700, fontSize: 28 }}>{openRecipe.name}</h2>
-            {openRecipe.image && <img src={"/" + openRecipe.image} alt={openRecipe.name} style={{ width: "100%", borderRadius: 20, marginBottom: 20, objectFit: "cover", maxHeight: 300 }} />}
-            <p><b>Cuisine:</b> {openRecipe.cuisine}</p>
-            <p><b>Category:</b> {openRecipe.category}</p>
-            <p><b>Servings:</b> {openRecipe.servings}</p>
-            <p><b>Prep Time:</b> {parseTime(openRecipe.prep_minutes ?? openRecipe.prep_time ?? openRecipe.time)} min</p>
-            <p><b>Cook Time:</b> {parseTime(openRecipe.cook_minutes ?? openRecipe.cook_time ?? openRecipe.time)} min</p>
-
-            <p><b>Ingredients:</b></p>
-            <ul>{(openRecipe.ingredients || []).map((ing, i) => <li key={i}>{typeof ing === "string" ? ing : `${ing.name}${ing.quantity ? ` - ${ing.quantity} ${ing.unit || ""}` : ""}`}</li>)}</ul>
-
-            <p><b>Instructions:</b></p>
-            <ol>{(openRecipe.instructions || openRecipe.steps || []).map((step, i) => <li key={i}>{typeof step === "string" ? step : step.instruction || step}</li>)}</ol>
-
-            {openRecipe.tips && <><p><b>Tips:</b></p><ul>{openRecipe.tips.map((tip, i) => <li key={i}>{tip}</li>)}</ul></>}
-
-            <button onClick={() => navigate(`/recipe/pantrychef/dishes/${openRecipe.id}`)} style={{ marginTop: 20, width: "100%", padding: "12px 0", backgroundColor: orange, color: "#fff", border: "none", borderRadius: 10, fontSize: 16, fontWeight: "bold", cursor: "pointer" }}>Get Started</button>
-          </div>
+          ))}
         </div>
+      ) : (
+        <p style={{ textAlign: "center" }}>
+          No recipes match at least 3 ingredients from your pantry.
+        </p>
       )}
-
-      {openRecipe && (
-        <button onClick={handleCookedClick} style={cookedButtonStyle} aria-label="Mark recipe as cooked">Cooked</button>
-      )}
-
-      <style>{`@keyframes fadeIn { from { opacity: 0 } to { opacity: 1 } }`}</style>
     </div>
   );
-
 };
+
 export default PantryChef;
