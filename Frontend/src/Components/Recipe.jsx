@@ -1,7 +1,8 @@
 // src/Components/HeroSection.jsx
-import React, { useState } from "react";
+import React, { useState, useEffect, useMemo } from "react";
 import { useNavigate } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
+import Navbar from "./Navbar";
 
 const FILTERS = [
   { name: "All", key: "" },
@@ -9,7 +10,7 @@ const FILTERS = [
   { name: "Plan", key: "plan" },
   { name: "Liked", key: "liked" },
   { name: "Favorite", key: "favorite" },
-  { name: "Customise", key: "customise" }
+  { name: "Customise", key: "customise" },
 ];
 
 const CARD_SETS = {
@@ -19,31 +20,32 @@ const CARD_SETS = {
     { name: "MacrosChef", route: "/recipe/macroschef", img: "/images/macroschef.jpg" },
     { name: "MealPlanChef", route: "/recipe/mealplan", img: "/images/mealplanchef.jpg" },
     { name: "FavChef", route: "/recipe/favchef", img: "/images/favchef.jpg" },
-    { name: "Trending", route: "/recipe/trending", img: "/images/trending.png" }
+    { name: "Trending", route: "/recipe/trending", img: "/images/trending.png" },
   ],
-  plan: [
-    { name: "MealPlanChef", route: "/recipe/mealplan", img: "/images/mealplanchef.jpg" }
-  ],
-  liked: [
-    { name: "Likes", route: "/recipe/likes", img: "/images/liked.jpg" }
-  ],
+  plan: [{ name: "MealPlanChef", route: "/recipe/mealplan", img: "/images/mealplanchef.jpg" }],
+  liked: [{ name: "Likes", route: "/recipe/likes", img: "/images/liked.jpg" }],
   favorite: [
     { name: "FavChef", route: "/recipe/favchef", img: "/images/favchef.jpg" },
-    { name: "Likes", route: "/recipe/likes", img: "/images/liked.jpg" }
+    { name: "Likes", route: "/recipe/likes", img: "/images/liked.jpg" },
   ],
   customise: [
     { name: "Customise", route: "/recipe/customise", img: "/images/customise.jpg" },
-    { name: "Alias", route: "/recipe/alias", img: "/images/alias.jpg" }
-  ]
+    { name: "Alias", route: "/recipe/alias", img: "/images/alias.jpg" },
+  ],
 };
 
-// Remove duplicates and get unique cards
+// Build unique "All" set
 const ALL_CARDS_UNIQUE = (() => {
-  const map = new Map();
-  Object.values(CARD_SETS).flat().forEach(card => {
-    if (!map.has(card.name)) map.set(card.name, card);
-  });
-  return Array.from(map.values());
+  const seen = new Set();
+  const flat = Object.values(CARD_SETS).flat();
+  const unique = [];
+  for (const c of flat) {
+    if (!seen.has(c.name)) {
+      seen.add(c.name);
+      unique.push(c);
+    }
+  }
+  return unique;
 })();
 
 const HeroSection = () => {
@@ -51,22 +53,15 @@ const HeroSection = () => {
   const [showContent, setShowContent] = useState(false);
   const [activeFilter, setActiveFilter] = useState("");
 
-  const [centerIndex, setCenterIndex] = useState(() =>
-    Math.floor(ALL_CARDS_UNIQUE.length / 2)
+  const cardsToShow = useMemo(
+    () => (activeFilter ? CARD_SETS[activeFilter] || [] : ALL_CARDS_UNIQUE),
+    [activeFilter]
   );
 
-  const cardsToShow = activeFilter ? CARD_SETS[activeFilter] || [] : ALL_CARDS_UNIQUE;
-
-  const navigateCarousel = (direction) => {
-    if (direction === "left") {
-      setCenterIndex(prev => (prev > 0 ? prev - 1 : cardsToShow.length - 1));
-    } else {
-      setCenterIndex(prev => (prev < cardsToShow.length - 1 ? prev + 1 : 0));
-    }
-  };
-
   return (
-    <div style={{ position: "relative", minHeight: "100vh" }}>
+
+    <div style={{ position: "relative", minHeight: "100vh", fontFamily: "sans-serif" }}>
+        <Navbar /> {/* Navbar added at the top */}
       {/* Background */}
       <motion.div
         initial={{ y: "0vh" }}
@@ -81,52 +76,73 @@ const HeroSection = () => {
           backgroundImage: "url('/images/bg.jpg')",
           backgroundSize: "cover",
           backgroundPosition: "center",
+          animation: "gradientAnimation 15s ease infinite",
           zIndex: 1,
+          pointerEvents: "none",
         }}
       />
 
-      {/* Landing Section */}
+      {/* Landing Page */}
       {!showContent && (
-        <div
+        <motion.div
+          initial={{ opacity: 0, y: 50 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.5, duration: 0.8 }}
           style={{
             position: "fixed",
-            top: "40%",
-            left: "50%",
-            transform: "translate(-50%, -40%)",
-            textAlign: "center",
-            zIndex: 3,
+            inset: 0,
+            zIndex: 30,
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+            pointerEvents: "auto",
           }}
         >
-          <h1
-            style={{
-              fontSize: "8rem",
-              fontWeight: "bold",
-              color: "black",
-              WebkitTextStroke: "4px orange",
-              marginBottom: "1.2rem"
-            }}
-          >
-            Plan Well <br /> Eat Well
-          </h1>
-          <button
-            style={{
-              padding: "16px 48px",
-              fontSize: "1.7rem",
-              fontWeight: "bold",
-              color: "white",
-              background: "orange",
-              border: "none",
-              borderRadius: "32px",
-              cursor: "pointer",
-              transition: "background 0.3s"
-            }}
-            onMouseEnter={e => e.target.style.background = "#ff7300"}
-            onMouseLeave={e => e.target.style.background = "orange"}
-            onClick={() => setShowContent(true)}
-          >
-            Explore
-          </button>
-        </div>
+          <div style={{ textAlign: "center", padding: "0 16px" }}>
+            <motion.h1
+              initial={{ scale: 0.8, opacity: 0 }}
+              animate={{ scale: 1, opacity: 1 }}
+              transition={{ delay: 0.8, duration: 0.6 }}
+              style={{
+                fontSize: "6rem",
+                fontWeight: "bold",
+                color: "white",
+                marginBottom: "2rem",
+                textShadow: "4px 4px 0px rgba(0,0,0,0.3)",
+                WebkitTextStroke: "2px #FF7043",
+                display: "flex",
+                gap: "1rem",
+              }}
+            >
+              Plan Well
+              <span
+                style={{
+                  background: "linear-gradient(90deg, #FF7043, #FF5722)",
+                  WebkitBackgroundClip: "text",
+                  WebkitTextFillColor: "transparent",
+                }}
+              >
+                Eat Well
+              </span>
+            </motion.h1>
+            <motion.button
+              onClick={() => setShowContent(true)}
+              style={{
+                padding: "20px 60px",
+                fontSize: "1.5rem",
+                fontWeight: "bold",
+                color: "white",
+                background: "linear-gradient(90deg, #FF7043, #FF5722)",
+                border: "none",
+                borderRadius: "32px",
+                cursor: "pointer",
+                boxShadow: "0 8px 20px rgba(255,112,67,0.4)",
+              }}
+            >
+              Explore Recipes
+            </motion.button>
+          </div>
+        </motion.div>
       )}
 
       {/* Main Content */}
@@ -138,19 +154,57 @@ const HeroSection = () => {
             exit={{ y: "100vh" }}
             transition={{ duration: 1.2, ease: [0.77, 0, 0.175, 1] }}
             style={{
-              background: "#fff",
+              background: "linear-gradient(to bottom, #fffaf5, #ffe5d4)",
               minHeight: "100vh",
               position: "relative",
-              zIndex: 3
+              zIndex: 3,
+              display: "flex",
+              flexDirection: "column",
+              alignItems: "center",
+              overflow: "hidden",
+              paddingBottom: "3rem",
             }}
           >
+            {/* Wave background */}
+            <div
+              style={{
+                position: "absolute",
+                top: 0,
+                left: 0,
+                width: "100%",
+                height: "100%",
+                zIndex: 0,
+                overflow: "hidden",
+                pointerEvents: "none",
+              }}
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 1440 320"
+                preserveAspectRatio="none"
+                style={{ display: "block", width: "100%", height: "100%" }}
+              >
+                <path
+                  fill="#FF7043"
+                  fillOpacity="0.2"
+                  d="M0,64L40,85.3C80,107,160,149,240,165.3C320,181,400,171,480,154.7C560,139,640,117,720,106.7C800,96,880,96,960,117.3C1040,139,1120,181,1200,176C1280,171,1360,117,1400,90.7L1440,64L1440,320L0,320Z"
+                />
+                <path
+                  fill="#FF7043"
+                  fillOpacity="0.1"
+                  d="M0,192L40,181.3C80,171,160,149,240,165.3C320,181,400,235,480,245.3C560,256,640,224,720,186.7C800,149,880,107,960,117.3C1040,128,1120,192,1200,197.3C1280,203,1360,149,1400,122.7L1440,96L1440,320L0,320Z"
+                />
+              </svg>
+            </div>
+
             {/* Title */}
             <div
               style={{
                 padding: "3rem 2rem 1rem 2rem",
                 fontSize: "4.5rem",
                 fontWeight: "bold",
-                color: "orange"
+                color: "#FF7043",
+                textAlign: "center",
               }}
             >
               Recipe
@@ -162,178 +216,93 @@ const HeroSection = () => {
                 padding: "0 2rem 2rem 2rem",
                 display: "flex",
                 gap: "1rem",
-                alignItems: "center",
                 flexWrap: "wrap",
-                borderBottom: "2px solid #f0f0f0",
-                backgroundColor: "#fffaf5",
+                borderBottom: "2px solid #ffd6b0",
+                background: "linear-gradient(90deg, #fffaf5, #ffe5d4)",
+                justifyContent: "center",
+                marginBottom: "2rem",
               }}
             >
-              {FILTERS.map((filter) => (
+              {FILTERS.map((filter, i) => (
                 <button
-                  key={filter.key}
+                  key={`${filter.key}-${i}`}
                   style={{
-                    background: activeFilter === filter.key ? "orange" : "#fff",
-                    border: `2px solid ${activeFilter === filter.key ? "orange" : "#ddd"}`,
-                    boxShadow: activeFilter === filter.key ? "0 4px 10px rgba(255, 165, 0, 0.4)" : "none",
-                    color: activeFilter === filter.key ? "white" : "orange",
+                    background: activeFilter === filter.key ? "#FF7043" : "#fff",
+                    border: `2px solid ${activeFilter === filter.key ? "#FF7043" : "#ddd"}`,
+                    boxShadow:
+                      activeFilter === filter.key ? "0 4px 10px rgba(255,112,67,0.4)" : "none",
+                    color: activeFilter === filter.key ? "white" : "#FF7043",
                     fontSize: "1.3rem",
                     fontWeight: 600,
                     padding: "0.7rem 1.6rem",
                     cursor: "pointer",
                     borderRadius: "22px",
+                    transition: "all 0.3s",
                   }}
-                  onClick={() => {
-                    setActiveFilter(filter.key);
-                    const newCards = filter.key ? CARD_SETS[filter.key] : ALL_CARDS_UNIQUE;
-                    setCenterIndex(Math.floor(newCards.length / 2));
-                  }}
+                  onClick={() => setActiveFilter(filter.key)}
                 >
                   {filter.name}
                 </button>
               ))}
             </div>
 
-            {/* 3D Carousel */}
-            {cardsToShow.length > 0 && (
-              <div
-                style={{
-                  position: "relative",
-                  height: "420px",
-                  overflow: "hidden",
-                  padding: "3rem 0",
-                  backgroundColor: "#fffaf5",
-                  display: "flex",
-                  justifyContent: "center",
-                  alignItems: "center",
-                }}
-              >
-                {/* Left/Right Buttons */}
-                <button
-                  style={{
-                    position: "absolute",
-                    left: "2rem",
-                    top: "50%",
-                    transform: "translateY(-50%)",
-                    zIndex: 20,
-                    padding: "1rem",
-                    fontSize: "2rem",
-                    cursor: "pointer",
-                    borderRadius: "50%",
-                    background: "orange",
-                    color: "white",
-                    border: "none",
-                  }}
-                  onClick={() => navigateCarousel("left")}
-                >
-                  ◀
-                </button>
-                <button
-                  style={{
-                    position: "absolute",
-                    right: "2rem",
-                    top: "50%",
-                    transform: "translateY(-50%)",
-                    zIndex: 20,
-                    padding: "1rem",
-                    fontSize: "2rem",
-                    cursor: "pointer",
-                    borderRadius: "50%",
-                    background: "orange",
-                    color: "white",
-                    border: "none",
-                  }}
-                  onClick={() => navigateCarousel("right")}
-                >
-                  ▶
-                </button>
+           <div
+  style={{
+    display: cardsToShow.length === 1 ? "flex" : "grid",
+    justifyContent: cardsToShow.length === 1 ? "center" : "initial",
+    gridTemplateColumns:
+      cardsToShow.length === 1 ? "none" : "repeat(auto-fit, minmax(260px, 1fr))",
+    gap: "2rem",
+    width: "90%",
+    maxWidth: "1200px",
+    zIndex: 2,
+  }}
+>
+  {cardsToShow.map((card, idx) => (
+    <motion.div
+      key={`${card.name}-${idx}`}
+      whileHover={{ scale: 1.05 }}
+      style={{
+        background: "#fff",
+        borderRadius: "20px",
+        overflow: "hidden",
+        cursor: "pointer",
+        boxShadow: "0 8px 20px rgba(255,112,67,0.2)",
+        transition: "all 0.3s",
+        width: cardsToShow.length === 1 ? "320px" : "100%", // keep single card neat size
+      }}
+      onClick={() => navigate(card.route)}
+    >
+      <img
+        src={card.img}
+        alt={card.name}
+        style={{ width: "100%", height: "220px", objectFit: "cover" }}
+      />
+      <div
+        style={{
+          padding: "1rem",
+          textAlign: "center",
+          fontWeight: "bold",
+          fontSize: "1.3rem",
+          color: "#FF7043",
+        }}
+      >
+        {card.name}
+      </div>
+    </motion.div>
+  ))}
+</div>
 
-                {/* Cards */}
-                <div
-                  style={{
-                    position: "relative",
-                    width: "100%",
-                    height: "100%",
-                    perspective: "1500px",
-                  }}
-                >
-                  {cardsToShow.map((card, index) => {
-                    const offset = index - centerIndex;
-                    const absOffset = Math.abs(offset);
-                    const isCenter = offset === 0;
-
-                    const scale = isCenter ? 1.15 : 0.85;
-                    const translateX = offset * 260;
-                    const translateZ = isCenter ? 100 : -200;
-                    const opacity = isCenter ? 1 : 0.5;
-                    const blur = isCenter ? "none" : "blur(3px)";
-
-                    return (
-                      <motion.div
-                        key={card.name}
-                        style={{
-                          position: "absolute",
-                          top: "50%",
-                          left: "50%",
-                          width: "280px",
-                          height: "360px",
-                          transform: `translate(-50%, -50%) translateX(${translateX}px) translateZ(${translateZ}px) scale(${scale})`,
-                          opacity,
-                          zIndex: isCenter ? 20 : 10 - absOffset,
-                          cursor: "pointer",
-                          transition: "transform 0.6s, opacity 0.6s",
-                          filter: blur,
-                        }}
-                        onClick={() => navigate(card.route)}
-                      >
-                        <div
-                          style={{
-                            background: "#fff",
-                            borderRadius: "20px",
-                            overflow: "hidden",
-                            boxShadow: isCenter
-                              ? "0 12px 30px rgba(255,165,0,0.4)"
-                              : "0 4px 10px rgba(255,165,0,0.2)",
-                          }}
-                        >
-                          <img
-                            src={card.img}
-                            alt={card.name}
-                            style={{
-                              width: "100%",
-                              height: "220px",
-                              objectFit: "cover",
-                            }}
-                          />
-                          <div
-                            style={{
-                              padding: "1rem",
-                              textAlign: "center",
-                              fontWeight: "bold",
-                              fontSize: "1.3rem",
-                              color: "orange",
-                            }}
-                          >
-                            {card.name}
-                          </div>
-                          <div
-                            style={{
-                              textAlign: "center",
-                              fontSize: "1rem",
-                              color: "#666",
-                            }}
-                          >
-                            Balanced nutrition
-                          </div>
-                        </div>
-                      </motion.div>
-                    );
-                  })}
-                </div>
-              </div>
-            )}
           </motion.div>
         )}
       </AnimatePresence>
+
+      {/* Keyframes */}
+      <style>{`@keyframes gradientAnimation {
+        0% { background-position: 0% 50%; }
+        50% { background-position: 100% 50%; }
+        100% { background-position: 0% 50%; }
+      }`}</style>
     </div>
   );
 };
