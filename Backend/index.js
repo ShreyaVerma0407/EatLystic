@@ -1,24 +1,27 @@
 import express from "express";
 import mongoose from "mongoose";
 import cors from "cors";
+import bodyParser from "body-parser";
 
-import dotenv from "dotenv";
-dotenv.config();
-
-import EmployeeModel from "./server/models/Employee.js"; // Use correct path as per your project structure
+// --------------------
+// Import Models & Routes
+// --------------------
+import EmployeeModel from "./server/models/Employee.js"; 
 import pantryRoutes from "./server/routes/pantryRoutes.js";
 import calorieRouter from "./server/routes/calorieRoutes.js";
 import consumptionRoutes from "./server/routes/consumptionRoutes.js";
-import consumedRoutes from "./server/routes/consumed.js"; // <-- new route
+import consumedRoutes from "./server/routes/consumed.js"; 
 import totalNutrientRoutes from "./server/routes/nutrientsTotal.js";
-import bodyParser from "body-parser";
 import fitnessRoutes from "./server/routes/fitnessRoutes.js";
+import notificationRoutes from "./server/routes/notifications.js";
+import emailRoutes from "./server/routes/emailController.js";
+import pdfEmailRoute from "./server/routes/pdfEmailRoute.js";
 
- import notificationRoutes from "./server/routes/notifications.js";
- import emailRoutes from "./server/routes/emailController.js";
- import pdfEmailRoute from "./server/routes/pdfEmailRoute.js";
+// 🔹 NEW IMPORT for cooked recipes
+import cookedRoutes from "./server/routes/cookedRoutes.js";
 
-
+// 🔹 NEW IMPORT for liked recipes
+import likedRoutes from "./server/routes/likedRoutes.js";
 
 const app = express();
 app.use(express.json());
@@ -29,7 +32,9 @@ app.use(bodyParser.json());
 // MongoDB Connection
 // --------------------
 mongoose
-  .connect( process.env.MONGO_URI)
+  .connect(
+    "mongodb+srv://shera1:pass1234@testd.uaa1xum.mongodb.net/employee?retryWrites=true&w=majority&appName=testd"
+  )
   .then(() => console.log("✅ MongoDB connected"))
   .catch((err) => console.error("❌ MongoDB connection error:", err));
 
@@ -87,12 +92,15 @@ app.use("/api/consumption", consumptionRoutes);
 app.use("/api/consumed", consumedRoutes);
 app.use("/api/nutrients-total", totalNutrientRoutes);
 app.use("/api/fitness", fitnessRoutes);
-
 app.use("/api/notifications", notificationRoutes);
 app.use("/email", emailRoutes);
 app.use("/api/email", pdfEmailRoute);
 
+// 🔹 NEW: Mount cooked recipes route
+app.use("/api/recipes/cooked", cookedRoutes);
 
+// 🔹 NEW: Mount liked recipes route
+app.use("/api/liked", likedRoutes);
 
 // --------------------
 // Start Server
