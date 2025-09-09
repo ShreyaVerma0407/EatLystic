@@ -6,6 +6,7 @@ import { useNavigate } from "react-router-dom";
 const UNSPLASH_KEY = import.meta.env.VITE_UNSPLASH_KEY;
 const EDAMAM_ID = import.meta.env.VITE_EDAMAM_APP_ID;
 const EDAMAM_KEY = import.meta.env.VITE_EDAMAM_APP_KEY;
+const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
 
 const PantryChef = ({ currentUserId }) => {
   const [pantryItems, setPantryItems] = useState([]);
@@ -20,7 +21,7 @@ const PantryChef = ({ currentUserId }) => {
   useEffect(() => {
     if (!currentUserId) return;
 
-    fetch(`http://localhost:3001/api/pantry/${currentUserId}`)
+    fetch(`${API_BASE_URL}/pantry/${currentUserId}`)
       .then((res) => res.json())
       .then((result) => {
         if (result.status === "success" && Array.isArray(result.data)) {
@@ -117,7 +118,7 @@ const PantryChef = ({ currentUserId }) => {
   useEffect(() => {
     if (!currentUserId) return;
 
-    fetch(`http://localhost:3001/api/liked/${currentUserId}`)
+    fetch(`${API_BASE_URL}/api/liked/${currentUserId}`)
       .then((res) => res.json())
       .then((data) => {
         if (data.status === "success" && Array.isArray(data.liked)) {
@@ -140,14 +141,14 @@ const PantryChef = ({ currentUserId }) => {
     try {
       if (isFav) {
         // unlike
-        await fetch("http://localhost:3001/api/liked", {
+      await fetch(`${API_BASE_URL}/api/liked`, {
           method: "DELETE",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({ userId: currentUserId, recipeId }),
         });
       } else {
         // like with details
-        await fetch("http://localhost:3001/api/liked", {
+        await fetch(`${API_BASE_URL}/api/liked`, {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({
