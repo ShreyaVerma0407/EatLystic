@@ -95,6 +95,16 @@
   box-shadow: 0 0 8px rgba(255, 138, 76, 0.6);
   outline: none;
 }
+.custom-btn {
+  color: black; /* initial text color */
+  transition: color 0.3s ease, background-color 0.3s ease;
+}
+
+.custom-btn:hover {
+  color: black; /* text color on hover */
+  background-color: #6c757d; /* optional: change bg on hover */
+}
+
 
 /* Button */
 .btn-success {
