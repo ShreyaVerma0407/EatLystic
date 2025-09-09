@@ -21,7 +21,7 @@ import FoodList from './Components/FoodList.jsx';
 import { useState, useEffect } from 'react';
 import ErrorBoundary from './Components/ErrorBoundary';  {/* ErrorBoundary imported */}
 import NotFound from "./Components/NotFound";
-
+import ShoppingCart from "./Components/shopping.jsx";
 function App() {
   const [currentUserId, setCurrentUserId] = useState(null);
 
@@ -71,6 +71,7 @@ function App() {
         
         {/* Food List Route */}
         <Route path="/food" element={<FoodList />} />
+        <Route path="/ShoppingCart" element={<ShoppingCart />} />
       </Routes>
     </BrowserRouter>
   );

@@ -72,6 +72,11 @@ const Navbar = () => {
     PantryReport
   </Link>
 </li>
+<li>
+  <Link to="/shoppingcart" className="nav-link">
+    ShoppingCart
+  </Link>
+</li>
       </ul>
     </nav>
   );
