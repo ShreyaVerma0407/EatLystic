@@ -60,8 +60,8 @@ const CATEGORIES = [
 ];
 
 const BAR_COLORS = [
-  "#f28b82", "#fbbc04", "#fff475", "#ccff90",
-  "#a7ffeb", "#cbf0f8", "#aecbfa", "#d7aefb",
+ "#FF6F61", "#6B5B95", "#88B04B", "#FFA07A",
+  "#20B2AA", "#FF6347", "#9ACD32", "#4682B4",
 ];
 
 const PIE_COLORS = [
@@ -73,8 +73,8 @@ const NUTRIENTS = ["protein_g", "fat_total_g", "carbohydrates_total_g", "fiber_g
 const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
 
 // -------------------- API KEYS --------------------
-const NINJAS_API_KEY = "LJcbyLP0Ka89agOhKykJCQ==vAqHCOEHEgTYJ61I";
-const USDA_API_KEY = "CX0hGlYtG7cX9dyhSAsZnoLgJtTly9aa02hIqwpQ";
+const NINJAS_API_KEY =import.meta.env. VITE_NINJAS_API_KEY ;
+const USDA_API_KEY = import.meta.env.VITE_USDA_API_KEY;
 
 // -------------------- Fetch Functions --------------------
 const fetchFromLocalJson = (query) => {
@@ -457,8 +457,8 @@ useEffect(() => {
               <section key={category} style={sectionStyle}>
                 <h2 style={{ textAlign: "center", color: "#333", borderBottom: "2px solid #f0f0f0", paddingBottom: 8 }}>{category}</h2>
                 <div style={{ overflowX: "auto" }}>
-                  <table style={{ width: "100%", borderCollapse: "collapse", minWidth: 600 }}>
-                    <thead style={{ backgroundColor: "#f7f7f7" }}>
+                  <table style={{ width: "100%", color: "black" ,borderCollapse: "collapse", minWidth: 600 }}>
+                    <thead style={{ backgroundColor: "#f7f7f7", color: "#FF6347" }}>
                       <tr>
                         <th style={thStyle}>Picture</th>
                         <th style={thStyle}>Name</th>
@@ -537,10 +537,10 @@ useEffect(() => {
 
           {/* High / Medium / Low Summary Table */}
           <div style={{ marginTop: 40, overflowX: "auto" }}>
-          <h3 style={{ textAlign: "center" }}>Consumed Nutrients Summary</h3>
+          <h3 style={{ textAlign: "center",color: "black"  }}>Consumed Nutrients Summary</h3>
 
-            <table style={{ width: "100%", borderCollapse: "collapse", minWidth: 800 }}>
-              <thead style={{ backgroundColor: "#f7f7f7" }}>
+            <table style={{ width: "100%", borderCollapse: "collapse", minWidth: 800, color: "black" }}>
+              <thead style={{ backgroundColor: "#f7f7f7",color: "#FF6347"  }}>
                 <tr>
                   <th style={thStyle}>Name</th>
                   {NUTRIENTS.map((n) => <th key={n} style={thStyle}>{n.replace("_", " ")}</th>)}
