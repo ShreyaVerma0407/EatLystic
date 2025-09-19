@@ -18,13 +18,13 @@ const Navbar = () => {
           <Link to="/home" className="home-link">Home</Link>
         </li>
         <li>
-          <Link to="/pantry" className="nav-link">Shelfly</Link>
+          <Link to="/pantry" className="nav-link">Pantry</Link>
         </li>
         <li>
           <Link to="/nutrient" className="nav-link">NutriLog</Link>
         </li>
         <li>
-          <Link to="/calorie" className="nav-link">FuelUp</Link>
+          <Link to="/calorie" className="nav-link">CaloriFi</Link>
         </li>
         <li>
           <Link to="/recipe" className="nav-link">Mealify</Link>
@@ -35,8 +35,8 @@ const Navbar = () => {
         <li>
           <Link to="/shoppingcart" className="nav-link">Cartify</Link>
         </li>
-        <li>Settings</li>
-        <li>Login</li>
+        <li>Help Desk</li>
+        <li>Logout</li>
       </ul>
     </nav>
   );
