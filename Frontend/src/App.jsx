@@ -25,6 +25,7 @@ import ShoppingCart from "./Components/shopping.jsx";
 import MealChef from './Components/MealChef.jsx';
 import Dishes_meal from './Components/Dishes_meal.jsx';
 import HelpDesk from './Components/HelpDesk.jsx';
+import ContactUs from './Components/ContactUs.jsx';
 
 function App() {
   const [currentUserId, setCurrentUserId] = useState(null);
@@ -57,6 +58,7 @@ function App() {
         <Route path="/recipe/pantrychef/dishes/:id" element={<Dishes />} />
         <Route path="/recipe/macroschef" element={<MacrosChef />} />
         <Route path="/helpdesk" element={<HelpDesk/>}/>
+        <Route path="/helpdesk/contactus" element={<ContactUs/>}/>
         <Route path="*" element={<NotFound />} />
         {/* Liked Recipes Route wrapped in ErrorBoundary */}
         <Route
