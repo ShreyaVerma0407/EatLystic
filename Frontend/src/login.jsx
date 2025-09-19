@@ -76,10 +76,12 @@ const EMAIL_BASE_URL = API_BASE_URL.replace("/api", "");
           </button>
         </form>
 
-        <p className="mt-3">Don't have an account?</p>
+       <p className="mt-3" style={{ color: "black" }}>
+  Don't have an account?
+</p>
         <Link
           to="/register"
-          className="btn btn-default border w-100 bg-light rounded-0 text-decoration-none"
+          className="btn btn-default border w-100 bg-light rounded-0 text-decoration-none custom-btn"
         >
           Register
         </Link>

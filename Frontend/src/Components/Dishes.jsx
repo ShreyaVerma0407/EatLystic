@@ -10,6 +10,8 @@ import {
   Download,
 } from "lucide-react";
 import jsPDF from "jspdf";
+import pluralize from "pluralize";
+
 
 // 🌟 Simple Badge component
 const Badge = ({ text }) => (
@@ -36,10 +38,14 @@ const Dish = () => {
   const [dishImage, setDishImage] = useState(null);
   const [ingredientImages, setIngredientImages] = useState({});
   const pageRef = useRef(); // 🔹 for container reference
-
+const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
+const CART_BASE_URL = API_BASE_URL.replace("/api", "");
   const location = useLocation();
   const { id } = useParams();
   const navigate = useNavigate();
+  const [cartItems, setCartItems] = useState([]);
+const [recentlyAdded, setRecentlyAdded] = useState([]);
+
 
   // ✅ Try to get recipe from navigation state (liked page) or fallback to food.json
   let recipe = location.state?.recipe;
@@ -76,6 +82,19 @@ const Dish = () => {
       </div>
     );
   }
+  //for shopping cart
+  useEffect(() => {
+  const userId = localStorage.getItem("userId");
+  if (!userId) return;
+
+  fetch(`${CART_BASE_URL}/cart/${userId}`)
+    .then(res => res.json())
+    .then(data => {
+      if (data.status === "success") setCartItems(data.cart);
+    })
+    .catch(err => console.error("Error fetching cart:", err));
+}, []);
+
 
   // ⭐ NEW: fetch dish image from Unsplash
   useEffect(() => {
@@ -119,6 +138,50 @@ const Dish = () => {
       });
     }
   }, [recipe]);
+  // 🔹 Add pantryItems state to Dish.jsx
+const [pantryItems, setPantryItems] = useState([]);
+
+// Fetch pantry items on load
+useEffect(() => {
+  const userId = localStorage.getItem("userId");
+  if (!userId) return;
+
+  fetch(`${API_BASE_URL}/pantry/${userId}`)
+    .then(res => res.json())
+    .then(data => {
+      if (data.status === "success") setPantryItems(data.data);
+    })
+    .catch(err => console.error("Error fetching pantry:", err));
+}, []);
+
+// Helper: get ingredient badge
+// Normalize string into lowercase singular words
+const normalizeWords = (str) =>
+  str
+    .toLowerCase()
+    .replace(/[^a-zA-Z0-9 ]/g, "")
+    .split(" ")
+    .map(pluralize.singular);
+
+// Helper: get badge for ingredient
+const getIngredientBadge = (ingredientName) => {
+  const ingWords = normalizeWords(ingredientName);
+
+  const pantryItem = pantryItems.find((p) => {
+    const pantryWords = normalizeWords(p.name);
+    return pantryWords.some((w) => ingWords.includes(w));
+  });
+
+  if (!pantryItem || pantryItem.quantity < 1) return "Missing";
+  if (pantryItem.expiryDate && new Date(pantryItem.expiryDate) <= new Date())
+    return "Expiring";
+  if (pantryItem.quantity <= 2) return "Low Stock";
+
+  return "Sufficient"; // ✅ Always return something
+};
+
+
+
 
   const totalSteps = recipe.instructions?.length || 0;
   const progress = totalSteps ? ((currentStep + 1) / totalSteps) * 100 : 0;
@@ -127,7 +190,7 @@ const Dish = () => {
   const handleDone = async () => {
     try {
       setSaving(true);
-      const res = await fetch("http://localhost:3001/api/recipes/cooked", {
+     const res = await fetch(`${API_BASE_URL}/api/recipes/cooked`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
@@ -147,6 +210,40 @@ const Dish = () => {
       setSaving(false);
     }
   };
+  //helper function for shopping cart
+  const addToCart = async (itemName) => {
+  const userId = localStorage.getItem("userId");
+  if (!userId) return alert("Please login to add items to cart.");
+
+  const existing = cartItems.find(i => i.name === itemName);
+  let updatedCart = existing
+    ? cartItems.map(i => i.name === itemName ? {...i, quantity: i.quantity + 1} : i)
+    : [...cartItems, {name: itemName, quantity: 1}];
+
+  setCartItems(updatedCart);
+
+  // Update recently added
+  setRecentlyAdded(prev => [{name: itemName, quantity: 1}, ...prev.filter(i => i.name !== itemName)]);
+
+  // Update backend
+  try {
+    await fetch(`${CART_BASE_URL}/cart/add`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ userId, item: { name: itemName, quantity: 1 } }),
+    });
+    alert(`"${itemName}" added to cart!`);
+  } catch (err) {
+    console.error("Error syncing cart:", err);
+  }
+
+  // ✅ Update favoriteRecipes in localStorage for suggestions
+  const currentRecipes = JSON.parse(localStorage.getItem("favoriteRecipes") || "[]");
+  if (!currentRecipes.find(r => r.name === recipe.name)) {
+    localStorage.setItem("favoriteRecipes", JSON.stringify([...currentRecipes, recipe]));
+  }
+};
+
 
   // 🔹 Handle "Download Recipe" button click
   const handleDownloadPDF = () => {
@@ -352,44 +449,80 @@ const Dish = () => {
       </div>
 
       {/* Ingredients Section */}
-      <h2 style={sectionHeading}>🛒 Ingredients</h2>
-      <div
-        style={{
-          maxWidth: 900,
-          margin: "0 auto 48px",
-          display: "grid",
-          gridTemplateColumns: "1fr 1fr",
-          gap: 16,
-        }}
-      >
-        {(recipe.ingredients || []).map((item, idx) => (
-          <div key={idx} style={ingredientBox("#222", "#fefce8")}>
-            {ingredientImages[item] ? (
-              <img
-                src={ingredientImages[item]}
-                alt={item}
-                style={{
-                  width: 28,
-                  height: 28,
-                  borderRadius: "50%",
-                  objectFit: "cover",
-                }}
-              />
-            ) : (
-              <span style={dot("#facc15")}></span>
-            )}
+   {/* Ingredients Section */}
+{/* Ingredients Section */}
+<h2 style={sectionHeading}>🛒 Ingredients</h2>
+<div
+  style={{
+    maxWidth: 900,
+    margin: "0 auto 48px",
+    display: "grid",
+    gridTemplateColumns: "1fr 1fr",
+    gap: 16,
+  }}
+>
+  {(recipe.ingredients || []).map((item, idx) => {
+    const badge = getIngredientBadge(item); // ✅ always returns a badge now
 
-            <span style={{ flex: 1 }}>{item}</span>
-            <ShoppingCart
-              size={20}
-              style={{ cursor: "pointer", opacity: 0.7 }}
-              onClick={() => alert(`Add "${item}" to cart (not implemented)`) }
-            />
-          </div>
-        ))}
+    // Set badge color based on status
+    const badgeColor =
+      badge === "Missing"
+        ? "#22c55e"
+        : badge === "Low Stock"
+        ? "orange"
+        : badge === "Expiring"
+        ? "red"
+        : "#4472CA"; // Sufficient
+
+    return (
+      <div key={idx} style={ingredientBox("#222", "#fefce8")}>
+        {ingredientImages[item] ? (
+          <img
+            src={ingredientImages[item]}
+            alt={item}
+            style={{
+              width: 28,
+              height: 28,
+              borderRadius: "50%",
+              objectFit: "cover",
+            }}
+          />
+        ) : (
+          <span style={dot("#facc15")}></span>
+        )}
+
+        <span style={{ flex: 1 }}>{item}</span>
+
+        {badge && (
+          <span
+            style={{
+              marginRight: "6px",
+              padding: "2px 8px",
+              borderRadius: "8px",
+              fontSize: "12px",
+              backgroundColor: badgeColor,
+              color: "white",
+            }}
+          >
+            {badge}
+          </span>
+        )}
+
+        <ShoppingCart
+          size={20}
+          style={{ cursor: "pointer", opacity: 0.7 }}
+          onClick={() => addToCart(item)}
+        />
       </div>
+    );
+  })}
+</div>
 
-      {/* Cooking Process with Step Progress */}
+
+
+
+
+{/*       Cooking Process with Step Progress */}
       {totalSteps > 0 && (
         <div style={{ maxWidth: 700, margin: "0 auto 48px" }}>
           <h2 style={sectionHeading}>👨‍🍳 Cooking Process</h2>

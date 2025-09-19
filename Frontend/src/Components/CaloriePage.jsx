@@ -267,7 +267,7 @@ const CaloriePage = ({ currentUserId }) => {
                     }}
                   >
                     <thead>
-                      <tr style={{ backgroundColor: "#f0f0f0" }}>
+                      <tr style={{ backgroundColor: "#f0f0f0",color: "black"  }}>
                         <th style={thStyle}>Picture</th>
                         <th style={thStyle}>Name</th>
                         <th style={thStyle}>Quantity</th>
@@ -277,7 +277,7 @@ const CaloriePage = ({ currentUserId }) => {
                     </thead>
                     <tbody>
                       {items.map((item) => (
-                        <tr key={item._id} style={{ borderBottom: "1px solid #ddd" }}>
+                        <tr key={item._id} style={{ borderBottom: "1px solid #ddd" ,color: "black" }}>
                           <td style={tdStyle}>
                             <img
                               src={
@@ -448,7 +448,7 @@ const CaloriePage = ({ currentUserId }) => {
             }}
           >
             <thead>
-              <tr style={{ backgroundColor: "#f0f0f0" }}>
+              <tr style={{ backgroundColor: "#f0f0f0" , color: "black" }}>
                 <th style={thStyle}>Picture</th>
                 <th style={thStyle}>Name</th>
                 <th style={thStyle}>Quantity Consumed</th>
@@ -478,7 +478,7 @@ const CaloriePage = ({ currentUserId }) => {
                   }
 
                   return (
-                    <tr key={item._id} style={{ borderBottom: "1px solid #ddd" }}>
+                    <tr key={item._id} style={{ borderBottom: "1px solid #ddd",color: "black"  }}>
                       <td style={tdStyle}>
                         <img
                           src={
@@ -678,6 +678,7 @@ const chartCardStyle = {
   transition: "box-shadow 0.3s ease",
   border: "2px solid #fc8019",
   marginBottom: 32,
+  color:"black",
 };
 
 export default CaloriePage;
