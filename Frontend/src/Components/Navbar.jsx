@@ -1,13 +1,10 @@
 // src/Components/Navbar.jsx
 
-import React, { useState } from "react";
-import { Link } from "react-router-dom"; // Import Link from react-router-dom
-import "../styles/Navbar.css"; // Adjust the path if needed
+import React from "react";
+import { Link } from "react-router-dom";
+import "../styles/Navbar.css";
 
 const Navbar = () => {
-  const [kitchenVaultOpen, setKitchenVaultOpen] = useState(false);
-  const [healthSyncOpen, setHealthSyncOpen] = useState(false);
-
   return (
     <nav className="navbar">
       <div className="logo-cluster">
@@ -15,83 +12,34 @@ const Navbar = () => {
         <span className="logo-text">EATLYSTIC</span>
         <span className="emoji">🏃</span>
       </div>
+
       <ul className="nav-links">
         <li>
-          <Link to="/home" className="home-link">
-            Home
-          </Link>{" "}
-          {/* Added className */}
+          <Link to="/home" className="home-link">Home</Link>
         </li>
-
-        {/* KitchenVault dropdown */}
-        <li
-          className="dropdown"
-          onMouseEnter={() => setKitchenVaultOpen(true)}
-          onMouseLeave={() => setKitchenVaultOpen(false)}
-          style={{ position: "relative" }}
-        >
-          KitchenVault
-          {kitchenVaultOpen && (
-            <ul className="dropdown-menu" style={dropdownMenuStyle}>
-              <li>
-                <Link to="/pantry" className="dropdown-link">
-                  Pantry
-                </Link>
-              </li>
-            </ul>
-          )}
+        <li>
+          <Link to="/pantry" className="nav-link">Shelfly</Link>
         </li>
-
-        {/* MealCraft normal menu item */}
-        <li>MealCraft</li>
-
-        {/* HealthSync dropdown */}
-        <li
-          className="dropdown"
-          onMouseEnter={() => setHealthSyncOpen(true)}
-          onMouseLeave={() => setHealthSyncOpen(false)}
-          style={{ position: "relative" }}
-        >
-          HealthSync
-          {healthSyncOpen && (
-            <ul className="dropdown-menu" style={dropdownMenuStyle}>
-              <li>
-                <Link to="/calorie" className="dropdown-link">
-                  CalorieCount
-                </Link>
-              </li>
-            </ul>
-          )}
+        <li>
+          <Link to="/nutrient" className="nav-link">NutriLog</Link>
         </li>
-
-        {/* Other menu items */}
+        <li>
+          <Link to="/calorie" className="nav-link">FuelUp</Link>
+        </li>
+        <li>
+          <Link to="/recipe" className="nav-link">Mealify</Link>
+        </li>
+        <li>
+          <Link to="/pantryreport" className="nav-link">StockStat</Link>
+        </li>
+        <li>
+          <Link to="/shoppingcart" className="nav-link">Cartify</Link>
+        </li>
         <li>Settings</li>
         <li>Login</li>
-       <li>
-  <Link to="/pantryreport" className="nav-link">
-    PantryReport
-  </Link>
-</li>
-<li>
-  <Link to="/shoppingcart" className="nav-link">
-    ShoppingCart
-  </Link>
-</li>
       </ul>
     </nav>
   );
 };
 
-const dropdownMenuStyle = {
-  position: "absolute",
-  top: "100%",
-  left: 0,
-  backgroundColor: "#fff",
-  boxShadow: "0 4px 8px rgba(0,0,0,0.1)",
-  borderRadius: "4px",
-  padding: "8px 0",
-  zIndex: 1000,
-  minWidth: "140px",
-};
-
-export default Navbar; // ✅ This line is ESSENTIAL for default import!
+export default Navbar;
