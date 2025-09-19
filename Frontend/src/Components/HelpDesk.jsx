@@ -1,5 +1,7 @@
 import React from 'react';
-import Navbar from './Navbar'; // Assuming Navbar component is in the same directory
+import { useNavigate } from 'react-router-dom';
+import Navbar from '../Components/Navbar'; // Example if Navbar is inside a 'components' folder
+ // Import useNavigate
 
 // Icons as basic SVG components
 const MessageCircle = (props) => (
@@ -27,7 +29,13 @@ const FileText = (props) => (
 );
 
 const HelpDesk = () => {
-  const Card = ({ title, description, icon: Icon, isGradient = false }) => {
+  const navigate = useNavigate(); // Initialize the navigate function
+
+  const Card = ({ title, description, icon: Icon, isGradient = false, to }) => {
+    const handleClick = () => {
+      navigate(to); // Navigate to the provided path
+    };
+
     return (
       <div
         className={`card ${isGradient ? 'card-gradient' : ''}`}
@@ -47,7 +55,9 @@ const HelpDesk = () => {
           </div>
           <h3 className="card-title">{title}</h3>
           <p className="card-description">{description}</p>
-          <button className="card-button">Get Started</button>
+          <button className="card-button" onClick={handleClick}>
+            Get Started
+          </button>
         </div>
       </div>
     );
@@ -67,23 +77,25 @@ const HelpDesk = () => {
           title="Contact Us"
           description="Report an issue or get help from our support team"
           icon={MessageCircle}
+          to="/helpdesk/contactus" // Redirect to /helpdesk/contactus
         />
         <Card
           title="FAQ"
           description="Find quick answers to frequently asked questions"
           icon={HelpCircle}
+          to="/helpdesk/faq" // Assuming you have a FAQ page
         />
         <Card
           title="Feedback"
           description="Share your experience and read customer reviews"
           icon={FileText}
+          to="/helpdesk/feedback" // Assuming you have a feedback page
         />
       </div>
 
       <div className="footer-section">
         <h3>Need Immediate Help?</h3>
-        <p>For urgent issues, you can reach our support team directly at <a href="mailto:support@eatlystic.com">support@eatlystic.com</a> </p>
-        
+        <p>For urgent issues, you can reach our support team directly at <a href="mailto:support@eatlystic.com">support@eatlystic.com</a></p>
       </div>
       
       {/* CSS-in-JS for styling */}
