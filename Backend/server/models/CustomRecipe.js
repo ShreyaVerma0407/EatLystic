@@ -1,30 +1,28 @@
-import mongoose from "mongoose";
+import mongoose from 'mongoose';
 
-const CustomRecipeSchema = new mongoose.Schema({
+const customRecipeSchema = new mongoose.Schema({
   userId: {
     type: String,
-    required: true,
+    required: true
   },
   name: {
     type: String,
-    required: true,
+    required: true
   },
   ingredients: {
     type: String,
-    required: true,
+    required: true
   },
   approxTime: {
     type: Number,
+    required: false
   },
   instructions: {
     type: String,
-    required: true,
-  },
-  createdAt: {
-    type: Date,
-    default: Date.now,
-  },
+    required: true
+  }
+}, {
+  timestamps: true
 });
 
-const CustomRecipe = mongoose.model("CustomRecipe", CustomRecipeSchema);
-export default CustomRecipe;
+export default mongoose.model('CustomRecipe', customRecipeSchema);
