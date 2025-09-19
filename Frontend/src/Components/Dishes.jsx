@@ -11,7 +11,7 @@ import {
 } from "lucide-react";
 import jsPDF from "jspdf";
 import pluralize from "pluralize";
-
+import Navbar from "./Navbar"; // Assuming Navbar is in the same directory
 
 // 🌟 Simple Badge component
 const Badge = ({ text }) => (
@@ -38,14 +38,13 @@ const Dish = () => {
   const [dishImage, setDishImage] = useState(null);
   const [ingredientImages, setIngredientImages] = useState({});
   const pageRef = useRef(); // 🔹 for container reference
-const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
-const CART_BASE_URL = API_BASE_URL.replace("/api", "");
+  const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
+  const CART_BASE_URL = API_BASE_URL.replace("/api", "");
   const location = useLocation();
   const { id } = useParams();
   const navigate = useNavigate();
   const [cartItems, setCartItems] = useState([]);
-const [recentlyAdded, setRecentlyAdded] = useState([]);
-
+  const [recentlyAdded, setRecentlyAdded] = useState([]);
 
   // ✅ Try to get recipe from navigation state (liked page) or fallback to food.json
   let recipe = location.state?.recipe;
@@ -84,17 +83,16 @@ const [recentlyAdded, setRecentlyAdded] = useState([]);
   }
   //for shopping cart
   useEffect(() => {
-  const userId = localStorage.getItem("userId");
-  if (!userId) return;
+    const userId = localStorage.getItem("userId");
+    if (!userId) return;
 
-  fetch(`${CART_BASE_URL}/cart/${userId}`)
-    .then(res => res.json())
-    .then(data => {
-      if (data.status === "success") setCartItems(data.cart);
-    })
-    .catch(err => console.error("Error fetching cart:", err));
-}, []);
-
+    fetch(`${CART_BASE_URL}/cart/${userId}`)
+      .then((res) => res.json())
+      .then((data) => {
+        if (data.status === "success") setCartItems(data.cart);
+      })
+      .catch((err) => console.error("Error fetching cart:", err));
+  }, []);
 
   // ⭐ NEW: fetch dish image from Unsplash
   useEffect(() => {
@@ -139,49 +137,46 @@ const [recentlyAdded, setRecentlyAdded] = useState([]);
     }
   }, [recipe]);
   // 🔹 Add pantryItems state to Dish.jsx
-const [pantryItems, setPantryItems] = useState([]);
+  const [pantryItems, setPantryItems] = useState([]);
 
-// Fetch pantry items on load
-useEffect(() => {
-  const userId = localStorage.getItem("userId");
-  if (!userId) return;
+  // Fetch pantry items on load
+  useEffect(() => {
+    const userId = localStorage.getItem("userId");
+    if (!userId) return;
 
-  fetch(`${API_BASE_URL}/pantry/${userId}`)
-    .then(res => res.json())
-    .then(data => {
-      if (data.status === "success") setPantryItems(data.data);
-    })
-    .catch(err => console.error("Error fetching pantry:", err));
-}, []);
+    fetch(`${API_BASE_URL}/pantry/${userId}`)
+      .then((res) => res.json())
+      .then((data) => {
+        if (data.status === "success") setPantryItems(data.data);
+      })
+      .catch((err) => console.error("Error fetching pantry:", err));
+  }, []);
 
-// Helper: get ingredient badge
-// Normalize string into lowercase singular words
-const normalizeWords = (str) =>
-  str
-    .toLowerCase()
-    .replace(/[^a-zA-Z0-9 ]/g, "")
-    .split(" ")
-    .map(pluralize.singular);
+  // Helper: get ingredient badge
+  // Normalize string into lowercase singular words
+  const normalizeWords = (str) =>
+    str
+      .toLowerCase()
+      .replace(/[^a-zA-Z0-9 ]/g, "")
+      .split(" ")
+      .map(pluralize.singular);
 
-// Helper: get badge for ingredient
-const getIngredientBadge = (ingredientName) => {
-  const ingWords = normalizeWords(ingredientName);
+  // Helper: get badge for ingredient
+  const getIngredientBadge = (ingredientName) => {
+    const ingWords = normalizeWords(ingredientName);
 
-  const pantryItem = pantryItems.find((p) => {
-    const pantryWords = normalizeWords(p.name);
-    return pantryWords.some((w) => ingWords.includes(w));
-  });
+    const pantryItem = pantryItems.find((p) => {
+      const pantryWords = normalizeWords(p.name);
+      return pantryWords.some((w) => ingWords.includes(w));
+    });
 
-  if (!pantryItem || pantryItem.quantity < 1) return "Missing";
-  if (pantryItem.expiryDate && new Date(pantryItem.expiryDate) <= new Date())
-    return "Expiring";
-  if (pantryItem.quantity <= 2) return "Low Stock";
+    if (!pantryItem || pantryItem.quantity < 1) return "Missing";
+    if (pantryItem.expiryDate && new Date(pantryItem.expiryDate) <= new Date())
+      return "Expiring";
+    if (pantryItem.quantity <= 2) return "Low Stock";
 
-  return "Sufficient"; // ✅ Always return something
-};
-
-
-
+    return "Sufficient"; // ✅ Always return something
+  };
 
   const totalSteps = recipe.instructions?.length || 0;
   const progress = totalSteps ? ((currentStep + 1) / totalSteps) * 100 : 0;
@@ -190,7 +185,7 @@ const getIngredientBadge = (ingredientName) => {
   const handleDone = async () => {
     try {
       setSaving(true);
-     const res = await fetch(`${API_BASE_URL}/api/recipes/cooked`, {
+      const res = await fetch(`${API_BASE_URL}/api/recipes/cooked`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
@@ -212,38 +207,47 @@ const getIngredientBadge = (ingredientName) => {
   };
   //helper function for shopping cart
   const addToCart = async (itemName) => {
-  const userId = localStorage.getItem("userId");
-  if (!userId) return alert("Please login to add items to cart.");
+    const userId = localStorage.getItem("userId");
+    if (!userId) return alert("Please login to add items to cart.");
 
-  const existing = cartItems.find(i => i.name === itemName);
-  let updatedCart = existing
-    ? cartItems.map(i => i.name === itemName ? {...i, quantity: i.quantity + 1} : i)
-    : [...cartItems, {name: itemName, quantity: 1}];
+    const existing = cartItems.find((i) => i.name === itemName);
+    let updatedCart = existing
+      ? cartItems.map((i) =>
+          i.name === itemName ? { ...i, quantity: i.quantity + 1 } : i
+        )
+      : [...cartItems, { name: itemName, quantity: 1 }];
 
-  setCartItems(updatedCart);
+    setCartItems(updatedCart);
 
-  // Update recently added
-  setRecentlyAdded(prev => [{name: itemName, quantity: 1}, ...prev.filter(i => i.name !== itemName)]);
+    // Update recently added
+    setRecentlyAdded((prev) => [
+      { name: itemName, quantity: 1 },
+      ...prev.filter((i) => i.name !== itemName),
+    ]);
 
-  // Update backend
-  try {
-    await fetch(`${CART_BASE_URL}/cart/add`, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ userId, item: { name: itemName, quantity: 1 } }),
-    });
-    alert(`"${itemName}" added to cart!`);
-  } catch (err) {
-    console.error("Error syncing cart:", err);
-  }
+    // Update backend
+    try {
+      await fetch(`${CART_BASE_URL}/cart/add`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ userId, item: { name: itemName, quantity: 1 } }),
+      });
+      alert(`"${itemName}" added to cart!`);
+    } catch (err) {
+      console.error("Error syncing cart:", err);
+    }
 
-  // ✅ Update favoriteRecipes in localStorage for suggestions
-  const currentRecipes = JSON.parse(localStorage.getItem("favoriteRecipes") || "[]");
-  if (!currentRecipes.find(r => r.name === recipe.name)) {
-    localStorage.setItem("favoriteRecipes", JSON.stringify([...currentRecipes, recipe]));
-  }
-};
-
+    // ✅ Update favoriteRecipes in localStorage for suggestions
+    const currentRecipes = JSON.parse(
+      localStorage.getItem("favoriteRecipes") || "[]"
+    );
+    if (!currentRecipes.find((r) => r.name === recipe.name)) {
+      localStorage.setItem(
+        "favoriteRecipes",
+        JSON.stringify([...currentRecipes, recipe])
+      );
+    }
+  };
 
   // 🔹 Handle "Download Recipe" button click
   const handleDownloadPDF = () => {
@@ -340,276 +344,275 @@ const getIngredientBadge = (ingredientName) => {
   };
 
   return (
-    <div
-      style={{
-        backgroundColor: "#181824",
-        minHeight: "100vh",
-        padding: "2rem 3rem",
-        color: "white",
-        position: "relative",
-      }}
-      ref={pageRef}
-    >
-      {/* 🔹 Download Button */}
-      <button
-        onClick={handleDownloadPDF}
-        style={{
-          position: "absolute",
-          top: 20,
-          right: 20,
-          padding: "8px 16px",
-          backgroundColor: "#facc15",
-          color: "#000",
-          border: "none",
-          borderRadius: 8,
-          fontWeight: "bold",
-          cursor: "pointer",
-          display: "flex",
-          alignItems: "center",
-          gap: 6,
-        }}
-      >
-        <Download size={18} /> Download Recipe
-      </button>
-
-      {/* Title */}
-      <h1
-        style={{
-          fontSize: 48,
-          fontWeight: "bold",
-          textAlign: "center",
-          marginBottom: 24,
-          color: "#ffcc00",
-        }}
-      >
-        {recipe.name}
-      </h1>
-
-      {/* ⭐ Dish Image */}
-      {dishImage && (
-        <img
-          src={dishImage}
-          alt={recipe.name}
-          style={{
-            maxWidth: "400px",
-            height: "auto",
-            margin: "0 auto 32px",
-            borderRadius: "12px",
-            display: "block",
-          }}
-        />
-      )}
-
-      {/* Details */}
+    <>
+      <Navbar /> {/* Render the Navbar component here */}
       <div
         style={{
-          display: "grid",
-          gridTemplateColumns: "repeat(auto-fit,minmax(150px,1fr))",
-          gap: 12,
-          marginBottom: 48,
-          justifyItems: "center",
+          backgroundColor: "#181824",
+          minHeight: "100vh",
+          padding: "2rem 3rem",
+          color: "white",
+          position: "relative",
         }}
+        ref={pageRef}
       >
-        <div style={cardStyle}>
-          <ChefHat size={24} style={{ margin: "0 auto 8px" }} />
-          <p style={{ opacity: 0.8, marginBottom: 4 }}>Ingredients</p>
-          <p style={{ fontWeight: "bold", fontSize: 18 }}>
-            {recipe.ingredients?.length || 0}
-          </p>
-        </div>
-        <div style={cardStyle}>
-          <Badge text={recipe.cuisine || "Unknown"} />
-          <p style={{ opacity: 0.8 }}>Cuisine</p>
-        </div>
-        <div style={cardStyle}>
-          <Leaf
-            size={20}
-            color={
-              recipe.type?.toLowerCase() === "vegetarian"
-                ? "#22c55e"
-                : "#db2777"
-            }
-            style={{
-              marginBottom: 4,
-              marginLeft: "auto",
-              marginRight: "auto",
-            }}
-          />
-          <p style={{ fontWeight: "bold", textTransform: "capitalize" }}>
-            {recipe.type || "N/A"}
-          </p>
-        </div>
-        <div style={cardStyle}>
-          <Clock size={24} style={{ margin: "0 auto 8px" }} />
-          <p style={{ opacity: 0.8, marginBottom: 4 }}>Prep Time</p>
-          <p style={{ fontWeight: "bold", fontSize: 18 }}>
-            {recipe.prep_time || "N/A"}
-          </p>
-        </div>
-      </div>
+        {/* 🔹 Download Button */}
+        <button
+          onClick={handleDownloadPDF}
+          style={{
+            position: "absolute",
+            top: 20,
+            right: 20,
+            padding: "8px 16px",
+            backgroundColor: "#facc15",
+            color: "#000",
+            border: "none",
+            borderRadius: 8,
+            fontWeight: "bold",
+            cursor: "pointer",
+            display: "flex",
+            alignItems: "center",
+            gap: 6,
+          }}
+        >
+          <Download size={18} /> Download Recipe
+        </button>
 
-      {/* Ingredients Section */}
-   {/* Ingredients Section */}
-{/* Ingredients Section */}
-<h2 style={sectionHeading}>🛒 Ingredients</h2>
-<div
-  style={{
-    maxWidth: 900,
-    margin: "0 auto 48px",
-    display: "grid",
-    gridTemplateColumns: "1fr 1fr",
-    gap: 16,
-  }}
->
-  {(recipe.ingredients || []).map((item, idx) => {
-    const badge = getIngredientBadge(item); // ✅ always returns a badge now
+        {/* Title */}
+        <h1
+          style={{
+            fontSize: 48,
+            fontWeight: "bold",
+            textAlign: "center",
+            marginBottom: 24,
+            color: "#ffcc00",
+          }}
+        >
+          {recipe.name}
+        </h1>
 
-    // Set badge color based on status
-    const badgeColor =
-      badge === "Missing"
-        ? "#22c55e"
-        : badge === "Low Stock"
-        ? "orange"
-        : badge === "Expiring"
-        ? "red"
-        : "#4472CA"; // Sufficient
-
-    return (
-      <div key={idx} style={ingredientBox("#222", "#fefce8")}>
-        {ingredientImages[item] ? (
+        {/* ⭐ Dish Image */}
+        {dishImage && (
           <img
-            src={ingredientImages[item]}
-            alt={item}
+            src={dishImage}
+            alt={recipe.name}
             style={{
-              width: 28,
-              height: 28,
-              borderRadius: "50%",
-              objectFit: "cover",
+              maxWidth: "400px",
+              height: "auto",
+              margin: "0 auto 32px",
+              borderRadius: "12px",
+              display: "block",
             }}
           />
-        ) : (
-          <span style={dot("#facc15")}></span>
         )}
 
-        <span style={{ flex: 1 }}>{item}</span>
-
-        {badge && (
-          <span
-            style={{
-              marginRight: "6px",
-              padding: "2px 8px",
-              borderRadius: "8px",
-              fontSize: "12px",
-              backgroundColor: badgeColor,
-              color: "white",
-            }}
-          >
-            {badge}
-          </span>
-        )}
-
-        <ShoppingCart
-          size={20}
-          style={{ cursor: "pointer", opacity: 0.7 }}
-          onClick={() => addToCart(item)}
-        />
-      </div>
-    );
-  })}
-</div>
-
-
-
-
-
-{/*       Cooking Process with Step Progress */}
-      {totalSteps > 0 && (
-        <div style={{ maxWidth: 700, margin: "0 auto 48px" }}>
-          <h2 style={sectionHeading}>👨‍🍳 Cooking Process</h2>
-
-          {/* Step Counter */}
-          <p
-            style={{
-              textAlign: "center",
-              marginBottom: 8,
-              fontWeight: "bold",
-              fontSize: 18,
-            }}
-          >
-            Step {currentStep + 1} of {totalSteps}
-          </p>
-
-          {/* Step Content */}
-          <div style={stepCard}>{recipe.instructions[currentStep]}</div>
-
-          {/* Progress Bar */}
-          <div style={progressContainer}>
-            <div style={{ ...progressFill, width: `${progress}%` }}></div>
+        {/* Details */}
+        <div
+          style={{
+            display: "grid",
+            gridTemplateColumns: "repeat(auto-fit,minmax(150px,1fr))",
+            gap: 12,
+            marginBottom: 48,
+            justifyItems: "center",
+          }}
+        >
+          <div style={cardStyle}>
+            <ChefHat size={24} style={{ margin: "0 auto 8px" }} />
+            <p style={{ opacity: 0.8, marginBottom: 4 }}>Ingredients</p>
+            <p style={{ fontWeight: "bold", fontSize: 18 }}>
+              {recipe.ingredients?.length || 0}
+            </p>
           </div>
-
-          {/* Controls */}
-          <div style={{ display: "flex", justifyContent: "space-between" }}>
-            <button
-              onClick={() => setCurrentStep((prev) => Math.max(prev - 1, 0))}
+          <div style={cardStyle}>
+            <Badge text={recipe.cuisine || "Unknown"} />
+            <p style={{ opacity: 0.8 }}>Cuisine</p>
+          </div>
+          <div style={cardStyle}>
+            <Leaf
+              size={20}
+              color={
+                recipe.type?.toLowerCase() === "vegetarian"
+                  ? "#22c55e"
+                  : "#db2777"
+              }
               style={{
-                ...navButton,
-                opacity: currentStep === 0 ? 0.5 : 1,
-                cursor: currentStep === 0 ? "not-allowed" : "pointer",
+                marginBottom: 4,
+                marginLeft: "auto",
+                marginRight: "auto",
               }}
-              disabled={currentStep === 0}
-            >
-              <ArrowLeft size={18} /> Prev
-            </button>
+            />
+            <p style={{ fontWeight: "bold", textTransform: "capitalize" }}>
+              {recipe.type || "N/A"}
+            </p>
+          </div>
+          <div style={cardStyle}>
+            <Clock size={24} style={{ margin: "0 auto 8px" }} />
+            <p style={{ opacity: 0.8, marginBottom: 4 }}>Prep Time</p>
+            <p style={{ fontWeight: "bold", fontSize: 18 }}>
+              {recipe.prep_time || "N/A"}
+            </p>
+          </div>
+        </div>
 
-            {currentStep < totalSteps - 1 ? (
+        {/* Ingredients Section */}
+        {/* Ingredients Section */}
+        {/* Ingredients Section */}
+        <h2 style={sectionHeading}>🛒 Ingredients</h2>
+        <div
+          style={{
+            maxWidth: 900,
+            margin: "0 auto 48px",
+            display: "grid",
+            gridTemplateColumns: "1fr 1fr",
+            gap: 16,
+          }}
+        >
+          {(recipe.ingredients || []).map((item, idx) => {
+            const badge = getIngredientBadge(item); // ✅ always returns a badge now
+
+            // Set badge color based on status
+            const badgeColor =
+              badge === "Missing"
+                ? "#22c55e"
+                : badge === "Low Stock"
+                ? "orange"
+                : badge === "Expiring"
+                ? "red"
+                : "#4472CA"; // Sufficient
+
+            return (
+              <div key={idx} style={ingredientBox("#222", "#fefce8")}>
+                {ingredientImages[item] ? (
+                  <img
+                    src={ingredientImages[item]}
+                    alt={item}
+                    style={{
+                      width: 28,
+                      height: 28,
+                      borderRadius: "50%",
+                      objectFit: "cover",
+                    }}
+                  />
+                ) : (
+                  <span style={dot("#facc15")}></span>
+                )}
+
+                <span style={{ flex: 1 }}>{item}</span>
+
+                {badge && (
+                  <span
+                    style={{
+                      marginRight: "6px",
+                      padding: "2px 8px",
+                      borderRadius: "8px",
+                      fontSize: "12px",
+                      backgroundColor: badgeColor,
+                      color: "white",
+                    }}
+                  >
+                    {badge}
+                  </span>
+                )}
+
+                <ShoppingCart
+                  size={20}
+                  style={{ cursor: "pointer", opacity: 0.7 }}
+                  onClick={() => addToCart(item)}
+                />
+              </div>
+            );
+          })}
+        </div>
+
+        {/*       Cooking Process with Step Progress */}
+        {totalSteps > 0 && (
+          <div style={{ maxWidth: 700, margin: "0 auto 48px" }}>
+            <h2 style={sectionHeading}>👨‍🍳 Cooking Process</h2>
+
+            {/* Step Counter */}
+            <p
+              style={{
+                textAlign: "center",
+                marginBottom: 8,
+                fontWeight: "bold",
+                fontSize: 18,
+              }}
+            >
+              Step {currentStep + 1} of {totalSteps}
+            </p>
+
+            {/* Step Content */}
+            <div style={stepCard}>{recipe.instructions[currentStep]}</div>
+
+            {/* Progress Bar */}
+            <div style={progressContainer}>
+              <div style={{ ...progressFill, width: `${progress}%` }}></div>
+            </div>
+
+            {/* Controls */}
+            <div style={{ display: "flex", justifyContent: "space-between" }}>
               <button
-                onClick={() =>
-                  setCurrentStep((prev) => Math.min(prev + 1, totalSteps - 1))
-                }
-                style={navButton}
-              >
-                Next <ArrowRight size={18} />
-              </button>
-            ) : (
-              <button
-                onClick={handleDone}
+                onClick={() => setCurrentStep((prev) => Math.max(prev - 1, 0))}
                 style={{
                   ...navButton,
-                  backgroundColor: "#facc15",
-                  color: "#000",
-                  fontWeight: "bold",
+                  opacity: currentStep === 0 ? 0.5 : 1,
+                  cursor: currentStep === 0 ? "not-allowed" : "pointer",
                 }}
-                disabled={saving}
+                disabled={currentStep === 0}
               >
-                {saving ? "Saving..." : "Done"}
+                <ArrowLeft size={18} /> Prev
               </button>
-            )}
-          </div>
-        </div>
-      )}
 
-      {/* ⭐ Nutrition Section */}
-      {recipe.nutrition && (
-        <div style={{ marginTop: 60, textAlign: "center" }}>
-          <h2 style={sectionHeading}>⚡ Nutrition Facts</h2>
-          <div
-            style={{
-              display: "flex",
-              justifyContent: "center",
-              gap: 30,
-              flexWrap: "wrap",
-            }}
-          >
-            {Object.entries(recipe.nutrition).map(([key, value]) => (
-              <div key={key} style={nutritionCircle}>
-                <p style={{ fontSize: 20, fontWeight: "bold" }}>{value}</p>
-                <p style={{ fontSize: 14, opacity: 0.8 }}>{key}</p>
-              </div>
-            ))}
+              {currentStep < totalSteps - 1 ? (
+                <button
+                  onClick={() =>
+                    setCurrentStep((prev) => Math.min(prev + 1, totalSteps - 1))
+                  }
+                  style={navButton}
+                >
+                  Next <ArrowRight size={18} />
+                </button>
+              ) : (
+                <button
+                  onClick={handleDone}
+                  style={{
+                    ...navButton,
+                    backgroundColor: "#facc15",
+                    color: "#000",
+                    fontWeight: "bold",
+                  }}
+                  disabled={saving}
+                >
+                  {saving ? "Saving..." : "Done"}
+                </button>
+              )}
+            </div>
           </div>
-        </div>
-      )}
-    </div>
+        )}
+
+        {/* ⭐ Nutrition Section */}
+        {recipe.nutrition && (
+          <div style={{ marginTop: 60, textAlign: "center" }}>
+            <h2 style={sectionHeading}>⚡ Nutrition Facts</h2>
+            <div
+              style={{
+                display: "flex",
+                justifyContent: "center",
+                gap: 30,
+                flexWrap: "wrap",
+              }}
+            >
+              {Object.entries(recipe.nutrition).map(([key, value]) => (
+                <div key={key} style={nutritionCircle}>
+                  <p style={{ fontSize: 20, fontWeight: "bold" }}>{value}</p>
+                  <p style={{ fontSize: 14, opacity: 0.8 }}>{key}</p>
+                </div>
+              ))}
+            </div>
+          </div>
+        )}
+      </div>
+    </>
   );
 };
 
