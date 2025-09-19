@@ -22,6 +22,8 @@ import { useState, useEffect } from 'react';
 import ErrorBoundary from './Components/ErrorBoundary';
 import NotFound from "./Components/NotFound";
 import ShoppingCart from "./Components/shopping.jsx";
+import MealChef from './Components/MealChef.jsx';
+import Dishes_meal from './Components/Dishes_meal.jsx';
 
 function App() {
   const [currentUserId, setCurrentUserId] = useState(null);
@@ -73,6 +75,8 @@ function App() {
         {/* Food List Route */}
         <Route path="/food" element={<FoodList />} />
         <Route path="/ShoppingCart" element={<ShoppingCart />} />
+         <Route path="/recipe/mealchef" element={<MealChef currentUserId={currentUserId} />} />
+         <Route path="/recipe/mealchef/dishes/:id" element={<Dishes_meal />} />
       </Routes>
     </BrowserRouter>
   );
