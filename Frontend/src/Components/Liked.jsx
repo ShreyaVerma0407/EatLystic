@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import Navbar from "../Components/Navbar"; // Ensure this path is correct
 import "../styles/Liked.css";
 
 const Liked = ({ userId }) => {
@@ -81,51 +82,46 @@ const Liked = ({ userId }) => {
   if (!likedRecipes || likedRecipes.length === 0) return <div className="liked-empty">No liked recipes found.</div>;
 
   return (
-    <div className="liked-container">
-      {/* Header */}
-      <div className="liked-header">
-        <div className="profile-avatar">👤</div>
-        <div>
-          <h1>
-            <span className="orange-heart">♥</span> My Liked Recipes
-          </h1>
-          <p className="subtitle">
-            {likedRecipes.length} delicious recipes liked!
-          </p>
-        </div>
+    <div className="bg-dark text-white" style={{ minHeight: "100vh" }}>
+      {/* Navbar */}
+      <div style={{ position: "fixed", top: 0, width: "100%", zIndex: 1030 }}>
+        <Navbar />
       </div>
 
-      {/* Search */}
-      <div className="search-and-tabs">
-        <input
-          type="text"
-          className="search-bar"
-          placeholder="Search your liked recipes..."
-          value={searchTerm} // Bind the input value to searchTerm state
-          onChange={(e) => setSearchTerm(e.target.value)} // Update the searchTerm state on input change
-        />
-      </div>
-
-      {/* Recipe Cards */}
-      <div className="liked-recipes-list">
-        {filteredRecipes.map((recipe) => (
-          <div key={recipe.recipeId} className="recipe-card" onClick={() => handleRecipeClick(recipe)}>
-            <div className="img-container">
-              <img src={images[recipe.recipeId] || recipe.image} alt={recipe.name} />
-              <span className="fav-heart">♥</span>
-              <span className={`type-badge type-${recipe.type ? recipe.type.toLowerCase() : ""}`}>
-                {recipe.type}
-              </span>
-            </div>
-            <div className="card-content">
-              <h3>{recipe.name}</h3>
-              <div className="meta-row">
-                <span className="meta-item">⏱ {recipe.prep_time}</span>
-              </div>
-              <button className="view-btn">View Recipe</button>
-            </div>
+      <div style={{ paddingTop: "80px" }}>
+        <div className="container mt-5">
+          <h1 className="text-center mb-4">My Liked Recipes</h1>
+          <div className="d-flex justify-content-center mb-4">
+            <input
+              type="text"
+              className="form-control w-50"
+              placeholder="Search your liked recipes..."
+              value={searchTerm} // Bind the input value to searchTerm state
+              onChange={(e) => setSearchTerm(e.target.value)} // Update the searchTerm state on input change
+            />
           </div>
-        ))}
+          {/* Recipe Cards */}
+          <div className="liked-recipes-list">
+            {filteredRecipes.map((recipe) => (
+              <div key={recipe.recipeId} className="recipe-card" onClick={() => handleRecipeClick(recipe)}>
+                <div className="img-container">
+                  <img src={images[recipe.recipeId] || recipe.image} alt={recipe.name} />
+                  <span className="fav-heart">♥</span>
+                  <span className={`type-badge type-${recipe.type ? recipe.type.toLowerCase() : ""}`}>
+                    {recipe.type}
+                  </span>
+                </div>
+                <div className="card-content">
+                  <h3>{recipe.name}</h3>
+                  <div className="meta-row">
+                    <span className="meta-item">⏱ {recipe.prep_time}</span>
+                  </div>
+                  <button className="view-btn">View Recipe</button>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
       </div>
     </div>
   );
