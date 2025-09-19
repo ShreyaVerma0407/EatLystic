@@ -1,5 +1,4 @@
-// src/Components/HeroSection.jsx
-import React, { useState, useEffect, useMemo } from "react";
+import React, { useState, useMemo } from "react";
 import { useNavigate } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
 import Navbar from "./Navbar";
@@ -16,21 +15,18 @@ const FILTERS = [
 const CARD_SETS = {
   chef: [
     { name: "PantryChef", route: "/recipe/pantrychef", img: "/images/pantrychef.jpg" },
-    { name: "MasterChef", route: "/recipe/masterchef", img: "/images/masterchef.jpg" },
+    { name: "MealChef", route: "/recipe/mealchef", img: "/images/mealchef.png" },
     { name: "MacrosChef", route: "/recipe/macroschef", img: "/images/macroschef.jpg" },
-    { name: "MealPlanChef", route: "/recipe/mealplan", img: "/images/mealplanchef.jpg" },
-    { name: "FavChef", route: "/recipe/favchef", img: "/images/favchef.jpg" },
+    { name: "PlanChef", route: "/recipe/mealplan", img: "/images/mealplanchef.jpg" },
     { name: "Trending", route: "/recipe/trending", img: "/images/trending.png" },
   ],
-  plan: [{ name: "MealPlanChef", route: "/recipe/mealplan", img: "/images/mealplanchef.jpg" }],
-  liked: [{ name: "Likes", route: "/recipe/likes", img: "/images/liked.jpg" }],
+  plan: [{ name: "PlanChef", route: "/recipe/mealplan", img: "/images/mealplan.png" }],
+  liked: [{ name: "Likes", route: "/recipe/liked", img: "/images/liked.jpg" }],
   favorite: [
-    { name: "FavChef", route: "/recipe/favchef", img: "/images/favchef.jpg" },
-    { name: "Likes", route: "/recipe/likes", img: "/images/liked.jpg" },
+    { name: "Likes", route: "/recipe/liked", img: "/images/liked.jpg" },
   ],
   customise: [
     { name: "Customise", route: "/recipe/customise", img: "/images/customise.jpg" },
-    { name: "Alias", route: "/recipe/alias", img: "/images/alias.jpg" },
   ],
 };
 
@@ -59,9 +55,9 @@ const HeroSection = () => {
   );
 
   return (
-
     <div style={{ position: "relative", minHeight: "100vh", fontFamily: "sans-serif" }}>
-        <Navbar /> {/* Navbar added at the top */}
+      <Navbar /> {/* Navbar added at the top */}
+
       {/* Background */}
       <motion.div
         initial={{ y: "0vh" }}
@@ -76,7 +72,6 @@ const HeroSection = () => {
           backgroundImage: "url('/images/bg.jpg')",
           backgroundSize: "cover",
           backgroundPosition: "center",
-          animation: "gradientAnimation 15s ease infinite",
           zIndex: 1,
           pointerEvents: "none",
         }}
@@ -149,10 +144,10 @@ const HeroSection = () => {
       <AnimatePresence>
         {showContent && (
           <motion.div
-            initial={{ y: "100vh" }}
-            animate={{ y: 0 }}
-            exit={{ y: "100vh" }}
-            transition={{ duration: 1.2, ease: [0.77, 0, 0.175, 1] }}
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.6 }}
             style={{
               background: "linear-gradient(to bottom, #fffaf5, #ffe5d4)",
               minHeight: "100vh",
@@ -246,53 +241,58 @@ const HeroSection = () => {
               ))}
             </div>
 
-           <div
-  style={{
-    display: cardsToShow.length === 1 ? "flex" : "grid",
-    justifyContent: cardsToShow.length === 1 ? "center" : "initial",
-    gridTemplateColumns:
-      cardsToShow.length === 1 ? "none" : "repeat(auto-fit, minmax(260px, 1fr))",
-    gap: "2rem",
-    width: "90%",
-    maxWidth: "1200px",
-    zIndex: 2,
-  }}
->
-  {cardsToShow.map((card, idx) => (
-    <motion.div
-      key={`${card.name}-${idx}`}
-      whileHover={{ scale: 1.05 }}
-      style={{
-        background: "#fff",
-        borderRadius: "20px",
-        overflow: "hidden",
-        cursor: "pointer",
-        boxShadow: "0 8px 20px rgba(255,112,67,0.2)",
-        transition: "all 0.3s",
-        width: cardsToShow.length === 1 ? "320px" : "100%", // keep single card neat size
-      }}
-      onClick={() => navigate(card.route)}
-    >
-      <img
-        src={card.img}
-        alt={card.name}
-        style={{ width: "100%", height: "220px", objectFit: "cover" }}
-      />
-      <div
-        style={{
-          padding: "1rem",
-          textAlign: "center",
-          fontWeight: "bold",
-          fontSize: "1.3rem",
-          color: "#FF7043",
-        }}
-      >
-        {card.name}
-      </div>
-    </motion.div>
-  ))}
-</div>
-
+            <div
+              style={{
+                display: cardsToShow.length === 1 ? "flex" : "grid",
+                justifyContent: cardsToShow.length === 1 ? "center" : "initial",
+                gridTemplateColumns:
+                  cardsToShow.length === 1 ? "none" : "repeat(auto-fit, minmax(260px, 1fr))",
+                gap: "2rem",
+                width: "90%",
+                maxWidth: "1200px",
+                zIndex: 2,
+              }}
+            >
+              {cardsToShow.map((card, idx) => (
+                <motion.div
+                  key={`${card.name}-${idx}`}
+                  whileHover={{
+                    scale: 1.05,
+                    border: "3px solid #FF7043", // Orange Border on Hover
+                  }}
+                  style={{
+                    background: "#fff",
+                    borderRadius: "20px",
+                    overflow: "hidden",
+                    cursor: "pointer",
+                    boxShadow: "0 8px 20px rgba(255,112,67,0.2)",
+                    transition: "all 0.3s", // Smooth transition for hover effect
+                    width: cardsToShow.length === 1 ? "320px" : "100%", // keep single card neat size
+                  }}
+                  onClick={() => navigate(card.route)}
+                >
+                  <motion.img
+                    src={card.img}
+                    alt={card.name}
+                    style={{ width: "100%", height: "220px", objectFit: "cover" }}
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    transition={{ duration: 0.5 }}
+                  />
+                  <div
+                    style={{
+                      padding: "1rem",
+                      textAlign: "center",
+                      fontWeight: "bold",
+                      fontSize: "1.3rem",
+                      color: "#FF7043",
+                    }}
+                  >
+                    {card.name}
+                  </div>
+                </motion.div>
+              ))}
+            </div>
           </motion.div>
         )}
       </AnimatePresence>
