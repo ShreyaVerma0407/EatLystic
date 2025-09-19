@@ -140,8 +140,8 @@ body {
   position: absolute;
   top: 16px;
   right: 17px;
-  color: #ff9300;
-  font-size: 1.45em;
+  color: #ff0000;
+  font-size: 2.45em;
   z-index: 2;
   text-shadow: #fff 0 0 2px;
 }
