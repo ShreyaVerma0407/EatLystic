@@ -2,6 +2,7 @@
 import React, { useState, useEffect } from "react";
 import { FaClock, FaListUl, FaHeart } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
+import Navbar from "./Navbar";
 
 const UNSPLASH_KEY = import.meta.env.VITE_UNSPLASH_KEY;
 const EDAMAM_ID = import.meta.env.VITE_EDAMAM_APP_ID;
@@ -13,7 +14,7 @@ const PantryChef = ({ currentUserId }) => {
   const [foodItems, setFoodItems] = useState([]);
   const [matchingRecipes, setMatchingRecipes] = useState([]);
   const [images, setImages] = useState({});
-  const [favorites, setFavorites] = useState({}); // recipeId -> true/false
+  const [favorites, setFavorites] = useState({});
 
   const navigate = useNavigate();
 
@@ -31,7 +32,7 @@ const PantryChef = ({ currentUserId }) => {
       .catch((err) => console.error("Error fetching pantry:", err));
   }, [currentUserId]);
 
-  // 🔹 Fetch recipe list
+  // 🔹 Fetch recipe list and food types
   useEffect(() => {
     fetch("/data/food.json")
       .then((res) => res.json())
@@ -112,7 +113,7 @@ const PantryChef = ({ currentUserId }) => {
         setImages((prev) => ({ ...prev, [recipe.recipeId]: imageUrl }));
       }
     });
-  }, [matchingRecipes]);
+  }, [matchingRecipes, images]);
 
   // 🔹 Fetch liked recipes for current user
   useEffect(() => {
@@ -141,7 +142,7 @@ const PantryChef = ({ currentUserId }) => {
     try {
       if (isFav) {
         // unlike
-      await fetch(`${API_BASE_URL}/api/liked`, {
+        await fetch(`${API_BASE_URL}/api/liked`, {
           method: "DELETE",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({ userId: currentUserId, recipeId }),
@@ -180,166 +181,180 @@ const PantryChef = ({ currentUserId }) => {
   };
 
   return (
-    <div
-      style={{
-        width: "100%",
-        minHeight: "100vh",
-        backgroundColor: "#181824",
-        color: "#fff",
-        padding: "2rem 1rem",
-      }}
-    >
-      <h2
+    <>
+      <Navbar />
+      <div
         style={{
-          textAlign: "center",
-          paddingBottom: "2rem",
-          fontSize: "2.2rem",
+          width: "100%",
+          minHeight: "100vh",
+          backgroundColor: "#181824",
+          color: "#fff",
+          padding: "2rem 1rem",
         }}
       >
-        🍳 Matching Recipes
-      </h2>
-
-      {matchingRecipes.length > 0 ? (
-        <div
+        <h2
           style={{
-            display: "flex",
-            flexDirection: "column",
-            gap: "2rem",
-            alignItems: "center",
+            textAlign: "center",
+            paddingBottom: "2rem",
+            fontSize: "2.2rem",
           }}
         >
-          {matchingRecipes.map((recipe, index) => (
-            <div
-              key={recipe.recipeId}
-              onClick={() => handleRecipeClick(recipe)}
-              style={{
-                backgroundColor: "#2c2f3f",
-                borderRadius: "15px",
-                padding: "1.5rem",
-                display: "flex",
-                flexDirection: "row",
-                alignItems: "center",
-                maxWidth: "400px",
-                width: "100%",
-                position: "relative",
-                cursor: "pointer",
-                transition: "transform 0.2s ease",
-              }}
-              onMouseEnter={(e) =>
-                (e.currentTarget.style.transform = "scale(1.03)")
-              }
-              onMouseLeave={(e) =>
-                (e.currentTarget.style.transform = "scale(1)")
-              }
-            >
-              {/* ❤️ Heart icon */}
-              <FaHeart
-                onClick={(e) => toggleFavorite(recipe, e)}
-                style={{
-                  position: "absolute",
-                  top: "10px",
-                  right: "10px",
-                  fontSize: "1.3rem",
-                  cursor: "pointer",
-                  transition: "color 0.3s ease",
-                  color: favorites[recipe.recipeId] ? "red" : "#888",
-                }}
-              />
+          🍳 Matching Recipes
+        </h2>
 
-              {/* Recipe Image */}
+        {matchingRecipes.length > 0 ? (
+          <div
+            style={{
+              display: "grid",
+              gridTemplateColumns: "repeat(auto-fill, minmax(300px, 1fr))",
+              gap: "2rem",
+              justifyItems: "center",
+              padding: "0 2rem",
+              maxWidth: "1200px",
+              margin: "0 auto",
+            }}
+          >
+            {matchingRecipes.map((recipe, index) => (
               <div
+                key={recipe.recipeId}
+                onClick={() => handleRecipeClick(recipe)}
                 style={{
-                  width: "90px",
-                  height: "90px",
-                  borderRadius: "50%",
-                  overflow: "hidden",
-                  flexShrink: 0,
+                  backgroundColor: "#2c2f3f",
+                  borderRadius: "15px",
+                  padding: "1.5rem",
+                  display: "flex",
+                  flexDirection: "column",
+                  alignItems: "center",
+                  width: "100%",
+                  position: "relative",
+                  cursor: "pointer",
+                  transition:
+                    "transform 0.2s ease, box-shadow 0.2s ease, border 0.2s ease",
+                  boxSizing: "border-box",
+                  border: "2px solid #ff9800",
+                }}
+                onMouseEnter={(e) => {
+                  e.currentTarget.style.transform = "scale(1.03)";
+                  e.currentTarget.style.boxShadow =
+                    "0 0 15px 5px rgba(255, 152, 0, 0.5)";
+                }}
+                onMouseLeave={(e) => {
+                  e.currentTarget.style.transform = "scale(1)";
+                  e.currentTarget.style.boxShadow = "none";
                 }}
               >
-                <img
-                  src={
-                    images[recipe.recipeId] ||
-                    recipe.image ||
-                    "https://via.placeholder.com/90"
-                  }
-                  alt={recipe.name}
+                {/* ❤️ Heart icon */}
+                <FaHeart
+                  onClick={(e) => toggleFavorite(recipe, e)}
                   style={{
-                    width: "100%",
-                    height: "100%",
-                    objectFit: "cover",
+                    position: "absolute",
+                    top: "10px",
+                    right: "10px",
+                    fontSize: "1.3rem",
+                    cursor: "pointer",
+                    transition: "color 0.3s ease",
+                    color: favorites[recipe.recipeId] ? "red" : "#888",
                   }}
                 />
+
+                {/* Recipe Image - larger size */}
+                <div
+                  style={{
+                    width: "150px",
+                    height: "150px",
+                    borderRadius: "50%",
+                    overflow: "hidden",
+                    flexShrink: 0,
+                    marginBottom: "1rem",
+                    boxShadow: "0 4px 8px rgba(0, 0, 0, 0.2)",
+                  }}
+                >
+                  <img
+                    src={
+                      images[recipe.recipeId] ||
+                      recipe.image ||
+                      "https://via.placeholder.com/150"
+                    }
+                    alt={recipe.name}
+                    style={{
+                      width: "100%",
+                      height: "100%",
+                      objectFit: "cover",
+                    }}
+                  />
+                </div>
+
+                {/* Recipe Info */}
+                <div style={{ textAlign: "center", width: "100%" }}>
+                  <h3
+                    style={{
+                      fontSize: "1.2rem",
+                      margin: 0,
+                      marginBottom: "0.5rem",
+                      textTransform: "lowercase",
+                      whiteSpace: "nowrap",
+                      overflow: "hidden",
+                      textOverflow: "ellipsis",
+                    }}
+                  >
+                    {recipe.name}
+                  </h3>
+
+                  <p
+                    style={{
+                      margin: "0.3rem 0",
+                      display: "flex",
+                      alignItems: "center",
+                      justifyContent: "center",
+                      fontSize: "0.9rem",
+                      color: "#ccc",
+                    }}
+                  >
+                    <FaClock style={{ marginRight: "5px" }} />
+                    {recipe.prep_time || "N/A"} min
+                  </p>
+
+                  <p
+                    style={{
+                      margin: "0.3rem 0",
+                      display: "flex",
+                      alignItems: "center",
+                      justifyContent: "center",
+                      fontSize: "0.9rem",
+                      color: "#ccc",
+                    }}
+                  >
+                    <FaListUl style={{ marginRight: "5px" }} />
+                    {recipe.ingredients ? recipe.ingredients.length : 0}{" "}
+                    ingredients
+                  </p>
+
+                  {/* Yellow Badge */}
+                  <span
+                    style={{
+                      display: "inline-block",
+                      marginTop: "0.5rem",
+                      padding: "0.3rem 0.8rem",
+                      borderRadius: "15px",
+                      fontSize: "0.75rem",
+                      fontWeight: "bold",
+                      backgroundColor: "#ffee58",
+                      color: "#000",
+                    }}
+                  >
+                    {recipe.type || "Unknown Type"}
+                  </span>
+                </div>
               </div>
-
-              {/* Recipe Info */}
-              <div style={{ marginLeft: "1rem", flex: 1 }}>
-                <h3
-                  style={{
-                    fontSize: "1.2rem",
-                    margin: 0,
-                    marginBottom: "0.5rem",
-                    textTransform: "lowercase",
-                  }}
-                >
-                  {recipe.name}
-                </h3>
-
-                <p
-                  style={{
-                    margin: "0.3rem 0",
-                    display: "flex",
-                    alignItems: "center",
-                    fontSize: "0.9rem",
-                    color: "#ccc",
-                  }}
-                >
-                  <FaClock style={{ marginRight: "5px" }} />
-                  {recipe.prep_time || "N/A"} min
-                </p>
-
-                <p
-                  style={{
-                    margin: "0.3rem 0",
-                    display: "flex",
-                    alignItems: "center",
-                    fontSize: "0.9rem",
-                    color: "#ccc",
-                  }}
-                >
-                  <FaListUl style={{ marginRight: "5px" }} />
-                  {recipe.ingredients ? recipe.ingredients.length : 0}{" "}
-                  ingredients
-                </p>
-
-                {/* Yellow Badge */}
-                <span
-                  style={{
-                    display: "inline-block",
-                    marginTop: "0.5rem",
-                    padding: "0.3rem 0.8rem",
-                    borderRadius: "15px",
-                    fontSize: "0.75rem",
-                    fontWeight: "bold",
-                    backgroundColor: "#ffee58",
-                    color: "#000",
-                  }}
-                >
-                  {recipe.type === "Vegetarian"
-                    ? "vegan food"
-                    : recipe.type === "Non-Vegetarian"
-                    ? "saturated with fats"
-                    : "full of protein"}
-                </span>
-              </div>
-            </div>
-          ))}
-        </div>
-      ) : (
-        <p style={{ textAlign: "center" }}>
-          No recipes match at least 3 ingredients from your pantry.
-        </p>
-      )}
-    </div>
+            ))}
+          </div>
+        ) : (
+          <p style={{ textAlign: "center" }}>
+            No recipes match at least 3 ingredients from your pantry.
+          </p>
+        )}
+      </div>
+    </>
   );
 };
 
