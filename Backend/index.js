@@ -5,27 +5,28 @@ import bodyParser from "body-parser";
 import dotenv from "dotenv";
 dotenv.config();
 
-
 // --------------------
 // Import Models & Routes
 // --------------------
-import EmployeeModel from "./server/models/Employee.js"; 
+import EmployeeModel from "./server/models/Employee.js";
 import pantryRoutes from "./server/routes/pantryRoutes.js";
 import calorieRouter from "./server/routes/calorieRoutes.js";
 import consumptionRoutes from "./server/routes/consumptionRoutes.js";
-import consumedRoutes from "./server/routes/consumed.js"; 
+import consumedRoutes from "./server/routes/consumed.js";
 import totalNutrientRoutes from "./server/routes/nutrientsTotal.js";
 import fitnessRoutes from "./server/routes/fitnessRoutes.js";
 import notificationRoutes from "./server/routes/notifications.js";
 import emailRoutes from "./server/routes/emailController.js";
 import pdfEmailRoute from "./server/routes/pdfEmailRoute.js";
-import cartRoutes from "./server/routes/cart.js";
 
 // 🔹 NEW IMPORT for cooked recipes
 import cookedRoutes from "./server/routes/cookedRoutes.js";
 
 // 🔹 NEW IMPORT for liked recipes
 import likedRoutes from "./server/routes/likedRoutes.js";
+
+// 🔹 CORRECTED: Import for custom recipes with the new file name
+import customRecipesRouter from "./server/routes/customRecipesRoute.js";
 
 const app = express();
 app.use(express.json());
@@ -36,7 +37,9 @@ app.use(bodyParser.json());
 // MongoDB Connection
 // --------------------
 mongoose
-   .connect( process.env.MONGO_URI)
+  .connect(
+    "mongodb+srv://shera1:pass1234@testd.uaa1xum.mongodb.net/employee?retryWrites=true&w=majority&appName=testd"
+  )
   .then(() => console.log("✅ MongoDB connected"))
   .catch((err) => console.error("❌ MongoDB connection error:", err));
 
@@ -103,7 +106,9 @@ app.use("/api/recipes/cooked", cookedRoutes);
 
 // 🔹 NEW: Mount liked recipes route
 app.use("/api/liked", likedRoutes);
-app.use("/cart", cartRoutes);
+
+// 🔹 CORRECTED: Mount custom recipes route
+app.use("/api/custom-recipes", customRecipesRouter);
 
 // --------------------
 // Start Server
