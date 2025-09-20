@@ -170,6 +170,18 @@ const fetchFromOpenFoodFacts = async (query) => {
   }
 };
 
+const fetchCustomProducts = async () => {
+  try {
+    const res = await fetch("/data/customProductsWithNutrients.json"); // public/dat/ folder
+    if (!res.ok) throw new Error("Failed to load custom products JSON");
+    const data = await res.json();
+    return data;
+  } catch (err) {
+    console.error(err);
+    return {};
+  }
+};
+
 const fetchNutritionData = async (query) => {
   if (!query) return null;
   const localResult = fetchFromLocalJson(query);
@@ -324,12 +336,44 @@ useEffect(() => {
 
   // -------------------- Search handlers --------------------
   const handleSearchByBarcode = async () => {
-    setError(""); setSearchNutrition(null);
-    if (!selectedBarcode) return;
-    const nutrition = await fetchNutritionData(selectedBarcode);
-    if (nutrition) setSearchNutrition(nutrition);
-    else setError("No nutrition data found for this barcode");
-  };
+  setError("");
+  setSearchNutrition(null);
+
+  if (!selectedBarcode) return;
+
+  // 1️⃣ Check Open Food Facts
+  let nutrition = await fetchFromOpenFoodFacts(selectedBarcode);
+  let productName = selectedBarcode;
+
+  // 2️⃣ If not found, check USDA
+  if (!nutrition) nutrition = await fetchFromUSDA(selectedBarcode);
+
+  // 3️⃣ If still not found, check your JSON in public
+  if (!nutrition) {
+    const customProducts = await fetchCustomProducts();
+    if (customProducts[selectedBarcode]) {
+      const p = customProducts[selectedBarcode];
+      productName = p.name; // set product name from JSON
+      nutrition = {
+        source: "Custom JSON",
+        nutrients: {
+          protein_g: p.protein || 0,
+          fat_total_g: p.fat || 0,
+          carbohydrates_total_g: p.carbs || 0,
+          fiber_g: p.fiber || 0, // optional, if you added
+        },
+      };
+    }
+  }
+
+  if (nutrition) {
+    setSearchNutrition({ ...nutrition, name: productName });
+  } else {
+    setError("No nutrition data found for this barcode");
+  }
+};
+
+
 
   const handleSearchByName = async () => {
     setError(""); setSearchNutrition(null);
@@ -399,6 +443,7 @@ useEffect(() => {
           background: "linear-gradient(to bottom, #fff8f0, #ffe6cc)",
           position: "relative",
           overflowX: "hidden",
+          color:"black",
         }}
       >
         {/* Wave at Top */}
@@ -438,15 +483,18 @@ useEffect(() => {
               <button onClick={handleSearchByName} style={buttonStyle}>Search Name</button>
             </div>
             {error && <p style={{ color: "red" }}>{error}</p>}
-            {searchNutrition && (
-              <div>
-                <ul>
-                  {Object.entries(searchNutrition.nutrients).map(([k, v]) => (
-                    <li key={k}>{k}: {formatNutrient(v)}</li>
-                  ))}
-                </ul>
-              </div>
-            )}
+           {searchNutrition && (
+  <div>
+    <h3 style={{ color: "#FF6347" }}>{searchNutrition.name}</h3> {/* show name */}
+    <ul>
+      {Object.entries(searchNutrition.nutrients).map(([k, v]) => (
+        <li key={k}>{k}: {formatNutrient(v)}</li>
+      ))}
+    </ul>
+
+  </div>
+)}
+
           </div>
 
           {/* Pantry Tables */}
