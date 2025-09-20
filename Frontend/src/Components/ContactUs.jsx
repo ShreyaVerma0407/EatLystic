@@ -105,32 +105,46 @@ const Card = ({ children, className }) => {
   );
 };
 
-<Navbar />
-
 export default function App() {
   const [formData, setFormData] = useState({
     name: '',
     email: '',
     subject: '',
     message: '',
-    issueType: 'general',
   });
 
   const [toastVisible, setToastVisible] = useState(false);
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    setToastVisible(true);
-    setTimeout(() => setToastVisible(false), 5000); // Hide toast after 5 seconds
+    try {
+      // Send data to the new backend endpoint
+      const response = await fetch('http://localhost:3001/api/contact', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(formData),
+      });
 
-    // Reset form
-    setFormData({
-      name: '',
-      email: '',
-      subject: '',
-      message: '',
-      issueType: 'general',
-    });
+      const data = await response.json();
+
+      if (data.status === 'success') {
+        setToastVisible(true);
+        setTimeout(() => setToastVisible(false), 5000); // Hide toast after 5 seconds
+        // Reset form
+        setFormData({
+          name: '',
+          email: '',
+          subject: '',
+          message: '',
+        });
+      } else {
+        console.error('Failed to send message:', data.message);
+      }
+    } catch (error) {
+      console.error('Error:', error);
+    }
   };
 
   const handleChange = (e) => {
@@ -155,9 +169,9 @@ export default function App() {
       <div className="gradient-orange-dark p-6">
         <div className="max-w-6xl mx-auto">
           <button className="back-button" onClick={handleBackClick}>
-      <ArrowLeft className="w-4 h-4 mr-2" />
-      Back to Help Desk
-    </button>
+            <ArrowLeft className="w-4 h-4 mr-2" />
+            Back to Help Desk
+          </button>
           <h1 className="text-6xl font-bold text-white mb-2">Contact Us</h1>
           <p className="text-white-90 text-2xl">
             Report an issue or get in touch with our support team
@@ -200,23 +214,6 @@ export default function App() {
                 </div>
 
                 <div>
-                  <label className="block text-sm font-medium mb-2">Issue Type</label>
-                  <select
-                    className="select-field"
-                    name="issueType"
-                    value={formData.issueType}
-                    onChange={handleChange}
-                  >
-                    <option value="general">General Inquiry</option>
-                    <option value="order">Order Issue</option>
-                    <option value="payment">Payment Problem</option>
-                    <option value="delivery">Delivery Issue</option>
-                    <option value="app">App/Technical Issue</option>
-                    <option value="restaurant">Restaurant Complaint</option>
-                  </select>
-                </div>
-
-                <div>
                   <label className="block text-sm font-medium mb-2">Subject *</label>
                   <input
                     className="input-field"
@@ -224,7 +221,7 @@ export default function App() {
                     value={formData.subject}
                     onChange={handleChange}
                     required
-                    placeholder="Brief description of your issue"
+                    placeholder="Subject/Title:"
                   />
                 </div>
 
@@ -253,47 +250,47 @@ export default function App() {
           <div>
             <h2 className="text-2xl font-semibold mb-6 text-yellow-500">Get in Touch</h2>
             <div className="space-y-6">
-            <Card>
-  <div className="flex items-start space-x-4">
-    <div className="icon-circle">
-      <Mail className="w-6 h-6 text-orange-medium" />
-    </div>
-    <div>
-      <h3 className="font-semibold mb-1 text-white">Email Support</h3>
-      <p className="text-white mb-2">Get help via email</p>
-      <p className="text-white font-medium">support@eatlystic.com</p>
-    </div>
-  </div>
-</Card>
+              <Card>
+                <div className="flex items-start space-x-4">
+                  <div className="icon-circle">
+                    <Mail className="w-6 h-6 text-orange-medium" />
+                  </div>
+                  <div>
+                    <h3 className="font-semibold mb-1 text-white">Email Support</h3>
+                    <p className="text-white mb-2">Get help via email</p>
+                    <p className="text-white font-medium">support@eatlystic.com</p>
+                  </div>
+                </div>
+              </Card>
 
-<Card>
-  <div className="flex items-start space-x-4">
-    <div className="icon-circle">
-      <Phone className="w-6 h-6 text-orange-medium" />
-    </div>
-    <div>
-      <h3 className="font-semibold mb-1 text-white">Phone Support</h3>
-      <p className="text-white mb-2">Talk to our support team</p>
-      <p className="text-white font-medium">+1 (555) 123-4567</p>
-    </div>
-  </div>
-</Card>
+              <Card>
+                <div className="flex items-start space-x-4">
+                  <div className="icon-circle">
+                    <Phone className="w-6 h-6 text-orange-medium" />
+                  </div>
+                  <div>
+                    <h3 className="font-semibold mb-1 text-white">Phone Support</h3>
+                    <p className="text-white mb-2">Talk to our support team</p>
+                    <p className="text-white font-medium">+1 (555) 123-4567</p>
+                  </div>
+                </div>
+              </Card>
 
-<Card>
-  <div className="flex items-start space-x-4">
-    <div className="icon-circle">
-      <Clock className="w-6 h-6 text-orange-medium" />
-    </div>
-    <div>
-      <h3 className="font-semibold mb-1 text-white">Support Hours</h3>
-      <p className="text-white mb-2">We're here to help</p>
-      <div className="text-sm text-white">
-        <p>Monday - Friday: 9:00 AM - 9:00 PM</p>
-        <p>Saturday - Sunday: 10:00 AM - 6:00 PM</p>
-      </div>
-    </div>
-  </div>
-</Card>
+              <Card>
+                <div className="flex items-start space-x-4">
+                  <div className="icon-circle">
+                    <Clock className="w-6 h-6 text-orange-medium" />
+                  </div>
+                  <div>
+                    <h3 className="font-semibold mb-1 text-white">Support Hours</h3>
+                    <p className="text-white mb-2">We're here to help</p>
+                    <div className="text-sm text-white">
+                      <p>Monday - Friday: 9:00 AM - 9:00 PM</p>
+                      <p>Saturday - Sunday: 10:00 AM - 6:00 PM</p>
+                    </div>
+                  </div>
+                </div>
+              </Card>
 
             </div>
           </div>
