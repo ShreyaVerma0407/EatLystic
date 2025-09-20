@@ -28,6 +28,9 @@ import likedRoutes from "./server/routes/likedRoutes.js";
 // 🔹 CORRECTED: Import for custom recipes with the new file name
 import customRecipesRouter from "./server/routes/customRecipesRoute.js";
 
+// 🆕 NEW IMPORT: Contact Form Router
+import contactRoutes from './server/routes/contactRoutes.js';
+
 const app = express();
 app.use(express.json());
 app.use(cors());
@@ -109,6 +112,10 @@ app.use("/api/liked", likedRoutes);
 
 // 🔹 CORRECTED: Mount custom recipes route
 app.use("/api/custom-recipes", customRecipesRouter);
+
+// 🆕 NEW: Mount the contact form router
+app.use('/api/contact', contactRoutes);
+
 
 // --------------------
 // Start Server
