@@ -32,6 +32,11 @@ import customRecipesRouter from "./server/routes/customRecipesRoute.js";
 import contactRoutes from './server/routes/contactRoutes.js';
 import cartRoutes from "./server/routes/cart.js";
 
+// ✅ ADDED: Import Review Model and Review Routes
+import ReviewModel from "./server/models/Review.js";
+import reviewRoutes from "./server/routes/reviewRoutes.js";
+
+
 const app = express();
 app.use(express.json());
 app.use(cors());
@@ -84,9 +89,19 @@ app.post("/login", async (req, res) => {
     const user = await EmployeeModel.findOne({ email });
     if (!user) return res.json({ status: "error", message: "No record exists" });
 
-    if (user.password === password)
-      res.json({ status: "success", message: "Login successful", user });
-    else res.json({ status: "error", message: "The password is incorrect" });
+    if (user.password === password) {
+      // ✅ Fetch all reviews from the database
+      const allReviews = await ReviewModel.find({});
+      
+      res.json({
+        status: "success",
+        message: "Login successful",
+        user,
+        reviews: allReviews, // Include reviews in the response
+      });
+    } else {
+      res.json({ status: "error", message: "The password is incorrect" });
+    }
   } catch (err) {
     res.json({ status: "error", message: err.message });
   }
@@ -118,6 +133,10 @@ app.use("/api/custom-recipes", customRecipesRouter);
 app.use('/api/contact', contactRoutes);
 
 app.use("/cart", cartRoutes);
+
+// ✅ ADDED: Mount review routes
+app.use("/api/reviews", reviewRoutes);
+
 // --------------------
 // Start Server
 // --------------------
