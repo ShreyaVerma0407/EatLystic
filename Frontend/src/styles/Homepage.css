@@ -223,3 +223,38 @@ body {
     overflow-x: auto; /* fallback scroll on small screens */
   }
 }
+.feedback-bubble {
+  border: 2px solid #FFDB58; /* Mustard color */
+  padding: 15px;
+  margin: 10px;
+  border-radius: 8px;
+  background: linear-gradient(145deg, #fff, #f4f4f4); /* Soft gradient for background */
+  box-shadow: 3px 3px 8px rgba(0, 0, 0, 0.1), -3px -3px 8px rgba(255, 255, 255, 0.3); /* Subtle shadow */
+  transition: all 0.3s ease; /* Smooth transition for hover effect */
+}
+
+.feedback-bubble:hover {
+  background: linear-gradient(145deg, #fff, #eaeaea); /* Slightly darker gradient on hover */
+  box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.15), -5px -5px 15px rgba(255, 255, 255, 0.4); /* Stronger shadow on hover */
+}
+
+.star {
+  color: #FFDB58; /* Mustard color for stars */
+}
+
+.feedback-text {
+  font-size: 14px;
+  font-weight: 500;
+  color: #333;
+}
+
+/* Add styles for the feedback name */
+.feedback-name {
+  font-family: 'Arial', sans-serif; /* Change the font family */
+  font-size: 1rem; /* Set the font size */
+  font-weight: bold; /* Make the font bold */
+  color: #333; /* Change the color */
+  margin-top: 5px; /* Add some spacing */
+  font-style: italic; /* Make the font italic */
+}
+
