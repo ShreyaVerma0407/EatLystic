@@ -15,17 +15,18 @@ router.get('/', async (req, res) => {
 
 // Route to add a new review
 router.post('/', async (req, res) => {
-  const { name, rating, comment } = req.body;
+  // ✅ UPDATED: Use 'stars' and 'text' from the request body
+  const { name, stars, text } = req.body;
   
-  if (!name || !rating || !comment) {
+  if (!name || !stars || !text) {
     return res.status(400).json({ message: 'All fields are required' });
   }
 
   try {
     const newReview = new ReviewModel({
       name,
-      rating,
-      comment
+      stars,
+      text
     });
     
     await newReview.save();
@@ -38,12 +39,14 @@ router.post('/', async (req, res) => {
 // Route to update a review
 router.put('/:id', async (req, res) => {
   const { id } = req.params;
-  const { rating, comment } = req.body;
+  // ✅ UPDATED: Use 'stars' and 'text' from the request body
+  const { stars, text } = req.body;
 
   try {
     const updatedReview = await ReviewModel.findByIdAndUpdate(
       id,
-      { rating, comment },
+      // ✅ UPDATED: Update 'stars' and 'text' fields
+      { stars, text },
       { new: true, runValidators: true }
     );
     if (!updatedReview) {
