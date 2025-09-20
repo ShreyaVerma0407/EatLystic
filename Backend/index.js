@@ -30,6 +30,7 @@ import customRecipesRouter from "./server/routes/customRecipesRoute.js";
 
 // 🆕 NEW IMPORT: Contact Form Router
 import contactRoutes from './server/routes/contactRoutes.js';
+import cartRoutes from "./server/routes/cart.js";
 
 const app = express();
 app.use(express.json());
@@ -116,7 +117,7 @@ app.use("/api/custom-recipes", customRecipesRouter);
 // 🆕 NEW: Mount the contact form router
 app.use('/api/contact', contactRoutes);
 
-
+app.use("/cart", cartRoutes);
 // --------------------
 // Start Server
 // --------------------
