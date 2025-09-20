@@ -82,17 +82,44 @@ const Dish = () => {
     );
   }
   //for shopping cart
-  useEffect(() => {
-    const userId = localStorage.getItem("userId");
-    if (!userId) return;
+ useEffect(() => {
+  const userId = localStorage.getItem("userId");
+  if (!userId) return;
 
-    fetch(`${CART_BASE_URL}/cart/${userId}`)
-      .then((res) => res.json())
-      .then((data) => {
-        if (data.status === "success") setCartItems(data.cart);
-      })
-      .catch((err) => console.error("Error fetching cart:", err));
-  }, []);
+  // Get cart from localStorage first
+  const localCart = JSON.parse(localStorage.getItem("cartItems") || "[]");
+
+  // Fetch backend cart
+  fetch(`${CART_BASE_URL}/cart/${userId}`)
+    .then((res) => res.json())
+    .then((data) => {
+      if (data.status === "success") {
+        // Merge backend cart with localStorage cart
+        const backendCart = data.cart || [];
+        const mergedCart = [...backendCart];
+
+        localCart.forEach((lcItem) => {
+          const exists = mergedCart.find((b) => b.name === lcItem.name);
+          if (exists) {
+            exists.quantity += lcItem.quantity;
+          } else {
+            mergedCart.push(lcItem);
+          }
+        });
+
+        setCartItems(mergedCart);
+        localStorage.setItem("cartItems", JSON.stringify(mergedCart));
+      } else {
+        // fallback: just use localStorage cart
+        setCartItems(localCart);
+      }
+    })
+    .catch((err) => {
+      console.error("Error fetching cart:", err);
+      setCartItems(localCart);
+    });
+}, []);
+
 
   // ⭐ NEW: fetch dish image from Unsplash
   useEffect(() => {
@@ -206,48 +233,42 @@ const Dish = () => {
     }
   };
   //helper function for shopping cart
-  const addToCart = async (itemName) => {
-    const userId = localStorage.getItem("userId");
-    if (!userId) return alert("Please login to add items to cart.");
+   const addToCart = async (itemName) => {
+  const userId = localStorage.getItem("userId");
+  if (!userId) return alert("Please login to add items to cart.");
 
-    const existing = cartItems.find((i) => i.name === itemName);
-    let updatedCart = existing
-      ? cartItems.map((i) =>
-          i.name === itemName ? { ...i, quantity: i.quantity + 1 } : i
-        )
-      : [...cartItems, { name: itemName, quantity: 1 }];
+  const existing = cartItems.find(i => i.name === itemName);
 
-    setCartItems(updatedCart);
+  const updatedCart = existing
+    ? cartItems.map(i =>
+        i.name === itemName ? { ...i, quantity: i.quantity + 1 } : i
+      )
+    : [...cartItems, { name: itemName, quantity: 1 }];
 
-    // Update recently added
-    setRecentlyAdded((prev) => [
-      { name: itemName, quantity: 1 },
-      ...prev.filter((i) => i.name !== itemName),
-    ]);
+  setCartItems(updatedCart);
+  localStorage.setItem("cartItems", JSON.stringify(updatedCart));
 
-    // Update backend
-    try {
-      await fetch(`${CART_BASE_URL}/cart/add`, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ userId, item: { name: itemName, quantity: 1 } }),
-      });
-      alert(`"${itemName}" added to cart!`);
-    } catch (err) {
-      console.error("Error syncing cart:", err);
-    }
+  // Update backend
+  try {
+    await fetch(`${CART_BASE_URL}/cart/add`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ userId, item: { name: itemName, quantity: 1 } }),
+    });
+    alert(`"${itemName}" added to cart!`);
+  } catch (err) {
+    console.error("Error syncing cart:", err);
+  }
 
-    // ✅ Update favoriteRecipes in localStorage for suggestions
-    const currentRecipes = JSON.parse(
-      localStorage.getItem("favoriteRecipes") || "[]"
+  // Update favoriteRecipes
+  const currentRecipes = JSON.parse(localStorage.getItem("favoriteRecipes") || "[]");
+  if (!currentRecipes.find((r) => r.name === recipe.name)) {
+    localStorage.setItem(
+      "favoriteRecipes",
+      JSON.stringify([...currentRecipes, recipe])
     );
-    if (!currentRecipes.find((r) => r.name === recipe.name)) {
-      localStorage.setItem(
-        "favoriteRecipes",
-        JSON.stringify([...currentRecipes, recipe])
-      );
-    }
-  };
+  }
+};
 
   // 🔹 Handle "Download Recipe" button click
   const handleDownloadPDF = () => {
