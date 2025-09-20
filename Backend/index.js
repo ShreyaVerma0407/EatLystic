@@ -32,9 +32,13 @@ import customRecipesRouter from "./server/routes/customRecipesRoute.js";
 import contactRoutes from './server/routes/contactRoutes.js';
 import cartRoutes from "./server/routes/cart.js";
 
+
+import logoutRouter from "./server/routes/logout.js";
+
 // ✅ ADDED: Import Review Model and Review Routes
 import ReviewModel from "./server/models/Review.js";
 import reviewRoutes from "./server/routes/reviewRoutes.js";
+
 
 
 const app = express();
@@ -134,8 +138,12 @@ app.use('/api/contact', contactRoutes);
 
 app.use("/cart", cartRoutes);
 
+app.use("/api/logout", logoutRouter);
+
+
 // ✅ ADDED: Mount review routes
 app.use("/api/reviews", reviewRoutes);
+
 
 // --------------------
 // Start Server

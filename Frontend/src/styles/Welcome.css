@@ -28,6 +28,10 @@
   height: 100vh;
 }
 
+.enter-btn:hover {
+  background-color: #e5533d;
+}
+
 .welcome-page .center-text {
   position: fixed;
   top: 0; left: 0;
@@ -63,7 +67,26 @@
   background: rgba(255,255,255,0.1);
   padding: 0.2em 0.7em;
   border-radius: 8px;
-  display: inline-block;
+  display: block; /* change from inline-block to block */
+  margin: 0 auto; /* center horizontally */
+  text-align: center; /* optional for extra centering */
+}
+
+ .welcome-page .welcome-container .enter-btn {
+  margin-top: 30px; /* more spacing below EATLYSTIC */
+  padding: 12px 30px;
+  font-size: 20px;
+  background-color: #ff6347;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+  margin-left:-25px;
+ }
+
+.welcome-page .welcome-container .enter-btn:hover {
+  background-color: #e5533d;
 }
 
 @keyframes bounceInTop {

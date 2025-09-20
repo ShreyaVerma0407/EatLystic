@@ -26,8 +26,12 @@ import MealChef from './Components/MealChef.jsx';
 import Dishes_meal from './Components/Dishes_meal.jsx';
 import HelpDesk from './Components/HelpDesk.jsx';
 import ContactUs from './Components/ContactUs.jsx';
+
+import Logout from "./Logout";
+
 import Feedback from './Components/Feedback.jsx';
 import Faq from './Components/Faq.jsx';
+
 
 function App() {
   const [currentUserId, setCurrentUserId] = useState(null);
@@ -85,6 +89,8 @@ function App() {
         <Route path="/shoppingcart" element={<ShoppingCart />} />
          <Route path="/recipe/mealchef" element={<MealChef currentUserId={currentUserId} />} />
          <Route path="/recipe/mealchef/dishes/:id" element={<Dishes_meal />} />
+<Route path="/logout" element={<Logout />} />
+
       </Routes>
     </BrowserRouter>
   );

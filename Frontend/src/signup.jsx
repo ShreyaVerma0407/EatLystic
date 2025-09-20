@@ -19,26 +19,27 @@ const EMAIL_BASE_URL = API_BASE_URL.replace("/api", "");
       alert("Please fill all fields");
       return;
     }
+try {
+  const response = await axios.post(`${EMAIL_BASE_URL}/register`, {
+    name: name.trim(),
+    email: email.trim(),
+    password,
+  });
 
-    try {
-     const response = await axios.post(`${EMAIL_BASE_URL}/register`, {
-        name: name.trim(),
-        email: email.trim(),
-        password,
-      });
+  if (response.data.status === "success") {
+    const userId = response.data.data._id;
+    localStorage.setItem("userId", userId); // persist user ID
+    localStorage.setItem("user", JSON.stringify(response.data.data)); // persist user object
+    alert(response.data.message);
+    navigate("/welcome"); // redirect after registration
+  } else {
+    alert(response.data.message || "Registration failed");
+  }
+} catch (err) {
+  console.error(err);
+  alert("Server error. Please try again later.");
+}
 
-      if (response.data.status === "success") {
-        const userId = response.data.data._id;
-        localStorage.setItem("userId", userId); // persist user ID
-        alert(response.data.message);
-        navigate("/welcome"); // redirect after registration
-      } else {
-        alert(response.data.message || "Registration failed");
-      }
-    } catch (err) {
-      console.error(err);
-      alert("Server error. Please try again later.");
-    }
   };
 
   return (
