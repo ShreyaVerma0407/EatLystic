@@ -5,12 +5,12 @@ const CookedRecipes = () => {
   const [cookedRecipes, setCookedRecipes] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
-
+const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
   // Fetch cooked recipes from backend
   useEffect(() => {
     const fetchCookedRecipes = async () => {
       try {
-        const response = await axios.get("http://localhost:3001/api/recipes/cooked");
+       const response = await axios.get(`${API_BASE_URL}/recipes/cooked`);
         if (response.status === 200) {
           setCookedRecipes(response.data.data); // Store recipes in state
           setLoading(false);
