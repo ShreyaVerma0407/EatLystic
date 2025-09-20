@@ -1,14 +1,14 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
-import Navbar from "../Components/Navbar"; // Ensure this path is correct
+import Navbar from "../Components/Navbar"; 
 import "../styles/Liked.css";
 
 const Liked = ({ userId }) => {
   const [likedRecipes, setLikedRecipes] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
-  const [searchTerm, setSearchTerm] = useState(""); // For filtering recipes
+  const [searchTerm, setSearchTerm] = useState(""); 
   const [images, setImages] = useState({});
   const navigate = useNavigate();
   const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
@@ -27,21 +27,20 @@ const Liked = ({ userId }) => {
     if (userId) fetchLikedRecipes();
   }, [userId]);
 
-  // Filter the recipes based on search term
   const filteredRecipes = likedRecipes.filter((recipe) =>
     recipe.name.toLowerCase().includes(searchTerm.toLowerCase())
   );
 
-  // Fetch recipe images
   useEffect(() => {
     likedRecipes.forEach(async (recipe) => {
       if (images[recipe.recipeId]) return;
-
       let imageUrl = "";
 
       try {
         const unsplashRes = await fetch(
-          `https://api.unsplash.com/search/photos?query=${encodeURIComponent(recipe.name)}&client_id=${process.env.VITE_UNSPLASH_KEY}`
+          `https://api.unsplash.com/search/photos?query=${encodeURIComponent(
+            recipe.name
+          )}&client_id=${import.meta.env.VITE_UNSPLASH_KEY}`
         );
         const unsplashData = await unsplashRes.json();
         if (unsplashData?.results?.length > 0) {
@@ -54,7 +53,9 @@ const Liked = ({ userId }) => {
       if (!imageUrl) {
         try {
           const edamamRes = await fetch(
-            `https://api.edamam.com/search?q=${encodeURIComponent(recipe.name)}&app_id=${process.env.VITE_EDAMAM_APP_ID}&app_key=${process.env.VITE_EDAMAM_APP_KEY}&from=0&to=1`
+            `https://api.edamam.com/search?q=${encodeURIComponent(
+              recipe.name
+            )}&app_id=${import.meta.env.VITE_EDAMAM_APP_ID}&app_key=${import.meta.env.VITE_EDAMAM_APP_KEY}&from=0&to=1`
           );
           const edamamData = await edamamRes.json();
           if (edamamData?.hits?.length > 0) {
@@ -71,10 +72,9 @@ const Liked = ({ userId }) => {
     });
   }, [likedRecipes]);
 
-  // Handle recipe click to navigate to the recipe detail page
   const handleRecipeClick = (recipe) => {
     navigate(`/recipe/pantrychef/dishes/${recipe.recipeId}`, {
-      state: { recipe, image: images[recipe.recipeId] }, // Passing recipe and image
+      state: { recipe, image: images[recipe.recipeId] }, 
     });
   };
 
@@ -84,7 +84,6 @@ const Liked = ({ userId }) => {
 
   return (
     <div className="bg-dark text-white" style={{ minHeight: "100vh" }}>
-      {/* Navbar */}
       <div style={{ position: "fixed", top: 0, width: "100%", zIndex: 1030 }}>
         <Navbar />
       </div>
@@ -97,14 +96,17 @@ const Liked = ({ userId }) => {
               type="text"
               className="form-control w-50"
               placeholder="Search your liked recipes..."
-              value={searchTerm} // Bind the input value to searchTerm state
-              onChange={(e) => setSearchTerm(e.target.value)} // Update the searchTerm state on input change
+              value={searchTerm} 
+              onChange={(e) => setSearchTerm(e.target.value)} 
             />
           </div>
-          {/* Recipe Cards */}
           <div className="liked-recipes-list">
             {filteredRecipes.map((recipe) => (
-              <div key={recipe.recipeId} className="recipe-card" onClick={() => handleRecipeClick(recipe)}>
+              <div
+                key={recipe.recipeId}
+                className="recipe-card"
+                onClick={() => handleRecipeClick(recipe)}
+              >
                 <div className="img-container">
                   <img src={images[recipe.recipeId] || recipe.image} alt={recipe.name} />
                   <span className="fav-heart">♥</span>

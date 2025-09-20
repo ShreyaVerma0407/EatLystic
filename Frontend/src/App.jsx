@@ -78,7 +78,7 @@ function App() {
 
         {/* Food List Route */}
         <Route path="/food" element={<FoodList />} />
-        <Route path="/ShoppingCart" element={<ShoppingCart />} />
+        <Route path="/shoppingcart" element={<ShoppingCart />} />
          <Route path="/recipe/mealchef" element={<MealChef currentUserId={currentUserId} />} />
          <Route path="/recipe/mealchef/dishes/:id" element={<Dishes_meal />} />
       </Routes>

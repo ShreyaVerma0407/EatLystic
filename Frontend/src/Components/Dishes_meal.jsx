@@ -10,7 +10,7 @@ import {
   Download,
 } from "lucide-react";
 import jsPDF from "jspdf";
-import Navbar from "./Navbar"; // Make sure to import Navbar
+import Navbar from "./Navbar";
 
 // 🌟 Simple Badge component
 const Badge = ({ text }) => (
@@ -34,37 +34,31 @@ const Dishes_meal = () => {
   const [currentStep, setCurrentStep] = useState(0);
   const [saving, setSaving] = useState(false);
   const [dishImage, setDishImage] = useState(null);
-  const [cartItems, setCartItems] = useState([]); // Cart items state
-  const [recentlyAdded, setRecentlyAdded] = useState([]); // Track recently added items to cart
+  const [cartItems, setCartItems] = useState([]);
+  const [recentlyAdded, setRecentlyAdded] = useState([]);
   const pageRef = useRef();
   const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
   const location = useLocation();
   const { id } = useParams();
   const navigate = useNavigate();
 
-  // ✅ Use state for recipe data, with navigation state as an initial value
   const [recipe, setRecipe] = useState(location.state?.recipeDetails || null);
   const [loading, setLoading] = useState(true);
 
-  // ⭐ Hover states for the information cards
   const [hoveredCard, setHoveredCard] = useState(null);
 
-  // 🔹 This useEffect now handles both navigation and page refresh.
   useEffect(() => {
-    // If we already have recipe data from a click, we are done
     if (recipe) {
       setLoading(false);
       return;
     }
 
-    // Otherwise, fetch the data using the ID from the URL
     const fetchRecipeFromData = async () => {
       try {
         const res = await fetch("/data/food.json");
         const data = await res.json();
         const allRecipes = Array.isArray(data) ? data : data.recipes;
 
-        // ✅ Use a more robust find method to avoid conflicts
         const foundRecipe = allRecipes.find(
           (r) =>
             r.id === id ||
@@ -74,7 +68,7 @@ const Dishes_meal = () => {
         if (foundRecipe) {
           setRecipe(foundRecipe);
         } else {
-          setRecipe(null); // Set to null if not found
+          setRecipe(null);
         }
       } catch (err) {
         console.error("Error loading food.json:", err);
@@ -87,7 +81,6 @@ const Dishes_meal = () => {
     fetchRecipeFromData();
   }, [id, recipe]);
 
-  // ⭐ NEW: fetch dish image from Unsplash
   useEffect(() => {
     if (recipe?.name) {
       const UNSPLASH_KEY = import.meta.env.VITE_UNSPLASH_KEY;
@@ -106,12 +99,11 @@ const Dishes_meal = () => {
     }
   }, [recipe]);
 
-  // 🛒 Fetch cart data from the server
   useEffect(() => {
     const userId = localStorage.getItem("userId");
     if (!userId) return;
 
-    const CART_BASE_URL = import.meta.env.VITE_CART_BASE_URL; // Set this in your .env file
+    const CART_BASE_URL = import.meta.env.VITE_CART_BASE_URL;
     fetch(`${CART_BASE_URL}/cart/${userId}`)
       .then((res) => res.json())
       .then((data) => {
@@ -120,7 +112,6 @@ const Dishes_meal = () => {
       .catch((err) => console.error("Error fetching cart:", err));
   }, []);
 
-  // 🛒 Add item to the shopping cart
   const addToCart = async (itemName) => {
     const userId = localStorage.getItem("userId");
     if (!userId) return alert("Please login to add items to cart.");
@@ -134,13 +125,11 @@ const Dishes_meal = () => {
 
     setCartItems(updatedCart);
 
-    // Update recently added
     setRecentlyAdded((prev) => [
       { name: itemName, quantity: 1 },
       ...prev.filter((i) => i.name !== itemName),
     ]);
 
-    // Update backend
     try {
       const CART_BASE_URL = import.meta.env.VITE_CART_BASE_URL;
       await fetch(`${CART_BASE_URL}/cart/add`, {
@@ -153,7 +142,6 @@ const Dishes_meal = () => {
       console.error("Error syncing cart:", err);
     }
 
-    // ✅ Update favoriteRecipes in localStorage for suggestions
     const currentRecipes = JSON.parse(
       localStorage.getItem("favoriteRecipes") || "[]"
     );
@@ -165,16 +153,14 @@ const Dishes_meal = () => {
     }
   };
 
-  // 🔹 Handle "Download Recipe" button click
   const handleDownloadPDF = () => {
     if (!recipe) return;
 
     const pdf = new jsPDF("p", "mm", "a4");
     const pageWidth = pdf.internal.pageSize.getWidth();
 
-    // Title
     pdf.setFontSize(22);
-    pdf.setTextColor(250, 204, 21); // yellow
+    pdf.setTextColor(250, 204, 21);
     pdf.text(recipe.name, pageWidth / 2, 20, { align: "center" });
     let y = 35;
     pdf.setFontSize(14);
@@ -226,6 +212,7 @@ const Dishes_meal = () => {
     y += 10;
     if (recipe.nutrition_per_serving) {
       pdf.setFontSize(16);
+      pdf.setTextColor(0, 0, 0);
       pdf.text("⚡ Nutrition Facts", 14, y);
       y += 10;
       pdf.setFontSize(12);
@@ -266,7 +253,6 @@ const Dishes_meal = () => {
     }
   };
 
-  // Display loading or error message first, before trying to render recipe details
   if (loading) {
     return (
       <div
@@ -303,7 +289,7 @@ const Dishes_meal = () => {
 
   return (
     <>
-      <Navbar /> {/* <-- This is the added component */}
+      <Navbar />
       <div
         style={{
           backgroundColor: "#181824",
@@ -314,7 +300,6 @@ const Dishes_meal = () => {
         }}
         ref={pageRef}
       >
-        {/* 🔹 Download Button */}
         <button
           onClick={handleDownloadPDF}
           style={{
@@ -335,7 +320,6 @@ const Dishes_meal = () => {
         >
           <Download size={18} /> Download Recipe
         </button>
-        {/* Title */}
         <h1
           style={{
             fontSize: 48,
@@ -348,7 +332,6 @@ const Dishes_meal = () => {
         >
           {recipe.name}
         </h1>
-        {/* ⭐ Dish Image */}
         <div
           style={{
             maxWidth: "500px",
@@ -372,12 +355,11 @@ const Dishes_meal = () => {
             />
           )}
         </div>
-        {/* Recipe Details */}
         <div
           style={{
-            display: "grid",
-            gridTemplateColumns: "repeat(4, 1fr)",
-            gap: 20,
+            display: "flex", // ✅ Changed to flexbox
+            justifyContent: "center", // ✅ Centered the divs
+            gap: "10px", // ✅ Set distance to 10px
             marginBottom: 48,
           }}
         >
@@ -385,21 +367,27 @@ const Dishes_meal = () => {
             style={{
               ...cardStyle,
               ...hoverEffect(hoveredCard === "ingredients"),
+              borderColor: "#fff700ff",
             }}
             onMouseEnter={() => setHoveredCard("ingredients")}
             onMouseLeave={() => setHoveredCard(null)}
           >
-            <ChefHat size={24} style={{ margin: "0 auto 8px" }} />
+            <span role="img" aria-label="ingredients-emoji" style={{ fontSize: "2.5rem" }}>📝</span>
             <p style={{ opacity: 0.8, marginBottom: 4 }}>Ingredients</p>
             <p style={{ fontWeight: "bold", fontSize: 18 }}>
               {recipe.ingredients?.length || 0}
             </p>
           </div>
           <div
-            style={{ ...cardStyle, ...hoverEffect(hoveredCard === "cuisine") }}
+            style={{
+              ...cardStyle,
+              ...hoverEffect(hoveredCard === "cuisine"),
+              borderColor: "#fff700ff",
+            }}
             onMouseEnter={() => setHoveredCard("cuisine")}
             onMouseLeave={() => setHoveredCard(null)}
           >
+            <span role="img" aria-label="cuisine-emoji" style={{ fontSize: "2.5rem" }}>🌍</span>
             <Badge text={recipe.cuisine || "Unknown"} />
             <p style={{ opacity: 0.8 }}>Cuisine</p>
           </div>
@@ -407,11 +395,12 @@ const Dishes_meal = () => {
             style={{
               ...cardStyle,
               ...hoverEffect(hoveredCard === "prep-time"),
+              borderColor: "#fff700ff",
             }}
             onMouseEnter={() => setHoveredCard("prep-time")}
             onMouseLeave={() => setHoveredCard(null)}
           >
-            <Clock size={24} style={{ margin: "0 auto 8px" }} />
+            <span role="img" aria-label="prep-time-emoji" style={{ fontSize: "2.5rem" }}>🔪</span>
             <p style={{ opacity: 0.8, marginBottom: 4 }}>Prep Time</p>
             <p style={{ fontWeight: "bold", fontSize: 18 }}>
               {recipe.prep_minutes || "N/A"} mins
@@ -421,11 +410,12 @@ const Dishes_meal = () => {
             style={{
               ...cardStyle,
               ...hoverEffect(hoveredCard === "cook-time"),
+              borderColor: "#fff700ff",
             }}
             onMouseEnter={() => setHoveredCard("cook-time")}
             onMouseLeave={() => setHoveredCard(null)}
           >
-            <Clock size={24} style={{ margin: "0 auto 8px" }} />
+            <span role="img" aria-label="cook-time-emoji" style={{ fontSize: "2.5rem" }}>🔥</span>
             <p style={{ opacity: 0.8, marginBottom: 4 }}>Cook Time</p>
             <p style={{ fontWeight: "bold", fontSize: 18 }}>
               {recipe.cook_minutes || "N/A"} mins
@@ -433,7 +423,6 @@ const Dishes_meal = () => {
           </div>
         </div>
 
-        {/* Ingredients Section */}
         <h2 style={{ ...sectionHeading, textDecoration: "underline" }}>
           🛒 Ingredients
         </h2>
@@ -454,21 +443,19 @@ const Dishes_meal = () => {
                 <ShoppingCart
                   size={20}
                   style={{ cursor: "pointer", opacity: 0.7 }}
-                  onClick={() => addToCart(item.name)} // Update with item.name
+                  onClick={() => addToCart(item.name)}
                 />
               </div>
             );
           })}
         </div>
 
-        {/* Cooking Process */}
         <div style={{ maxWidth: 700, margin: "0 auto 48px" }}>
           <h2 style={{ ...sectionHeading, textDecoration: "underline" }}>
             👨‍🍳 Cooking Process
           </h2>
           {totalSteps > 0 ? (
             <>
-              {/* Step Counter */}
               <p
                 style={{
                   textAlign: "center",
@@ -479,15 +466,12 @@ const Dishes_meal = () => {
               >
                 Step {currentStep + 1} of {totalSteps}
               </p>
-              {/* Step Content */}
               <div style={stepCard}>
                 {recipe.steps[currentStep].instruction}
               </div>
-              {/* Progress Bar */}
               <div style={progressContainer}>
                 <div style={{ ...progressFill, width: `${progress}%` }}></div>
               </div>
-              {/* Controls */}
               <div style={{ display: "flex", justifyContent: "space-between" }}>
                 <button
                   onClick={() =>
@@ -542,7 +526,6 @@ const Dishes_meal = () => {
           )}
         </div>
 
-        {/* Nutrition Section */}
         <div style={{ marginTop: 60, textAlign: "center" }}>
           <h2 style={{ ...sectionHeading, textDecoration: "underline" }}>
             ⚡ Nutrition Facts
@@ -583,17 +566,17 @@ const Dishes_meal = () => {
   );
 };
 
-// 🔹 helper styles
 const cardStyle = {
+  width: "250px", // ✅ Corrected width
   textAlign: "center",
-  padding: 16,
-  backgroundColor: "rgba(255 255 255 / 0.1)",
+  padding: 10,
+  backgroundColor: "rgba(255,255,255,0.1)",
   borderRadius: 12,
-  border: "2px solid #facc15",
+  border: "2px solid",
   transition: "all 0.3s ease",
 };
 const hoverEffect = (isHovered) => ({
-  borderColor: isHovered ? "#ffcc00" : "#facc15",
+  borderColor: isHovered ? "#ffcc00" : "inherit",
   boxShadow: isHovered ? "0 0 10px #ffcc00" : "none",
 });
 const ingredientBox = (bg, textColor) => ({
