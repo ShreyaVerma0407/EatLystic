@@ -32,6 +32,8 @@ import customRecipesRouter from "./server/routes/customRecipesRoute.js";
 import contactRoutes from './server/routes/contactRoutes.js';
 import cartRoutes from "./server/routes/cart.js";
 
+import logoutRouter from "./server/routes/logout.js";
+
 const app = express();
 app.use(express.json());
 app.use(cors());
@@ -118,6 +120,7 @@ app.use("/api/custom-recipes", customRecipesRouter);
 app.use('/api/contact', contactRoutes);
 
 app.use("/cart", cartRoutes);
+app.use("/api/logout", logoutRouter);
 // --------------------
 // Start Server
 // --------------------
