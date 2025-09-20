@@ -1,28 +1,27 @@
-import React, { useState } from "react";
+import React from "react";
 import { useNavigate } from "react-router-dom";
 import "../styles/Welcome.css";
 
 const Welcome = () => {
   const navigate = useNavigate();
-  const [slideOut, setSlideOut] = useState(false);
+  const user = JSON.parse(localStorage.getItem("user")); // read user object
 
-  const handleSlide = () => {
-    setSlideOut(true);
-    setTimeout(() => {
-      navigate("/home");
-    }, 2000); // match CSS transition time
+  const goToHome = () => {
+    navigate("/home");
   };
 
   return (
-    <div
-      className={`welcome-page ${slideOut ? "slide-out" : ""}`}
-      onMouseEnter={handleSlide} // hover triggers slide
-    >
+    <div className="welcome-page">
       <div className="bg-img"></div>
       <div className="center-text">
         <div className="welcome-container">
-          <div className="welcome">WELCOME TO</div>
-          <div className="eatlystic">EATLYSTIC</div>
+          <div className="welcome">
+            {user ? `Welcome ${user.name}` : "Welcome"}
+          </div>
+          <div className="eatlystic">To EATLYSTIC</div>
+          <button className="enter-btn" onClick={goToHome}>
+            Explore
+          </button>
         </div>
       </div>
     </div>
