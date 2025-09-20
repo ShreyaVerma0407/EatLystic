@@ -5,13 +5,13 @@ const ReviewSchema = new mongoose.Schema({
     type: String,
     required: true
   },
-  rating: {
+  stars: {
     type: Number,
     required: true,
     min: 1,
     max: 5
   },
-  comment: {
+  text: {
     type: String,
     required: true
   }
