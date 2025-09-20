@@ -1,0 +1,35 @@
+[
+
+  {
+    "q": "What should I do if I don't have enough pantry items for a recipe?",
+    "a": "If you’re missing ingredients, Eatlystic will suggest recipes that fit what you do have, or help you create a shopping list for any items you need.",
+    "keywords": "not enough items missing recipe suggestion shopping list"
+  },
+  {
+    "q": "What if I forget about an item that's expiring soon?",
+    "a": "No worries! Eatlystic will send reminder notifications to your browser and email before a pantry item expires, so you never miss saving your food.",
+    "keywords": "forget expiring reminder notification email"
+  },
+  {
+    "q": "Can I like or bookmark my favorite recipes?",
+    "a": "Yes, simply use the heart or 'Like' button on any recipe page to save it to your Favorites, making it easy to revisit later.",
+    "keywords": "like favorite bookmark recipes"
+  },
+  {
+    "q": "How can I keep track of my fitness level?",
+    "a": "Every pantry item and recipe you consume is tracked by Eatlystic. It shows the nutrients and calories you've consumed and suggests recipes to help you achieve your fitness targets.",
+    "keywords": "fitness level track calories nutrients goals"
+  },
+  {
+    "q": "How do I stay up to date with trending recipes and see what others are having?",
+    "a": "Visit the Trending page where Eatlystic displays the most popular recipes among users, helping you discover new meal ideas and stay inspired.",
+    "keywords": "trending popular recipes new meals"
+  },
+  {
+    "q": "How do I set and manage my goals in Eatlystic?",
+    "a": "Don’t worry about setting goals manually. Eatlystic provides a weekly meal and nutrition plan based on your preferences. You can track consistency, see detailed nutrition reports, and even download your progress.",
+    "keywords": "set goals weekly plan nutrition report progress"
+ 
+}
+
+]

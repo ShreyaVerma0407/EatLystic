@@ -122,7 +122,7 @@ body {
 
 /* Reviews Section */
 .reviews-section {
-  background: #fff;
+  background: #363636;
   padding: 3rem 2rem;
   text-align: center;
   overflow: hidden;
@@ -143,10 +143,20 @@ body {
   overflow-x: visible;
 }
 
+
+.stars {
+  color: #ffb400; /* gold stars */
+  font-size: 2.0rem;
+  margin-bottom: 12px;
+}
+
+
+
+/* Feedback Bubble - Gradient with Mustard and White */
 .feedback-bubble {
-  flex: 0 0 320px; /* fixed width for each bubble */
-  background: #fff;
-  border-radius: 20px;
+  flex: 0 0 320px; /* Fixed width for each bubble */
+  background: linear-gradient(145deg, #FFDB58, #fff); /* Light mustard to white gradient */
+  border-radius: 50px;
   box-shadow: 0 8px 20px rgba(0, 0, 0, 0.12);
   padding: 20px;
   font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
@@ -154,23 +164,22 @@ body {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  transition: transform 0.2s ease;
+  transition: transform 0.3s ease, background 0.3s ease; /* Smooth transition */
 }
 
 .feedback-bubble:hover {
-  transform: translateY(-5px) scale(1.03);
+  transform: translateY(-5px) scale(1.03); /* Slight hover effect */
+  background: linear-gradient(145deg, #000000, #000000); /* Slightly darker mustard on hover */
+  box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.15), -5px -5px 15px rgba(255, 255, 255, 0.4); /* Stronger shadow on hover */
 }
 
-.stars {
-  color: #ffb400; /* gold stars */
-  font-size: 1.3rem;
-  margin-bottom: 12px;
-}
-
+/* Star styles */
 .star {
+  color: #FFDB58; /* Mustard color for stars */
   margin-right: 2px;
 }
 
+/* Text styles for feedback */
 .feedback-text {
   font-style: italic;
   font-size: 1rem;
@@ -179,11 +188,19 @@ body {
   color: #333;
 }
 
+/* Name styles */
 .feedback-name {
   font-weight: bold;
-  color: #fc8019;
+  color: #fc8019; /* Mustard color for the name */
   font-size: 0.85rem;
   margin-top: 0.5rem;
+}
+
+/* Responsive Breakpoints for Mobile */
+@media (max-width: 600px) {
+  .feedback-bubbles-row {
+    overflow-x: auto; /* fallback scroll on small screens */
+  }
 }
 
 /* How it Works Video */
@@ -223,3 +240,38 @@ body {
     overflow-x: auto; /* fallback scroll on small screens */
   }
 }
+.feedback-bubble {
+  border: 4px solid #ffc800; /* Mustard color */
+  padding: 15px;
+  margin: 10px;
+  border-radius: 40px;
+  background: linear-gradient(145deg, #fcfce0, #f4f4f4); /* Soft gradient for background */
+  box-shadow: 10px 3px 8px rgba(0, 0, 0, 0.1), -3px -3px 8px rgba(255, 255, 255, 0.3); /* Subtle shadow */
+  transition: all 0.3s ease; /* Smooth transition for hover effect */
+}
+
+.feedback-bubble:hover {
+  background: linear-gradient(145deg, #fff, #eaeaea); /* Slightly darker gradient on hover */
+  box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.15), -5px -5px 15px rgba(255, 255, 255, 0.4); /* Stronger shadow on hover */
+}
+
+.star {
+  color: #FFDB58; /* Mustard color for stars */
+}
+
+.feedback-text {
+  font-size: 14px;
+  font-weight: 500;
+  color: #333;
+}
+
+/* Add styles for the feedback name */
+.feedback-name {
+  font-family: 'Arial', sans-serif; /* Change the font family */
+  font-size: 1rem; /* Set the font size */
+  font-weight: bold; /* Make the font bold */
+  color: #333; /* Change the color */
+  margin-top: 5px; /* Add some spacing */
+  font-style: italic; /* Make the font italic */
+}
+

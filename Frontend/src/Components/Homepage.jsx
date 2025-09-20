@@ -1,53 +1,14 @@
-// src/Components/Homepage.jsx
-
 import React, { useRef, useState, useEffect } from "react";
 import "../styles/Homepage.css";
 import { useNavigate } from "react-router-dom";
 import Navbar from "./Navbar";
 import { motion } from "framer-motion";
 
-const reviewsData = [
-  {
-    text:
-      "Once I got familiar with the free version and used it a ton I upgraded to gold and love it even more - thoughtful features and easy UI, my most used app - favorite features are importing a recipe and scanning foods",
-    stars: 5,
-    source: "App Store Review",
-  },
-  {
-    text:
-      "I don’t pay for the gold membership, I only use the free version, but it is very comprehensive. In my opinion it gives loads more feedback than any other free app. It is simple, and quick to input data with instant results. The creators have defo got it right. 10/10",
-    stars: 5,
-    source: "App Store Review",
-  },
-  {
-    text:
-      "This is a comprehensive app for calories. It boasts a vast food database for effortless entry. You can add your intake, and even connect with import. The free version is feature rich; subscription unlocks personalization.",
-    stars: 5,
-    source: "App Store Review",
-  },
-  {
-    text:
-      "The BEST meal/health/fitness tracking app ever. #1. They care. #2. Gold membership is worth it. #3. It links to Apple health. It’s just all there. I love it. #4. I would 100% work for this organization if I could. Love you guys and appreciate all you do.",
-    stars: 5,
-    source: "App Store Review",
-  },
-  {
-    text:
-      "PHENOMENAL. Incredibly comprehensive nutrient tracking, calorie counting, goal targeting. Even data on what food does for your body is at your disposal here. And it has introduced me to foods I never would have tried before. 10 out of 5 stars.",
-    stars: 5,
-    source: "App Store Review",
-  },
-];
-
-// Repeat reviews to fill 20 divs total for smooth looping
-const repeatedReviews = Array(20)
-  .fill(0)
-  .map((_, i) => reviewsData[i % reviewsData.length]);
-
 const Homepage = ({ onExploreFeature }) => {
   const featuresRef = useRef(null);
   const [hoveredIndex, setHoveredIndex] = useState(null);
   const [featureData, setFeatureData] = useState([]);
+  const [reviewsData, setReviewsData] = useState([]); // New state to hold reviews
   const navigate = useNavigate();
 
   const scrollToFeatures = () => {
@@ -55,15 +16,32 @@ const Homepage = ({ onExploreFeature }) => {
   };
 
   useEffect(() => {
+    // Fetch feature data
     fetch("/data/content.json")
       .then((res) => res.json())
       .then((data) => {
         setFeatureData(data.featureData || []);
       })
       .catch((err) => console.error("Failed to load content:", err));
+
+    // Fetch reviews data from data/reviews.json
+    fetch("/data/reviews.json") // Corrected path for reviews.json
+      .then((res) => res.json())
+      .then((data) => {
+        setReviewsData(data || []);
+      })
+      .catch((err) => {
+        console.error("Failed to load reviews:", err);
+        setReviewsData([]); // Set to empty array on error
+      });
   }, []);
 
-  // Split reviews into 2 rows
+  // Repeat reviews to fill 20 divs total for smooth looping
+  const repeatedReviews = Array(20)
+    .fill(0)
+    .map((_, i) => reviewsData[i % reviewsData.length]);
+
+  // Split reviews into 2 rows for smooth looping
   const row1Reviews = repeatedReviews.slice(0, 10);
   const row2Reviews = repeatedReviews.slice(10, 20);
 
@@ -102,9 +80,7 @@ const Homepage = ({ onExploreFeature }) => {
           return (
             <div
               key={feature.title}
-              className={`feature-card ${
-                hoveredIndex === index ? "hovered" : ""
-              }`}
+              className={`feature-card ${hoveredIndex === index ? "hovered" : ""}`}
               onMouseEnter={() => setHoveredIndex(index)}
               onMouseLeave={() => setHoveredIndex(null)}
               onClick={() => navigate(route)}
@@ -144,43 +120,53 @@ const Homepage = ({ onExploreFeature }) => {
       <section className="reviews-section">
         <h2>What Our Users Say</h2>
 
-        {/* Row 1 - scrolls left */}
-        <motion.div
-          className="feedback-bubbles-row row-right"
-          animate={{ x: ["0%", "-100%"] }}
-          transition={{ repeat: Infinity, duration: 60, ease: "linear" }}
-        >
-          {[...row1Reviews, ...row1Reviews].map((fb, index) => (
-            <div className="feedback-bubble" key={`fb-top-${index}`}>
-              <div className="stars">
-                {Array(fb.stars).fill(0).map((_, i) => (
-                  <span key={i} className="star">★</span>
-                ))}
-              </div>
-              <p className="feedback-text">"{fb.text}"</p>
-              <p className="feedback-name">{fb.source}</p>
-            </div>
+       {/* Row 1 - scrolls left */}
+<motion.div
+  className="feedback-bubbles-row row-right"
+  animate={{ x: ["0%", "-100%"] }}
+  transition={{ repeat: Infinity, duration: 60, ease: "linear" }}
+>
+  {[...row1Reviews, ...row1Reviews].map((fb, index) => {
+    if (!fb || !fb.stars) return null; // Skip rendering if fb is undefined or doesn't have stars
+    return (
+      <div className="feedback-bubble" key={`fb-top-${index}`}>
+        <div className="stars">
+          {/* Render exact number of stars from reviewsData */}
+          {Array(fb.stars).fill(0).map((_, i) => (
+            <span key={i} className="star">★</span>
           ))}
-        </motion.div>
+        </div>
+        <p className="feedback-text">"{fb.text}"</p>
+         <p className="feedback-name">- {fb.name}</p>  {/* Display the name */}
+      </div>
+    );
+  })}
+</motion.div>
 
-        {/* Row 2 - scrolls right */}
-        <motion.div
-          className="feedback-bubbles-row row-left"
-          animate={{ x: ["-100%", "0%"] }}
-          transition={{ repeat: Infinity, duration: 60, ease: "linear" }}
-        >
-          {[...row2Reviews, ...row2Reviews].map((fb, index) => (
-            <div className="feedback-bubble" key={`fb-bottom-${index}`}>
-              <div className="stars">
-                {Array(fb.stars).fill(0).map((_, i) => (
-                  <span key={i} className="star">★</span>
-                ))}
-              </div>
-              <p className="feedback-text">"{fb.text}"</p>
-              <p className="feedback-name">{fb.source}</p>
-            </div>
+{/* Row 2 - scrolls right */}
+<motion.div
+  className="feedback-bubbles-row row-left"
+  animate={{ x: ["-100%", "0%"] }}
+  transition={{ repeat: Infinity, duration: 60, ease: "linear" }}
+>
+  {[...row2Reviews, ...row2Reviews].map((fb, index) => {
+    if (!fb || !fb.stars) return null; // Skip rendering if fb is undefined or doesn't have stars
+    return (
+      <div className="feedback-bubble" key={`fb-bottom-${index}`}>
+        <div className="stars">
+          {/* Render exact number of stars from reviewsData */}
+          {Array(fb.stars).fill(0).map((_, i) => (
+            <span key={i} className="star">★</span>
           ))}
-        </motion.div>
+        </div>
+        <p className="feedback-text">"{fb.text}"</p>
+       <p className="feedback-name">- {fb.name}</p> {/* Display the name with a dash before it */}
+
+      </div>
+    );
+  })}
+</motion.div>
+
       </section>
 
       {/* How It Works */}

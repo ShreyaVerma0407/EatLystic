@@ -26,7 +26,12 @@ import MealChef from './Components/MealChef.jsx';
 import Dishes_meal from './Components/Dishes_meal.jsx';
 import HelpDesk from './Components/HelpDesk.jsx';
 import ContactUs from './Components/ContactUs.jsx';
+
 import Logout from "./Logout";
+
+import Feedback from './Components/Feedback.jsx';
+import Faq from './Components/Faq.jsx';
+
 
 function App() {
   const [currentUserId, setCurrentUserId] = useState(null);
@@ -60,6 +65,8 @@ function App() {
         <Route path="/recipe/macroschef" element={<MacrosChef />} />
         <Route path="/helpdesk" element={<HelpDesk/>}/>
         <Route path="/helpdesk/contactus" element={<ContactUs/>}/>
+        <Route path="/helpdesk/feedback" element={<Feedback/>}/>
+        <Route path="/helpdesk/faq" element={<Faq/>}/>
         <Route path="*" element={<NotFound />} />
         {/* Liked Recipes Route wrapped in ErrorBoundary */}
         <Route
