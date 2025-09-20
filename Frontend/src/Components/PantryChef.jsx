@@ -1,4 +1,3 @@
-// src/components/PantryChef.jsx
 import React, { useState, useEffect } from "react";
 import { FaClock, FaListUl, FaHeart } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
@@ -55,7 +54,8 @@ const PantryChef = ({ currentUserId }) => {
     );
 
     const filtered = foodItems.map((recipe, idx) => {
-      const recipeId = recipe.id || recipe.name || `recipe-${idx}`;
+      // ✅ CORRECTED: Ensure recipeId is unique to prevent key warnings
+      const recipeId = recipe.id || `${recipe.name}-${idx}`;
 
       if (!Array.isArray(recipe.ingredients)) return null;
 
@@ -119,13 +119,14 @@ const PantryChef = ({ currentUserId }) => {
   useEffect(() => {
     if (!currentUserId) return;
 
-    fetch(`${API_BASE_URL}/api/liked/${currentUserId}`)
+    // ✅ CORRECTED: Removed duplicate '/api' from the URL
+    fetch(`${API_BASE_URL}/liked/${currentUserId}`)
       .then((res) => res.json())
       .then((data) => {
-        if (data.status === "success" && Array.isArray(data.liked)) {
+        if (data.status === "success" && Array.isArray(data.data)) {
           const likedMap = {};
-          data.liked.forEach((id) => {
-            likedMap[id] = true;
+          data.data.forEach((recipe) => {
+            likedMap[recipe.recipeId] = true;
           });
           setFavorites(likedMap);
         }
@@ -141,15 +142,15 @@ const PantryChef = ({ currentUserId }) => {
 
     try {
       if (isFav) {
-        // unlike
-        await fetch(`${API_BASE_URL}/api/liked`, {
+        // ✅ CORRECTED: Removed duplicate '/api' from the URL
+        await fetch(`${API_BASE_URL}/liked`, {
           method: "DELETE",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({ userId: currentUserId, recipeId }),
         });
       } else {
-        // like with details
-        await fetch(`${API_BASE_URL}/api/liked`, {
+        // ✅ CORRECTED: Removed duplicate '/api' from the URL
+        await fetch(`${API_BASE_URL}/liked`, {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({
@@ -164,7 +165,6 @@ const PantryChef = ({ currentUserId }) => {
         });
       }
 
-      // Update UI instantly
       setFavorites((prev) => ({
         ...prev,
         [recipeId]: !isFav,
@@ -201,7 +201,6 @@ const PantryChef = ({ currentUserId }) => {
         >
           🍳 Matching Recipes
         </h2>
-
         {matchingRecipes.length > 0 ? (
           <div
             style={{
@@ -243,7 +242,6 @@ const PantryChef = ({ currentUserId }) => {
                   e.currentTarget.style.boxShadow = "none";
                 }}
               >
-                {/* ❤️ Heart icon */}
                 <FaHeart
                   onClick={(e) => toggleFavorite(recipe, e)}
                   style={{
@@ -257,7 +255,6 @@ const PantryChef = ({ currentUserId }) => {
                   }}
                 />
 
-                {/* Recipe Image - larger size */}
                 <div
                   style={{
                     width: "150px",
@@ -283,8 +280,6 @@ const PantryChef = ({ currentUserId }) => {
                     }}
                   />
                 </div>
-
-                {/* Recipe Info */}
                 <div style={{ textAlign: "center", width: "100%" }}>
                   <h3
                     style={{
@@ -299,7 +294,6 @@ const PantryChef = ({ currentUserId }) => {
                   >
                     {recipe.name}
                   </h3>
-
                   <p
                     style={{
                       margin: "0.3rem 0",
@@ -313,7 +307,6 @@ const PantryChef = ({ currentUserId }) => {
                     <FaClock style={{ marginRight: "5px" }} />
                     {recipe.prep_time || "N/A"} min
                   </p>
-
                   <p
                     style={{
                       margin: "0.3rem 0",
@@ -328,8 +321,6 @@ const PantryChef = ({ currentUserId }) => {
                     {recipe.ingredients ? recipe.ingredients.length : 0}{" "}
                     ingredients
                   </p>
-
-                  {/* Yellow Badge */}
                   <span
                     style={{
                       display: "inline-block",
