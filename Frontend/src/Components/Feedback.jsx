@@ -1,26 +1,28 @@
 import { useState, useEffect } from "react";
+// Assuming Navbar is already imported
+import Navbar from "./Navbar";
 
 // Helper function to render star icons
-const renderStars = (rating) => {
-  const stars = [];
-  for (let i = 1; i <= 5; i++) {
-    stars.push(
-      <span
-        key={i}
-        style={{
-          color: i <= rating ? "#ffc107" : "#d1d5db",
-          fontSize: "20px",
-          marginRight: "2px",
-        }}
-      >
-        ★
-      </span>
-    );
-  }
-  return stars;
+const renderStars = (stars) => {
+  const starIcons = [];
+  for (let i = 1; i <= 5; i++) {
+    starIcons.push(
+      <span
+        key={i}
+        style={{
+          color: i <= stars ? "#ffc107" : "#d1d5db",
+          fontSize: "20px",
+          marginRight: "2px",
+        }}
+      >
+        ★
+      </span>
+    );
+  }
+  return starIcons;
 };
 
-// ** UPDATED: Function to save review to the database **
+// Function to save review to the database
 const saveReviewToServer = async (reviewData) => {
   const url = 'http://localhost:3001/api/reviews';
   try {
@@ -42,7 +44,7 @@ const saveReviewToServer = async (reviewData) => {
   }
 };
 
-// ** UPDATED: Function to update review in the database **
+// Function to update review in the database
 const updateReviewInServer = async (id, reviewData) => {
   const url = `http://localhost:3001/api/reviews/${id}`;
   try {
@@ -64,7 +66,7 @@ const updateReviewInServer = async (id, reviewData) => {
   }
 };
 
-// ** UPDATED: Function to delete review from the database **
+// Function to delete review from the database
 const deleteReviewFromServer = async (id) => {
   const url = `http://localhost:3001/api/reviews/${id}`;
   try {
@@ -85,8 +87,9 @@ export default function Feedback() {
   const [userReviews, setUserReviews] = useState([]);
   const [dummyReviews, setDummyReviews] = useState([]);
   const [reviewForm, setReviewForm] = useState({
-    rating: 5,
-    comment: "",
+    stars: 5,
+    text: "",
+    name: "XYZ",  // Default name
   });
   const [editingReview, setEditingReview] = useState(null);
 
@@ -99,26 +102,12 @@ export default function Feedback() {
         }
         const data = await response.json();
 
-        // Separate user's reviews from others
+        // Separate user's reviews from others and sort by creation date (newest first)
         const fetchedUserReviews = data.filter(r => r.name === 'You');
         const fetchedDummyReviews = data.filter(r => r.name !== 'You');
 
-        // Format and set state
-        setUserReviews(fetchedUserReviews.map(r => ({
-          id: r._id,
-          name: r.name,
-          rating: r.rating,
-          comment: r.comment,
-          isUser: true
-        })));
-
-        setDummyReviews(fetchedDummyReviews.map(r => ({
-          id: r._id,
-          name: r.name,
-          rating: r.rating,
-          comment: r.comment,
-          isUser: false
-        })));
+        setUserReviews(fetchedUserReviews.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt)));
+        setDummyReviews(fetchedDummyReviews.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt)));
         
       } catch (error) {
         console.error("Failed to load reviews:", error);
@@ -131,9 +120,9 @@ export default function Feedback() {
     e.preventDefault();
 
     const reviewData = {
-      comment: reviewForm.comment,
-      rating: reviewForm.rating,
-      name: "You"
+      text: reviewForm.text,
+      stars: reviewForm.stars,
+      name: reviewForm.name, // Use entered name
     };
 
     try {
@@ -142,7 +131,7 @@ export default function Feedback() {
         setUserReviews((prev) =>
           prev.map((review) =>
             review.id === updatedReview._id
-              ? { ...review, rating: updatedReview.rating, comment: updatedReview.comment }
+              ? { ...review, stars: updatedReview.stars, text: updatedReview.text, name: updatedReview.name }
               : review
           )
         );
@@ -150,19 +139,18 @@ export default function Feedback() {
         alert("Review Updated!");
       } else {
         const newReview = await saveReviewToServer(reviewData);
-
         const formattedNewReview = {
           id: newReview._id,
           name: newReview.name,
-          rating: newReview.rating,
-          comment: newReview.comment,
+          stars: newReview.stars,
+          text: newReview.text,
           isUser: true,
         };
-
-        setUserReviews((prev) => [formattedNewReview, ...prev]);
+        setUserReviews((prev) => [formattedNewReview, ...prev]); // Add new review at the top
         alert("Review Submitted!");
       }
-      setReviewForm({ rating: 5, comment: "" });
+
+      setReviewForm({ stars: 5, text: "", name: "You" }); // Reset form
     } catch (error) {
       alert("Failed to submit review. Please try again.");
     }
@@ -170,8 +158,9 @@ export default function Feedback() {
 
   const handleEditReview = (review) => {
     setReviewForm({
-      rating: review.rating,
-      comment: review.comment,
+      stars: review.stars,
+      text: review.text,
+      name: review.name, // Set the name when editing
     });
     setEditingReview(review.id);
   };
@@ -188,35 +177,23 @@ export default function Feedback() {
 
   const handleCancelEdit = () => {
     setEditingReview(null);
-    setReviewForm({ rating: 5, comment: "" });
+    setReviewForm({ stars: 5, text: "", name: "You" }); // Reset form
   };
 
-  // ** Removed .sort() since date is no longer available **
   const allReviews = [...userReviews, ...dummyReviews];
 
   return (
     <div style={{ minHeight: "100vh", backgroundColor: "#000000", color: "#e0e0e0" }}>
-      {/* Header */}
-      <div style={{ background: "linear-gradient(to right, #ff8c00, #ff4500)", padding: "24px" }}>
-        <div style={{ maxWidth: "960px", margin: "0 auto" }}>
-          <button
-            onClick={() => alert("Navigating back...")}
-            style={{
-              marginBottom: "16px",
-              padding: "8px 16px",
-              borderRadius: "4px",
-              backgroundColor: "#2d2d2d",
-              color: "white",
-              border: "none",
-              cursor: "pointer",
-            }}
-          >
-            ← Back to Help Desk
-          </button>
-          <h1 style={{ fontSize: "32px", fontWeight: "bold", color: "white", marginBottom: "8px" }}>
-            Feedback & Reviews
+      {/* Navbar */}
+      <Navbar />
+
+      {/* Header with gradient background behind the title */}
+      <div style={{ background: "linear-gradient(to right, #000000ff, #b54b04ff)", padding: "24px" }}>
+        <div style={{ textAlign: "center" }}>
+          <h1 style={{ fontSize: "48px", fontWeight: "bold", color: "white", marginBottom: "16px" }}>
+            Feedback
           </h1>
-          <p style={{ color: "rgba(255, 255, 255, 0.9)" }}>
+          <p style={{ fontSize: "18px", fontWeight: "medium", color: "rgba(255, 255, 255, 0.9)" }}>
             Share your experience and see what others are saying about Eatlystic
           </p>
         </div>
@@ -231,17 +208,37 @@ export default function Feedback() {
           <form onSubmit={handleSubmitReview} style={{ display: "flex", flexDirection: "column", gap: "16px" }}>
             <div>
               <label style={{ display: "block", fontSize: "14px", fontWeight: "medium", marginBottom: "8px" }}>
+                Your Name
+              </label>
+              <input
+                type="text"
+                value={reviewForm.name}
+                onChange={(e) => setReviewForm((prev) => ({ ...prev, name: e.target.value }))}
+                placeholder="Enter your name"
+                required
+                style={{
+                  width: "100%",
+                  padding: "8px",
+                  backgroundColor: "#3a3a3a",
+                  color: "white",
+                  border: "1px solid #555",
+                  borderRadius: "4px",
+                }}
+              />
+            </div>
+            <div>
+              <label style={{ display: "block", fontSize: "14px", fontWeight: "medium", marginBottom: "8px" }}>
                 Rating
               </label>
               <div style={{ display: "flex", gap: "4px" }}>
                 {[1, 2, 3, 4, 5].map((star) => (
                   <span
                     key={star}
-                    onClick={() => setReviewForm((prev) => ({ ...prev, rating: star }))}
+                    onClick={() => setReviewForm((prev) => ({ ...prev, stars: star }))} 
                     style={{
                       cursor: "pointer",
                       fontSize: "20px",
-                      color: star <= reviewForm.rating ? "#ffc107" : "#d1d5db",
+                      color: star <= reviewForm.stars ? "#ffc107" : "#d1d5db",
                     }}
                   >
                     ★
@@ -254,8 +251,8 @@ export default function Feedback() {
                 Your Review
               </label>
               <textarea
-                value={reviewForm.comment}
-                onChange={(e) => setReviewForm((prev) => ({ ...prev, comment: e.target.value }))}
+                value={reviewForm.text}
+                onChange={(e) => setReviewForm((prev) => ({ ...prev, text: e.target.value }))}
                 placeholder="Share your experience with Eatalystic..."
                 rows={4}
                 required
@@ -315,7 +312,7 @@ export default function Feedback() {
                   <div>
                     <div style={{ display: "flex", alignItems: "center", gap: "12px", marginBottom: "8px" }}>
                       <h3 style={{ fontWeight: "semibold", color: "white" }}>{review.name}</h3>
-                      <div style={{ display: "flex" }}>{renderStars(review.rating)}</div>
+                      <div style={{ display: "flex" }}>{renderStars(review.stars)}</div>
                     </div>
                   </div>
                   {review.isUser && (
@@ -349,7 +346,7 @@ export default function Feedback() {
                     </div>
                   )}
                 </div>
-                <p style={{ color: "#a0a0a0" }}>{review.comment}</p>
+                <p style={{ color: "#a0a0a0" }}>{review.text}</p>
               </div>
             ))}
           </div>
