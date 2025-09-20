@@ -1,4 +1,3 @@
-// src/components/MealChef.jsx
 import React, { useState, useEffect, useMemo } from "react";
 import { FaClock, FaFire, FaHeart, FaListUl } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
@@ -68,13 +67,13 @@ const MealChef = ({ currentUserId }) => {
 
   useEffect(() => {
     if (!currentUserId) return;
-    fetch(`${API_BASE_URL}/api/liked/${currentUserId}`)
+    fetch(`${API_BASE_URL}/liked/${currentUserId}`)
       .then((res) => res.json())
       .then((data) => {
-        if (data.status === "success" && Array.isArray(data.liked)) {
+        if (data.status === "success" && Array.isArray(data.data)) {
           const likedMap = {};
-          data.liked.forEach((id) => {
-            likedMap[id] = true;
+          data.data.forEach((recipe) => {
+            likedMap[recipe.recipeId] = true;
           });
           setFavorites(likedMap);
         }
@@ -82,29 +81,34 @@ const MealChef = ({ currentUserId }) => {
       .catch((err) => console.error("Error fetching liked recipes:", err));
   }, [currentUserId]);
 
+  // ✅ CORRECTED: Map the ingredients to an array of strings
   const toggleFavorite = async (recipe, e) => {
     e.stopPropagation();
     const recipeId = recipe.recipeId;
     const isFav = favorites[recipeId];
     try {
       if (isFav) {
-        await fetch(`${API_BASE_URL}/api/liked`, {
+        await fetch(`${API_BASE_URL}/liked`, {
           method: "DELETE",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({ userId: currentUserId, recipeId }),
         });
       } else {
-        await fetch(`${API_BASE_URL}/api/liked`, {
+        // Corrected: Extract only the 'name' from the ingredients array
+        const ingredientNames = Array.isArray(recipe.ingredients) 
+          ? recipe.ingredients.map(ing => ing.name).filter(Boolean)
+          : [];
+
+        await fetch(`${API_BASE_URL}/liked`, {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({
             userId: currentUserId,
             recipeId,
             name: recipe.name,
-            ingredients: recipe.ingredients,
+            ingredients: ingredientNames,
             prep_time: recipe.prep_time,
-            cook_time: recipe.cook_time,
-            category: recipe.category,
+            type: recipe.type,
             image: images[recipe.recipeId] || recipe.image,
           }),
         });
@@ -153,7 +157,6 @@ const MealChef = ({ currentUserId }) => {
       filtered = filtered.filter((recipe) => recipe.category === selectedCategory);
     }
 
-    // FIX: Add isNaN checks for numeric filters
     if (maxPrepTime) {
       const parsedTime = parseInt(maxPrepTime);
       if (!isNaN(parsedTime)) {
