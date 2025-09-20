@@ -11,11 +11,12 @@ const Liked = ({ userId }) => {
   const [searchTerm, setSearchTerm] = useState(""); 
   const [images, setImages] = useState({});
   const navigate = useNavigate();
+  const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
 
   useEffect(() => {
     const fetchLikedRecipes = async () => {
       try {
-        const response = await axios.get(`http://localhost:3001/api/liked/${userId}`);
+        const response = await axios.get(`${API_BASE_URL}/liked/${userId}`);
         setLikedRecipes(response.data.data);
         setLoading(false);
       } catch (err) {
