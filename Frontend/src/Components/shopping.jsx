@@ -6,7 +6,7 @@ import Navbar from "./Navbar";
 
 const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
 const CART_BASE_URL = API_BASE_URL.replace("/api", "");
-const userId = localStorage.getItem("userId");
+// const userId = localStorage.getItem("userId");
 
 const ShoppingCart = () => {
   const [pantryItems, setPantryItems] = useState([]);
@@ -19,7 +19,8 @@ const ShoppingCart = () => {
 
   // Fetch pantry
   useEffect(() => {
-    if (!userId) return;
+   const userId = localStorage.getItem("userId");  // ✅ get it here
+    if (!userId) return setError("User not logged in");
     fetch(`${API_BASE_URL}/pantry/${userId}`)
       .then((res) => res.json())
       .then((data) => data.status === "success" && setPantryItems(data.data))
@@ -28,7 +29,8 @@ const ShoppingCart = () => {
 
   // Fetch cart
   useEffect(() => {
-    if (!userId) return;
+          const userId = localStorage.getItem("userId");
+      if (!userId) return setError("User not logged in");
     fetch(`${CART_BASE_URL}/cart/${userId}`)
       .then((res) => res.json())
       .then((data) => data.status === "success" && setCartItems(data.cart))
@@ -36,6 +38,8 @@ const ShoppingCart = () => {
   }, []);
 
   const addToCart = (item, quantity = 1) => {
+      const userId = localStorage.getItem("userId");
+    if (!userId) return setError("User not logged in");
     const existing = cartItems.find((i) => i.name === item.name);
     const updatedCart = existing
       ? cartItems.map((i) =>
@@ -54,6 +58,8 @@ const ShoppingCart = () => {
   };
 
   const removeFromCart = (item) => {
+      const userId = localStorage.getItem("userId");
+    if (!userId) return setError("User not logged in");
     const updatedCart = cartItems
       .map((i) => (i.name === item.name ? { ...i, quantity: i.quantity - 1 } : i))
       .filter((i) => i.quantity > 0);
@@ -79,23 +85,30 @@ const ShoppingCart = () => {
       }));
 
   // Recipe suggestions
-  const getRecipeSuggestions = () => {
-    const favoriteRecipes = JSON.parse(localStorage.getItem("favoriteRecipes") || "[]");
-    const pantryNames = pantryItems.map((i) => i.name.toLowerCase());
-    const suggestions = [];
+ const getRecipeSuggestions = () => {
+  const favoriteRecipes = JSON.parse(localStorage.getItem("favoriteRecipes") || "[]");
+  const pantryNames = pantryItems.map((i) => i.name.toLowerCase());
+  const suggestions = [];
 
-    favoriteRecipes.forEach((recipe) => {
-      recipe.ingredients.forEach((ing) => {
-        if (!pantryNames.includes(ing.toLowerCase())) {
-          if (!suggestions.find((s) => s.name === ing)) {
-            suggestions.push({ name: ing, reason: "From Recipe" });
-          }
+  favoriteRecipes.forEach((recipe) => {
+    recipe.ingredients.forEach((ing) => {
+      // Safely get ingredient name
+      const ingredientName =
+        typeof ing === "string"
+          ? ing
+          : ing?.name || ""; // if ing is object, take .name
+
+      if (ingredientName && !pantryNames.includes(ingredientName.toLowerCase())) {
+        if (!suggestions.find((s) => s.name === ingredientName)) {
+          suggestions.push({ name: ingredientName, reason: "From Recipe" });
         }
-      });
+      }
     });
+  });
 
-    return suggestions;
-  };
+  return suggestions;
+};
+
 
   const allSuggestions = [...getPantrySuggestions(), ...getRecipeSuggestions()];
 
