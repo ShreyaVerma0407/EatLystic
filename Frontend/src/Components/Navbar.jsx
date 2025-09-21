@@ -1,44 +1,54 @@
-import React from "react";
-import { Link } from "react-router-dom";
+import React, { useState } from "react";
+import { Link, useLocation } from "react-router-dom";
 import "../styles/Navbar.css";
 
 const Navbar = () => {
+  const [isOpen, setIsOpen] = useState(false);
+  const location = useLocation(); // For active link highlight
+
+  const toggleMenu = () => {
+    setIsOpen(!isOpen);
+  };
+
   return (
     <nav className="navbar">
+      {/* Logo */}
       <div className="logo-cluster">
         <span className="emoji">🍴</span>
         <span className="logo-text">EATLYSTIC</span>
         <span className="emoji">🏃</span>
       </div>
 
-      <ul className="nav-links">
-        <li>
-          <Link to="/home" className="nav-link">Home</Link>
-        </li>
-        <li>
-          <Link to="/pantry" className="nav-link">Pantry</Link>
-        </li>
-        <li>
-          <Link to="/nutrient" className="nav-link">NutriLog</Link>
-        </li>
-        <li>
-          <Link to="/calorie" className="nav-link">CaloriFi</Link>
-        </li>
-        <li>
-          <Link to="/recipe" className="nav-link">Mealify</Link>
-        </li>
-        <li>
-          <Link to="/pantryreport" className="nav-link">StockStat</Link>
-        </li>
-        <li>
-          <Link to="/shoppingcart" className="nav-link">Cartify</Link>
-        </li>
-        <li>
-          <Link to="/helpdesk" className="nav-link">Help Desk</Link>
-        </li>
-        <li>
-          <Link to="/logout" className="nav-link">Logout</Link>
-        </li>
+      {/* Hamburger for mobile */}
+      <div className="hamburger" onClick={toggleMenu}>
+        <span></span>
+        <span></span>
+        <span></span>
+      </div>
+
+      {/* Navigation Links */}
+      <ul className={`nav-links ${isOpen ? "open" : ""}`}>
+        {[
+          { path: "/home", label: "Home" },
+          { path: "/pantry", label: "Pantry" },
+          { path: "/nutrient", label: "NutriLog" },
+          { path: "/calorie", label: "CaloriFi" },
+          { path: "/recipe", label: "Mealify" },
+          { path: "/pantryreport", label: "StockStat" },
+          { path: "/shoppingcart", label: "Cartify" },
+          { path: "/helpdesk", label: "Help Desk" },
+          { path: "/logout", label: "Logout" },
+        ].map((link) => (
+          <li key={link.path}>
+            <Link
+              to={link.path}
+              className={`nav-link ${location.pathname === link.path ? "active" : ""}`}
+              onClick={() => setIsOpen(false)} // close menu on click
+            >
+              {link.label}
+            </Link>
+          </li>
+        ))}
       </ul>
     </nav>
   );
