@@ -209,29 +209,30 @@ const Dish = () => {
   const progress = totalSteps ? ((currentStep + 1) / totalSteps) * 100 : 0;
 
   // 🔹 Handle "Done" button click
-  const handleDone = async () => {
-    try {
-      setSaving(true);
-      const res = await fetch(`${API_BASE_URL}/api/recipes/cooked`, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          name: recipe.name,
-          ingredients: recipe.ingredients,
-          nutritionalContent: recipe.nutrition || {},
-        }),
-      });
+  // 🔹 Handle "Done" button click
+  const handleDone = async () => {
+    try {
+      setSaving(true);
+      const res = await fetch(`${API_BASE_URL}/recipes/cooked`, {
+        method: "POST",
+ headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          name: recipe.name,
+          ingredients: recipe.ingredients,
+          nutritionalContent: recipe.nutrition || {},
+        }),
+      });
 
-      const data = await res.json();
-      console.log("Saved to Atlas:", data);
+      const data = await res.json();
+      console.log("Saved to Atlas:", data);
 
-      navigate("/recipe/pantrychef");
-    } catch (err) {
-      console.error("Error saving recipe:", err);
-    } finally {
-      setSaving(false);
-    }
-  };
+      navigate("/recipe/pantrychef");
+    } catch (err) {
+      console.error("Error saving recipe:", err);
+    } finally {
+      setSaving(false);
+    }
+  };
   //helper function for shopping cart
    const addToCart = async (itemName) => {
   const userId = localStorage.getItem("userId");
