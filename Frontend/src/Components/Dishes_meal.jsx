@@ -232,26 +232,26 @@ const Dishes_meal = () => {
   const progress = totalSteps ? ((currentStep + 1) / totalSteps) * 100 : 0;
 
   const handleDone = async () => {
-    try {
-      setSaving(true);
-      const res = await fetch(`${API_BASE_URL}/api/recipes/cooked`, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          name: recipe.name,
-          ingredients: recipe.ingredients,
-          nutritionalContent: recipe.nutrition || {},
-        }),
-      });
-      const data = await res.json();
-      console.log("Saved to Atlas:", data);
-      navigate("/recipe/mealchef");
-    } catch (err) {
-      console.error("Error saving recipe:", err);
-    } finally {
-      setSaving(false);
-    }
-  };
+    try {
+      setSaving(true);
+      const res = await fetch(`${API_BASE_URL}/recipes/cooked`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          name: recipe.name,
+          ingredients: recipe.ingredients,
+          nutritionalContent: recipe.nutrition || {},
+        }),
+      });
+      const data = await res.json();
+      console.log("Saved to Atlas:", data);
+      navigate("/recipe/mealchef");
+    } catch (err) {
+      console.error("Error saving recipe:", err);
+    } finally {
+      setSaving(false);
+    }
+  };
 
   if (loading) {
     return (
