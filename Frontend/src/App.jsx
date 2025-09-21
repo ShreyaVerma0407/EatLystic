@@ -26,6 +26,7 @@ import MealChef from './Components/MealChef.jsx';
 import Dishes_meal from './Components/Dishes_meal.jsx';
 import HelpDesk from './Components/HelpDesk.jsx';
 import ContactUs from './Components/ContactUs.jsx';
+import Trending from "./components/Trending";
 
 import Logout from "./Logout";
 
@@ -90,7 +91,7 @@ function App() {
          <Route path="/recipe/mealchef" element={<MealChef currentUserId={currentUserId} />} />
          <Route path="/recipe/mealchef/dishes/:id" element={<Dishes_meal />} />
 <Route path="/logout" element={<Logout />} />
-
+<Route path="/recipe/trending" element={<Trending />} />
       </Routes>
     </BrowserRouter>
   );
