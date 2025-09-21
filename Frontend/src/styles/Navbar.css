@@ -1,4 +1,4 @@
-/* Navbar.css */
+/* ---------------- Navbar.css ---------------- */
 .navbar {
   display: flex;
   justify-content: space-between;
@@ -7,8 +7,8 @@
   padding: 1rem 2rem;
   position: sticky;
   top: 0;
-  z-index: 100;
-  box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+  z-index: 1000;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
 
 /* Logo cluster */
@@ -23,74 +23,52 @@
   font-weight: 800;
   color: white;
   letter-spacing: 1.5px;
-  text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
 }
 
 .emoji {
   font-size: 1.6rem;
 }
 
-/* Navigation links */
+/* Navigation links (desktop default) */
 .nav-links {
   list-style: none;
   display: flex;
   align-items: center;
   gap: 2rem;
+  position: static; /* Ensure horizontal layout */
+  height: auto;
+  width: auto;
+  transform: none;
 }
 
-.nav-links li {
-  font-weight: 500;
-  font-size: 1.2rem;
-  cursor: pointer;
-  transition: transform 0.2s ease, color 0.2s ease;
-}
-
-/* Style for links */
 .nav-links li a {
   color: white;
   text-decoration: none;
   padding: 0.3rem 0.6rem;
   border-radius: 6px;
   transition: all 0.3s ease;
+  font-weight: 500;
+  font-size: 1.2rem;
 }
 
-/* Hover effect */
 .nav-links li a:hover {
-  background: rgba(255,255,255,0.2);
+  background: rgba(255, 255, 255, 0.2);
   transform: scale(1.05);
 }
 
-/* Active link highlight */
 .nav-links li a.active {
   border-bottom: 3px solid white;
   font-weight: 700;
 }
 
-/* Login button as CTA */
-.nav-links li.login-btn a {
-  background: white;
-  color: #fc8019;
-  padding: 0.4rem 1rem;
-  border-radius: 20px;
-  font-weight: bold;
-  transition: all 0.3s ease;
-}
-
-.nav-links li.login-btn a:hover {
-  background: #ffe0cc;
-  transform: scale(1.05);
-}
-
-/* ------------------ */
-/* Responsive Design */
-/* ------------------ */
-
-/* Hamburger menu hidden on desktop */
+/* Hamburger menu */
 .hamburger {
   display: none;
   flex-direction: column;
-  cursor: pointer;
   gap: 5px;
+  cursor: pointer;
+  z-index: 1100;
 }
 
 .hamburger span {
@@ -100,28 +78,71 @@
   border-radius: 5px;
 }
 
-/* Mobile view */
-@media (max-width: 768px) {
+/* ------------------ Responsive ------------------ */
+@media (max-width: 1024px) {
   .nav-links {
-    position: absolute;
-    top: 70px;
+    gap: 1.5rem;
+  }
+}
+
+@media (max-width: 768px) {
+  /* Show hamburger */
+  .hamburger {
+    display: flex;
+  }
+
+  /* Mobile nav */
+  .nav-links {
+    position: fixed;
+    top: 0;
     right: 0;
+    height: 100vh;
+    width: 250px;
     background: #fc8019;
     flex-direction: column;
     align-items: flex-start;
-    gap: 1.5rem;
-    padding: 1rem 2rem;
-    width: 200px;
-    height: auto;
+    padding: 2rem;
+    gap: 2rem;
     transform: translateX(100%);
     transition: transform 0.3s ease-in-out;
+    box-shadow: -4px 0 8px rgba(0, 0, 0, 0.2);
+    z-index: 1100;
   }
 
   .nav-links.open {
     transform: translateX(0);
   }
 
-  .hamburger {
-    display: flex;
+  /* Overlay for mobile menu */
+  .nav-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.4);
+    z-index: 1000;
+    display: none;
+  }
+
+  .nav-overlay.active {
+    display: block;
+  }
+}
+
+/* Very small screens */
+@media (max-width: 480px) {
+  .logo-text {
+    font-size: 1.6rem;
+  }
+
+  .nav-links li a {
+    font-size: 1rem;
+    padding: 0.4rem 0.8rem;
+  }
+
+  .nav-links {
+    width: 200px;
+    padding: 1.5rem;
   }
 }
