@@ -6,14 +6,16 @@
     "carbs": 77,
     "sugar": 5.4
   },
-  "8901234567890": {
+
+  "8902080404575": {
     "name": "Mango Juice",
     "calories": 60,
     "fat": 0.2,
     "carbs": 14,
     "sugar": 12
   },
-  "8909876543210": {
+
+  "8904327600405": {
     "name": "Peanut Butter",
     "calories": 588,
     "fat": 50,
@@ -152,6 +154,105 @@
     "fat": 20,
     "carbs": 70,
     "sugar": 25
+  },
+  "8906010090777": {
+    "name": "Dlecta Cheese Slice",
+    "calories": 330,
+    "fat": 27,
+    "carbs": 2,
+    "sugar": 1,
+    "protein": 20,
+    "fiber": 0
+  },
+  "8906001020196": {
+    "name": "Go Cheese Slice",
+    "calories": 320,
+    "fat": 26,
+    "carbs": 2,
+    "sugar": 1,
+    "protein": 19,
+    "fiber": 0
+  },
+  "8901262020558": {
+    "name": "Amul Diced Cheese",
+    "calories": 290,
+    "fat": 23,
+    "carbs": 2,
+    "sugar": 0.5,
+    "protein": 18,
+    "fiber": 0
+  },
+  "8901262260114": {
+    "name": "Amul Milk 1L",
+    "calories": 60,
+    "fat": 3.5,
+    "carbs": 5,
+    "sugar": 5,
+    "protein": 3.2,
+    "fiber": 0
+  },
+  "8906001387015": {
+    "name": "White Bread 400g",
+    "calories": 265,
+    "fat": 3.2,
+    "carbs": 49,
+    "sugar": 5,
+    "protein": 9,
+    "fiber": 2
+  },
+  "8904474000530": {
+    "name": "Brown Bread 400g",
+    "calories": 245,
+    "fat": 2.5,
+    "carbs": 45,
+    "sugar": 4,
+    "protein": 10,
+    "fiber": 4
+  },
+  "8906020580121": {
+    "name": "Malabar Parotta",
+    "calories": 300,
+    "fat": 15,
+    "carbs": 38,
+    "sugar": 2,
+    "protein": 5,
+    "fiber": 1
+  },
+  "8904258701547": {
+    "name": "Almond Milk 1L",
+    "calories": 39,
+    "fat": 3,
+    "carbs": 1.5,
+    "sugar": 0,
+    "protein": 1,
+    "fiber": 0.5
+  },
+  "8904043602691": {
+    "name": "Chicken Nuggets 250g",
+    "calories": 290,
+    "fat": 18,
+    "carbs": 15,
+    "sugar": 0.5,
+    "protein": 18,
+    "fiber": 1
+  },
+  "8906107172751": {
+    "name": "Raw Chicken 500g",
+    "calories": 165,
+    "fat": 3.6,
+    "carbs": 0,
+    "sugar": 0,
+    "protein": 31,
+    "fiber": 0
+  },
+  "8906010090869": {
+    "name": "Mozzarella Cheese",
+    "calories": 280,
+    "fat": 22,
+    "carbs": 2,
+    "sugar": 0.5,
+    "protein": 18,
+    "fiber": 0
   },
   "8903030303030": {
     "name": "Britannia NutriChoice Biscuit",
@@ -850,4 +951,3 @@
 
 }
 
- 

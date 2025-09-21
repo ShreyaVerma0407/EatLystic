@@ -15,8 +15,9 @@ import {
   Pie,
 } from "recharts";
 import nutrientData from "../data/nutrient.json";
-
-
+import Webcam from "react-webcam";
+import * as tf from "@tensorflow/tfjs";
+import Quagga from "@ericblade/quagga2";
 
 // -------------------- Error Boundary --------------------
 class ErrorBoundary extends React.Component {
@@ -73,8 +74,107 @@ const NUTRIENTS = ["protein_g", "fat_total_g", "carbohydrates_total_g", "fiber_g
 const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
 
 // -------------------- API KEYS --------------------
-const NINJAS_API_KEY =import.meta.env. VITE_NINJAS_API_KEY ;
+const NINJAS_API_KEY = import.meta.env.VITE_NINJAS_API_KEY;
 const USDA_API_KEY = import.meta.env.VITE_USDA_API_KEY;
+ // -------------------- YOLO Barcode Scanner --------------------
+// -------------------- Barcode Scanner --------------------
+const BarcodeScanner = ({ onDetected }) => {
+  const scannerRef = useRef(null);
+  const [isActive, setIsActive] = useState(false);
+
+  useEffect(() => {
+    if (!isActive || !scannerRef.current) {
+      Quagga.stop();
+      return;
+    }
+  let timeoutId = setTimeout(() => {
+      alert("Barcode not detected. Please enter manually.");
+      setIsActive(false);
+    }, 35000); // 5 seconds
+
+    Quagga.init(
+      {
+        inputStream: {
+          type: "LiveStream",
+          target: scannerRef.current,
+          constraints: { width: 600, height: 420, facingMode: "environment" },
+        },
+        decoder: {
+          readers: [
+            "code_128_reader",
+            "ean_reader",
+            "ean_8_reader",
+            "upc_reader",
+            "upc_e_reader",
+            "code_39_reader",
+            "code_39_vin_reader",
+            "codabar_reader",
+          ],
+        },
+        locate: true,
+      },
+      (err) => {
+        if (err) console.error("Quagga init error:", err);
+        else Quagga.start();
+      }
+    );
+
+    Quagga.onDetected((result) => {
+      if (result?.codeResult?.code) {
+            clearTimeout(timeoutId); // cancel timeout if detected
+        onDetected(result.codeResult.code);
+        setIsActive(false); // auto-stop after detection
+      }
+    });
+
+    return () => {
+           clearTimeout(timeoutId);
+      Quagga.stop();
+      Quagga.offDetected();
+    };
+  }, [isActive, onDetected]);
+
+  return (
+    <div style={{ textAlign: "center", margin: "20px 0" }}>
+      <button
+        onClick={() => setIsActive((prev) => !prev)}
+         style={{
+          marginBottom: 10,
+          padding: "6px 12px",
+          backgroundColor: "#FFA07A",
+          color: "#fff",
+          border: "none",
+          borderRadius: 4,
+          cursor: "pointer",
+          zIndex: 20, // make sure button is above camera
+          position: "relative",
+        }}
+      >
+        {isActive ? "Stop Camera" : "Start Camera"}
+      </button>
+
+      <div
+        ref={scannerRef}
+       style={{
+      width: 320,
+      height: 200,
+      border: "2px solid #FFA07A",
+      borderRadius: 15,
+      position: "absolute", // float above content
+      top: 0,
+      left: "20%",           // center horizontally
+      transform: "translateX(-40%)", // adjust center
+      display: isActive ? "block" : "none",
+      zIndex: 10,
+      backgroundColor: "#00000020", // optional slight overlay
+    }}
+      />
+    </div>
+  );
+};
+
+
+
 
 // -------------------- Fetch Functions --------------------
 const fetchFromLocalJson = (query) => {
@@ -340,6 +440,10 @@ useEffect(() => {
   setSearchNutrition(null);
 
   if (!selectedBarcode) return;
+    if (selectedBarcode.length < 13) {
+    setError("Barcode must be 13 digits long");
+    return;
+  }
 
   // 1️⃣ Check Open Food Facts
   let nutrition = await fetchFromOpenFoodFacts(selectedBarcode);
@@ -377,6 +481,7 @@ useEffect(() => {
 
   const handleSearchByName = async () => {
     setError(""); setSearchNutrition(null);
+
     if (!manualName) return;
     const nutrition = await fetchNutritionData(manualName);
     if (nutrition) setSearchNutrition(nutrition);
@@ -434,20 +539,32 @@ useEffect(() => {
 
   return (
     <>
-      <Navbar />
+      <Navbar style={{ backgroundColor: "transparent" }} />
       <div
-        style={{
-          minHeight: "100vh",
-          margin: 0,
-          padding: "120px 24px 50px",
-          background: "linear-gradient(to bottom, #fff8f0, #ffe6cc)",
-          position: "relative",
-          overflowX: "hidden",
-          color:"black",
-        }}
+       style={{
+    minHeight: "100vh",
+    margin: 0,
+    padding: "120px 24px 50px",
+    background: "linear-gradient(to bottom, #fff8f0, #ffe6cc)",
+    position: "relative",
+    zIndex: 0,
+    overflowX: "hidden",
+    color: "black",
+  }}
+
       >
         {/* Wave at Top */}
-        <svg viewBox="0 0 1440 120" style={{ position: "absolute", top: 0, left: 0, width: "100%", height: "120px", zIndex: 0 }}>
+        <svg
+  viewBox="0 0 1440 120"
+  style={{
+    position: "absolute",
+    top: 0,
+    left: 0,
+    width: "100%",
+    height: "120px",
+    zIndex: 0,
+  }}
+>
           <path
             fill="#FFA07A"
             fillOpacity="0.3"
@@ -463,25 +580,58 @@ useEffect(() => {
 
         <div style={{ position: "relative", zIndex: 1 }}>
           {/* Search Section */}
-          <div style={cardStyle}>
-            <h2 style={headerHighlightStyle}>Search Nutrients</h2>
-            <div style={{ display: "flex", gap: 8 }}>
-              <input
-                placeholder="Barcode..."
-                value={selectedBarcode}
-                onChange={(e) => setSelectedBarcode(e.target.value)}
-                style={inputStyle}
-              />
-              <button onClick={handleSearchByBarcode} style={buttonStyle}>Search Barcode</button>
-              <span style={{ alignSelf: "center", fontWeight: "bold" }}>OR</span>
-              <input
-                placeholder="Product name..."
-                value={manualName}
-                onChange={(e) => setManualName(e.target.value)}
-                style={inputStyle}
-              />
-              <button onClick={handleSearchByName} style={buttonStyle}>Search Name</button>
-            </div>
+    <div
+  style={{
+    ...cardStyle,
+    display: "flex",
+    flexDirection: "column",
+    alignItems: "center",
+    gap: 12,
+    padding: 16,
+    maxWidth: 500,
+    margin: "0 auto",
+
+  }}
+>
+  <h2 style={headerHighlightStyle}>Search Nutrients</h2>
+
+  {/* Camera Preview + Start Button */}
+  <div style={{ width: "100%", position: "relative", textAlign: "center" }}>
+    <BarcodeScanner onDetected={setSelectedBarcode} />
+  </div>
+
+  {/* Barcode Input + Button */}
+  <div style={{ display: "flex", gap: 6, width: "100%" }}>
+    <input
+      placeholder="Enter barcode manually..."
+      value={selectedBarcode}
+      onChange={(e) => setSelectedBarcode(e.target.value)}
+      style={{ ...inputStyle, flex: 1 }}
+        minLength={13}      // minimum 13 characters
+  maxLength={13}
+    />
+    <button onClick={handleSearchByBarcode} style={buttonStyle}>
+      Search
+    </button>
+  </div>
+
+  {/* OR Separator */}
+  <div style={{ textAlign: "center", fontWeight: "bold", margin: "4px 0" }}>OR</div>
+
+  {/* Product Name Input + Button */}
+  <div style={{ display: "flex", gap: 6, width: "100%" }}>
+    <input
+      placeholder="Product name..."
+      value={manualName}
+      onChange={(e) => setManualName(e.target.value)}
+      style={{ ...inputStyle, flex: 1 }}
+    />
+    <button onClick={handleSearchByName} style={buttonStyle}>
+      Search
+    </button>
+  </div>
+</div>
+
             {error && <p style={{ color: "red" }}>{error}</p>}
            {searchNutrition && (
   <div>
@@ -504,9 +654,9 @@ useEffect(() => {
             return (
               <section key={category} style={sectionStyle}>
                 <h2 style={{ textAlign: "center", color: "#333", borderBottom: "2px solid #f0f0f0", paddingBottom: 8 }}>{category}</h2>
-                <div style={{ overflowX: "auto" }}>
+                <div style={{ overflowX: "auto" ,}}>
                   <table style={{ width: "100%", color: "black" ,borderCollapse: "collapse", minWidth: 600 }}>
-                    <thead style={{ backgroundColor: "#f7f7f7", color: "#FF6347" }}>
+                    <thead style={{ color: "#FF6347" }}>
                       <tr>
                         <th style={thStyle}>Picture</th>
                         <th style={thStyle}>Name</th>
@@ -523,7 +673,7 @@ useEffect(() => {
                               <img
                                 src={item.imageUrl || `https://via.placeholder.com/50?text=${encodeURIComponent(item.name)}`}
                                 alt={item.name}
-                                style={{ width: 50, height: 50, objectFit: "cover", borderRadius: 4 }}
+                                style={{ width: 50, height: 50, objectFit: "cover",borderRadius: 4 }}
                               />
                             </td>
                             <td style={tdStyle}>{item.name}</td>
@@ -585,7 +735,7 @@ useEffect(() => {
 
           {/* High / Medium / Low Summary Table */}
           <div style={{ marginTop: 40, overflowX: "auto" }}>
-          <h3 style={{ textAlign: "center",color: "black"  }}>Consumed Nutrients Summary</h3>
+          <h3 style={{ textAlign: "center",color: "black" }}>Consumed Nutrients Summary</h3>
 
             <table style={{ width: "100%", borderCollapse: "collapse", minWidth: 800, color: "black" }}>
               <thead style={{ backgroundColor: "#f7f7f7",color: "#FF6347"  }}>
@@ -614,70 +764,76 @@ useEffect(() => {
               </tbody>
             </table>
           </div>
+          </div>
+</>
 
-        </div>
-      </div>
-    </>
+
   );
 };
 
 // -------------------- Styles --------------------
 const cardStyle = {
-  background: "#fff",
+  backgroundColor: "#fff",
+  borderRadius: 12,
   padding: 20,
-  borderRadius: 8,
-  boxShadow: "0 1px 6px rgba(0,0,0,0.1)",
-  marginBottom: 20,
+  boxShadow: "0 4px 12px rgba(0,0,0,0.1)",
+};
+
+const headerHighlightStyle = {
+  color: "#FF6347",
+  textAlign: "center",
+  marginBottom: 12,
 };
 
 const inputStyle = {
-  padding: 8,
-  borderRadius: 4,
+  padding: "8px 12px",
   border: "1px solid #ccc",
-  flex: 1,
+  borderRadius: 4,
 };
 
 const buttonStyle = {
   padding: "8px 16px",
-  backgroundColor: "#FFA07A",
+  backgroundColor: "#FF6347",
   color: "#fff",
   border: "none",
   borderRadius: 4,
   cursor: "pointer",
 };
 
+const sectionStyle = {
+  marginTop: 30,
+  marginBottom: 30,
+};
+
 const thStyle = {
-  padding: 8,
-  textAlign: "center",
-  borderBottom: "1px solid #ddd",
+  textAlign: "left",
+  padding: "8px",
+  borderBottom: "2px solid #ddd",
 };
 
 const tdStyle = {
-  padding: 8,
-  textAlign: "center",
-};
-
-const sectionStyle = {
-  marginTop: 40,
+  padding: "8px",
+  borderBottom: "1px solid #eee",
 };
 
 const chartCardStyle = {
+  ...cardStyle,
   flex: 1,
-  minWidth: 320,
-  backgroundColor: "#fff",
-  padding: 16,
-  borderRadius: 8,
-  boxShadow: "0 1px 4px rgba(0,0,0,0.1)",
+  minWidth: 300,
 };
 
-const headerHighlightStyle = {
-  color: "#FF6347",
-};
 
 export default function NutrientPage() {
   return (
     <ErrorBoundary>
-      <NutrientPageContent />
+      <div
+        style={{
+          minHeight: "100vh",
+          background: "linear-gradient(to bottom, #fff8f0, #ffe6cc)",
+        }}
+      >
+        <NutrientPageContent />
+      </div>
     </ErrorBoundary>
   );
 }
