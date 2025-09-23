@@ -18,6 +18,7 @@ import nutrientData from "../data/nutrient.json";
 import Webcam from "react-webcam";
 import * as tf from "@tensorflow/tfjs";
 import Quagga from "@ericblade/quagga2";
+import "../styles/NutrientPage.css";
 
 // -------------------- Error Boundary --------------------
 class ErrorBoundary extends React.Component {
