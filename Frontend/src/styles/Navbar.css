@@ -145,4 +145,35 @@
     width: 200px;
     padding: 1.5rem;
   }
+  /* Very small screens */
+@media (max-width: 480px) {
+  .logo-text {
+    font-size: 1.6rem;
+  }
+
+  .nav-links li a {
+    font-size: 1rem;
+    padding: 0.4rem 0.8rem;
+  }
+
+  .nav-links {
+    width: 200px;
+    padding: 1.5rem;
+  }
+}
+
+/* Tablet screens */
+@media (max-width: 1024px) and (min-width: 769px) {
+  .nav-links {
+    flex-wrap: wrap;            /* allow wrapping */
+    justify-content: flex-end;  /* keep links aligned right */
+    gap: 1rem;                  /* reduce spacing */
+  }
+
+  .nav-links li a {
+    font-size: 1rem;            /* smaller font */
+    white-space: nowrap;        /* prevent "Help Desk" from breaking */
+  }
+}
+
 }
