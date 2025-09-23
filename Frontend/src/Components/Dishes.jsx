@@ -476,7 +476,7 @@ const Dish = () => {
           </div>
         </div>
 
-        
+
         {/* Ingredients Section */}
         <h2 style={sectionHeading}>🛒 Ingredients</h2>
         <div
