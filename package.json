@@ -3,6 +3,7 @@
     "@ericblade/quagga2": "^1.8.4",
     "@tensorflow-models/coco-ssd": "^2.2.3",
     "@tensorflow/tfjs": "^4.22.0",
+    "@zxing/browser": "^0.1.5",
     "fuse.js": "^7.1.0",
     "jsqr": "^1.4.0",
     "lucide-react": "^0.542.0",
