@@ -13,6 +13,8 @@ import {
   PieChart,
   Pie,
 } from "recharts";
+import "../styles/CaloriePageResponsive.css";
+
 
 const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
 
@@ -242,15 +244,15 @@ const CaloriePage = ({ currentUserId }) => {
 
         {/* Pantry Categories Display */}
         {rowsOfCategories.map((row, idx) => (
-          <div key={idx} style={{ display: "flex", gap: 24 }}>
-            {row.map((category) => {
-              const items = pantryByCategory[category];
-              if (!items || items.length === 0) return null;
+  <div key={idx} className="category-row">
+    {row.map((category) => {
+      const items = pantryByCategory[category];
+      if (!items || items.length === 0) return null;
 
-              const categoryCalories = items.reduce((sum, item) => {
-                const cals = caloriesMap[item._id] || 0;
-                return sum + cals * item.quantity;
-              }, 0);
+      const categoryCalories = items.reduce((sum, item) => {
+        const cals = caloriesMap[item._id] || 0;
+        return sum + cals * item.quantity;
+      }, 0);
 
               return (
                 <section
