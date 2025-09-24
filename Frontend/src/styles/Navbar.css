@@ -36,10 +36,14 @@
   display: flex;
   align-items: center;
   gap: 2rem;
-  position: static; /* Ensure horizontal layout */
+  position: static;
   height: auto;
   width: auto;
   transform: none;
+}
+
+.nav-links li {
+  flex: 0 0 auto; /* prevent shrinking on tablets */
 }
 
 .nav-links li a {
@@ -50,6 +54,8 @@
   transition: all 0.3s ease;
   font-weight: 500;
   font-size: 1.2rem;
+  white-space: nowrap;
+  z-index: 1200;
 }
 
 .nav-links li a:hover {
@@ -79,19 +85,28 @@
 }
 
 /* ------------------ Responsive ------------------ */
-@media (max-width: 1024px) {
+
+/* Tablets: iPad */
+@media (max-width: 1024px) and (min-width: 769px) {
   .nav-links {
-    gap: 1.5rem;
+    gap: 1rem;           /* reduce gap to fit */
+    flex-wrap: nowrap;    /* keep in one row */
+    justify-content: flex-start;
+    overflow-x: auto;     /* allow horizontal scroll if needed */
+    padding-right: 1rem;
+  }
+
+  .nav-links li a {
+    font-size: 1rem;
   }
 }
 
+/* Mobile: smaller than 768px */
 @media (max-width: 768px) {
-  /* Show hamburger */
   .hamburger {
     display: flex;
   }
 
-  /* Mobile nav */
   .nav-links {
     position: fixed;
     top: 0;
@@ -113,7 +128,6 @@
     transform: translateX(0);
   }
 
-  /* Overlay for mobile menu */
   .nav-overlay {
     position: fixed;
     top: 0;
