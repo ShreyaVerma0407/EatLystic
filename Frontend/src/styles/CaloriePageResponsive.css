@@ -1,0 +1,281 @@
+/* ==================== CaloriePage Full Responsive CSS ==================== */
+
+/* General body fixes */
+body, html, #root {
+    margin: 0 !important;
+    padding: 0 !important;
+    font-family: Arial, sans-serif !important;
+    background-color: #fff3e0 !important;
+}
+
+/* Container responsiveness */
+div[style*="padding: 100px"] {
+    padding: 100px 16px 40px !important;
+    max-width: 95% !important;
+    margin: 0 auto !important;
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 48px !important;
+}
+
+/* Section cards */
+div[style*="sectionStyle"] {
+    padding: 12px !important;
+}
+
+/* Tables horizontal scroll */
+.category-table,
+div > table {
+    width: 100% !important;
+    overflow-x: auto !important;
+    display: block !important;
+    white-space: nowrap !important;
+    margin-right: 0 !important;
+    -webkit-overflow-scrolling: touch !important;
+}
+
+/* Scrollbar styling */
+.category-table::-webkit-scrollbar,
+div > table::-webkit-scrollbar {
+    height: 6px !important;
+}
+
+.category-table::-webkit-scrollbar-thumb,
+div > table::-webkit-scrollbar-thumb {
+    background-color: rgba(252, 128, 25, 0.6) !important;
+    border-radius: 3px !important;
+}
+
+.category-table::-webkit-scrollbar-track,
+div > table::-webkit-scrollbar-track {
+    background: rgba(0, 0, 0, 0.05) !important;
+}
+
+/* Sticky table headers */
+.category-table th,
+div > table th {
+    position: sticky !important;
+    top: 0 !important;
+    background-color: #f0f0f0 !important;
+    z-index: 10 !important;
+}
+
+/* Prevent text wrap in table cells */
+.category-table td,
+.category-table th,
+div > table td,
+div > table th {
+    white-space: nowrap !important;
+}
+
+/* Search input & button */
+input[style*="flexGrow"] {
+    width: 100% !important;
+    box-sizing: border-box !important;
+}
+
+button[style*="padding"] {
+    width: auto !important;
+}
+
+/* Titles */
+h1[style*="orangeTitleWhiteBgStyle"] {
+    font-size: 1.8rem !important;
+    padding: 12px !important;
+}
+
+/* Charts container */
+div[style*="chartCardStyle"] {
+    flex: 1 1 100% !important;
+    min-width: 280px !important;
+    padding: 20px !important;
+    margin-bottom: 24px !important;
+}
+
+/* Bar Chart X-axis labels fix for small screens */
+.recharts-wrapper .recharts-cartesian-axis-tick {
+    font-size: 10px !important;
+}
+
+/* Desktop adjustments */
+@media (min-width: 1025px) {
+    .category-table table,
+    div > table {
+        display: table !important;
+        width: 100% !important;
+        overflow: visible !important;
+    }
+}
+
+/* Tablets & small screens */
+@media (max-width: 1024px) {
+    .category-table,
+    div > table {
+        overflow-x: auto !important;
+    }
+}
+
+/* Charts & card adjustments for tablets and mobiles */
+@media (max-width: 768px) {
+    div[style*="chartCardStyle"] {
+        flex: 1 1 100% !important;
+        max-width: 100% !important;
+        margin: 0 auto 24px !important;
+        padding: 16px !important;
+    }
+
+    h3 {
+        font-size: 1.2rem !important;
+    }
+}
+
+/* Very small screens */
+@media (max-width: 480px) {
+    h1[style*="orangeTitleWhiteBgStyle"] {
+        font-size: 1.4rem !important;
+        padding: 8px !important;
+    }
+
+    input[style*="flexGrow"] {
+        font-size: 14px !important;
+        padding: 6px !important;
+    }
+
+    button[style*="padding"] {
+        font-size: 14px !important;
+        padding: 6px 12px !important;
+    }
+
+    div[style*="sectionStyle"] {
+        padding: 8px !important;
+    }
+
+    table {
+        font-size: 12px !important;
+    }
+
+    div[style*="chartCardStyle"] {
+        padding: 12px !important;
+    }
+}
+
+/* Footer */
+footer {
+    font-size: 14px !important;
+    padding: 16px 0 !important;
+}
+/* ==================== Stacked Responsive Tables ==================== */
+
+/* Only apply on screens smaller than 768px */
+@media (max-width: 768px) {
+  /* Hide original table headers */
+  .category-table thead,
+  div > table thead {
+    display: none !important;
+  }
+
+  /* Make each row a card */
+  .category-table tbody tr,
+  div > table tbody tr {
+    display: block !important;
+    margin-bottom: 16px !important;
+    border: 2px solid #fc8019 !important;
+    border-radius: 8px !important;
+    padding: 12px !important;
+    background-color: #fff !important;
+    box-shadow: 0 3px 8px rgba(0,0,0,0.1) !important;
+  }
+
+  /* Each cell becomes a row inside the card */
+  .category-table tbody td,
+  div > table tbody td {
+    display: flex !important;
+    justify-content: space-between !important;
+    padding: 8px 6px !important;
+    white-space: normal !important;
+    border-bottom: 1px solid #eee !important;
+  }
+
+  /* Remove bottom border from last cell */
+  .category-table tbody td:last-child,
+  div > table tbody td:last-child {
+    border-bottom: none !important;
+  }
+
+  /* Add label before each data cell */
+  .category-table tbody td:nth-child(1)::before { content: "Picture:"; font-weight: bold; }
+  .category-table tbody td:nth-child(2)::before { content: "Name:"; font-weight: bold; }
+  .category-table tbody td:nth-child(3)::before { content: "Quantity:"; font-weight: bold; }
+  .category-table tbody td:nth-child(4)::before { content: "Calories Per Item:"; font-weight: bold; }
+  .category-table tbody td:nth-child(5)::before { content: "Total Calories:"; font-weight: bold; }
+  .category-table tbody td:nth-child(6)::before { content: "Calorie Zone:"; font-weight: bold; }
+
+  div > table tbody td:nth-child(1)::before { content: "Picture:"; font-weight: bold; }
+  div > table tbody td:nth-child(2)::before { content: "Name:"; font-weight: bold; }
+  div > table tbody td:nth-child(3)::before { content: "Quantity Consumed:"; font-weight: bold; }
+  div > table tbody td:nth-child(4)::before { content: "Calories Per Item:"; font-weight: bold; }
+  div > table tbody td:nth-child(5)::before { content: "Total Calories:"; font-weight: bold; }
+  div > table tbody td:nth-child(6)::before { content: "Calorie Zone:"; font-weight: bold; }
+
+  /* Label styling */
+  .category-table tbody td::before,
+  div > table tbody td::before {
+    flex: 0 0 45% !important;
+    text-align: left !important;
+    color: #fc8019 !important;
+  }
+
+  /* Value styling */
+  .category-table tbody td span,
+  div > table tbody td span {
+    flex: 1 !important;
+    text-align: right !important;
+    font-weight: bold !important;
+    color: #064420 !important;
+  }
+
+  /* Adjust image size */
+  .category-table tbody td img,
+  div > table tbody td img {
+    width: 60px !important;
+    height: 60px !important;
+    border-radius: 6px !important;
+    object-fit: cover !important;
+  }
+}
+/* ==================== Pantry Categories Responsive ==================== */
+.category-row {
+  display: flex;
+  gap: 24px;
+  flex-wrap: wrap;
+}
+
+/* On mobile & tablet: stack vertically */
+@media (max-width: 768px) {
+  .category-row {
+    flex-direction: column !important;
+    gap: 16px !important;
+  }
+
+  .category-card {
+    width: 100% !important;
+    max-width: 100% !important;
+    margin: 0 auto !important;
+    box-shadow: 0 3px 8px rgba(0,0,0,0.1) !important;
+    border-radius: 12px !important;
+    padding: 12px !important;
+    background: #fff !important;
+  }
+
+  .category-card table {
+    width: 100% !important;
+    margin:auto;
+  }
+}
+@media (max-width: 1024px) {
+  .category-table td,
+  .category-table th {
+    white-space: normal !important;  /* allow wrapping */
+  }
+}
+
