@@ -96,6 +96,7 @@ const Card = ({ children, className }) => {
       {children}
       <style jsx>{`
         .card {
+        max-width:500px;
           background-color: #262626;
           padding: 24px;
           border-radius: 12px;
@@ -410,8 +411,8 @@ export default function App() {
         .h-4 { height: 16px; }
         .mr-2 { margin-right: 8px; }
         .text-orange-medium { color: #ff5500; }
-        .text-orange-light { color: #ffab40; }
-        .text-muted-foreground { color: #a1a1aa; }
+        .text-orange-light { color: #ffa126ff; }
+        .text-muted-foreground { color: #ffffffff; }
       `}</style>
     </div>
   );
