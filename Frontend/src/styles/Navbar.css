@@ -40,6 +40,9 @@
   flex-wrap: nowrap;
   white-space: nowrap;
   overflow-x: visible; /* desktop: no scroll */
+  list-style: none;   /* removes bullets */
+  margin: 0;          /* remove default margin */
+  padding: 0;
 }
 
 .nav-links li {
