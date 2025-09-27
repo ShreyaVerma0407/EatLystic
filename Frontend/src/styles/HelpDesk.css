@@ -1,0 +1,158 @@
+/* Color Variables based on the new Orange/Light Orange/Dark Text theme */
+:root {
+    --light-orange: #f8e6bd;
+    --dark-orange: #f97027;
+    --primary-orange: #f2c888;
+    --dark-text: #181824;
+}
+
+/* --- Global and Layout Styles --- */
+.help-center-page {
+    background-color: rgb(255,255,255);
+    color: var(--dark-text);
+    font-family: 'Poppins', sans-serif;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+/* --- Header Section --- */
+.header-section {
+    /* Changed gradient from dark-to-light-orange */
+    background: linear-gradient(to right, var(--dark-orange), var(--primary-orange)); 
+    text-align: center;
+    padding: 40px 20px;
+}
+
+.header-section h1 {
+    font-size: 2.5rem;
+    font-weight: 600;
+    margin-bottom: 10px;
+    color: var(--dark-text); /* Dark text for contrast on the orange background */
+}
+
+.header-section p {
+    font-size: 1.1rem;
+    color: var(--dark-text);
+    opacity: 0.9;
+}
+
+/* --- Cards Section --- */
+.cards-section {
+    background-color: var(--light-orange);
+    padding: 60px 20px;
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 30px;
+    flex-grow: 1;
+}
+
+/* --- Card Styles --- */
+.card {
+    background-color: rgb(197, 131, 0);
+    border-radius: 12px;
+    padding: 30px;
+    text-align: center;
+    max-width: 350px;
+    flex: 1;
+    transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+    cursor: pointer;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); 
+    /* Default border color will be set dynamically via inline style in JSX */
+    border: 2px solid transparent; 
+}
+
+
+
+.card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+    /* Hover border color will be set dynamically via inline style in JSX */
+}
+
+.icon-circle {
+    width: 64px;
+    height: 64px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 20px;
+    /* Background color set dynamically */
+}
+
+.icon-style {
+    width: 32px;
+    height: 32px;
+    /* Color set dynamically */
+}
+
+.card-title {
+    font-size: 1.25rem;
+    font-weight: 600;
+    margin-bottom: 10px;
+    /* Color set dynamically */
+}
+
+.card-description {
+    font-size: 0.9rem;
+    margin-bottom: 20px;
+    /* Color set dynamically */
+}
+
+.card-button {
+    border: none;
+    padding: 12px 24px;
+    border-radius: 8px;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    width: 100%;
+    transition: background-color 0.3s ease;
+    color: #fff; /* Keep button text white for contrast */
+    /* Background color set dynamically */
+}
+
+
+
+/* --- Footer Section --- */
+.footer-section {
+    background-color: rgb(70, 70, 69); /* Dark orange footer */
+    text-align: center;
+    padding: 40px 20px;
+    margin-top: auto;
+}
+
+.footer-section h3 {
+    font-size: 1.5rem;
+    margin-bottom: 10px;
+    color: var(--light-orange); /* Light orange heading */
+}
+
+.footer-section p {
+    font-size: 0.95rem;
+    color: #fff; /* White text for contrast */
+    margin-bottom: 5px;
+}
+
+.footer-section a {
+    color: var(--light-orange);
+    text-decoration: none;
+    font-weight: 600;
+}
+
+.footer-section a:hover {
+    text-decoration: underline;
+}
+
+/* --- Media Queries --- */
+@media (max-width: 768px) {
+    .cards-section {
+        flex-direction: column;
+        align-items: center;
+    }
+    .card {
+        max-width: 90%;
+    }
+}
