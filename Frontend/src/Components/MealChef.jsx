@@ -3,8 +3,10 @@ import { FaClock, FaFire, FaHeart, FaListUl } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
 import Navbar from "./Navbar";
 
+
 const UNSPLASH_KEY = import.meta.env.VITE_UNSPLASH_KEY;
 const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
+const PEXELS_KEY = import.meta.env.VITE_PEXELS_KEY;
 
 const MealChef = ({ currentUserId }) => {
   const [foodItems, setFoodItems] = useState([]);
@@ -43,27 +45,55 @@ const MealChef = ({ currentUserId }) => {
   }, [allRecipesWithIds]);
 
   useEffect(() => {
-    matchingRecipes.forEach(async (recipe) => {
-      if (images[recipe.recipeId]) return;
-      let imageUrl = "";
+  matchingRecipes.forEach(async (recipe) => {
+    if (images[recipe.recipeId]) return; // already fetched
+
+    let imageUrl = "";
+
+    // 1️⃣ Try Pexels first
+    try {
+      const pexelsRes = await fetch(
+        `https://api.pexels.com/v1/search?query=${encodeURIComponent(recipe.name)}&per_page=1`,
+        {
+          headers: {
+            Authorization: PEXELS_KEY,
+          },
+        }
+      );
+      const pexelsData = await pexelsRes.json();
+      if (pexelsData?.photos?.length > 0) {
+        imageUrl = pexelsData.photos[0].src.medium;
+      }
+    } catch (err) {
+      console.warn("Pexels failed:", err);
+    }
+
+    // 2️⃣ Fallback to Edamam
+    if (!imageUrl) {
       try {
-        const unsplashRes = await fetch(
-          `https://api.unsplash.com/search/photos?query=${encodeURIComponent(
+        const edamamRes = await fetch(
+          `https://api.edamam.com/search?q=${encodeURIComponent(
             recipe.name
-          )}&client_id=${UNSPLASH_KEY}`
+          )}&app_id=${EDAMAM_ID}&app_key=${EDAMAM_KEY}&from=0&to=1`
         );
-        const unsplashData = await unsplashRes.json();
-        if (unsplashData?.results?.length > 0) {
-          imageUrl = unsplashData.results[0].urls.small;
+        const edamamData = await edamamRes.json();
+        if (edamamData?.hits?.length > 0) {
+          imageUrl = edamamData.hits[0].recipe.image;
         }
       } catch (err) {
-        console.warn("Unsplash failed:", err);
+        console.warn("Edamam failed:", err);
       }
-      if (imageUrl) {
-        setImages((prev) => ({ ...prev, [recipe.recipeId]: imageUrl }));
-      }
-    });
-  }, [matchingRecipes, images]);
+    }
+
+    // 3️⃣ Fallback to local placeholder
+    if (!imageUrl) {
+      imageUrl = "/images/placeholder-food.jpg"; // put a good placeholder in public/images
+    }
+
+    // Save image
+    setImages((prev) => ({ ...prev, [recipe.recipeId]: imageUrl }));
+  });
+}, [matchingRecipes, images]);
 
   useEffect(() => {
     if (!currentUserId) return;
@@ -95,7 +125,7 @@ const MealChef = ({ currentUserId }) => {
         });
       } else {
         // Corrected: Extract only the 'name' from the ingredients array
-        const ingredientNames = Array.isArray(recipe.ingredients) 
+        const ingredientNames = Array.isArray(recipe.ingredients)
           ? recipe.ingredients.map(ing => ing.name).filter(Boolean)
           : [];
 
@@ -217,7 +247,7 @@ const MealChef = ({ currentUserId }) => {
         style={{
           width: "100%",
           minHeight: "100vh",
-          backgroundColor: "#181824",
+           background: "linear-gradient(to bottom, #1e1e1e, #121212)",
           color: "#fff",
           padding: "2rem 1rem",
           fontFamily: "sans-serif",
@@ -345,17 +375,17 @@ const MealChef = ({ currentUserId }) => {
                   boxShadow: "0 8px 15px rgba(0, 0, 0, 0.3)",
                   boxSizing: "border-box",
                   border: "2px solid #ff9800",
-                }}
+                  border: "none",
+                   color: "#fff",
+                   }}
                 onMouseEnter={(e) => {
-                  e.currentTarget.style.transform = "scale(1.05)";
-                  e.currentTarget.style.boxShadow =
-                    "0 12px 20px rgba(0, 0, 0, 0.4)";
-                }}
-                onMouseLeave={(e) => {
-                  e.currentTarget.style.transform = "scale(1)";
-                  e.currentTarget.style.boxShadow =
-                    "0 8px 15px rgba(0, 0, 0, 0.3)";
-                }}
+      e.currentTarget.style.transform = "translateY(-5px) scale(1.03)";
+      e.currentTarget.style.boxShadow = "0 20px 30px rgba(255, 152, 0, 0.6)";
+    }}
+    onMouseLeave={(e) => {
+      e.currentTarget.style.transform = "translateY(0) scale(1)";
+      e.currentTarget.style.boxShadow = "0 10px 20px rgba(0,0,0,0.4)";
+    }}
               >
                 <FaHeart
                   onClick={(e) => toggleFavorite(recipe, e)}
