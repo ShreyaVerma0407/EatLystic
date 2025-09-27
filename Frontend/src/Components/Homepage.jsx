@@ -3,6 +3,7 @@ import "../styles/Homepage.css";
 import { useNavigate } from "react-router-dom";
 import Navbar from "./Navbar";
 import { motion } from "framer-motion";
+import Footer from "../components/Footer";
 
 const Homepage = ({ onExploreFeature }) => {
   const featuresRef = useRef(null);
@@ -65,56 +66,46 @@ const Homepage = ({ onExploreFeature }) => {
       </section>
 
       {/* Features */}
-      <section className="features" ref={featuresRef}>
-        {featureData.map((feature, index) => {
-          const FEATURE_ROUTES = {
-            "Nutrient Tracker": "/nutrient",
-            "Recipe Generator": "/recipe",
-            KitchenSync: "/pantry",
-            "Calorie Counter": "/calorie",
-            "Fitness Goals": "/fitness",
-          };
+     <section className="features" ref={featuresRef}>
+  {featureData.map((feature, index) => {
+    const FEATURE_ROUTES = {
+      "Nutrient Tracker": "/nutrient",
+      "Recipe Generator": "/recipe",
+      KitchenSync: "/pantry",
+      "Calorie Counter": "/calorie",
+      "Fitness Goals": "/fitness",
+    };
 
-          const route = FEATURE_ROUTES[feature.title] || "/";
+    const route = FEATURE_ROUTES[feature.title] || "/";
 
-          return (
-            <div
-              key={feature.title}
-              className={`feature-card ${hoveredIndex === index ? "hovered" : ""}`}
-              onMouseEnter={() => setHoveredIndex(index)}
-              onMouseLeave={() => setHoveredIndex(null)}
-              onClick={() => navigate(route)}
-              style={{ cursor: "pointer" }}
-            >
-              <div className="feature-media">
-                {hoveredIndex === index ? (
-                  <iframe
-                    src={`https://www.youtube.com/embed/${feature.videoId}?autoplay=1&mute=1&loop=1&playlist=${feature.videoId}`}
-                    title={feature.title}
-                    frameBorder="0"
-                    allow="autoplay; encrypted-media"
-                    allowFullScreen
-                  />
-                ) : (
-                  <img src={feature.thumbnail} alt={feature.title} />
-                )}
-              </div>
-              <h3>{feature.title}</h3>
-              <p>{feature.desc}</p>
-              <button
-                className="feature-explore-btn"
-                onClick={(e) => {
-                  e.stopPropagation();
-                  onExploreFeature && onExploreFeature(feature.title);
-                  navigate(route);
-                }}
-              >
-                Explore
-              </button>
-            </div>
-          );
-        })}
-      </section>
+    return (
+      <div
+        key={feature.title}
+        className="feature-card"
+        onClick={() => navigate(route)}
+        style={{ cursor: "pointer" }}
+      >
+        <div className="feature-media">
+          {/* Always show image */}
+          <img src={feature.thumbnail || feature.image} alt={feature.title} />
+        </div>
+        <h3>{feature.title}</h3>
+        <p>{feature.desc}</p>
+        <button
+          className="feature-explore-btn"
+          onClick={(e) => {
+            e.stopPropagation();
+            onExploreFeature && onExploreFeature(feature.title);
+            navigate(route);
+          }}
+        >
+          Explore
+        </button>
+      </div>
+    );
+  })}
+</section>
+
 
       {/* Reviews Section with Framer Motion */}
       <section className="reviews-section">
@@ -171,7 +162,8 @@ const Homepage = ({ onExploreFeature }) => {
 
       {/* How It Works */}
       <section className="video-section">
-        <h2>How the Website Works</h2>
+       <h2 style={{ color: 'black' }}>How the Website Works</h2>
+
         <div className="video-container">
           <iframe
             src="https://www.youtube.com/embed/1O8qAzyH7m4"
@@ -183,9 +175,9 @@ const Homepage = ({ onExploreFeature }) => {
       </section>
 
       {/* Footer */}
-      <footer className="footer">
-        <p>© 2025 Eatlystic. All rights reserved.</p>
-      </footer>
+      {/* Footer */}
+<Footer />
+
     </div>
   );
 };
