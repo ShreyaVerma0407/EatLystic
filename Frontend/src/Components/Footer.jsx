@@ -62,6 +62,7 @@ export default function Footer() {
             <li><Link to="/nutrient">Nurtilog</Link></li>
             <li><Link to="/calorie">CaloriFi</Link></li>
             <li><Link to="/recipes">Recipe Generator</Link></li>
+            <li><Link to="/fitness">Trackify</Link></li>
           </ul>
         </div>
 
