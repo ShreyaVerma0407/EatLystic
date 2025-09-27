@@ -14,6 +14,7 @@ import {
   Pie,
 } from "recharts";
 import "../styles/CaloriePageResponsive.css";
+import Footer from "../components/Footer";
 
 
 const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
@@ -254,85 +255,83 @@ const CaloriePage = ({ currentUserId }) => {
         return sum + cals * item.quantity;
       }, 0);
 
-              return (
-                <section
-                  key={category}
-                  style={{ ...sectionStyle, borderColor: "#fc8019" }}
-                  className="category-table"
-                >
-                  <h2 style={categoryTitleStyle}>{category}</h2>
-                  <table
-                    style={{
-                      width: "100%",
-                      borderCollapse: "collapse",
-                      marginBottom: 8,
-                    }}
-                  >
-                    <thead>
-                      <tr style={{ backgroundColor: "#f0f0f0",color: "black"  }}>
-                        <th style={thStyle}>Picture</th>
-                        <th style={thStyle}>Name</th>
-                        <th style={thStyle}>Quantity</th>
-                        <th style={thStyle}>Calories Per Item</th>
-                        <th style={thStyle}>Total Calories</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      {items.map((item) => (
-                        <tr key={item._id} style={{ borderBottom: "1px solid #ddd" ,color: "black" }}>
-                          <td style={tdStyle}>
-                            <img
-                              src={
-                                item.imageUrl ||
-                                `https://via.placeholder.com/50?text=${encodeURIComponent(
-                                  item.name
-                                )}`
-                              }
-                              alt={item.name}
-                              style={{
-                                width: 50,
-                                height: 50,
-                                objectFit: "cover",
-                                borderRadius: 6,
-                              }}
-                            />
-                          </td>
-                          <td style={tdStyle}>{item.name}</td>
-                          <td style={tdStyle}>{item.quantity}</td>
-                          <td style={tdStyle}>
-                            {(caloriesMap[item._id] ?? "Loading...") + " kcal"}
-                          </td>
-                          <td style={tdStyle}>
-                            {(((caloriesMap[item._id] || 0) * item.quantity).toFixed(0)) +
-                              " kcal"}
-                          </td>
-                        </tr>
-                      ))}
-                    </tbody>
-                  </table>
-                  <div
-                    style={{ textAlign: "right", fontWeight: "bold", padding: "0 16px 16px" }}
-                  >
-                    Total Calories in {category}: {categoryCalories.toFixed(0)} kcal
-                  </div>
-                </section>
-              );
-            })}
-          </div>
-        ))}
-
-        {/* Total calories present in pantry */}
-        <p
-          style={{
-            textAlign: "center",
-            fontWeight: "bold",
-            fontSize: 18,
-            color: "#fc8019",
-            marginBottom: 8,
-          }}
+      return (
+        <section
+          key={category}
+          style={{ ...sectionStyle, borderColor: "#fc8019" }}
+          className="category-table"
         >
-          Total calories present in your pantry are {totalPantryCalories.toFixed(0)} kcal
-        </p>
+          <h2 style={categoryTitleStyle}>{category}</h2>
+          <table
+            style={{
+              width: "100%",
+              borderCollapse: "collapse",
+              marginBottom: 8,
+            }}
+          >
+            <thead>
+              <tr style={{ backgroundColor: "#f0f0f0", color: "black" }}>
+                <th style={thStyle}>Picture</th>
+                <th style={thStyle}>Name</th>
+                <th style={thStyle}>Quantity</th>
+                <th style={thStyle}>Calories Per Item</th>
+                <th style={thStyle}>Total Calories</th>
+              </tr>
+            </thead>
+            <tbody>
+              {items.map((item) => (
+                <tr key={item._id} style={{ borderBottom: "1px solid #ddd", color: "black" }}>
+                  <td style={tdStyle} data-label="Picture">
+                    <img
+                      src={
+                        item.imageUrl ||
+                        `https://via.placeholder.com/50?text=${encodeURIComponent(item.name)}`
+                      }
+                      alt={item.name}
+                      style={{
+                        width: 50,
+                        height: 50,
+                        objectFit: "cover",
+                        borderRadius: 6,
+                      }}
+                    />
+                  </td>
+                  <td style={tdStyle} data-label="Name">{item.name}</td>
+                  <td style={tdStyle} data-label="Quantity">{item.quantity}</td>
+                  <td style={tdStyle} data-label="Calories Per Item">
+                    {(caloriesMap[item._id] ?? "Loading...") + " kcal"}
+                  </td>
+                  <td style={tdStyle} data-label="Total Calories">
+                    {(((caloriesMap[item._id] || 0) * item.quantity).toFixed(0)) + " kcal"}
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+          <div
+            style={{ textAlign: "right", fontWeight: "bold", padding: "0 16px 16px" }}
+          >
+            Total Calories in {category}: {categoryCalories.toFixed(0)} kcal
+          </div>
+        </section>
+      );
+    })}
+  </div>
+))}
+
+{/* Total calories present in pantry */}
+<p
+  style={{
+    textAlign: "center",
+    fontWeight: "bold",
+    fontSize: 18,
+    color: "#fc8019",
+    marginBottom: 8,
+  }}
+>
+  Total calories present in your pantry are {totalPantryCalories.toFixed(0)} kcal
+</p>
+
 
         {/* Visualise Your Calories Title */}
         <h1 style={orangeTitleWhiteBgStyle}>Visualise Your Calories</h1>
@@ -438,90 +437,81 @@ const CaloriePage = ({ currentUserId }) => {
         {/* Consumed Calories Section */}
         <h1 style={orangeTitleWhiteBgStyle}>Consumed Calories</h1>
 
-        <div style={{ display: "flex", flexDirection: "column", gap: 24 }}>
-          <table
-            style={{
-              width: "100%",
-              borderCollapse: "collapse",
-              boxShadow: "0 3px 12px rgba(0, 0, 0, 0.1)",
-              borderRadius: 12,
-              backgroundColor: "#fff",
-              border: "2px solid #fc8019",
-            }}
-          >
-            <thead>
-              <tr style={{ backgroundColor: "#f0f0f0" , color: "black" }}>
-                <th style={thStyle}>Picture</th>
-                <th style={thStyle}>Name</th>
-                <th style={thStyle}>Quantity Consumed</th>
-                <th style={thStyle}>Calories Per Item</th>
-                <th style={thStyle}>Total Calories</th>
-                <th style={thStyle}>Calorie Zone</th>
-              </tr>
-            </thead>
-            <tbody>
-              {pantry
-                .filter((item) => item.consumed > 0)
-                .map((item) => {
-                  const caloriesPerItem = caloriesMap[item._id] || 0;
-                  const totalCalories = caloriesPerItem * item.consumed;
+<div style={{ display: "flex", flexDirection: "column", gap: 24 }}>
+  <table
+    style={{
+      width: "100%",
+      borderCollapse: "collapse",
+      boxShadow: "0 3px 12px rgba(0, 0, 0, 0.1)",
+      borderRadius: 12,
+      backgroundColor: "#fff",
+      border: "2px solid #fc8019",
+    }}
+  >
+    <thead>
+      <tr style={{ backgroundColor: "#f0f0f0", color: "black" }}>
+        <th style={thStyle}>Picture</th>
+        <th style={thStyle}>Name</th>
+        <th style={thStyle}>Quantity Consumed</th>
+        <th style={thStyle}>Calories Per Item</th>
+        <th style={thStyle}>Total Calories</th>
+        <th style={thStyle}>Calorie Zone</th>
+      </tr>
+    </thead>
+    <tbody>
+      {pantry
+        .filter((item) => item.consumed > 0)
+        .map((item) => {
+          const caloriesPerItem = caloriesMap[item._id] || 0;
+          const totalCalories = caloriesPerItem * item.consumed;
 
-                  let zoneLabel = "";
-                  let zoneColor = "";
-                  if (caloriesPerItem < 100) {
-                    zoneLabel = "Low Calorie (Green Zone)";
-                    zoneColor = "#d0f0c0"; // light green
-                  } else if (caloriesPerItem >= 100 && caloriesPerItem <= 200) {
-                    zoneLabel = "Borderline/Moderate Calorie (Yellow Zone)";
-                    zoneColor = "#fff9c4"; // light yellow
-                  } else {
-                    zoneLabel = "High Calorie (Red Zone)";
-                    zoneColor = "#ffcccb"; // light red
+          let zoneLabel = "";
+          let zoneColor = "";
+          if (caloriesPerItem < 100) {
+            zoneLabel = "Low Calorie (Green Zone)";
+            zoneColor = "#d0f0c0"; // light green
+          } else if (caloriesPerItem >= 100 && caloriesPerItem <= 200) {
+            zoneLabel = "Borderline/Moderate Calorie (Yellow Zone)";
+            zoneColor = "#fff9c4"; // light yellow
+          } else {
+            zoneLabel = "High Calorie (Red Zone)";
+            zoneColor = "#ffcccb"; // light red
+          }
+
+          return (
+            <tr key={item._id} style={{ borderBottom: "1px solid #ddd", color: "black" }}>
+              <td style={tdStyle} data-label="Picture">
+                <img
+                  src={
+                    item.imageUrl ||
+                    `https://via.placeholder.com/50?text=${encodeURIComponent(item.name)}`
                   }
+                  alt={item.name}
+                  style={{ width: 50, height: 50, objectFit: "cover", borderRadius: 6 }}
+                />
+              </td>
+              <td style={tdStyle} data-label="Name">{item.name}</td>
+              <td style={tdStyle} data-label="Quantity Consumed">{item.consumed}</td>
+              <td style={tdStyle} data-label="Calories Per Item">{caloriesPerItem + " kcal"}</td>
+              <td style={tdStyle} data-label="Total Calories">{totalCalories.toFixed(0) + " kcal"}</td>
+              <td
+                style={{ ...tdStyle, backgroundColor: zoneColor, fontWeight: "bold" }}
+                data-label="Calorie Zone"
+              >
+                {zoneLabel}
+              </td>
+            </tr>
+          );
+        })}
+    </tbody>
+  </table>
+</div>
 
-                  return (
-                    <tr key={item._id} style={{ borderBottom: "1px solid #ddd",color: "black"  }}>
-                      <td style={tdStyle}>
-                        <img
-                          src={
-                            item.imageUrl ||
-                            `https://via.placeholder.com/50?text=${encodeURIComponent(item.name)}`
-                          }
-                          alt={item.name}
-                          style={{ width: 50, height: 50, objectFit: "cover", borderRadius: 6 }}
-                        />
-                      </td>
-                      <td style={tdStyle}>{item.name}</td>
-                      <td style={tdStyle}>{item.consumed}</td>
-                      <td style={tdStyle}>{caloriesPerItem + " kcal"}</td>
-                      <td style={tdStyle}>{totalCalories.toFixed(0) + " kcal"}</td>
-                      <td style={{ ...tdStyle, backgroundColor: zoneColor, fontWeight: "bold" }}>
-                        {zoneLabel}
-                      </td>
-                    </tr>
-                  );
-                })}
-            </tbody>
-          </table>
-        </div>
       </div>
 
       {/* Footer */}
-      <footer
-        style={{
-          textAlign: "center",
-          padding: "20px 0",
-          borderTop: "1px solid #ddd",
-          color: "#666",
-          fontSize: 16,
-          fontWeight: "bold",
-          backgroundColor: "#fff4e5",
-          marginTop: 40,
-          boxShadow: "0 -3px 10px rgb(0 0 0 / 0.1)",
-        }}
-      >
-        Track "Know your calories, control your goals!"
-      </footer>
+
+      <Footer />
 
       <style>{`
         .category-table {
