@@ -122,15 +122,19 @@ body {
 
 /* Reviews Section */
 .reviews-section {
-  background: #363636;
-  padding: 3rem 2rem;
-  text-align: center;
-  overflow: hidden;
+    background: linear-gradient(135deg, #ff6600, #ff8533); /* same orange as hero/footer */
+    color: white; /* text will be visible on orange */
+    padding: 3rem 2rem;
+    text-align: center;
+    overflow: hidden;
+    border-radius: 20px;
 }
+
 
 .reviews-section h2 {
   font-size: 2rem;
   margin-bottom: 40px;
+
 }
 
 .feedback-bubbles-row {
@@ -274,4 +278,6 @@ body {
   margin-top: 5px; /* Add some spacing */
   font-style: italic; /* Make the font italic */
 }
+
+/* Remove or comment out these lines */
 
