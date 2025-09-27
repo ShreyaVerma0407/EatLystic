@@ -3,6 +3,8 @@ import React, { useEffect, useState } from "react";
 import { FaShoppingCart, FaPlus } from "react-icons/fa";
 import { motion } from "framer-motion";
 import Navbar from "./Navbar";
+import Footer from "../components/Footer";
+
 
 const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
 const CART_BASE_URL = API_BASE_URL.replace("/api", "");
@@ -480,7 +482,9 @@ const ShoppingCart = () => {
           </motion.div>
         ))}
       </div>
+      <Footer />
     </div>
+
   );
 };
 
