@@ -374,7 +374,6 @@ const MealChef = ({ currentUserId }) => {
                   transition: "transform 0.3s ease, box-shadow 0.3s ease",
                   boxShadow: "0 8px 15px rgba(0, 0, 0, 0.3)",
                   boxSizing: "border-box",
-                  border: "2px solid #ff9800",
                   border: "none",
                    color: "#fff",
                    }}
