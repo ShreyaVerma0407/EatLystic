@@ -278,4 +278,13 @@ footer {
     white-space: normal !important;  /* allow wrapping */
   }
 }
+@media (max-width: 768px) {
+  table, thead, tbody, th, td, tr {
+    display: block !important ;
+  }
+
+  td::before {
+    content: attr(data-label) !important;
+  }
+}
 
