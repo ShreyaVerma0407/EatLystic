@@ -109,7 +109,7 @@ const Homepage = ({ onExploreFeature }) => {
 
       {/* Reviews Section with Framer Motion */}
       <section className="reviews-section">
-        <h2>What Our Users Say</h2>
+        <h1 style={{fontWeight:'bolder'}}>What Our Users Say ?</h1>
 
        {/* Row 1 - scrolls left */}
 <motion.div
@@ -175,7 +175,7 @@ const Homepage = ({ onExploreFeature }) => {
       </section>
 
       {/* Footer */}
-      {/* Footer */}
+      
 <Footer />
 
     </div>
