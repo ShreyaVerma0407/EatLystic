@@ -17,7 +17,7 @@ import {
   ResponsiveContainer,
   CartesianGrid
 } from "recharts";
-
+import Footer from './Footer';
 const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
 
 const NUTRIENTS = ["protein_g", "fat_total_g", "carbohydrates_total_g", "fiber_g"];
@@ -708,6 +708,7 @@ Nutrient Comparison
           />
         )}
       </div>
+      <Footer/>
     </>
   );
 };
