@@ -12,6 +12,7 @@
     --divider-color: #444444; /* Darker line/border color */
     --medium-badge-bg: #ffc107; /* Yellow/Amber for 'Medium' */
     --hard-badge-bg: #dc3545;   /* Red for 'Hard' */
+    --primary-color: #ff9900; /* Assuming --primary-color should be orange/accent */
 }
 
 /* Base Styles & Typography */
@@ -23,13 +24,22 @@
 
 body {
     font-family: 'Poppins', sans-serif; 
-    background-color: var(--bg-color);
+    /* 🎯 FIX: Using !important here to override any global settings. */
+    background-color: var(--bg-color) !important; 
     color: var(--text-primary);
     line-height: 1.6;
 }
 
 .recipe-hub-page {
     min-height: 100vh;
+    /* 🎯 FIX: Targeting the primary page container as well. */
+    background-color: var(--bg-color) !important; 
+}
+
+/* Added specific class for the dashboard page to ensure dark background */
+.macros-dashboard-pg {
+    background-color: var(--bg-color) !important;
+    background-image: none !important;
 }
 
 .container {
@@ -81,11 +91,13 @@ body {
 
 
 /* -------------------------------------------
-   --- Filter Section (Orange Transparent) ---
+   --- Filter Section (ORANGE BACKGROUND CORRECTED) ---
    ------------------------------------------- */
 .filter-section {
-    background-color: var(--accent-color-transparent); /* Transparent orange background */
-    border: 1px solid rgb(0,0,0); /* Orange border */
+    /* FIX: Changed transparent orange to a dark, solid card background color */
+    background-color: var(--card-bg-color); 
+    /* FIX: Changed border to a dark divider color */
+    border: 1px solid var(--divider-color); 
     padding: 30px 40px; 
     border-radius: 12px;
     margin-top: 30px;
@@ -214,7 +226,8 @@ body {
 
 .recipe-card:hover {
     transform: translateY(-5px);
-    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.5), 0 0 15px var(--accent-color-transparent);
+    /* Removed the transparent orange glow from the hover shadow */
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.5); 
 }
 
 /* Image and Badge */
@@ -264,7 +277,7 @@ body {
     border-radius: 4px;
     font-size: 0.8rem;
     font-weight: 600;
-     color: var(--bg-color); /* Ensures text is dark on light badges */
+    color: var(--bg-color); /* Ensures text is dark on light badges */
     padding: 4px 10px;
     border-radius: 4px;
     font-size: 0.8rem;
