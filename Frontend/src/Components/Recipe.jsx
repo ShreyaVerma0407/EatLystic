@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
 import Navbar from "./Navbar";
  import "../styles/recipe.css";
- import Footer from "../components/Footer";
+ import Footer from "./Footer";
 
 const FILTERS = [
   { name: "All", key: "" },

@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
-import Navbar from "./Navbar";
+import Navbar from './Navbar';
+import Footer from './Footer';
 
 // Define the categories array as it is not part of the JSON data
 const categories = ["All","Breakfast","Lunch","Dinner","Dessert","Snacks","Vegetarian","Quick & Easy","Beverages", "Quick Snack", "Side Dish"];
@@ -155,7 +156,7 @@ const TrendingPage = () => {
           {filteredRecipes.map(recipe => <RecipeCard key={recipe.id} recipe={recipe} />)}
         </div>
         {filteredRecipes.length === 0 && <p className="no-results">No recipes found.</p>}
-      </div>
+      </div><Footer/>
     </>
   );
 };

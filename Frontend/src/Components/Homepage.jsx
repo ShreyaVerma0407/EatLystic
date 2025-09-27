@@ -3,7 +3,7 @@ import "../styles/Homepage.css";
 import { useNavigate } from "react-router-dom";
 import Navbar from "./Navbar";
 import { motion } from "framer-motion";
-import Footer from "../components/Footer";
+import Footer from "./Footer";
 
 const Homepage = ({ onExploreFeature }) => {
   const featuresRef = useRef(null);
