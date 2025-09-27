@@ -1,0 +1,33 @@
+/* Target all h1 inside your hero section */
+.hero-heading {
+  font-size: clamp(4rem, 12vw, 8rem) !important; /* increased size */
+  display: flex !important;
+  flex-wrap: wrap !important;
+  justify-content: center !important;
+  align-items: center !important;
+  gap: 1rem !important; /* slightly bigger gap for larger text */
+  text-align: center !important;
+  line-height: 1.1 !important; /* tighter line-height for big text */
+}
+
+.hero-heading span {
+  display: inline-block !important;
+  background: linear-gradient(90deg, #FF7043, #FF5722) !important;
+  -webkit-background-clip: text !important;
+  -webkit-text-fill-color: transparent !important;
+}
+
+/* Tablet */
+@media (max-width: 1024px) {
+  .hero-heading { font-size: clamp(3.5rem, 10vw, 10rem) !important; gap: 0.8rem !important; }
+}
+
+/* Mobile */
+@media (max-width: 768px) {
+  .hero-heading { font-size: clamp(3rem, 12vw, 10rem) !important; gap: 0.6rem !important; }
+}
+
+/* Small Mobile */
+@media (max-width: 480px) {
+  .hero-heading { font-size: clamp(2.5rem, 14vw, 10rem) !important; gap: 0.5rem !important; }
+}
