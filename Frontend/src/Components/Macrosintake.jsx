@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import Navbar from './Navbar'; // This line was already present in your previous code
-
+import Footer from './Footer';
 // The base URL of your Express API
 const API_BASE_URL = "http://localhost:3001/api/recipes/cooked"; 
 
@@ -378,8 +378,9 @@ const IntakePage = ({ onBack, navigateToRecipes }) => {
                 >
                     ← Go Back to Dashboard
                 </button>
+                
             </div>
-        </div>
+        </div><Footer/>
     </div>
   );
 };
