@@ -1,4 +1,29 @@
 /* ---------------- Navbar ---------------- */
+/* Essential fix to remove bullets, padding, and margin from the <ul> element */
+.nav-links {
+  /* This is the key line to remove the list markers (bullets) */
+  list-style: none;
+  /* Remove default browser padding and margin on <ul> */
+  padding: 0;
+  margin: 0;
+
+  /* Your existing layout styles for the navigation links go here, e.g.: */
+  display: flex; /* For a horizontal desktop menu */
+  gap: 20px;
+}
+
+/* Ensure list items don't have residual spacing or block display issues */
+.nav-links li {
+  /* This often makes horizontal navigation easier */
+  display: inline-block;
+}
+
+/* When the menu is open (mobile view) - ensure vertical display without bullets */
+.nav-links.open {
+  /* Your existing mobile menu styles, e.g.: */
+  flex-direction: column;
+  /* ... other styles for mobile positioning ... */
+}
 .navbar {
   display: flex;
   align-items: center;
