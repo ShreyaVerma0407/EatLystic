@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Navigate } from "react-router-dom";
 import "../styles/Pantry.css";
 import Navbar from "./Navbar"; // Added Navbar import
+import Footer from "../components/Footer";
 
 const CATEGORIES = [
   "Fruits",
@@ -619,7 +620,7 @@ function Pantry({ currentUserId }) {
         })}
       </div>
 
-      <footer className="pantry-footer">© 2025 Pantry | Keep Updated with your Pantry</footer>
+     <Footer />
     </div>
   );
 }
