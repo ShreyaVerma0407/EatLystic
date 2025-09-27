@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import Navbar from './Navbar';
 import { useNavigate } from 'react-router-dom';
+import Footer from "../components/Footer";
 
 // Re-creating the icons with SVG paths to avoid external dependencies
 const ArrowLeft = (props) => (
@@ -298,7 +299,7 @@ export default function App() {
       </div>
 
       <Toast message="Message Sent Successfully!" visible={toastVisible} onClose={() => setToastVisible(false)} />
-
+ <Footer />
       {/* CSS-in-JS for styling */}
       <style jsx>{`
         .min-h-screen { min-height: 100vh; }
