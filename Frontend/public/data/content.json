@@ -3,32 +3,29 @@
     {
       "title": "Nutrient Tracker",
       "desc": "Monitor your daily nutrition intake with personalized charts and suggestions.",
-      "thumbnail": "https://img.youtube.com/vi/LXb3EKWsInQ/hqdefault.jpg",
-      "videoId": "LXb3EKWsInQ"
+      "thumbnail": "https://media.istockphoto.com/id/2233378745/photo/healthy-lifestyle-and-beauty-routine-a-fit-asian-woman-in-her-favorite-sportswear-begins-her.jpg?s=612x612&w=0&k=20&c=p8ErijFMjHy-Q3qK1ncYMjF_zOHAUHnHultW6mOGHJA="
     },
     {
       "title": "Recipe Generator",
       "desc": "Get AI-powered recipe ideas from what's in your kitchen.",
-      "thumbnail": "https://img.youtube.com/vi/M7lc1UVf-VE/hqdefault.jpg",
-      "videoId": "M7lc1UVf-VE"
+      "image": "https://media.istockphoto.com/id/1321713062/photo/old-stained-cookbook-ready-for-broth-recipe.jpg?s=612x612&w=0&k=20&c=eoY2lBYFlgJv63gRjHijzsCFmGZWgZe7ckaHlBAEqhI="
     },
     {
       "title": "KitchenSync",
       "desc": "Sync your pantry and grocery lists to never miss a meal idea.",
-      "thumbnail": "https://img.youtube.com/vi/aqz-KE-bpKQ/hqdefault.jpg",
-      "videoId": "aqz-KE-bpKQ"
+      "thumbnail": "https://media.istockphoto.com/id/1453229786/photo/organised-pantry-items-non-perishable-food-staples-healthy-eatings-fruits-vegetables-and.jpg?s=612x612&w=0&k=20&c=eyUeIG8D2zjwty1eKXHqzOshva5wOXl22BE94rwdq9A="
     },
     {
       "title": "Calorie Counter",
       "desc": "Log your meals and accurately track your calories the easy way.",
-      "thumbnail": "https://img.youtube.com/vi/ScMzIvxBSi4/hqdefault.jpg",
-      "videoId": "ScMzIvxBSi4"
+      "thumbnail": "https://media.istockphoto.com/id/1331919924/photo/technology-makes-life-so-much-easier-for-young-asian-woman-using-mobile-app-device-on.jpg?s=612x612&w=0&k=20&c=8MFgliNHfNLWxUjpZWcNtSs4dndEYQEU491ll5WF0_s="
+
     },
     {
       "title": "Fitness Goals",
       "desc": "Set and smash personalized fitness targets with our tools.",
-      "thumbnail": "https://img.youtube.com/vi/bxqLsrlakK8/hqdefault.jpg",
-      "videoId": "bxqLsrlakK8"
+      "thumbnail": "https://media.istockphoto.com/id/938509318/photo/woman-using-wearable-tech-during-running-workout-outdoors.jpg?s=612x612&w=0&k=20&c=HP4JH2Zzxs7pRAFKGkYKsldFE5fvnYewEW5VEOZvXE0="
+
     }
   ],
   "feedbacks": [
