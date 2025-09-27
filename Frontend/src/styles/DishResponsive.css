@@ -483,3 +483,22 @@
   transform: translateY(-2px) !important;
   box-shadow: 0 6px 12px rgba(250,204,21,0.3), 0 0 10px rgba(250,135,113,0.2) !important;
 }
+.dish-page .dish-img {
+  width: 100% !important;
+  max-width: 350px !important;
+  height: 300px !important; /* 🔹 increase height on small screens */
+  border-radius: 10px !important;
+  display: block !important;
+  margin: 0 auto 32px !important;
+  object-fit: contain !important; /* show full image */
+}
+
+/* Desktop */
+@media screen and (min-width: 1024px) {
+  .dish-page .dish-img {
+    max-width: 600px !important;
+    height: 400px !important; /* height for desktop */
+  }
+}
+
+
