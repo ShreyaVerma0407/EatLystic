@@ -3,6 +3,7 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import '../styles/MacrosRecipe.css'; 
 import Navbar from './Navbar';
+import Footer from './Footer';
 // --- RecipeModal Component (Unchanged) ---
 const RecipeModal = ({ recipe, onClose }) => {
     if (!recipe) return null;
@@ -221,6 +222,7 @@ const RecipeHub = () => {
             </main>
             
             <RecipeModal recipe={selectedRecipe} onClose={() => setSelectedRecipe(null)}/>
+              <Footer/>
         </div>
     );
 };
