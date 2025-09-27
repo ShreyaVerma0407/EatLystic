@@ -2,6 +2,8 @@ import React, { useState, useMemo } from "react";
 import { useNavigate } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
 import Navbar from "./Navbar";
+ import "../styles/recipe.css";
+ import Footer from "../components/Footer";
 
 const FILTERS = [
   { name: "All", key: "" },
@@ -95,6 +97,7 @@ const HeroSection = () => {
         >
           <div style={{ textAlign: "center", padding: "0 16px" }}>
             <motion.h1
+             className="hero-heading"
               initial={{ scale: 0.8, opacity: 0 }}
               animate={{ scale: 1, opacity: 1 }}
               transition={{ delay: 0.8, duration: 0.6 }}
@@ -296,6 +299,7 @@ const HeroSection = () => {
           </motion.div>
         )}
       </AnimatePresence>
+   {showContent && <Footer />}
 
       {/* Keyframes */}
       <style>{`@keyframes gradientAnimation {
