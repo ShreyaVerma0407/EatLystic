@@ -47,9 +47,9 @@ export default function Footer() {
           <h3>Quick Links</h3>
           <ul>
             <li><Link to="/">Home</Link></li>
-            <li><Link to="/about">About Us</Link></li>
+            <li><Link to="/helpdesk">HelpDesk</Link></li>
             <li><Link to="/pantryreport">Stockstat</Link></li>
-            <li><Link to="/shopping">Cartify</Link></li>
+            <li><Link to="/shoppingcart">Cartify</Link></li>
             <li><Link to="/helpdesk/contactus">Contact</Link></li>
           </ul>
         </div>
@@ -61,7 +61,7 @@ export default function Footer() {
             <li><Link to="/pantry">Pantry</Link></li>
             <li><Link to="/nutrient">Nurtilog</Link></li>
             <li><Link to="/calorie">CaloriFi</Link></li>
-            <li><Link to="/recipes">Recipe Generator</Link></li>
+            <li><Link to="/recipe">Recipe Generator</Link></li>
             <li><Link to="/fitness">Trackify</Link></li>
           </ul>
         </div>
@@ -83,14 +83,13 @@ export default function Footer() {
       </div>
 
       {/* Footer Bottom */}
-      <div className={styles.footerBottom}>
-        <p>© 2024 Eatlystic. All rights reserved. Empowering healthier lifestyles through data.</p>
-        <div className={styles.policyLinks}>
-          <a href="#">Privacy Policy</a>
-          <a href="#">Terms of Service</a>
-          <a href="#">Cookie Policy</a>
-        </div>
-      </div>
+      <div 
+  className={styles.footerBottom}
+  style={{ paddingLeft: '100px', paddingRight: '30px',fontWeight:'bolder' }} // Added left and right padding
+>
+  <h5 style={{paddingLeft:'400px'}}>© 2025 Eatlystic. All rights reserved. Empowering healthier lifestyles through data.</h5>
+ 
+</div>
     </footer>
   );
 }
