@@ -551,6 +551,9 @@ const TrendingPage = () => {
           .difficulty.medium { background:#ff9800; color:#fff; }
           .difficulty.hard { background:#f44336; color:#fff; }
           .no-results { text-align:center; margin:40px 0; color:#ccc; font-size:1.2rem; }
+          .trending-page {
+    background: linear-gradient(to bottom, #1e1e1e, #121212);
+}
         `}</style>
 
         <HeroSection searchQuery={searchQuery} onSearchChange={setSearchQuery} />

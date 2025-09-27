@@ -1,0 +1,485 @@
+/* DishResponsive.css v2: Better alignment */
+
+/* ---------------- General Container ---------------- */
+.dish-page div[style*="background-color: #181824"] {
+  padding: 1rem !important;
+  max-width: 1200px !important;
+  margin: 0 auto !important;
+}
+
+/* ---------------- Headings ---------------- */
+.dish-page h1 {
+  font-size: 3rem !important;
+  text-align: center !important;
+  margin-bottom: 1.5rem !important;
+}
+
+.dish-page h2 {
+  font-size: 2rem !important;
+  text-align: center !important;
+  margin-bottom: 1rem !important;
+}
+
+/* ---------------- Dish Image ---------------- */
+.dish-page img[alt] {
+  max-width: 100% !important;
+  height: auto !important;
+  margin: 0 auto 1.5rem !important;
+  display: block !important;
+}
+
+/* ---------------- Grid Cards (Dish Info) ---------------- */
+.dish-page div[style*="display: grid"][style*="grid-template-columns: repeat(auto-fit,minmax(150px,1fr))"] {
+  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)) !important;
+  gap: 1rem !important;
+  justify-items: center !important;
+  align-items: center !important;
+}
+
+
+/* ---------------- Ingredients Section for Small Screens Only ---------------- */
+@media (max-width: 768px) {
+  /* Ingredient Boxes as Cards */
+  .dish-page div[style*="padding: 12px"][style*="display: flex"] {
+    flex-direction: column !important;      /* stack items vertically */
+    align-items: center !important;         /* center everything */
+    justify-content: center !important;
+    padding: 16px !important;
+    background-color: #222 !important;
+    border-radius: 12px !important;
+    gap: 6px !important;
+    position: relative !important;          /* for shopping cart positioning */
+    min-width: 120px !important;
+    text-align: center !important;
+  }
+
+  /* Ingredient Image */
+  .dish-page div[style*="padding: 12px"][style*="display: flex"] img {
+    width: 48px !important;
+    height: 48px !important;
+    border-radius: 50% !important;
+    object-fit: cover !important;
+    margin-bottom: 6px !important;
+  }
+
+  /* Dot fallback */
+  .dish-page div[style*="padding: 12px"][style*="display: flex"] span:first-child {
+    width: 12px !important;
+    height: 12px !important;
+    border-radius: 50% !important;
+    margin-bottom: 6px !important;
+  }
+
+  /* Ingredient Name */
+  .dish-page div[style*="padding: 12px"][style*="display: flex"] span:nth-child(2) {
+    flex: none !important;
+    font-size: 14px !important;
+    font-weight: 500 !important;
+    word-break: break-word !important;
+    margin-bottom: 4px !important;
+  }
+
+  /* Badge */
+  .dish-page div[style*="padding: 12px"][style*="display: flex"] span:nth-child(3) {
+    flex: none !important;
+    font-size: 12px !important;
+    padding: 2px 8px !important;
+    border-radius: 12px !important;
+    margin-bottom: 6px !important;
+    display: inline-block !important;
+  }
+
+  /* Shopping cart icon at bottom-right */
+  .dish-page div[style*="padding: 12px"][style*="display: flex"] svg {
+    position: absolute !important;
+    bottom: 8px !important;
+    right: 8px !important;
+    width: 20px !important;
+    height: 20px !important;
+    cursor: pointer !important;
+    opacity: 0.8 !important;
+  }
+
+  /* Further responsive adjustments for smaller screens */
+  @media (max-width: 480px) {
+   .dish-page  div[style*="padding: 12px"][style*="display: flex"] {
+      min-width: 80px !important;
+      padding: 8px !important;
+    }
+  }
+}
+
+
+
+/* ---------------- Cooking Steps ---------------- */
+.dish-page div[style*="maxWidth: 700px"] {
+  max-width: 100% !important;
+  padding: 0 0.5rem !important;
+}
+
+.dish-page div[style*="min-height: 120px"] {
+  min-height: auto !important;
+  font-size: 1rem !important;
+  padding: 1rem !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  text-align: center !important;
+}
+
+/* Progress bar */
+.dish-page div[style*="height: 10px"] {
+  height: 8px !important;
+}
+
+/* Navigation buttons */
+.dish-page button {
+  padding: 8px 14px !important;
+  font-size: 0.95rem !important;
+  display: flex !important;
+  align-items: center !important;
+  gap: 4px !important;
+}
+
+/* ---------------- Nutrition Circles ---------------- *//* ---------------- Improved Nutrition Circles ---------------- */
+.dish-page div[style*="width: 100px"][style*="height: 100px"] {
+  width: 120px !important;
+  height: 120px !important;
+  border-radius: 50% !important;
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: center !important;
+  justify-content: center !important;
+  margin: 0.5rem !important;
+  color: #fff !important;
+  font-weight: bold !important;
+  text-align: center !important;
+  padding: 6px !important;
+
+  /* Gradient border */
+  border: 4px solid transparent !important;
+  background: linear-gradient(180deg, #181824 0%, #181824 100%) padding-box,
+              linear-gradient(135deg, #facc15, #fcd34d, #f87171) border-box !important;
+
+  /* Shadow/glow */
+  box-shadow: 0 0 10px rgba(250, 204, 21, 0.6), 0 0 25px rgba(250, 204, 21, 0.3) !important;
+
+  /* Fit text */
+  font-size: 16px !important;
+  line-height: 1.2 !important;
+  word-wrap: break-word !important;
+  overflow-wrap: break-word !important;
+  word-break: break-word !important;
+}
+
+/* Value (number) inside circle */
+.dish-page div[style*="width: 100px"][style*="height: 100px"] p:first-child {
+  font-size: 22px !important;
+  font-weight: 700 !important;
+  line-height: 1 !important;
+  margin: 0 !important;
+}
+
+/* Label inside circle */
+.dish-page div[style*="width: 100px"][style*="height: 100px"] p:last-child {
+  font-size: 12px !important; /* smaller font to fit longer words */
+  opacity: 0.85 !important;
+  margin: 0 !important;
+  text-transform: capitalize !important;
+  white-space: normal !important; /* allow wrapping */
+  word-break: break-word !important;
+}
+
+/* Hover effect */
+.dish-page div[style*="width: 100px"][style*="height: 100px"]:hover {
+  transform: scale(1.1) !important;
+  box-shadow: 0 0 15px rgba(250, 204, 21, 0.8), 0 0 30px rgba(250, 204, 21, 0.4) !important;
+}
+
+/* Responsive tweaks */
+@media (max-width: 768px) {
+  .dish-page div[style*="width: 100px"][style*="height: 100px"] {
+    width: 100px !important;
+    height: 100px !important;
+  }
+  .dish-page div[style*="width: 100px"][style*="height: 100px"] p:first-child {
+    font-size: 18px !important;
+  }
+  .dish-page div[style*="width: 100px"][style*="height: 100px"] p:last-child {
+    font-size: 10px !important;
+  }
+}
+
+@media (max-width: 480px) {
+  .dish-page div[style*="width: 100px"][style*="height: 100px"] {
+    width: 80px !important;
+    height: 80px !important;
+  }
+  .dish-page div[style*="width: 100px"][style*="height: 100px"] p:first-child {
+    font-size: 16px !important;
+  }
+  .dish-page div[style*="width: 100px"][style*="height: 100px"] p:last-child {
+    font-size: 9px !important;
+  }
+}
+
+
+/* ---------------- Download Button ---------------- */
+.dish-page button[style*="position: absolute"][style*="top: 20"] {
+  padding: 6px 12px !important;
+  font-size: 0.85rem !important;
+  top: 10px !important;
+  right: 10px !important;
+}
+
+/* ---------------- Tablet ---------------- */
+@media (max-width: 1024px) {
+  .dish-page h1 {
+    font-size: 2.5rem !important;
+  }
+
+  .dish-page h2 {
+    font-size: 1.75rem !important;
+  }
+
+  .dish-page div[style*="grid-template-columns: repeat(auto-fit,minmax(150px,1fr))"] {
+    grid-template-columns: repeat(auto-fit, minmax(130px, 1fr)) !important;
+  }
+}
+
+/* ---------------- Mobile ---------------- */
+@media (max-width: 768px) {
+  .dish-page h1 {
+    font-size: 2rem !important;
+  }
+
+  .dish-page h2 {
+    font-size: 1.5rem !important;
+  }
+
+  .dish-page div[style*="max-width: 700px"] {
+    padding: 0 0.3rem !important;
+  }
+
+  .dish-page div[style*="max-width: 900px"] {
+    grid-template-columns: 1fr !important;
+    gap: 0.5rem !important;
+  }
+
+  .dish-page span[style*="flex: 1"] {
+    font-size: 0.9rem !important;
+  }
+
+  .dish-page div[style*="padding: 12px"][style*="display: flex"] {
+    flex-direction: row !important;
+    justify-content: space-between !important;
+    align-items: center !important;
+  }
+}
+
+/* ---------------- Small Mobile ---------------- */
+@media (max-width: 480px) {
+  .dish-page h1 {
+    font-size: 1.5rem !important;
+  }
+
+  .dish-page h2 {
+    font-size: 1.25rem !important;
+  }
+
+  .dish-page div[style*="padding: 12px"][style*="display: flex"] {
+    flex-direction: column !important;
+    align-items: flex-start !important;
+    gap: 4px !important;
+  }
+
+  .dish-page svg[style*="cursor: pointer"] {
+    align-self: flex-end !important;
+  }
+
+  .dish-page span[style*="flex: 1"] {
+    width: 100% !important;
+  }
+}
+/* ---------------- Top Dish Details - Small Screens ---------------- */
+@media (max-width: 768px) {
+  /* Top cards container - first grid on the page */
+ .dish-page  div[style*="display: grid"][style*="grid-template-columns"]:first-of-type {
+    grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)) !important;
+    gap: 16px !important;
+    justify-items: center !important;
+  }
+
+  /* Each card inside top section */
+  .dish-page div[style*="display: grid"][style*="grid-template-columns"]:first-of-type > div {
+    padding: 20px !important;
+    font-size: 16px !important;
+    text-align: center !important;
+  }
+
+  /* Badge inside top section */
+  .dish-page div[style*="display: grid"][style*="grid-template-columns"]:first-of-type > div span[style*="background-color: rgba(255,255,255,0.1)"] {
+    font-size: 14px !important;
+    padding: 6px 12px !important;
+  }
+
+  /* Icons inside cards */
+  .dish-page div[style*="display: grid"][style*="grid-template-columns"]:first-of-type > div svg {
+    width: 28px !important;
+    height: 28px !important;
+    margin-bottom: 6px !important;
+  }
+
+  /* Text inside cards */
+  .dish-page div[style*="display: grid"][style*="grid-template-columns"]:first-of-type > div p {
+    font-size: 14px !important;
+    margin-bottom: 4px !important;
+  }
+}
+
+@media (max-width: 480px) {
+  .dish-page div[style*="display: grid"][style*="grid-template-columns"]:first-of-type {
+    grid-template-columns: repeat(auto-fit, minmax(120px, 1fr)) !important;
+    gap: 12px !important;
+  }
+
+  .dish-page div[style*="display: grid"][style*="grid-template-columns"]:first-of-type > div {
+    padding: 16px !important;
+    font-size: 14px !important;
+  }
+
+ .dish-page  div[style*="display: grid"][style*="grid-template-columns"]:first-of-type > div svg {
+    width: 24px !important;
+    height: 24px !important;
+  }
+
+  .dish-page div[style*="display: grid"][style*="grid-template-columns"]:first-of-type > div span[style*="background-color: rgba(255,255,255,0.1)"] {
+    font-size: 12px !important;
+    padding: 4px 10px !important;
+  }
+
+  .dish-page div[style*="display: grid"][style*="grid-template-columns"]:first-of-type > div p {
+    font-size: 12px !important;
+  }
+}
+/* ---------------- Headings Enhancements ---------------- */
+.dish-page h1 {
+  color: #facc15 !important;
+  text-shadow: 1px 1px 6px rgba(0,0,0,0.4) !important;
+}
+
+.dish-page h2 {
+  color: #fff !important;
+  text-shadow: 1px 1px 4px rgba(0,0,0,0.3) !important;
+}
+
+/* ---------------- Dish Image Enhancement ---------------- */
+.dish-page img[alt] {
+  border-radius: 16px !important;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.4) !important;
+  transition: transform 0.3s ease, box-shadow 0.3s ease !important;
+}
+
+.dish-page img[alt]:hover {
+  transform: scale(1.05) !important;
+  box-shadow: 0 12px 28px rgba(0,0,0,0.6) !important;
+}
+
+/* ---------------- Top Dish Cards Enhancement ---------------- */
+.dish-page div[style*="display: grid"][style*="grid-template-columns"]:first-of-type > div {
+  background: linear-gradient(145deg, #2a2a3c, #1b1b28) !important;
+  border-radius: 16px !important;
+  padding: 18px !important;
+  transition: transform 0.3s ease, box-shadow 0.3s ease !important;
+}
+
+.dish-page div[style*="display: grid"][style*="grid-template-columns"]:first-of-type > div:hover {
+  transform: translateY(-5px) !important;
+  box-shadow: 0 10px 20px rgba(250,204,21,0.4), 0 0 25px rgba(250,204,21,0.2) !important;
+}
+
+/* Badge inside top cards */
+.dish-page div[style*="display: grid"][style*="grid-template-columns"]:first-of-type span[style*="background-color: rgba(255,255,255,0.1)"] {
+  background: linear-gradient(135deg, #facc15, #f87171) !important;
+  color: #1b1b28 !important;
+  font-weight: 600 !important;
+  text-transform: uppercase !important;
+  letter-spacing: 0.5px !important;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.3) !important;
+}
+
+/* Icons inside top cards */
+.dish-page div[style*="display: grid"][style*="grid-template-columns"]:first-of-type > div svg {
+  transition: transform 0.2s ease, fill 0.2s ease !important;
+}
+
+.dish-page div[style*="display: grid"][style*="grid-template-columns"]:first-of-type > div svg:hover {
+  transform: scale(1.2) !important;
+  fill: #f87171 !important;
+}
+
+/* ---------------- Ingredients Cards Enhancement ---------------- */
+.dish-page div[style*="padding: 12px"][style*="display: flex"] {
+  background: linear-gradient(145deg, #2c2c3f, #1a1a28) !important;
+  border: 2px solid #facc15 !important;
+  transition: transform 0.2s ease, box-shadow 0.2s ease !important;
+}
+
+.dish-page div[style*="padding: 12px"][style*="display: flex"]:hover {
+  transform: translateY(-3px) !important;
+  box-shadow: 0 8px 15px rgba(250,204,21,0.3), 0 0 12px rgba(250,204,21,0.2) !important;
+}
+
+/* Ingredient Name */
+.dish-page div[style*="padding: 12px"][style*="display: flex"] span:nth-child(2) {
+  color: #fff !important;
+  text-shadow: 1px 1px 2px rgba(0,0,0,0.5) !important;
+}
+
+/* Ingredient Badge */
+.dish-page div[style*="padding: 12px"][style*="display: flex"] span:nth-child(3) {
+  background: linear-gradient(135deg, #facc15, #f87171) !important;
+  color: #1b1b28 !important;
+  font-weight: 600 !important;
+}
+
+/* Shopping Cart Icon */
+.dish-page div[style*="padding: 12px"][style*="display: flex"] svg {
+  fill: #facc15 !important;
+}
+
+.dish-page div[style*="padding: 12px"][style*="display: flex"] svg:hover {
+  transform: scale(1.2) !important;
+  fill: #f87171 !important;
+}
+
+/* ---------------- Nutrition Circles Enhancement ---------------- */
+.dish-page div[style*="width: 100px"][style*="height: 100px"] {
+  background: linear-gradient(135deg, #1b1b28, #2c2c3f) padding-box,
+              linear-gradient(135deg, #facc15, #f87171) border-box !important;
+  border: 4px solid transparent !important;
+}
+
+.dish-page div[style*="width: 100px"][style*="height: 100px"]:hover {
+  transform: scale(1.15) !important;
+  box-shadow: 0 0 20px rgba(250,204,21,0.5), 0 0 35px rgba(250,135,113,0.3) !important;
+}
+
+.dish-page div[style*="width: 100px"][style*="height: 100px"] p:last-child {
+  color: #facc15 !important;
+}
+
+/* ---------------- Buttons Enhancement ---------------- */
+.dish-page button {
+  background: linear-gradient(135deg, #facc15, #f87171) !important;
+  border: none !important;
+  border-radius: 8px !important;
+  color: #1b1b28 !important;
+  font-weight: 600 !important;
+  transition: transform 0.2s ease, box-shadow 0.2s ease !important;
+}
+
+.dish-page button:hover {
+  transform: translateY(-2px) !important;
+  box-shadow: 0 6px 12px rgba(250,204,21,0.3), 0 0 10px rgba(250,135,113,0.2) !important;
+}

@@ -7,14 +7,14 @@
   min-height: 100vh;
   display: flex;
   flex-direction: column;
-  padding-bottom: 120px; /* for fixed footer */
+
   box-sizing: border-box;
   position: relative;
 
   /* Make pantry-page the scroll container */
   overflow-y: auto;
   -webkit-overflow-scrolling: touch;
-  
+
   /* Default orange theme variables */
   --primary-color: #ff7f32;
   --primary-color-light: #ff9247;
@@ -464,20 +464,20 @@
   color: red;
 }
 
-.pantry-footer {
+.pantry-footer,
+.footer {
   position: fixed;
   bottom: 0;
   left: 0;
-  right: 0;
+  width: 100%;
+  z-index: 1000;
   background: var(--footer-background);
   color: var(--footer-text-color);
-  padding: 20px 0;
-  font-size: 16px;
+  padding: 18px 0;
   text-align: center;
-  user-select: none;
   border-top: 1px solid var(--footer-border-color);
-  z-index: 1000;
 }
+
 
 /* Responsive */
 @media (max-width: 980px) {
@@ -520,4 +520,11 @@
   .global-filters select {
     min-width: auto;
   }
+}
+.footer {
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  z-index: 1000; /* ensures it's on top */
 }

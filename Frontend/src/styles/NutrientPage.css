@@ -106,6 +106,14 @@ th {
   flex: 1 !important;
   min-width: 250px !important;
 }
+/* Chart card border */
+.chart-card-highlight {
+  border: 2px solid #FF6347 !important;  /* Red border */
+  border-radius: 12px !important;         /* Rounded corners */
+  padding: 16px !important;               /* Space inside the card */
+  background-color: #fff !important;      /* White background */
+  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.1) !important; /* Optional shadow */
+}
 
 /* Barcode Scanner */
 .barcode-scanner {
@@ -161,5 +169,26 @@ th {
 
   .barcode-scanner {
     height: 180px !important;
+  }
+}
+@media (max-width: 768px) {
+  table, thead, tbody, th, td, tr {
+    display: block !important ;
+  }
+
+  td::before {
+    content: attr(data-label) !important;
+  }
+}
+/* Keep nutrient-summary table headings visible on small screens */
+@media (max-width: 768px) {
+  /* Exclude nutrient-summary from block display */
+  table.nutrient-summary,
+  table.nutrient-summary thead,
+  table.nutrient-summary tbody,
+  table.nutrient-summary tr,
+  table.nutrient-summary th,
+  table.nutrient-summary td {
+    display: table !important; /* revert to normal table layout */
   }
 }

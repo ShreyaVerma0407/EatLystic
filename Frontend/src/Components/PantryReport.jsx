@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import jsPDF from "jspdf";
 import autoTable from "jspdf-autotable";
 import Navbar from "./Navbar";
+import Footer from "../components/Footer";
 
 const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
 const EMAIL_BASE_URL = API_BASE_URL.replace("/api", "");
@@ -396,8 +397,10 @@ const PantryReport = ({ userId }) => {
               {groupedItems[category].map(renderItem)}
             </ul>
           </div>
+
         ))}
       </div>
+         <Footer />
 
       <style>{`
   body {

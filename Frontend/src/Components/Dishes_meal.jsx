@@ -10,7 +10,10 @@ import {
   Download,
 } from "lucide-react";
 import jsPDF from "jspdf";
+import pluralize from "pluralize";
 import Navbar from "./Navbar";
+import "../styles/DishesMealResponsive.css";
+
 
 // 🌟 Simple Badge component
 const Badge = ({ text }) => (
@@ -38,9 +41,13 @@ const Dishes_meal = () => {
   const [recentlyAdded, setRecentlyAdded] = useState([]);
   const pageRef = useRef();
   const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
+  const CART_BASE_URL = API_BASE_URL.replace("/api", "");
   const location = useLocation();
   const { id } = useParams();
   const navigate = useNavigate();
+  const [ingredientImages, setIngredientImages] = useState({});
+
+
 
   const [recipe, setRecipe] = useState(location.state?.recipeDetails || null);
   const [loading, setLoading] = useState(true);
@@ -98,60 +105,147 @@ const Dishes_meal = () => {
         .catch((err) => console.error("Unsplash error:", err));
     }
   }, [recipe]);
+// ⭐ NEW: fetch ingredient images from Edamam
+  useEffect(() => {
+  if (recipe?.ingredients?.length) {
+    const APP_ID = import.meta.env.VITE_EDAMAM_APP_ID;
+      const APP_KEY = import.meta.env.VITE_EDAMAM_APP_KEY;
 
+    recipe.ingredients.forEach((ing) => {
+      fetch(
+        `https://api.edamam.com/api/food-database/v2/parser?app_id=${APP_ID}&app_key=${APP_KEY}&ingr=${encodeURIComponent(ing.name || ing)}`
+      )
+        .then((res) => res.json())
+        .then((data) => {
+          const img = data.parsed?.[0]?.food?.image;
+          if (img) {
+            setIngredientImages((prev) => ({ ...prev, [ing.name]: img }));
+          }
+        })
+        .catch((err) => console.error("Edamam error:", err));
+    });
+  }
+}, [recipe]);
+
+
+   useEffect(() => {
+  const userId = localStorage.getItem("userId");
+  const localCart = JSON.parse(localStorage.getItem("cartItems") || "[]");
+
+  if (!userId) {
+    setCartItems(localCart);
+    return;
+  }
+
+  fetch(`${CART_BASE_URL}/cart/${userId}`)
+    .then((res) => res.json())
+    .then((data) => {
+      if (data.status === "success") {
+        // Merge backend cart with localStorage cart
+        const backendCart = data.cart || [];
+        const mergedCart = [...backendCart];
+
+        localCart.forEach((lcItem) => {
+          const exists = mergedCart.find((b) => b.name === lcItem.name);
+          if (exists) {
+            exists.quantity += lcItem.quantity;
+          } else {
+            mergedCart.push(lcItem);
+          }
+        });
+
+        setCartItems(mergedCart);
+        localStorage.setItem("cartItems", JSON.stringify(mergedCart));
+      } else {
+        // fallback: just use localStorage cart
+        setCartItems(localCart);
+      }
+    })
+    .catch((err) => {
+      console.error("Error fetching cart:", err);
+      setCartItems(localCart);
+    });
+}, []);
+
+// 🔹 Add pantryItems state to Dish.jsx
+  const [pantryItems, setPantryItems] = useState([]);
+
+  // Fetch pantry items on load
   useEffect(() => {
     const userId = localStorage.getItem("userId");
     if (!userId) return;
 
-    const CART_BASE_URL = import.meta.env.VITE_CART_BASE_URL;
-    fetch(`${CART_BASE_URL}/cart/${userId}`)
+    fetch(`${API_BASE_URL}/pantry/${userId}`)
       .then((res) => res.json())
       .then((data) => {
-        if (data.status === "success") setCartItems(data.cart);
+        if (data.status === "success") setPantryItems(data.data);
       })
-      .catch((err) => console.error("Error fetching cart:", err));
+      .catch((err) => console.error("Error fetching pantry:", err));
   }, []);
 
-  const addToCart = async (itemName) => {
-    const userId = localStorage.getItem("userId");
-    if (!userId) return alert("Please login to add items to cart.");
+  // Helper: get ingredient badge
+  // Normalize string into lowercase singular words
+  const normalizeWords = (str) =>
+    str
+      .toLowerCase()
+      .replace(/[^a-zA-Z0-9 ]/g, "")
+      .split(" ")
+      .map(pluralize.singular);
 
-    const existing = cartItems.find((i) => i.name === itemName);
-    let updatedCart = existing
-      ? cartItems.map((i) =>
-          i.name === itemName ? { ...i, quantity: i.quantity + 1 } : i
-        )
-      : [...cartItems, { name: itemName, quantity: 1 }];
+  // Helper: get badge for ingredient
+  const getIngredientBadge = (ingredientName) => {
+    const ingWords = normalizeWords(ingredientName);
 
-    setCartItems(updatedCart);
+    const pantryItem = pantryItems.find((p) => {
+      const pantryWords = normalizeWords(p.name);
+      return pantryWords.some((w) => ingWords.includes(w));
+    });
 
-    setRecentlyAdded((prev) => [
-      { name: itemName, quantity: 1 },
-      ...prev.filter((i) => i.name !== itemName),
-    ]);
+    if (!pantryItem || pantryItem.quantity < 1) return "Missing";
+    if (pantryItem.expiryDate && new Date(pantryItem.expiryDate) <= new Date())
+      return "Expiring";
+    if (pantryItem.quantity <= 2) return "Low Stock";
 
-    try {
-      const CART_BASE_URL = import.meta.env.VITE_CART_BASE_URL;
-      await fetch(`${CART_BASE_URL}/cart/add`, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ userId, item: { name: itemName, quantity: 1 } }),
-      });
-      alert(`"${itemName}" added to cart!`);
-    } catch (err) {
-      console.error("Error syncing cart:", err);
-    }
-
-    const currentRecipes = JSON.parse(
-      localStorage.getItem("favoriteRecipes") || "[]"
-    );
-    if (!currentRecipes.find((r) => r.name === recipe.name)) {
-      localStorage.setItem(
-        "favoriteRecipes",
-        JSON.stringify([...currentRecipes, recipe])
-      );
-    }
+    return "Sufficient"; // ✅ Always return something
   };
+
+
+ const addToCart = async (itemName) => {
+  const userId = localStorage.getItem("userId");
+  if (!userId) return alert("Please login to add items to cart.");
+
+  const existing = cartItems.find(i => i.name === itemName);
+
+  const updatedCart = existing
+    ? cartItems.map(i =>
+        i.name === itemName ? { ...i, quantity: i.quantity + 1 } : i
+      )
+    : [...cartItems, { name: itemName, quantity: 1 }];
+
+  setCartItems(updatedCart);
+  localStorage.setItem("cartItems", JSON.stringify(updatedCart));
+
+  // Update backend
+  try {
+    await fetch(`${CART_BASE_URL}/cart/add`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ userId, item: { name: itemName, quantity: 1 } }),
+    });
+    alert(`"${itemName}" added to cart!`);
+  } catch (err) {
+    console.error("Error syncing cart:", err);
+  }
+
+  // Update favoriteRecipes
+  const currentRecipes = JSON.parse(localStorage.getItem("favoriteRecipes") || "[]");
+  if (!currentRecipes.find((r) => r.name === recipe.name)) {
+    localStorage.setItem(
+      "favoriteRecipes",
+      JSON.stringify([...currentRecipes, recipe])
+    );
+  }
+};
 
   const handleDownloadPDF = () => {
     if (!recipe) return;
@@ -291,6 +385,7 @@ const Dishes_meal = () => {
     <>
       <Navbar />
       <div
+      className="dishes-meal-page"
         style={{
           backgroundColor: "#181824",
           minHeight: "100vh",
@@ -436,18 +531,36 @@ const Dishes_meal = () => {
           }}
         >
           {(recipe.ingredients || []).map((item, idx) => {
-            return (
-              <div key={idx} style={ingredientBox("#222", "#fefce8")}>
-                <span style={dot("#facc15")}></span>
-                <span style={{ flex: 1 }}>{item.name}</span>
-                <ShoppingCart
-                  size={20}
-                  style={{ cursor: "pointer", opacity: 0.7 }}
-                  onClick={() => addToCart(item.name)}
-                />
-              </div>
-            );
-          })}
+  const badgeText = getIngredientBadge(item.name); // ✅ Compute badge
+  return (
+    <div key={idx} style={ingredientBox("#222", "#fefce8")}>
+         {ingredientImages[item] ? (
+                  <img
+                    src={ingredientImages[item]}
+                    alt={item}
+                    style={{
+                      width: 28,
+                      height: 28,
+                      borderRadius: "50%",
+                      objectFit: "cover",
+                    }}
+                  />
+                ) : (
+                  <span style={dot("#facc15")}></span>
+                )}
+
+
+      <span style={{ flex: 1 }}>{item.name}</span>
+      <Badge text={badgeText} />  {/* ✅ Display badge */}
+      <ShoppingCart
+        size={20}
+        style={{ cursor: "pointer", opacity: 0.7 }}
+        onClick={() => addToCart(item.name)}
+      />
+    </div>
+  );
+})}
+
         </div>
 
         <div style={{ maxWidth: 700, margin: "0 auto 48px" }}>

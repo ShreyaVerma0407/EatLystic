@@ -12,6 +12,9 @@ import {
 import jsPDF from "jspdf";
 import pluralize from "pluralize";
 import Navbar from "./Navbar"; // Assuming Navbar is in the same directory
+import "../styles/DishResponsive.css";
+
+
 
 // 🌟 Simple Badge component
 const Badge = ({ text }) => (
@@ -48,6 +51,7 @@ const Dish = () => {
 
   // ✅ Try to get recipe from navigation state (liked page) or fallback to food.json
   let recipe = location.state?.recipe;
+
 
   useEffect(() => {
     if (!recipe) {
@@ -369,15 +373,17 @@ const Dish = () => {
     <>
       <Navbar /> {/* Render the Navbar component here */}
       <div
-        style={{
-          backgroundColor: "#181824",
-          minHeight: "100vh",
-          padding: "2rem 3rem",
-          color: "white",
-          position: "relative",
-        }}
-        ref={pageRef}
-      >
+  className="dish-page"   // 👈 add this
+  style={{
+    backgroundColor: "#181824",
+    minHeight: "100vh",
+    padding: "2rem 3rem",
+    color: "white",
+    position: "relative",
+  }}
+  ref={pageRef}
+>
+
         {/* 🔹 Download Button */}
         <button
           onClick={handleDownloadPDF}

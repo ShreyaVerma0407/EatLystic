@@ -19,6 +19,7 @@ import Webcam from "react-webcam";
 import * as tf from "@tensorflow/tfjs";
 import Quagga from "@ericblade/quagga2";
 import "../styles/NutrientPage.css";
+import Footer from "../components/Footer";
 
 // -------------------- Error Boundary --------------------
 class ErrorBoundary extends React.Component {
@@ -503,18 +504,56 @@ useEffect(() => {
     (category) => category !== "All" && (pantryByCategory[category] || []).length > 0
   );
 
-  // -------------------- Charts --------------------
-  const barChartData = filteredPantry.map(item => {
+
+ // -------------------- Charts --------------------
+const barChartData = filteredPantry
+  .filter(item => item.consumed && item.consumed > 0) // <-- filter only consumed items
+  .map(item => {
     const nutrients = nutritionCache[item.name]?.nutrients || {};
     const data = { name: item.name };
     NUTRIENTS.forEach(n => data[n] = (nutrients[n] || 0) * (item.consumed || 0));
     return data;
   });
 
-  const pieChartData = filteredCategories.map((category, idx) => {
-    const items = pantryByCategory[category] || [];
-    return { name: category, value: items.length };
-  });
+ const pieChartData = filteredCategories.map((category) => {
+  const items = pantryByCategory[category] || [];
+  const consumedItems = items.filter(item => item.consumed && item.consumed > 0);
+
+  // sum consumed nutrients
+  const totalNutrients = consumedItems.reduce((acc, item) => {
+    const nutrients = nutritionCache[item.name]?.nutrients || {};
+    NUTRIENTS.forEach(n => {
+      acc[n] = (acc[n] || 0) + (nutrients[n] || 0) * item.consumed;
+    });
+    return acc;
+  }, {});
+
+  return {
+    name: category,
+    value: consumedItems.length, // slice size
+    nutrients: totalNutrients,   // store total nutrients
+  };
+}).filter(entry => entry.value > 0); // remove empty categories
+
+// toolpit for pie chart
+const CustomPieTooltip = ({ active, payload }) => {
+  if (active && payload && payload.length) {
+    const data = payload[0].payload;
+    return (
+      <div style={{ backgroundColor: "#fff", padding: 10, border: "1px solid #ccc" }}>
+        <strong>{data.name}</strong>
+        <ul style={{ margin: 0, paddingLeft: 20 }}>
+          {NUTRIENTS.map(n => (
+            <li key={n}>
+              {n.replace("_", " ")}: {data.nutrients[n] ? data.nutrients[n].toFixed(2) : 0} g
+            </li>
+          ))}
+        </ul>
+      </div>
+    );
+  }
+  return null;
+};
 
   // -------------------- High / Medium / Low Logic --------------------
   const categorizeNutrient = (val, nutrient) => {
@@ -541,6 +580,7 @@ useEffect(() => {
   return (
     <>
       <Navbar style={{ backgroundColor: "transparent" }} />
+
       <div
        style={{
     minHeight: "100vh",
@@ -577,6 +617,10 @@ useEffect(() => {
   <h1 style={{ textAlign: "center", color: "#FF6347", marginBottom: "30px" }}>
     Consumed Nutrients
   </h1>
+<p style={{ textAlign: "center", fontSize: 12, color: "#888", marginTop: 20 }}>
+  All nutrient values are in grams (g) per 100g of the product.
+</p>
+
 </div>
 
         <div style={{ position: "relative", zIndex: 1 }}>
@@ -648,123 +692,223 @@ useEffect(() => {
 
           </div>
 
-          {/* Pantry Tables */}
-          {filteredCategories.map((category) => {
-            const items = pantryByCategory[category];
-            if (!items || items.length === 0) return null;
-            return (
-              <section key={category} style={sectionStyle}>
-                <h2 style={{ textAlign: "center", color: "#333", borderBottom: "2px solid #f0f0f0", paddingBottom: 8 }}>{category}</h2>
-                <div style={{ overflowX: "auto" ,}}>
-                  <table style={{ width: "100%", color: "black" ,borderCollapse: "collapse", minWidth: 600 }}>
-                    <thead style={{ color: "#FF6347" }}>
-                      <tr>
-                        <th style={thStyle}>Picture</th>
-                        <th style={thStyle}>Name</th>
-                        <th style={thStyle}>Quantity</th>
-                        {NUTRIENTS.map((n) => <th key={n} style={thStyle}>{n.replace("_", " ")}</th>)}
-                      </tr>
-                    </thead>
-                    <tbody>
-                      {items.map((item) => {
-                        const nutrients = nutritionCache[item.name]?.nutrients || {};
-                        return (
-                          <tr key={item._id} style={{ borderBottom: "1px solid #e0e0e0" }}>
-                            <td style={tdStyle}>
-                              <img
-                                src={item.imageUrl || `https://via.placeholder.com/50?text=${encodeURIComponent(item.name)}`}
-                                alt={item.name}
-                                style={{ width: 50, height: 50, objectFit: "cover",borderRadius: 4 }}
-                              />
-                            </td>
-                            <td style={tdStyle}>{item.name}</td>
-                            <td style={tdStyle}>{item.quantity}</td>
-                            {NUTRIENTS.map((n) => (
-                              <td key={n} style={tdStyle}>{formatNutrient((nutrients[n] || 0) * (item.consumed ||0))}</td>
-                            ))}
-                          </tr>
-                        );
-                      })}
-                    </tbody>
-                  </table>
-                </div>
-              </section>
+        {/* -------------------- Pantry Tables (Responsive Fixed) -------------------- */}
+{filteredCategories.map((category, index) => {
+  const items = pantryByCategory[category];
+  if (!items || items.length === 0) return null;
 
-            );
-          })}
+  return (
+    <section key={category} style={{ marginTop: index === 0 ? 20 : 40 }}>
+      {/* Category Header */}
+      <h2
+        style={{
+          textAlign: "center",
+          color: "#333",
+          borderBottom: "2px solid #f0f0f0",
+          paddingBottom: 8,
+          marginBottom: 16,
+          fontSize: 22,
+          fontWeight: "bold",
+        }}
+      >
+        {category}
+      </h2>
+
+      {/* Table Container */}
+      <div style={{ overflowX: "auto" }}>
+        <table
+          style={{
+            width: "100%",
+            minWidth: 700, // ensures table doesn't shrink too much
+            borderCollapse: "collapse",
+            tableLayout: "fixed", // keeps columns fixed width
+            color: "black",
+            boxShadow: "0 3px 12px rgba(0,0,0,0.1)",
+            borderRadius: 12,
+            backgroundColor: "#fff",
+            border: "2px solid #FF6347",
+          }}
+        >
+          <thead style={{ color: "#FF6347", backgroundColor: "#f7f7f7" }}>
+            <tr>
+              <th style={{ minWidth: 60, textAlign: "center" }}>Picture</th>
+              <th style={{ minWidth: 120, textAlign: "center" }}>Name</th>
+              <th style={{ minWidth: 80, textAlign: "center" }}>Quantity</th>
+              {NUTRIENTS.map((n) => (
+                <th
+                  key={n}
+                  style={{
+                    minWidth: 80,
+                    textAlign: "center",
+                    wordBreak: "break-word", // prevents overlap
+                    whiteSpace: "normal",
+                  }}
+                >
+                  {n.replace("_", " ")}
+                </th>
+              ))}
+            </tr>
+          </thead>
+
+          <tbody>
+            {items.map((item) => {
+              const nutrients = nutritionCache[item.name]?.nutrients || {};
+              return (
+                <tr key={item._id} style={{ borderBottom: "1px solid #e0e0e0" }}>
+                  <td style={{ textAlign: "center" }} data-label="Picture">
+                    <img
+                      src={
+                        item.imageUrl ||
+                        `https://via.placeholder.com/50?text=${encodeURIComponent(
+                          item.name
+                        )}`
+                      }
+                      alt={item.name}
+                      style={{ width: 50, height: 50, objectFit: "cover", borderRadius: 6 }}
+                    />
+                  </td>
+                  <td style={{ textAlign: "center" }} data-label="Name">{item.name}</td>
+                  <td style={{ textAlign: "center" }} data-label="Quantity">{item.quantity}</td>
+                  {NUTRIENTS.map((n) => (
+                    <td
+                      key={n}
+                      style={{ textAlign: "center", wordBreak: "break-word" }}
+                      data-label={n.replace("_", " ")}
+                    >
+                      {formatNutrient((nutrients[n] || 0) * (item.consumed || 0))}
+                    </td>
+                  ))}
+                </tr>
+              );
+            })}
+          </tbody>
+        </table>
+      </div>
+    </section>
+  );
+})}
 
           {/* Charts Row */}
-          <div style={{ display: "flex", gap: 20, flexWrap: "wrap", marginTop: 40 }}>
-            {/* Bar Chart */}
-            <div style={chartCardStyle}>
-              <h3>Consumed Nutrients by Item</h3>
-              <ResponsiveContainer width="100%" height={300}>
-                <BarChart data={barChartData} margin={{ top: 20, right: 30, left: 0, bottom: 20 }}>
-                  <XAxis dataKey="name" />
-                  <YAxis />
-                  <Tooltip />
-                  <Legend />
-                  {NUTRIENTS.map((n, idx) => (
-                    <Bar key={n} dataKey={n} fill={BAR_COLORS[idx % BAR_COLORS.length]} />
-                  ))}
-                </BarChart>
-              </ResponsiveContainer>
-            </div>
+<div style={{ display: "flex", gap: 20, flexWrap: "wrap", marginTop: 40 }}>
+  {/* Bar Chart */}
+  <div style={chartCardStyle} className="chart-card-highlight">
+    <h3>Consumed Nutrients by Item</h3>
+    <ResponsiveContainer width="100%" height={300}>
+      <BarChart data={barChartData} margin={{ top: 20, right: 30, left: 0, bottom: 20 }}>
+        <XAxis dataKey="name" />
+        <YAxis />
+        <Tooltip />
+        <Legend />
+        {NUTRIENTS.map((n, idx) => (
+          <Bar key={n} dataKey={n} fill={BAR_COLORS[idx % BAR_COLORS.length]} />
+        ))}
+      </BarChart>
+    </ResponsiveContainer>
+  </div>
 
-            {/* Pie Chart */}
-            <div style={chartCardStyle}>
-              <h3>Items by Category</h3>
-              <ResponsiveContainer width="100%" height={300}>
-                <PieChart>
-                  <Pie
-                    data={pieChartData}
-                    dataKey="value"
-                    nameKey="name"
-                    outerRadius={100}
-                    fill="#8884d8"
-                    label={(entry) => `${entry.name} (${entry.value})`}
-                  >
-                    {pieChartData.map((entry, index) => (
-                      <Cell key={`cell-${index}`} fill={PIE_COLORS[index % PIE_COLORS.length]} />
-                    ))}
-                  </Pie>
-                  <Tooltip />
-                </PieChart>
-              </ResponsiveContainer>
-            </div>
-          </div>
+  {/* Pie Chart */}
+  <div style={chartCardStyle} className="chart-card-highlight">
+    <h3>Items by Category</h3>
+    <ResponsiveContainer width="100%" height={300}>
+      <PieChart>
+        <Pie
+          data={pieChartData}
+          dataKey="value"
+          nameKey="name"
+          outerRadius={100}
+          fill="#8884d8"
+          label={(entry) => `${entry.name} (${entry.value})`}
+        >
+          {pieChartData.map((entry, index) => (
+            <Cell key={`cell-${index}`} fill={PIE_COLORS[index % PIE_COLORS.length]} />
+          ))}
+        </Pie>
+        <Tooltip content={<CustomPieTooltip />} />
 
-          {/* High / Medium / Low Summary Table */}
-          <div style={{ marginTop: 40, overflowX: "auto" }}>
-          <h3 style={{ textAlign: "center",color: "black" }}>Consumed Nutrients Summary</h3>
+      </PieChart>
+    </ResponsiveContainer>
+  </div>
+</div>
 
-            <table style={{ width: "100%", borderCollapse: "collapse", minWidth: 800, color: "black" }}>
-              <thead style={{ backgroundColor: "#f7f7f7",color: "#FF6347"  }}>
-                <tr>
-                  <th style={thStyle}>Name</th>
-                  {NUTRIENTS.map((n) => <th key={n} style={thStyle}>{n.replace("_", " ")}</th>)}
-                </tr>
-              </thead>
-              <tbody>
-                {pantryItems.map((item) => {
-                  const nutrients = nutritionCache[item.name]?.nutrients || {};
-                  return (
-                    <tr key={item._id} style={{ borderBottom: "1px solid #e0e0e0" }}>
-                      <td style={tdStyle}>{item.name}</td>
-                      {NUTRIENTS.map((n) => {
-                        const level = categorizeNutrient(nutrients[n], n);
-                        return (
-                          <td key={n} style={{ ...tdStyle, fontWeight: "bold", color: nutrientColor(level) }}>
-                            {level}
-                          </td>
-                        );
-                      })}
-                    </tr>
-                  );
-                })}
-              </tbody>
-            </table>
-          </div>
+       {/* High / Medium / Low Summary Table with Pictures */}
+<div style={{ marginTop: 40, overflowX: "auto" }}>
+  <h3 style={{ textAlign: "center", color: "black", marginBottom: 16 }}>
+    Consumed Nutrients Summary
+  </h3>
+
+  <table
+    style={{
+      width: "100%",
+      borderCollapse: "collapse",
+      minWidth: 800,
+      boxShadow: "0 3px 12px rgba(0, 0, 0, 0.1)",
+      borderRadius: 12,
+      backgroundColor: "#fff",
+      border: "2px solid #FF6347",
+    }}
+  >
+    <thead style={{ backgroundColor: "#f7f7f7", color: "#FF6347" }}>
+      <tr>
+        <th style={thStyle}>Picture</th>
+        <th style={thStyle}>Name</th>
+        {NUTRIENTS.map((n) => (
+          <th key={n} style={thStyle}>
+            {n.replace("_", " ")}
+          </th>
+        ))}
+      </tr>
+    </thead>
+
+    <tbody>
+      {pantryItems.map((item) => {
+        const nutrients = nutritionCache[item.name]?.nutrients || {};
+        return (
+          <tr key={item._id} style={{ borderBottom: "1px solid #e0e0e0" }}>
+            {/* Picture */}
+            <td style={tdStyle} data-label="Picture">
+              <img
+                src={
+                  item.imageUrl ||
+                  `https://via.placeholder.com/50?text=${encodeURIComponent(
+                    item.name
+                  )}`
+                }
+                alt={item.name}
+                style={{ width: 50, height: 50, objectFit: "cover", borderRadius: 6 }}
+              />
+            </td>
+
+            {/* Name */}
+            <td style={tdStyle} data-label="Name">{item.name}</td>
+
+            {/* Nutrients */}
+            {NUTRIENTS.map((n) => {
+              const level = categorizeNutrient(nutrients[n], n);
+              return (
+                <td
+                  key={n}
+                  style={{
+                    ...tdStyle,
+                    fontWeight: "bold",
+                    color: nutrientColor(level),
+                    textAlign: "center",
+                  }}
+                  data-label={n.replace("_", " ")}
+                >
+                  {level}
+                </td>
+              );
+            })}
+          </tr>
+        );
+      })}
+    </tbody>
+  </table>
+</div>
+
+
+
+
           </div>
 </>
 
@@ -810,30 +954,40 @@ const thStyle = {
   textAlign: "left",
   padding: "8px",
   borderBottom: "2px solid #ddd",
+  wordBreak: "break-word",
+  whiteSpace: "normal", // allow wrapping
 };
+
 
 const tdStyle = {
   padding: "8px",
   borderBottom: "1px solid #eee",
+  wordBreak: "break-word", // responsive for long text
 };
 
 const chartCardStyle = {
   ...cardStyle,
   flex: 1,
   minWidth: 300,
-};
 
+};
 
 export default function NutrientPage() {
   return (
     <ErrorBoundary>
       <div
         style={{
+          display: "flex",
+          flexDirection: "column",
           minHeight: "100vh",
           background: "linear-gradient(to bottom, #fff8f0, #ffe6cc)",
         }}
       >
-        <NutrientPageContent />
+        <div style={{ flex: 1 }}>
+          <NutrientPageContent />
+        </div>
+
+        <Footer />
       </div>
     </ErrorBoundary>
   );

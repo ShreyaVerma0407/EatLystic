@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Navbar from '../Components/Navbar';
+import Footer from "../components/Footer";
 
 const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
 
@@ -273,6 +274,7 @@ const Customise = ({ userId }) => {
                         </div>
                     )}
                 </div>
+                <Footer />
             </div>
         </div>
     );
