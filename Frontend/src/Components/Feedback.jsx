@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom"; // <-- Import navigate hook
 import Navbar from "./Navbar";
-
+import Footer from './Footer';
 // Helper function to render star icons
 const renderStars = (stars) => {
   const starIcons = [];
@@ -36,8 +36,8 @@ export default function Feedback() {
 
   // Styles for Back button (matches your screenshot)
   const backButtonStyle = {
-    backgroundColor: "rgba(255, 255, 255, 0.1)",
-    color: "white",
+    backgroundColor: "rgba(0, 0, 0, 0.1)",
+    color: "black", // Changed to black for contrast
     border: "none",
     padding: "0.5rem 1rem",
     borderRadius: "8px",
@@ -53,11 +53,22 @@ export default function Feedback() {
   // Back button hover handlers
   function handleBackButtonHover(e, entering) {
     if (entering) {
-      e.currentTarget.style.backgroundColor = "rgba(255, 255, 255, 0.2)";
+      e.currentTarget.style.backgroundColor = "rgba(0, 0, 0, 0.2)";
     } else {
-      e.currentTarget.style.backgroundColor = "rgba(255, 255, 255, 0.1)";
+      e.currentTarget.style.backgroundColor = "rgba(0, 0, 0, 0.1)";
     }
   }
+
+  // Handle hover for review divs
+  const handleReviewDivHover = (e, entering) => {
+    if (entering) {
+      e.currentTarget.style.borderColor = "#f97316"; // Darker orange on hover
+      e.currentTarget.style.boxShadow = "0 4px 10px rgba(249, 115, 22, 0.3)"; // Optional subtle shadow
+    } else {
+      e.currentTarget.style.borderColor = "#f97316"; // Original orange border
+      e.currentTarget.style.boxShadow = "none";
+    }
+  };
 
   // Back button click - navigate to /helpdesk
   function handleBackClick() {
@@ -201,12 +212,12 @@ export default function Feedback() {
   const allReviews = [...userReviews, ...dummyReviews];
 
   return (
-    <div style={{ minHeight: "100vh", backgroundColor: "#000000", color: "#e0e0e0" }}>
+    <div style={{ minHeight: "100vh", backgroundColor: "#fef3c7", color: "#374151" }}>
       {/* Navbar */}
       <Navbar />
 
       {/* Header with gradient background */}
-      <div style={{ background: "linear-gradient(to right, #000000ff, #b54b04ff)", padding: "24px" }}>
+      <div style={{ background: "linear-gradient(to right, #f97316, #f97316)", padding: "24px" }}>
         <button
           style={backButtonStyle}
           onClick={handleBackClick}
@@ -216,7 +227,8 @@ export default function Feedback() {
           <span>←</span>
           Back to Help Desk
         </button>
-        <div style={{ textAlign: "center" }}>
+        {/* Transparent black background for heading and paragraph */}
+        <div style={{ textAlign: "center", backgroundColor: "rgba(0, 0, 0, 0.3)", padding: "16px", borderRadius: "8px" }}>
           <h1 style={{ fontSize: "48px", fontWeight: "bold", color: "white", marginBottom: "16px" }}>
             Feedback
           </h1>
@@ -231,14 +243,18 @@ export default function Feedback() {
         <div
           style={{
             padding: "24px",
-            backgroundColor: "#2d2d2d",
+            backgroundColor: "#ffffff", // Changed to White
             borderRadius: "8px",
             marginBottom: "32px",
-            border: "1px solid white",
+            border: "2px solid #f97316", // Thin orange border
+            color: "#374151", // Text color inside form changed to dark gray
+            transition: "border-color 0.3s ease-in-out, box-shadow 0.3s ease-in-out", // Added transition
           }}
+          onMouseEnter={(e) => handleReviewDivHover(e, true)}
+          onMouseLeave={(e) => handleReviewDivHover(e, false)}
         >
           <h2
-            style={{ fontSize: "24px", fontWeight: "semibold", marginBottom: "16px", color: "white" }}
+            style={{ fontSize: "24px", fontWeight: "semibold", marginBottom: "16px", color: "#1f2937" }} // Header color adjusted
           >
             {editingReview ? "Edit Your Review" : "Write a Review"}
           </h2>
@@ -258,9 +274,9 @@ export default function Feedback() {
                 style={{
                   width: "100%",
                   padding: "8px",
-                  backgroundColor: "#3a3a3a",
-                  color: "white",
-                  border: "1px solid #555",
+                  backgroundColor: "#f3f4f6", // Light input background
+                  color: "#1f2937", // Dark text color
+                  border: "1px solid #d1d5db",
                   borderRadius: "4px",
                 }}
               />
@@ -302,9 +318,9 @@ export default function Feedback() {
                 style={{
                   width: "100%",
                   padding: "8px",
-                  backgroundColor: "#3a3a3a",
-                  color: "white",
-                  border: "1px solid #555",
+                  backgroundColor: "#f3f4f6", // Light input background
+                  color: "#1f2937", // Dark text color
+                  border: "1px solid #d1d5db",
                   borderRadius: "4px",
                 }}
               />
@@ -331,8 +347,8 @@ export default function Feedback() {
                     padding: "10px 20px",
                     borderRadius: "4px",
                     backgroundColor: "transparent",
-                    color: "white",
-                    border: "1px solid #555",
+                    color: "#374151", // Changed to dark gray for contrast
+                    border: "1px solid #d1d5db", // Changed border to light gray
                     cursor: "pointer",
                   }}
                 >
@@ -346,7 +362,7 @@ export default function Feedback() {
         {/* Reviews List */}
         <div>
           <h2
-            style={{ fontSize: "30px", fontWeight: "semibold", marginBottom: "24px", color: "#ffc107" }}
+            style={{ fontSize: "30px", fontWeight: "semibold", marginBottom: "24px", color: "#f97316" }} // Header color adjusted to orange
           >
             What others have to say?
           </h2>
@@ -356,10 +372,13 @@ export default function Feedback() {
                 key={review.id}
                 style={{
                   padding: "24px",
-                  backgroundColor: "#2d2d2d",
+                  backgroundColor: "#ffffff", // Changed to White
                   borderRadius: "8px",
-                  border: "1px solid white",
+                  border: "2px solid #f97316", // Thin orange border
+                  transition: "border-color 0.3s ease-in-out, box-shadow 0.3s ease-in-out", // Added transition
                 }}
+                onMouseEnter={(e) => handleReviewDivHover(e, true)}
+                onMouseLeave={(e) => handleReviewDivHover(e, false)}
               >
                 <div
                   style={{
@@ -373,7 +392,7 @@ export default function Feedback() {
                     <div
                       style={{ display: "flex", alignItems: "center", gap: "12px", marginBottom: "8px" }}
                     >
-                      <h3 style={{ fontWeight: "semibold", color: "white" }}>{review.name}</h3>
+                      <h3 style={{ fontWeight: "semibold", color: "#1f2937" }}>{review.name}</h3> {/* Text color adjusted */}
                       <div style={{ display: "flex" }}>{renderStars(review.stars)}</div>
                     </div>
                   </div>
@@ -384,9 +403,9 @@ export default function Feedback() {
                         style={{
                           padding: "4px 8px",
                           borderRadius: "4px",
-                          backgroundColor: "#3a3a3a",
-                          color: "white",
-                          border: "1px solid #555",
+                          backgroundColor: "#f3f4f6", // Light button background
+                          color: "#1f2937", // Dark button text
+                          border: "1px solid #d1d5db",
                           cursor: "pointer",
                         }}
                       >
@@ -397,9 +416,9 @@ export default function Feedback() {
                         style={{
                           padding: "4px 8px",
                           borderRadius: "4px",
-                          backgroundColor: "#3a3a3a",
-                          color: "white",
-                          border: "1px solid #555",
+                          backgroundColor: "#f3f4f6", // Light button background
+                          color: "#1f2937", // Dark button text
+                          border: "1px solid #d1d5db",
                           cursor: "pointer",
                         }}
                       >
@@ -408,12 +427,12 @@ export default function Feedback() {
                     </div>
                   )}
                 </div>
-                <p style={{ color: "#a0a0a0" }}>{review.text}</p>
+                <p style={{ color: "#4b5563" }}>{review.text}</p> {/* Text color adjusted */}
               </div>
             ))}
           </div>
         </div>
-      </div>
+      </div><Footer/>
     </div>
   );
 }
