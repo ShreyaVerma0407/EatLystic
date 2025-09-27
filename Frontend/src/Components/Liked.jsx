@@ -3,7 +3,7 @@ import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import Navbar from "../Components/Navbar"; 
 import "../styles/Liked.css";
-
+import Footer from './Footer';
 const Liked = ({ userId }) => {
   const [likedRecipes, setLikedRecipes] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -125,7 +125,7 @@ const Liked = ({ userId }) => {
             ))}
           </div>
         </div>
-      </div>
+      </div><Footer/>
     </div>
   );
 };
