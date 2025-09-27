@@ -419,69 +419,88 @@ const Dish = () => {
           {recipe.name}
         </h1>
 
-        {/* ⭐ Dish Image */}
-        {dishImage && (
-          <img
-            src={dishImage}
-            alt={recipe.name}
-            style={{
-              maxWidth: "400px",
-              height: "auto",
-              margin: "0 auto 32px",
-              borderRadius: "12px",
-              display: "block",
-            }}
-          />
-        )}
+        <div
+          style={{
+            maxWidth: "500px",
+     height: "300px",
+            margin: "0 auto 32px",
+            borderRadius: "12px",
+            border: "2px solid #facc15",
+            overflow: "hidden",
+          }}
+        >
+         <div style={{ maxWidth: "497px", margin: "0 auto 32px" }}>
+  {dishImage && (
+    <img
+      src={dishImage}
+      alt={recipe.name}
+      className="dish-img"
+    />
+  )}
+</div>
+
+
+        </div>
 
         {/* Details */}
         <div
-          style={{
-            display: "grid",
-            gridTemplateColumns: "repeat(auto-fit,minmax(150px,1fr))",
-            gap: 12,
-            marginBottom: 48,
-            justifyItems: "center",
-          }}
-        >
-          <div style={cardStyle}>
-            <ChefHat size={24} style={{ margin: "0 auto 8px" }} />
-            <p style={{ opacity: 0.8, marginBottom: 4 }}>Ingredients</p>
-            <p style={{ fontWeight: "bold", fontSize: 18 }}>
-              {recipe.ingredients?.length || 0}
-            </p>
-          </div>
-          <div style={cardStyle}>
-            <Badge text={recipe.cuisine || "Unknown"} />
-            <p style={{ opacity: 0.8 }}>Cuisine</p>
-          </div>
-          <div style={cardStyle}>
-            <Leaf
-              size={20}
-              color={
-                recipe.type?.toLowerCase() === "vegetarian"
-                  ? "#22c55e"
-                  : "#db2777"
-              }
-              style={{
-                marginBottom: 4,
-                marginLeft: "auto",
-                marginRight: "auto",
-              }}
-            />
-            <p style={{ fontWeight: "bold", textTransform: "capitalize" }}>
-              {recipe.type || "N/A"}
-            </p>
-          </div>
-          <div style={cardStyle}>
-            <Clock size={24} style={{ margin: "0 auto 8px" }} />
-            <p style={{ opacity: 0.8, marginBottom: 4 }}>Prep Time</p>
-            <p style={{ fontWeight: "bold", fontSize: 18 }}>
-              {recipe.prep_time || "N/A"}
-            </p>
-          </div>
-        </div>
+  style={{
+    display: "grid",
+    gridTemplateColumns: "repeat(auto-fit, minmax(150px, 1fr))",
+    gap: 12,
+    marginBottom: 48,
+    justifyItems: "center",
+  }}
+>
+  {/* Ingredients Count */}
+  <div style={cardStyle}>
+    <ChefHat size={24} style={{ marginBottom: 8 }} />
+    <p style={{ opacity: 0.8, marginBottom: 4 }}>Ingredients</p>
+    <p style={{ fontWeight: "bold", fontSize: 18 }}>
+      {recipe.ingredients?.length || 0}
+    </p>
+  </div>
 
+  {/* Cuisine */}
+  <div style={cardStyle}>
+    <Badge text={recipe.cuisine || "Unknown"} />
+    <p style={{ opacity: 0.8, marginTop: 6 }}>Cuisine</p>
+  </div>
+
+  {/* Type / Vegetarian */}
+  <div style={cardStyle}>
+    <Leaf
+      size={20}
+      color={
+        recipe.type?.toLowerCase() === "vegetarian" ? "#22c55e" : "#db2777"
+      }
+      style={{ marginBottom: 4 }}
+    />
+    <p style={{ fontWeight: "bold", textTransform: "capitalize" }}>
+      {recipe.type || "N/A"}
+    </p>
+  </div>
+
+  {/* Prep Time */}
+  <div style={cardStyle}>
+    <Clock size={24} style={{ marginBottom: 8 }} />
+    <p style={{ opacity: 0.8, marginBottom: 4 }}>Prep Time</p>
+    <p style={{ fontWeight: "bold", fontSize: 18 }}>
+      {recipe.prep_minutes || "N/A"} mins
+    </p>
+  </div>
+
+  {/* Optional: Cook Time */}
+  {recipe.cook_minutes && (
+    <div style={cardStyle}>
+      <Fire size={24} style={{ marginBottom: 8 }} />
+      <p style={{ opacity: 0.8, marginBottom: 4 }}>Cook Time</p>
+      <p style={{ fontWeight: "bold", fontSize: 18 }}>
+        {recipe.cook_minutes} mins
+      </p>
+    </div>
+  )}
+</div>
 
         {/* Ingredients Section */}
         <h2 style={sectionHeading}>🛒 Ingredients</h2>
@@ -645,11 +664,20 @@ const Dish = () => {
 
 // 🔹 helper styles
 const cardStyle = {
+  width: "150px",            // Fixed width for grid
+  height: "140px",           // Fixed height ensures uniformity
   textAlign: "center",
-  padding: 16,
-  backgroundColor: "rgba(255 255 255 / 0.1)",
-  borderRadius: 12,
+  padding: "12px 8px",
+  backgroundColor: "rgba(255,255,255,0.1)",
+  borderRadius: "12px",
+  border: "2px solid #fff",
+  display: "flex",
+  flexDirection: "column",
+  alignItems: "center",
+  justifyContent: "center",
+  transition: "all 0.3s ease",
 };
+
 
 const ingredientBox = (bg, textColor) => ({
   padding: 12,
@@ -729,6 +757,15 @@ const nutritionCircle = {
   justifyContent: "center",
   color: "#fff",
   boxShadow: "0 0 10px #facc15, 0 0 20px #facc15",
+};
+// Common style for all images
+const commonImageStyle = {
+  width: "350px",       // 🔹 same size for dish + ingredients
+  height: "234px",
+  objectFit: "cover",   // keeps aspect ratio, fills box
+  borderRadius: "12px", // rounded corners
+  display: "block",
+  margin: "0 auto",     // center align
 };
 
 export default Dish;
