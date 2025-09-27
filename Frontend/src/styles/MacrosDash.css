@@ -1,4 +1,41 @@
 /* Basic body styles */
+/* ---------------------------------------------------------------------- */
+/* --- MACROS DASHBOARD FIX (Targeting the container likely affected) --- */
+/* ---------------------------------------------------------------------- */
+
+/* Target the main page container that might have been incorrectly colored by a global orange variable */
+/* Assuming the MacrosDash component uses .page-container or a similar top-level wrapper */
+.page-container {
+    /* Existing styles: padding, color, min-height are already set */
+    /* If the orange is bleeding through a transparent body, ensure this is dark */
+    background-color: #1a1a1f !important; 
+}
+
+/* If the orange is coming from a global background color variable (e.g., --bg-color: orange),
+   and the MacrosDash component has a specific wrapper class (e.g., .macros-dashboard-wrapper), 
+   you should target and neutralize it: 
+*/
+.macros-dashboard-wrapper {
+    /* Use a dark background explicitly and ensure it overrides any inherited color */
+    background-color: #1a1a1f !important;
+    color: #fff !important; /* Keep text white */
+}
+
+/* FIX: Neutralizing the dashboard card hover if it uses an inherited background (less likely) */
+.dashboard-card:hover {
+    /* Ensure the hover effect only applies the transform, not a rogue orange background color */
+    background-color: #2a2a30; /* Reset background to dark gradient start color */
+    transform: translateY(-0.25rem);
+    box-shadow: 0 12px 20px rgba(0, 0, 0, 0.5); /* Use dark shadow instead of potentially orange one */
+}
+
+/* FIX: If any element in the dash is using the primary-button gradient unintentionally as a background: */
+/* If you can identify the class, apply:
+.macros-dash-element-gone-orange {
+    background-image: none !important;
+    background-color: #1f1f24 !important;
+}
+*/
 body {
   background-color: #1a1a1f !important;
   font-family: sans-serif;
