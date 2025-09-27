@@ -1,0 +1,460 @@
+/* Custom properties for easy color changes (Orange, Black, Grey Theme) */
+:root {
+    --bg-color: #1a1a1a; /* Deeper Black/Dark Grey */
+    --card-bg-color: #2b2b2b; /* Slightly lighter card grey */
+    --text-primary: #ffffff; /* Main white text */
+    --text-secondary: #cccccc; /* Lighter grey text */
+    --accent-color: #ff9900; /* Vibrant Orange accent */
+    --accent-color-transparent: rgba(255, 153, 0, 0.1); /* Orange with 10% opacity for filter div */
+    --easy-badge-bg: #4caf50; /* Green for 'Easy' badge */
+    --label-text-color: #f8fafc; /* White/Off-white for nutrition labels */
+    --value-text-color: #ff9900; /* Orange for nutrition values */
+    --divider-color: #444444; /* Darker line/border color */
+    --medium-badge-bg: #ffc107; /* Yellow/Amber for 'Medium' */
+    --hard-badge-bg: #dc3545;   /* Red for 'Hard' */
+}
+
+/* Base Styles & Typography */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: 'Poppins', sans-serif; 
+    background-color: var(--bg-color);
+    color: var(--text-primary);
+    line-height: 1.6;
+}
+
+.recipe-hub-page {
+    min-height: 100vh;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+/* -------------------------------------------
+   --- Header Styling (Increased Size) ---
+   ------------------------------------------- */
+.header {
+    width: 100%;
+    height: 300px; 
+    background: url('/images/m4.png') center center / cover no-repeat;
+    position: relative;
+    margin-bottom: 30px;
+}
+
+.header h1 {
+    font-size: 4.5rem; /* Increased size */
+    font-weight: 800; /* Extra bold */
+    margin-bottom: 10px;
+    letter-spacing: 2px;
+}
+
+.header .header-description { /* Targeted description for sizing */
+    font-size: 1.5rem; /* Increased size */
+    color: var(--text-secondary);
+}
+
+.icon-hat, .icon-star {
+    color: var(--accent-color) !important;
+    font-size: 3rem; /* Match new heading size */
+}
+
+/* --- Recipe List Header --- */
+.section-title {
+    font-size: 2.5rem;
+    font-weight: 600;
+    margin-top: 30px;
+    margin-bottom: 5px;
+}
+
+.section-subtitle {
+    color: var(--text-secondary);
+    margin-bottom: 20px;
+}
+
+
+/* -------------------------------------------
+   --- Filter Section (Orange Transparent) ---
+   ------------------------------------------- */
+.filter-section {
+    background-color: var(--accent-color-transparent); /* Transparent orange background */
+    border: 1px solid rgb(0,0,0); /* Orange border */
+    padding: 30px 40px; 
+    border-radius: 12px;
+    margin-top: 30px;
+    margin-bottom: 40px;
+    width:1300px;
+}
+
+.filter-section h2 {
+    color: var(--accent-color); /* Orange heading */
+    font-size: 1.5rem;
+    font-weight: 700;
+    margin-bottom: 20px;
+    text-shadow: 0 0 5px rgba(255, 153, 0, 0.5); /* Subtle glow */
+}
+
+/* Filter Group Layout */
+.filters-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 15px 30px; 
+}
+
+.filter-group-item {
+    display: flex;
+    align-items: center;
+    gap: 15px; 
+    padding: 8px 0;
+    border-bottom: 1px dashed rgba(255, 255, 255, 0.1);
+}
+
+.filter-group-title {
+    color: var(--text-primary);
+    font-weight: 700; 
+    text-transform: uppercase;
+    font-size: 0.9rem;
+    width: 80px; 
+    letter-spacing: 0.5px;
+}
+
+/* Custom Radio Buttons (Up/Down) */
+.filter-option-radio {
+    display: inline-flex;
+    position: relative;
+    padding-left: 25px; 
+    cursor: pointer;
+    user-select: none;
+    font-size: 1rem; 
+    color: var(--text-secondary);
+    transition: color 0.2s;
+}
+
+/* Input is hidden */
+.filter-option-radio input {
+    position: absolute;
+    opacity: 0;
+    cursor: pointer;
+    height: 0;
+    width: 0;
+}
+
+/* Checkmark base (outer circle) */
+.checkmark-radio {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 18px; 
+    width: 18px;
+    background-color: transparent;
+    border-radius: 50%;
+    border: 2px solid var(--text-secondary);
+}
+
+/* Attractive Filter Text */
+.filter-label-text {
+    transition: color 0.2s;
+}
+
+.filter-option-radio:hover .filter-label-text {
+    color: var(--text-primary); 
+}
+
+/* When the radio button is checked */
+.filter-option-radio input:checked ~ .checkmark-radio {
+    border-color: var(--accent-color);
+}
+
+.filter-option-radio input:checked ~ .filter-label-text {
+    color: var(--accent-color); 
+    font-weight: 600;
+}
+
+/* Inner dot for checked state */
+.filter-option-radio input:checked ~ .checkmark-radio:after {
+    content: "";
+    position: absolute;
+    display: block;
+    top: 50%;
+    left: 50%;
+    width: 8px; 
+    height: 8px;
+    border-radius: 50%;
+    background: var(--accent-color);
+    transform: translate(-50%, -50%);
+}
+
+
+/* -------------------------------------------
+   --- Recipe Card Styles ---
+   ------------------------------------------- */
+.recipe-cards-grid {
+    display: grid;
+    /* Adjusted grid for four columns on large screens */
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); 
+    gap: 30px; /* Reduced gap from 53px for better layout */
+}
+
+.recipe-card {
+    background-color: var(--card-bg-color);
+    border-radius: 8px;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    cursor: pointer; /* Indicates clickability for modal */
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.recipe-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.5), 0 0 15px var(--accent-color-transparent);
+}
+
+/* Image and Badge */
+.recipe-image-wrapper {
+    position: relative;
+    width: 100%;
+    height: 200px; /* Slightly reduced height */
+    overflow: hidden;
+}
+
+.recipe-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+/* --- Updated Button Styles (NOT STICKY) --- */
+.back-to-dashboard-btn-static {
+    /* Changed class name to distinguish from the previous sticky version */
+    display: inline-block; /* Use inline-block so it only takes up necessary width */
+    margin-top: 30px; /* Separates it from the content above */
+    margin-bottom: 20px; /* Provides space below the button */
+    padding: 10px 20px;
+    font-size: 1rem;
+    font-weight: 600;
+    background-color: var(--primary-color);
+    color: white;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.1s;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+    /* Removed: position, bottom, left to make it static/flow */
+}
+
+.back-to-dashboard-btn-static:hover {
+    background-color: var(--accent-color);
+    transform: translateY(-2px);
+}
+.badge {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    background-color: var(--easy-badge-bg);
+    color: var(--bg-color);
+    padding: 4px 10px;
+    border-radius: 4px;
+    font-size: 0.8rem;
+    font-weight: 600;
+     color: var(--bg-color); /* Ensures text is dark on light badges */
+    padding: 4px 10px;
+    border-radius: 4px;
+    font-size: 0.8rem;
+    font-weight: 600;
+}
+/* Specific difficulty styles */
+.badge.easy {
+    background-color: var(--easy-badge-bg); /* Green */
+}
+.badge.medium {
+    background-color: var(--medium-badge-bg); /* Amber */
+}
+.badge.hard {
+    background-color: var(--hard-badge-bg); /* Red */
+}
+
+/* Recipe Info */
+.recipe-info {
+    padding: 15px;
+    flex-grow: 1;
+}
+
+.recipe-info .details {
+    display: flex;
+    justify-content: flex-start;
+    gap: 20px;
+    color: var(--text-secondary);
+    font-size: 0.9rem;
+    margin-bottom: 15px;
+    padding-bottom: 15px;
+    border-bottom: 1px solid var(--divider-color);
+}
+
+.recipe-info .details p {
+    display: flex;
+    align-items: center;
+}
+
+.recipe-info .details span {
+    color: var(--accent-color) !important;
+    margin-right: 5px;
+}
+
+.recipe-title {
+    font-size: 1.3rem;
+    font-weight: 700;
+    margin-bottom: 20px;
+    line-height: 1.2;
+}
+
+/* Nutrition Grid */
+.nutrition-grid {
+    display: flex;
+    justify-content: space-between;
+    text-align: center;
+    gap: 10px;
+}
+
+.nutrition-item .value {
+    display: block;
+    font-size: 1.2rem;
+    font-weight: 700;
+    color: var(--value-text-color);
+    margin-bottom: 2px;
+}
+
+.nutrition-item .label {
+    display: block;
+    font-size: 0.85rem;
+    color: var(--label-text-color);
+}
+
+
+/* -------------------------------------------
+   --- Modal Styling ---
+   ------------------------------------------- */
+
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.8); 
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+
+.modal-content {
+    background-color: var(--card-bg-color); 
+    color: var(--text-primary);
+    padding: 30px;
+    border-radius: 10px;
+    width: 90%;
+    max-width: 800px;
+    max-height: 90vh;
+    overflow-y: auto;
+    position: relative;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
+}
+
+.modal-content h2 {
+    color: var(--accent-color);
+    margin-bottom: 20px;
+    font-size: 2rem;
+    text-align: center;
+    border-bottom: 1px solid var(--divider-color);
+    padding-bottom: 15px;
+}
+
+.modal-close-btn {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    background: none;
+    border: none;
+    color: var(--text-secondary);
+    font-size: 2rem;
+    cursor: pointer;
+    line-height: 1;
+    transition: color 0.2s;
+}
+
+.modal-close-btn:hover {
+    color: var(--accent-color);
+}
+
+.modal-body-content {
+    display: flex;
+    gap: 30px;
+}
+
+.modal-section {
+    flex: 1;
+}
+
+.modal-section h3 {
+    font-size: 1.3rem;
+    color: var(--accent-color);
+    margin-bottom: 10px;
+}
+
+.ingredients-list, .instructions-list {
+    padding-left: 20px;
+    list-style-position: outside;
+    font-size: 0.95rem;
+}
+
+.instructions-list {
+    list-style-type: decimal; 
+}
+
+.ingredients-list li, .instructions-list li {
+    margin-bottom: 8px;
+    color: var(--text-secondary);
+}
+
+.no-results {
+    font-size: 1.2rem;
+    color: var(--text-secondary);
+    text-align: center;
+    padding: 50px 0;
+    grid-column: 1 / -1; /* Center across the entire grid */
+}
+
+/* -------------------------------------------
+   --- Responsive Adjustments ---
+   ------------------------------------------- */
+@media (max-width: 992px) {
+    .recipe-cards-grid {
+        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); 
+    }
+}
+
+@media (max-width: 768px) {
+    .header h1 {
+        font-size: 3.5rem;
+    }
+    .icon-hat, .icon-star {
+        font-size: 2.2rem;
+    }
+    .filters-grid {
+        grid-template-columns: 1fr; 
+    }
+    .filter-section {
+        padding: 20px;
+    }
+    .modal-body-content {
+        flex-direction: column;
+    }
+}
