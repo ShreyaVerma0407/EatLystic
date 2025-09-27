@@ -13,7 +13,7 @@ import jsPDF from "jspdf";
 import pluralize from "pluralize";
 import Navbar from "./Navbar"; // Assuming Navbar is in the same directory
 import "../styles/DishResponsive.css";
-
+import Footer from './Footer';
 
 
 // 🌟 Simple Badge component
@@ -657,7 +657,7 @@ const Dish = () => {
             </div>
           </div>
         )}
-      </div>
+      </div><Footer/>
     </>
   );
 };
