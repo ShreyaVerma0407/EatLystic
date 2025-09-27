@@ -44,10 +44,11 @@ const Navbar = () => {
             { path: "/pantry", label: "Pantry" },
             { path: "/nutrient", label: "NutriLog" },
             { path: "/calorie", label: "CaloriFi" },
+            { path: "/fitness", label: "Trackify" },
             { path: "/recipe", label: "Mealify" },
             { path: "/pantryreport", label: "StockStat" },
             { path: "/shoppingcart", label: "Cartify" },
-            { path: "/helpdesk", label: "Help Desk" },
+   { path: "/helpdesk", label: "Help Desk" },
             { path: "/logout", label: "Logout" },
           ].map((link) => (
             <li key={link.path}>
