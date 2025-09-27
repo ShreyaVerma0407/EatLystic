@@ -7,6 +7,7 @@ const UNSPLASH_KEY = import.meta.env.VITE_UNSPLASH_KEY;
 const EDAMAM_ID = import.meta.env.VITE_EDAMAM_APP_ID;
 const EDAMAM_KEY = import.meta.env.VITE_EDAMAM_APP_KEY;
 const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
+const PEXELS_KEY = import.meta.env.VITE_PEXELS_KEY;
 
 const PantryChef = ({ currentUserId }) => {
   const [pantryItems, setPantryItems] = useState([]);
@@ -74,47 +75,55 @@ const PantryChef = ({ currentUserId }) => {
 
   // 🔹 Fetch recipe images
   useEffect(() => {
-    matchingRecipes.forEach(async (recipe) => {
-      if (images[recipe.recipeId]) return;
+  matchingRecipes.forEach(async (recipe) => {
+    if (images[recipe.recipeId]) return; // already fetched
 
-      let imageUrl = "";
+    let imageUrl = "";
 
+    // 1️⃣ Try Pexels first
+    try {
+      const pexelsRes = await fetch(
+        `https://api.pexels.com/v1/search?query=${encodeURIComponent(recipe.name)}&per_page=1`,
+        {
+          headers: {
+            Authorization: PEXELS_KEY,
+          },
+        }
+      );
+      const pexelsData = await pexelsRes.json();
+      if (pexelsData?.photos?.length > 0) {
+        imageUrl = pexelsData.photos[0].src.medium;
+      }
+    } catch (err) {
+      console.warn("Pexels failed:", err);
+    }
+
+    // 2️⃣ Fallback to Edamam
+    if (!imageUrl) {
       try {
-        const unsplashRes = await fetch(
-          `https://api.unsplash.com/search/photos?query=${encodeURIComponent(
+        const edamamRes = await fetch(
+          `https://api.edamam.com/search?q=${encodeURIComponent(
             recipe.name
-          )}&client_id=${UNSPLASH_KEY}`
+          )}&app_id=${EDAMAM_ID}&app_key=${EDAMAM_KEY}&from=0&to=1`
         );
-        const unsplashData = await unsplashRes.json();
-        if (unsplashData?.results?.length > 0) {
-          imageUrl = unsplashData.results[0].urls.small;
+        const edamamData = await edamamRes.json();
+        if (edamamData?.hits?.length > 0) {
+          imageUrl = edamamData.hits[0].recipe.image;
         }
       } catch (err) {
-        console.warn("Unsplash failed:", err);
+        console.warn("Edamam failed:", err);
       }
+    }
 
-      if (!imageUrl) {
-        try {
-          const edamamRes = await fetch(
-            `https://api.edamam.com/search?q=${encodeURIComponent(
-              recipe.name
-            )}&app_id=${EDAMAM_ID}&app_key=${EDAMAM_KEY}&from=0&to=1`
-          );
-          const edamamData = await edamamRes.json();
-          if (edamamData?.hits?.length > 0) {
-            imageUrl = edamamData.hits[0].recipe.image;
-          }
-        } catch (err) {
-          console.warn("Edamam failed:", err);
-        }
-      }
+    // 3️⃣ Fallback to local placeholder
+    if (!imageUrl) {
+      imageUrl = "/images/placeholder-food.jpg"; // put a good placeholder in public/images
+    }
 
-      if (imageUrl) {
-        setImages((prev) => ({ ...prev, [recipe.recipeId]: imageUrl }));
-      }
-    });
-  }, [matchingRecipes, images]);
-
+    // Save image
+    setImages((prev) => ({ ...prev, [recipe.recipeId]: imageUrl }));
+  });
+}, [matchingRecipes, images]);
   // 🔹 Fetch liked recipes for current user
   useEffect(() => {
     if (!currentUserId) return;
@@ -187,20 +196,26 @@ const PantryChef = ({ currentUserId }) => {
         style={{
           width: "100%",
           minHeight: "100vh",
-          backgroundColor: "#181824",
+          background: "linear-gradient(to bottom, #1e1e1e, #121212)",
           color: "#fff",
           padding: "2rem 1rem",
         }}
       >
         <h2
-          style={{
-            textAlign: "center",
-            paddingBottom: "2rem",
-            fontSize: "2.2rem",
-          }}
-        >
-          🍳 Matching Recipes
-        </h2>
+  style={{
+    textAlign: "center",
+    paddingBottom: "2rem",
+    fontSize: "2.2rem",
+    background: "linear-gradient(90deg, #ff9800, #ffee58, #ff6b6b, #ff9800)",
+    backgroundSize: "300% 300%",
+    WebkitBackgroundClip: "text",
+    WebkitTextFillColor: "transparent",
+    fontWeight: "bold",
+    animation: "gradientAnimation 5s ease infinite",
+  }}
+>
+  🍳 Matching Recipes
+</h2>
         {matchingRecipes.length > 0 ? (
           <div
             style={{
@@ -214,130 +229,110 @@ const PantryChef = ({ currentUserId }) => {
             }}
           >
             {matchingRecipes.map((recipe, index) => (
-              <div
-                key={recipe.recipeId}
-                onClick={() => handleRecipeClick(recipe)}
-                style={{
-                  backgroundColor: "#2c2f3f",
-                  borderRadius: "15px",
-                  padding: "1.5rem",
-                  display: "flex",
-                  flexDirection: "column",
-                  alignItems: "center",
-                  width: "100%",
-                  position: "relative",
-                  cursor: "pointer",
-                  transition:
-                    "transform 0.2s ease, box-shadow 0.2s ease, border 0.2s ease",
-                  boxSizing: "border-box",
-                  border: "2px solid #ff9800",
-                }}
-                onMouseEnter={(e) => {
-                  e.currentTarget.style.transform = "scale(1.03)";
-                  e.currentTarget.style.boxShadow =
-                    "0 0 15px 5px rgba(255, 152, 0, 0.5)";
-                }}
-                onMouseLeave={(e) => {
-                  e.currentTarget.style.transform = "scale(1)";
-                  e.currentTarget.style.boxShadow = "none";
-                }}
-              >
-                <FaHeart
-                  onClick={(e) => toggleFavorite(recipe, e)}
-                  style={{
-                    position: "absolute",
-                    top: "10px",
-                    right: "10px",
-                    fontSize: "1.3rem",
-                    cursor: "pointer",
-                    transition: "color 0.3s ease",
-                    color: favorites[recipe.recipeId] ? "red" : "#888",
-                  }}
-                />
+  <div
+    key={recipe.recipeId}
+    onClick={() => handleRecipeClick(recipe)}
+    style={{
+      background: "#2a2a3a", // clean dark card
+      borderRadius: "20px",
+      overflow: "hidden",
+      width: "100%",
+      maxWidth: "320px",
+      cursor: "pointer",
+      boxShadow: "0 10px 20px rgba(0,0,0,0.4)",
+      transition: "transform 0.3s ease, box-shadow 0.3s ease",
+      display: "flex",
+      flexDirection: "column",
+      alignItems: "center",
+      position: "relative",
+    }}
+    onMouseEnter={(e) => {
+      e.currentTarget.style.transform = "translateY(-5px) scale(1.03)";
+      e.currentTarget.style.boxShadow = "0 20px 30px rgba(255, 152, 0, 0.6)";
+    }}
+    onMouseLeave={(e) => {
+      e.currentTarget.style.transform = "translateY(0) scale(1)";
+      e.currentTarget.style.boxShadow = "0 10px 20px rgba(0,0,0,0.4)";
+    }}
+  >
+    {/* Favorite Heart */}
+    <FaHeart
+      onClick={(e) => toggleFavorite(recipe, e)}
+      style={{
+        position: "absolute",
+        top: "10px",
+        right: "10px",
+        fontSize: "1.5rem",
+        color: favorites[recipe.recipeId] ? "#ff4757" : "#bbb",
+        cursor: "pointer",
+        zIndex: 2,
+      }}
+    />
 
-                <div
-                  style={{
-                    width: "150px",
-                    height: "150px",
-                    borderRadius: "50%",
-                    overflow: "hidden",
-                    flexShrink: 0,
-                    marginBottom: "1rem",
-                    boxShadow: "0 4px 8px rgba(0, 0, 0, 0.2)",
-                  }}
-                >
-                  <img
-                    src={
-                      images[recipe.recipeId] ||
-                      recipe.image ||
-                      "https://via.placeholder.com/150"
-                    }
-                    alt={recipe.name}
-                    style={{
-                      width: "100%",
-                      height: "100%",
-                      objectFit: "cover",
-                    }}
-                  />
-                </div>
-                <div style={{ textAlign: "center", width: "100%" }}>
-                  <h3
-                    style={{
-                      fontSize: "1.2rem",
-                      margin: 0,
-                      marginBottom: "0.5rem",
-                      textTransform: "lowercase",
-                      whiteSpace: "nowrap",
-                      overflow: "hidden",
-                      textOverflow: "ellipsis",
-                    }}
-                  >
-                    {recipe.name}
-                  </h3>
-                  <p
-                    style={{
-                      margin: "0.3rem 0",
-                      display: "flex",
-                      alignItems: "center",
-                      justifyContent: "center",
-                      fontSize: "0.9rem",
-                      color: "#ccc",
-                    }}
-                  >
-                    <FaClock style={{ marginRight: "5px" }} />
-                    {recipe.prep_time || "N/A"} min
-                  </p>
-                  <p
-                    style={{
-                      margin: "0.3rem 0",
-                      display: "flex",
-                      alignItems: "center",
-                      justifyContent: "center",
-                      fontSize: "0.9rem",
-                      color: "#ccc",
-                    }}
-                  >
-                    <FaListUl style={{ marginRight: "5px" }} />
-                    {recipe.ingredients ? recipe.ingredients.length : 0}{" "}
-                    ingredients
-                  </p>
-                  <span
-                    style={{
-                      display: "inline-block",
-                      marginTop: "0.5rem",
-                      padding: "0.3rem 0.8rem",
-                      borderRadius: "15px",
-                      fontSize: "0.75rem",
-                      fontWeight: "bold",
-                      backgroundColor: "#ffee58",
-                      color: "#000",
-                    }}
-                  >
-                    {recipe.type || "Unknown Type"}
-                  </span>
-                </div>
-              </div>
-            ))}
+    {/* Recipe Image */}
+    <div
+      style={{
+        width: "160px",
+        height: "160px",
+        borderRadius: "50%",
+        overflow: "hidden",
+        marginTop: "1rem",
+        boxShadow: "0 8px 15px rgba(0,0,0,0.5)",
+      }}
+    >
+      <img
+        src={images[recipe.recipeId] || recipe.image || "https://via.placeholder.com/150"}
+        alt={recipe.name}
+        style={{
+          width: "100%",
+          height: "100%",
+          objectFit: "cover",
+        }}
+      />
+    </div>
+
+    {/* Recipe Info */}
+    <div style={{ textAlign: "center", padding: "1rem", width: "100%" }}>
+      <h3
+        style={{
+          fontSize: "1.3rem",
+          margin: "0.5rem 0",
+          fontWeight: "600",
+          color: "#fff",
+        }}
+      >
+        {recipe.name}
+      </h3>
+
+      <p style={{ margin: "0.3rem 0", color: "#ccc", fontSize: "0.9rem" }}>
+        <FaClock style={{ marginRight: "5px" }} />
+        {recipe.prep_time || "N/A"} min
+      </p>
+
+      <p style={{ margin: "0.3rem 0", color: "#ccc", fontSize: "0.9rem" }}>
+        <FaListUl style={{ marginRight: "5px" }} />
+        {recipe.ingredients ? recipe.ingredients.length : 0} ingredients
+      </p>
+
+      {/* Type Pill */}
+      <span
+        style={{
+          display: "inline-block",
+          marginTop: "0.5rem",
+          padding: "0.4rem 1rem",
+          borderRadius: "20px",
+          fontSize: "0.8rem",
+          fontWeight: "bold",
+          background: "linear-gradient(45deg, #ff6b6b, #ffcc33)",
+          color: "#000",
+        }}
+      >
+        {recipe.type || "Unknown"}
+      </span>
+    </div>
+  </div>
+))}
+
           </div>
         ) : (
           <p style={{ textAlign: "center" }}>
