@@ -418,17 +418,6 @@
     "difficulty": "Easy",
     "category": "Beverages",
     "description": "Sweet caramel flavored milk tea trending online."
-  },
-  {
-    "id": 37,
-    "title": "Sparkling Honey Palomas",
-    "video": "https://www.youtube.com/embed/fiqG6luHnJI",
-    "thumbnail": "/images/img.png",
-    "cookTime": "8 min",
-    "servings": 2,
-    "rating": 4.8,
-    "difficulty": "Easy",
-    "category": "Beverages",
-    "description": "Refreshing sparkling honey paloma mocktail trending."
   }
+
 ]
