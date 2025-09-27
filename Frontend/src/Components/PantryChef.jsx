@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { FaClock, FaListUl, FaHeart } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
 import Navbar from "./Navbar";
-
+import Footer from './Footer';
 const UNSPLASH_KEY = import.meta.env.VITE_UNSPLASH_KEY;
 const EDAMAM_ID = import.meta.env.VITE_EDAMAM_APP_ID;
 const EDAMAM_KEY = import.meta.env.VITE_EDAMAM_APP_KEY;
@@ -339,7 +339,7 @@ const PantryChef = ({ currentUserId }) => {
             No recipes match at least 3 ingredients from your pantry.
           </p>
         )}
-      </div>
+      </div><Footer/>
     </>
   );
 };
