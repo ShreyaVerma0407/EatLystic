@@ -13,7 +13,7 @@ import jsPDF from "jspdf";
 import pluralize from "pluralize";
 import Navbar from "./Navbar";
 import "../styles/DishesMealResponsive.css";
-
+import Footer from './Footer';
 
 // 🌟 Simple Badge component
 const Badge = ({ text }) => (
@@ -674,7 +674,7 @@ const Dishes_meal = () => {
             </p>
           )}
         </div>
-      </div>
+      </div><Footer/>
     </>
   );
 };
