@@ -36,7 +36,23 @@
     color: var(--dark-text);
     opacity: 0.9;
 }
+.header-content {
+    /* Existing styles */
+    position: relative; 
+    z-index: 2; 
+    color: #fff; 
 
+    /* --- NEW STYLES FOR TRANSPARENT BOX AROUND TEXT --- */
+    /* Allows the div to shrink-wrap the text content */
+    display: inline-block; 
+    /* Adds space around the text inside the box */
+    padding: 20px 40px; 
+    /* Centers the box horizontally within the full header-section */
+    margin: 0 auto; 
+    border-radius: 8px;
+    /* The transparent black background for the box itself */
+    background-color: rgba(0, 0, 0, 0.4); 
+}
 /* --- Cards Section --- */
 .cards-section {
     background-color: var(--light-orange);
