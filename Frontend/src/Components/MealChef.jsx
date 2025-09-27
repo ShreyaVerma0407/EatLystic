@@ -2,7 +2,7 @@ import React, { useState, useEffect, useMemo } from "react";
 import { FaClock, FaFire, FaHeart, FaListUl } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
 import Navbar from "./Navbar";
-
+import Footer from './Footer';
 
 const UNSPLASH_KEY = import.meta.env.VITE_UNSPLASH_KEY;
 const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
@@ -507,7 +507,7 @@ const MealChef = ({ currentUserId }) => {
             No recipes available that match your filters.
           </p>
         )}
-      </div>
+      </div><Footer/>
     </>
   );
 };
