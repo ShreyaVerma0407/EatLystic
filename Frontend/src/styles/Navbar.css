@@ -1,10 +1,12 @@
-/* ---------------- Navbar.css ---------------- */
+/* ---------------- Navbar ---------------- */
 .navbar {
   display: flex;
-  justify-content: space-between;
   align-items: center;
+  justify-content: flex-start;
+  flex-wrap: nowrap;
   background-color: #fc8019;
   padding: 1rem 2rem;
+  gap: 2rem;
   position: sticky;
   top: 0;
   z-index: 1000;
@@ -30,20 +32,18 @@
   font-size: 1.6rem;
 }
 
-/* Navigation links (desktop default) */
+/* Navigation links */
 .nav-links {
-  list-style: none;
   display: flex;
   align-items: center;
-  gap: 2rem;
-  position: static;
-  height: auto;
-  width: auto;
-  transform: none;
+  gap: 1.5rem; /* adjust to fit */
+  flex-wrap: nowrap;
+  white-space: nowrap;
+  overflow-x: visible; /* desktop: no scroll */
 }
 
 .nav-links li {
-  flex: 0 0 auto; /* prevent shrinking on tablets */
+  flex: 0 0 auto;
 }
 
 .nav-links li a {
