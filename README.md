@@ -59,13 +59,13 @@ Your **AI-powered personal cooking assistant** – generate recipes, track pantr
 ## 📂 Project Structure
 
 ```
-AI-Recipe-Project/
-│── frontend/        # React app (UI)
-│── backend/         # Node.js server
-│── public/          # Static assets
-│── styles/          # CSS & Bootstrap customizations
-│── README.md        # Documentation
-```
+EatLystic/
+│── .idea/           # Project settings (IDE-specific)
+│── Backend/         # Node.js backend server (API, business logic)
+│── Frontend/        # React frontend (UI components, pages)
+│── package.json     # Dependencies & project metadata
+│── .gitignore       # Ignored files for git
+│── README.md        # Project documentation
 
 ---
 
