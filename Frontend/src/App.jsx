@@ -3,6 +3,7 @@ import {
   BrowserRouter,
   Routes,
   Route,
+  useNavigation,
   Navigate,
   Outlet,
 } from "react-router-dom";
@@ -24,7 +25,7 @@ import Liked from "./Components/Liked";
 import Customise from "./Components/Customise.jsx";
 import Dishes from "./Components/Dishes.jsx";
 import FoodList from "./Components/FoodList.jsx";
-import { useState, useEffect } from "react";
+import { useState, useEffect, Suspense } from "react";
 import ErrorBoundary from "./Components/ErrorBoundary";
 import NotFound from "./Components/NotFound";
 import ShoppingCart from "./Components/shopping.jsx";
@@ -43,6 +44,7 @@ import Feedback from "./Components/Feedback.jsx";
 import Faq from "./Components/Faq.jsx";
 import Macrosintake from "./Components/Macrosintake.jsx";
 import MacrosRecipe from "./Components/MacrosRecipe.jsx";
+import Loader from "./Components/Loader";
 
 // Layout component for MacrosChef nested routes
 function MacrosChefLayout() {
@@ -54,18 +56,36 @@ function MacrosChefLayout() {
   );
 }
 
-function App() {
+// Custom loader handler using navigation state (for React Router v6.4+)
+function AppWithLoader() {
   const [currentUserId, setCurrentUserId] = useState(null);
+  const [loading, setLoading] = useState(true);
+
+  // Check navigation state for loading (works only in data-router context)
+  // For pure SPA setups, fallback to manual handling as below
+  // const navigation = useNavigation();
+  // const isNavigating = navigation.state === "loading";
 
   useEffect(() => {
     const savedUserId = localStorage.getItem("userId");
-    if (savedUserId) {
-      setCurrentUserId(savedUserId);
-    }
+    if (savedUserId) setCurrentUserId(savedUserId);
+    // Simulate load time (replace logic for prod as needed)
+    setTimeout(() => setLoading(false), 800);
   }, []);
+
+  // Loader on first app load
+  if (loading) {
+    return <Loader />;
+  }
+
+  // Optionally, if you want a loader for code-split/lazy components or route transition:
+  // Use Suspense fallback:
+  // If you convert major routes to React.lazy, Suspense fallback works automatically.
+  // For now, show normal app content:
 
   return (
     <BrowserRouter>
+      {/* You can also wrap Routes with <Suspense fallback={<Loader />}> for lazy loading */}
       <Routes>
         {/* Public Routes */}
         <Route
@@ -100,14 +120,13 @@ function App() {
         <Route path="/recipe/pantrychef/dishes/:id" element={<Dishes />} />
 
         {/* MacrosChef routes nested */}
-
         <Route path="/recipe/macroschef" element={<MacrosLanding />} />
         <Route path="/recipe/macroschef/dash" element={<MacrosDash />} />
         <Route path="/recipe/macroschef/quiz" element={<MacrosQuiz />} />
         <Route path="/recipe/macroschef/profile" element={<Profile />} />
         <Route path="/recipe/macroschef/nutrient" element={<Nutrient />} />
         <Route path="/recipe/macroschef/intake" element={<Macrosintake />} />
-<Route path="recipe/macroschef/recipe" element={<MacrosRecipe/>}/>
+        <Route path="recipe/macroschef/recipe" element={<MacrosRecipe />} />
         <Route path="/helpdesk" element={<HelpDesk />} />
         <Route path="/helpdesk/contactus" element={<ContactUs />} />
         <Route path="/helpdesk/feedback" element={<Feedback />} />
@@ -152,4 +171,4 @@ function App() {
   );
 }
 
-export default App;
+export default AppWithLoader;
