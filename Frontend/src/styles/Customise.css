@@ -1,0 +1,341 @@
+/* ---------------- Customise Page ---------------- */
+.customise-page {
+    min-height: 100vh;
+    background: linear-gradient(180deg, #1c1c1c 0%, #111 100%);
+    color: #fff !important;
+    font-family: 'Segoe UI', sans-serif;
+    padding-top: 80px;
+}
+
+/* ---------------- Container ---------------- */
+.customise-page .container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 2rem 1rem;
+}
+
+/* ---------------- Headings ---------------- */
+.customise-page h1,
+.customise-page h2 {
+    text-align: center;
+    font-weight: 700;
+    margin-bottom: 2rem;
+    letter-spacing: 1px;
+    color: #ffb974;
+}
+
+.customise-page h2::after {
+    content: '';
+    display: block;
+    width: 80px;
+    height: 3px;
+    background: #ff914d;
+    margin: 8px auto 0 auto;
+    border-radius: 2px;
+}
+
+/* ---------------- Buttons ---------------- */
+.customise-page .btn.btn-lg.text-white {
+    display: block;
+    margin: 0 auto;
+    background: linear-gradient(90deg, #ff6f3c, #ff914d) !important;
+    border: none !important;
+    color: #fff !important;
+    font-weight: bold;
+    font-size: 1.1rem;
+    border-radius: 10px;
+    padding: 0.75rem 2rem;
+    transition: all 0.3s ease;
+    margin-top:2rem;
+}
+
+.customise-page .btn.btn-lg.text-white:hover {
+    background: linear-gradient(90deg, #ff914d, #ffb37a) !important;
+    transform: translateY(-3px);
+    box-shadow: 0 8px 20px rgba(255, 145, 77, 0.5);
+}
+
+/* Footer Buttons */
+.customise-page .card-footer .btn {
+    font-weight: bold !important;
+    border-radius: 8px;
+    padding: 0.4rem 0.8rem;
+    transition: 0.3s;
+}
+
+.customise-page .card-footer .btn-info:hover {
+    background-color: #4dabf7 !important;
+    transform: translateY(-2px);
+}
+
+.customise-page .card-footer .btn-danger:hover {
+    background-color: #ff5c5c !important;
+    transform: translateY(-2px);
+}
+
+/* ---------------- Alerts ---------------- */
+.customise-page .alert {
+    max-width: 600px;
+    margin: 1rem auto;
+    text-align: center;
+    font-weight: bold;
+    border-radius: 10px;
+}
+
+/* ---------------- Form Card ---------------- */
+.customise-page .card.bg-secondary.text-white.p-4.mb-5 {
+    background: linear-gradient(145deg, #2a2f32, #1e2225) !important;
+    border: none !important;
+    padding: 2rem !important;
+    border-radius: 20px !important;
+    max-width: 900px;
+    margin: 0 auto 3rem auto !important;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.6);
+}
+
+.customise-page .card.bg-secondary.text-white.p-4.mb-5 h2 {
+    text-decoration: underline;
+    text-align: center;
+    margin-bottom: 1.5rem;
+    color: #ff9c57 !important;
+    font-weight: 700;
+}
+
+/* Form Inputs */
+.customise-page .card.bg-secondary.text-white.p-4.mb-5 input,
+.customise-page .card.bg-secondary.text-white.p-4.mb-5 textarea {
+    background-color: #22272b !important;
+    color: #fff !important;
+    border: 1px solid #555 !important;
+    border-radius: 10px !important;
+    padding: 0.5rem 0.75rem;
+    transition: 0.3s;
+    width: 100%;
+}
+
+.customise-page .card.bg-secondary.text-white.p-4.mb-5 input:focus,
+.customise-page .card.bg-secondary.text-white.p-4.mb-5 textarea:focus {
+    border-color: #ff914d !important;
+    box-shadow: 0 0 10px rgba(255, 145, 77, 0.5);
+    outline: none;
+}
+
+/* ---------------- Recipe Cards ---------------- */
+.customise-page .row.g-4 {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 1.5rem;
+}
+
+.customise-page .card.bg-secondary.text-white.w-100.d-flex.flex-column {
+    background: linear-gradient(145deg, #2a2f32, #1e2225) !important;
+    border: none !important;
+    border-radius: 20px !important;
+    transition: transform 0.3s, box-shadow 0.3s;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    flex: 1 1 300px;
+    min-height: 420px;
+    opacity: 0;
+    transform: translateY(20px);
+    animation: fadeInCard 0.6s forwards;
+    position: relative;
+    overflow: hidden;
+    text-align: left; /* Align text inside cards */
+    padding: 1.5rem;
+}
+
+/* Glow & Tilt on hover */
+.customise-page .card.bg-secondary.text-white.w-100.d-flex.flex-column:hover {
+    transform: translateY(-6px) rotateX(1deg) rotateY(1deg);
+    box-shadow: 0 0 25px rgba(255, 145, 77, 0.6), 0 0 40px rgba(255, 200, 100, 0.4);
+}
+
+/* Shine effect */
+.customise-page .card.bg-secondary.text-white.w-100.d-flex.flex-column::after {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: rgba(255, 255, 255, 0.05);
+    transform: rotate(25deg);
+    pointer-events: none;
+    transition: 0.7s;
+}
+
+.customise-page .card.bg-secondary.text-white.w-100.d-flex.flex-column:hover::after {
+    transform: rotate(25deg) translateX(10px);
+}
+
+/* Card Titles */
+.customise-page .card-body h3 {
+    color: #ff9c57 !important;
+    font-weight: 700;
+    margin-bottom: 0.8rem;
+    text-align: center; /* Centered titles */
+}
+
+/* Card Text & Icons */
+./* Card Text & Icons - fixed alignment for multi-line text */
+.customise-page .card-body p {
+    display: flex !important;          /* Keep icon and text in same row */
+    align-items: flex-start !important; /* Align icon to top */
+    gap: 8px !important;               /* Space between icon and text */
+    line-height: 1.5 !important;
+    font-size: 0.95rem !important;
+    color: #dcdcdc !important;
+    margin-bottom: 0.8rem !important;
+    word-break: break-word !important; /* Prevent overflow */
+}
+
+/* Icons before text */
+.customise-page .card-body p::before {
+    flex-shrink: 0 !important;        /* Icon size stays fixed */
+    margin-top: 2px !important;       /* Slight top offset for better alignment */
+    display: inline-block !important;
+    vertical-align: top !important;
+}
+
+.customise-page .card-body p:nth-child(1)::before { content: "⏱" !important; }       /* Time */
+.customise-page .card-body p:nth-child(2)::before { content: "🥘" !important; }      /* Ingredients */
+.customise-page .card-body p:nth-child(3)::before { content: "📖" !important; }      /* Instructions */
+     /* Instructions */
+
+/* Card Footer Buttons */
+.customise-page .card-footer {
+    display: flex;
+    justify-content: center; /* Center the buttons */
+    gap: 0.5rem;
+    margin-top: auto;
+}
+/* Approx. Time in white */
+.customise-page .card-body p:nth-child(1) {
+    color: #ffffff !important;  /* White text */
+    font-weight: 600 !important; /* Optional: make it slightly bolder */
+}
+
+/* ---------------- Modal ---------------- */
+.customise-page .modal-content.bg-dark.text-white.border-secondary {
+    background: linear-gradient(145deg, #1c1c1c, #111) !important;
+    color: #fff !important;
+    border: 2px solid #ff914d !important;
+    border-radius: 15px !important;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.7);
+}
+
+/* ---------------- Animations ---------------- */
+@keyframes fadeInCard {
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* ---------------- Responsive ---------------- */
+@media (max-width: 992px) {
+    .customise-page .card.bg-secondary.text-white.w-100.d-flex.flex-column {
+        min-height: auto;
+        text-align: center; /* Center text on small screens */
+    }
+}
+
+@media (max-width: 768px) {
+    .customise-page .row.g-4 {
+        gap: 1rem;
+        justify-content: center;
+    }
+
+    .customise-page .card.bg-secondary.text-white.p-4.mb-5 {
+        padding: 1.5rem !important;
+        margin-bottom: 2rem !important;
+    }
+}
+/* Bottom Mustard Glow on Hover */
+.customise-page .card.bg-secondary.text-white.w-100.d-flex.flex-column:hover {
+    transform: translateY(-6px) !important;  /* slight lift */
+    box-shadow: 0 10px 30px rgba(255, 193, 7, 0.8) !important; /* mustard glow only below */
+}
+
+/* Optional: subtle shine */
+.customise-page .card.bg-secondary.text-white.w-100.d-flex.flex-column::after {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: rgba(255, 255, 255, 0.05);
+    transform: rotate(25deg);
+    pointer-events: none;
+    transition: transform 0.7s ease, opacity 0.7s ease !important;
+}
+
+.customise-page .card.bg-secondary.text-white.w-100.d-flex.flex-column:hover::after {
+    transform: rotate(25deg) translateX(15px) !important;
+    opacity: 0.4 !important;
+}
+/* ---------------- Customise Hero Section ---------------- */
+html, body {
+    margin: 0 !important;
+    padding: 0 !important;
+    width: 100% !important;
+    overflow-x: hidden !important;
+}
+
+/* Ensure the customise-page container does not add side gaps */
+.customise-page {
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+    margin: 0 !important;
+    width: 100% !important;
+}
+.customise-page .hero-section {
+    position: relative !important;
+    background: linear-gradient(135deg,#fc8019cc,#ff6b6bcc) !important;
+    padding: 80px 0 !important;   /* top/bottom padding only */
+    text-align: center !important;
+    margin-top: -10rem !important;
+    width: 100vw !important;      /* full viewport width */
+    margin-left: calc(-50vw + 50%) !important; /* cancel container centering */
+    display: flex !important;
+    justify-content: center !important;
+    overflow: hidden !important;
+}
+
+
+.customise-page .hero-section .hero-overlay {
+    width: 90% !important;        /* stretch full width */
+    max-width: none !important;    /* no max-width limit */
+    padding: 0 10px !important;    /* optional minimal inner padding */
+    box-sizing: border-box !important;
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+}
+
+/* Headings */
+.hero-section h1 {
+    font-size: 3rem !important;
+    margin-bottom: 1rem !important;
+    color: #fff !important;
+}
+
+/* Paragraph */
+.hero-section p {
+    font-size: 1.2rem !important;
+    margin-bottom: 2rem !important;
+    color: #ffe5cc !important;
+}
+
+/* Input */
+.hero-section input {
+    padding: 0.8rem 1rem !important;
+    font-size: 1rem !important;
+    border-radius: 8px !important;
+    border: none !important;
+    width: 300px !important;
+}

@@ -11,7 +11,7 @@ body, html, #root {
 /* Container responsiveness */
 div[style*="padding: 100px"] {
     padding: 100px 16px 40px !important;
-    max-width: 95% !important;
+    max-width: 100% !important;
     margin: 0 auto !important;
     display: flex !important;
     flex-direction: column !important;

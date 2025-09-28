@@ -410,7 +410,8 @@ const style = `
   }
 `;
 
-const API_BASE_URL = "http://localhost:3001/api/recipes/cooked";
+const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
+const COOKED_RECIPES_URL = `${API_BASE_URL}/recipes/cooked`;
 
 
 const isToday = (dateString) => {
@@ -820,7 +821,7 @@ const CombinedNutritionPlanView = ({ nutrient, onBack }) => {
   useEffect(() => {
     const fetchRecipes = async () => {
       try {
-        const response = await fetch(API_BASE_URL);
+        const response = await fetch(COOKED_RECIPES_URL);
         if (!response.ok) {
           const errorData = await response.json();
           if (response.status === 404 && errorData.message.includes("No cooked recipes")) {

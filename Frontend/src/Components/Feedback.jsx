@@ -24,6 +24,7 @@ const renderStars = (stars) => {
 
 export default function Feedback() {
   const navigate = useNavigate(); // Hook for navigation
+  const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
 
   const [userReviews, setUserReviews] = useState([]);
   const [dummyReviews, setDummyReviews] = useState([]);
@@ -79,7 +80,7 @@ export default function Feedback() {
   useEffect(() => {
     const fetchReviews = async () => {
       try {
-        const response = await fetch("http://localhost:3001/api/reviews");
+       const response = await fetch(`${API_BASE_URL}/reviews`);
         if (!response.ok) {
           throw new Error("Failed to load reviews from the database.");
         }
@@ -108,7 +109,7 @@ export default function Feedback() {
 
   // Save review on server
   const saveReviewToServer = async (reviewData) => {
-    const url = "http://localhost:3001/api/reviews";
+   const url = `${API_BASE_URL}/reviews`;
     const response = await fetch(url, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
@@ -120,7 +121,7 @@ export default function Feedback() {
 
   // Update review on server
   const updateReviewInServer = async (id, reviewData) => {
-    const url = `http://localhost:3001/api/reviews/${id}`;
+   const url = `${API_BASE_URL}/reviews/${id}`;
     const response = await fetch(url, {
       method: "PUT",
       headers: { "Content-Type": "application/json" },
@@ -132,7 +133,7 @@ export default function Feedback() {
 
   // Delete review on server
   const deleteReviewFromServer = async (id) => {
-    const url = `http://localhost:3001/api/reviews/${id}`;
+    const url = `${API_BASE_URL}/reviews/${id}`;
     const response = await fetch(url, { method: "DELETE" });
     if (!response.ok) throw new Error("Failed to delete review from server.");
     return response.json();

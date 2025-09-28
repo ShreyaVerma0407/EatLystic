@@ -79,13 +79,18 @@ html, body {
 table {
   width: 100% !important;
   border-collapse: collapse !important;
-  min-width: 600px !important;
+  min-width: 90% !important;
 }
 
-th, td {
+ th {
   padding: 10px 12px !important;
   border-bottom: 1px solid #e0e0e0 !important;
-  text-align: left !important;
+  text-align: center !important;
+}
+td {
+  padding: 10px 12px !important;
+  border-bottom: 1px solid #e0e0e0 !important;
+  text-align: center !important;
 }
 
 th {
@@ -190,5 +195,25 @@ th {
   table.nutrient-summary th,
   table.nutrient-summary td {
     display: table !important; /* revert to normal table layout */
+  }
+}
+/* Move Carbohydrates column a bit to the right */
+
+
+/* Fix extra right gap on small screens */
+.table-wrapper {
+  padding: 0 !important;
+  margin: 0 !important;
+  overflow-x: auto !important; /* keep horizontal scroll if needed */
+}
+
+table, th, td {
+  box-sizing: border-box !important; /* padding included in width */
+}
+
+/* Optional: slightly reduce right padding for small screens */
+@media (max-width: 1024px) {
+  th, td {
+    padding-right: 67px !important; /* reduce if needed */
   }
 }
