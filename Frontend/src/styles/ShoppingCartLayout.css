@@ -1,0 +1,125 @@
+/* ShoppingCartStyles.css */
+.shopping-cart-page * {
+  box-sizing: border-box;
+  font-family: 'Segoe UI', sans-serif;
+}
+
+/* Main container wrapper to scope */
+.shopping-cart-page .cart-section,
+.shopping-cart-page .suggestions-section,
+.shopping-cart-page .recent-section {
+  margin: 30px auto !important;
+  padding: 25px !important;
+  max-width: 900px !important;
+  background: #fff !important;
+  border-radius: 20px !important;
+  box-shadow: 0 6px 25px rgba(0, 0, 0, 0.1) !important;
+  position: relative !important;
+  z-index: 1 !important;
+}
+
+/* Section headings */
+.shopping-cart-page h2 {
+  color: #FF6B00 !important;
+  font-weight: 700 !important;
+  margin-bottom: 20px !important;
+  font-size: 1.7rem !important;
+}
+
+/* Grid layout for items */
+.shopping-cart-page .items-grid {
+  display: grid !important;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)) !important;
+  gap: 18px !important;
+}
+
+/* Item cards */
+.shopping-cart-page .item-card {
+  background: #fff9f3 !important;
+  border-radius: 15px !important;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.08) !important;
+  padding: 18px !important;
+  display: flex !important;
+  justify-content: space-between !important;
+  align-items: center !important;
+  transition: transform 0.2s ease-in-out !important;
+}
+
+.shopping-cart-page .item-card:hover {
+  transform: translateY(-3px) scale(1.02) !important;
+}
+
+/* Image styling */
+.shopping-cart-page .item-card img {
+  width: 50px !important;
+  height: 50px !important;
+  border-radius: 10px !important;
+  object-fit: cover !important;
+}
+
+/* Text inside card */
+.shopping-cart-page .item-card span {
+  font-weight: 600 !important;
+  font-size: 16px !important;
+  color: #333 !important;
+}
+
+/* Buttons */
+.shopping-cart-page .item-card button {
+  padding: 6px 14px !important;
+  border-radius: 10px !important;
+  cursor: pointer !important;
+  border: none !important;
+  font-size: 14px !important;
+  font-weight: 600 !important;
+  transition: all 0.2s ease !important;
+}
+
+.shopping-cart-page .item-card button:hover {
+  opacity: 0.9 !important;
+}
+
+.shopping-cart-page .btn-add {
+  background: linear-gradient(135deg, #FF6B00, #FF914D) !important;
+  color: #fff !important;
+}
+
+.shopping-cart-page .btn-remove {
+  background: #FF3B3B !important;
+  color: #fff !important;
+}
+
+/* Badges */
+.shopping-cart-page .reason-badge {
+  padding: 5px 12px !important;
+  border-radius: 12px !important;
+  font-size: 12px !important;
+  font-weight: 600 !important;
+  color: #fff !important;
+}
+
+/* Reason colors */
+.shopping-cart-page .reason-low-stock {
+  background: #FF9900 !important;
+}
+.shopping-cart-page .reason-expiring {
+  background: #FF3B3B !important;
+}
+.shopping-cart-page .reason-recipe {
+  background: #9B59B6 !important;
+}
+.shopping-cart-page .reason-manual {
+  background: #22c55e !important;
+}
+
+/* Responsive tweaks */
+@media (max-width: 768px) {
+  .shopping-cart-page .items-grid {
+    grid-template-columns: 1fr !important;
+  }
+}
+
+.shopping-cart-page .item-card:hover {
+  border: 2px solid #FF6B00 !important;
+  border-radius: 15px !important;
+}
