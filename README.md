@@ -66,7 +66,7 @@ EatLystic/
 │── package.json     # Dependencies & project metadata
 │── .gitignore       # Ignored files for git
 │── README.md        # Project documentation
-
+```
 ---
 
 ### ⚙️ Installation & Setup
