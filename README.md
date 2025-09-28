@@ -89,17 +89,17 @@ AI-Recipe-Project/
    * Frontend:
 
      ```bash
-     cd frontend
-     npm start
+     cd Frontend
+     npm run dev
      ```
    * Backend:
 
      ```bash
-     cd backend
-     node server.js
+     cd Backend
+     node start
      ```
 
-4. Open in browser → `http://localhost:3000/`
+   
 
 ---
 
