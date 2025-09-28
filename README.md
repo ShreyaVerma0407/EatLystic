@@ -67,7 +67,7 @@ EatLystic/
 │── .gitignore       # Ignored files for git
 │── README.md        # Project documentation
 ```
-
+---
 
 ## ⚙️ Installation & Setup
 
@@ -76,7 +76,6 @@ EatLystic/
    ```bash
  git clone https://github.com/ShreyaVerma0407/EatLystic.git
 cd EatLystic
-
    ```
 
 2. **Install dependencies**
