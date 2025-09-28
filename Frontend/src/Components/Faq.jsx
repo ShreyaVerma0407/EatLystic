@@ -1,21 +1,18 @@
 import React, { useState } from 'react'; // FIXED: Changed '=>' to 'from' and removed extraneous quotes
+import Navbar from "./Navbar";  // adjust path if it's in Components folder, e.g. "../Components/Navbar"
+import Footer from "./Footer"; // adjust path if it’s in Components folder
 
 // --- MOCK COMPONENTS AND HOOKS FOR SINGLE-FILE MANDATE ---
 // Mocking react-router-dom's useNavigate
-const mockNavigate = (path) => console.log(`Navigating to ${path}`);
-const useNavigate = () => mockNavigate;
+import { useNavigate } from "react-router-dom";
+
 
 // Mocking external components
-const Navbar = () => (
-    <div style={{ padding: '1rem 2rem', backgroundColor: '#000000', color: 'white', textAlign: 'center' }}>
-        <h2 style={{margin: 0, fontSize: '1.5rem', fontFamily: 'Inter, sans-serif'}}>Eatlystic App</h2>
-    </div>
-);
-const Footer = () => (
-    <div style={{ padding: '1rem', backgroundColor: '#000000', color: '#FFE8D6', textAlign: 'center', fontSize: '0.9rem', fontFamily: 'Inter, sans-serif' }}>
-        © 2024 Eatlystic. All rights reserved.
-    </div>
-);
+{/* Navbar */}
+<Navbar />
+
+
+
 
 // MOCK DATA: Using internal mock data to ensure the component is runnable
 const mockFaqData = [
@@ -240,14 +237,15 @@ const FAQ = () => {
             <div style={styles.header}>
                 <div style={styles.headerContent}>
                     <button
-                        style={styles.backButton}
-                        onClick={handleBackClick}
-                        onMouseEnter={(e) => handleBackButtonHover(e, true)}
-                        onMouseLeave={(e) => handleBackButtonHover(e, false)}
-                    >
-                        <span>←</span>
-                        Back to Help Desk
-                    </button>
+  style={styles.backButton}
+  onClick={handleBackClick}
+  onMouseEnter={(e) => handleBackButtonHover(e, true)}
+  onMouseLeave={(e) => handleBackButtonHover(e, false)}
+>
+  <span>←</span>
+  Back to Help Desk
+</button>
+
                     <h1 style={styles.title}>
                         Frequently Asked Questions
                     </h1>
