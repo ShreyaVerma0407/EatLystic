@@ -1,0 +1,191 @@
+/* FAQ.module.css */
+
+/* --- General Styles --- */
+.container {
+    font-family: 'Inter, sans-serif';
+    background-color: #FFE8D6;
+    color: black;
+    min-height: 100vh;
+    margin: 0;
+    padding: 0;
+}
+
+.header {
+    /* FIX: Added position relative for the transparent overlay */
+    position: relative;
+    background: linear-gradient(to right, rgb(255, 111, 0), rgb(254, 183, 132)); 
+    padding: 2rem;
+    /* Ensure content is above the gradient and overlay */
+    z-index: 1; 
+}
+
+/* FIX: Transparent Overlay Div */
+.headerOverlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.15); /* Transparent dark color */
+    z-index: 0; /* Place behind header content */
+}
+
+.headerContent {
+    max-width: 1200px;
+    margin: 0 auto;
+    position: relative;
+    z-index: 2; /* Ensure content is above overlay */
+}
+
+.backButton {
+    background-color: rgba(255, 255, 255, 0.2);
+    color: white;
+    border: none;
+    padding: 0.75rem 1rem;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 0.875rem;
+    margin-bottom: 1.5rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    transition: background-color 0.2s;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.backButton:hover {
+    background-color: rgba(255, 255, 255, 0.3);
+}
+
+.title {
+    font-size: 2.5rem;
+    font-weight: bold;
+    margin: 0 0 0.5rem 0;
+    color: white;
+}
+
+.subtitle {
+    font-size: 1.125rem;
+    opacity: 0.9;
+    margin: 0;
+    color: white;
+}
+
+.content {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 2rem;
+}
+
+/* --- Search Styles --- */
+.searchContainer {
+    position: relative;
+    margin-bottom: 3rem;
+}
+
+.searchIcon {
+    position: absolute;
+    left: 1rem;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #444;
+    z-index: 1;
+}
+
+.searchInput {
+    width: 100%;
+    padding: 1rem 1rem 1rem 3rem;
+    background-color: #ffffff;
+    border: 1px solid #000000;
+    border-radius: 20px;
+    color: black;
+    font-size: 1rem;
+    outline: none;
+    box-sizing: border-box;
+    transition: border-color 0.2s;
+}
+
+.searchInput:focus {
+    border-color: rgb(252, 150, 77);
+}
+
+/* --- FAQ Styles --- */
+.faqContainer {
+    display: grid;
+    gap: 1.5rem;
+}
+
+.faqItem {
+    /* Main container border */
+    border: 2px solid black;
+    border-radius: 50px; 
+    /* IMPORTANT: Clips the inner button/answer to the border-radius */
+    overflow: hidden; 
+    box-sizing: border-box;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.faqButton {
+    /* FIX: Set width to 100% and removed float-like behavior */
+    width: 100%; 
+    background: linear-gradient(
+  to bottom,
+  hsl(32, 82%, 63%), /* Lighter Top */
+  hsl(32, 96%, 46%), /* Base Middle */
+  hsl(32, 96%, 36%)  /* Darker Bottom */
+);
+    border: none;
+    color: black;
+    text-align: left;
+    padding: 1.5rem;
+    cursor: pointer;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 1.25rem;
+    font-weight: 600;
+    transition: background-color 0.2s;
+    box-sizing: border-box;
+    user-select: none;
+}
+
+.faqButton:hover {
+    background-color: #F57C00; /* Darker orange on hover */
+}
+
+.chevron {
+    color: black;
+    font-size: 1.5rem;
+    transition: transform 0.2s;
+    flex-shrink: 0;
+    user-select: none;
+}
+
+.chevronExpanded {
+    transform: rotate(90deg);
+}
+
+.answer {
+    padding: 1.5rem;
+    color: black;
+    line-height: 1.6;
+    font-size: 1.125rem;
+    background: #ffffff;
+    border-top: 2px solid black;
+    box-sizing: border-box;
+}
+
+.noResults {
+    background-color: #fff;
+    padding: 3rem;
+    text-align: center;
+    border-radius: 12px;
+    margin-top: 2rem;
+    color: black;
+    box-sizing: border-box;
+}
+
+.noResultsText {
+    color: #555;
+    margin: 0;
+}
