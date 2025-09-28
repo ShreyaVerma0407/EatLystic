@@ -67,9 +67,9 @@ EatLystic/
 │── .gitignore       # Ignored files for git
 │── README.md        # Project documentation
 ```
----
 
-### ⚙️ Installation & Setup
+
+## ⚙️ Installation & Setup
 
 1. **Clone the repository**
 
