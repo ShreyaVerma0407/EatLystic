@@ -117,11 +117,6 @@ If you’d like to add new features or fix issues, feel free to open a pull requ
 
 ---
 
-## 📜 License
-
-This project Here’s a simple **Authors** section without GitHub links:
-
----
 
 ## 👩‍💻 Authors
 
@@ -130,8 +125,8 @@ This project Here’s a simple **Authors** section without GitHub links:
 
 ---
 
-You can directly add this to your README.
-is licensed under the **MIT License**.
 
----
+
+
+
 
