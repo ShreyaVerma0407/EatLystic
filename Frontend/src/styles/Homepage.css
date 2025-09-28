@@ -1,5 +1,69 @@
 /* src/styles/Homepage.css */
 
+/*
+ * ====================================================================
+ * 1. CSS HOUDINI GLOW BORDER SETUP
+ * ====================================================================
+ */
+
+/* Custom properties for animation and size (must be at root level) */
+@property --a {
+  syntax: '<angle>';
+  initial-value: 0deg;
+  inherits: false
+}
+@property --b {
+    syntax: '<length>';
+    initial-value: 6px;
+    inherits: true;
+}
+@property --m {
+    syntax: '<number>';
+    initial-value: 2;
+    inherits: true;
+}
+
+/* Animation Keyframes: CHANGED DURATION TO 3s */
+@keyframes a { to { --a: 1turn } }
+
+/* The new class applying the glowing, animated border */
+.animated-glow-border {
+    box-sizing: border-box;
+    /* Use transparent border to let the background gradient show through */
+    border: solid var(--b) #0000;
+    
+    /* Apply the conic gradient as the background */
+    background:
+        /* Inner solid background: WHITE */
+        linear-gradient(#fff, #fff) padding-box,
+        /* Animated conic gradient border */
+        repeating-conic-gradient(from var(--a, 0deg),
+            var(--l, #f9573880, #fff7f780, #f9573880)) border-box;
+            
+    /* Apply the SVG filter for the glow effect */
+    filter: var(--f, url(#glow-0));
+    
+    /* Start the animation: 3s */
+    animation: a 3s linear infinite;
+    
+    /* Ensure the content is visible (Black text on white background) */
+    color: #333; 
+}
+
+/* Hover/Focus states to make it interactive */
+.feature-card.animated-glow-border:hover {
+    transform: scale(1.03);
+    transition: transform 0.3s;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1); 
+}
+
+
+/*
+ * ====================================================================
+ * 2. Homepage Layout and Existing Styles
+ * ====================================================================
+ */
+
 body {
   margin: 0;
   font-family: 'Poppins', sans-serif;
@@ -12,7 +76,12 @@ body {
   background-size: cover;
   background-position: center;
   background-attachment: fixed;
-  height: 90vh;
+  
+  /* ✅ NAVBAR GAP FIX: Use a negative margin to pull the hero up 
+     behind the navbar (assuming navbar is 60px tall). */
+  height: 100vh; 
+  margin-top: -60px; 
+  
   display: flex;
   justify-content: center;
   align-items: center;
@@ -37,7 +106,6 @@ body {
   margin-bottom: 1.5rem;
 }
 
-/* Neon Explore Button */
 .explore-btn {
   background-color: #fc8019;
   color: white;
@@ -45,14 +113,14 @@ body {
   font-size: 1rem;
   border-radius: 5px;
   cursor: pointer;
-  border: 1.5px solid #fff;
-  box-shadow: 0 0 5px #fff, 0 0 10px #fff inset;
+  border: none;
+  box-shadow: 0 0 5px #ffb400, 0 0 10px #ffb400 inset;
   transition: all 0.3s ease;
 }
 
 .explore-btn:hover {
-  background-color: rgba(239, 125, 3, 0.08);
-  box-shadow: 0 0 8px #fff, 0 0 15px #fff inset;
+  background-color: #e07015;
+  box-shadow: 0 0 8px #ffb400, 0 0 15px #ffb400 inset;
 }
 
 /* Features Section */
@@ -64,23 +132,21 @@ body {
 }
 
 .feature-card {
-  background: white;
   padding: 1.5rem;
   border-radius: 15px;
   text-align: center;
-  box-shadow: 0 6px 20px rgba(0,0,0,0.1);
   transition: all 0.3s ease;
+  box-shadow: 0 6px 15px rgba(0,0,0,0.1); 
 }
 
-.feature-card.hovered {
-  box-shadow: 0 0 20px 4px #fc8019;
-  transform: translateY(-6px);
+.feature-card:hover {
+  transform: translateY(-5px);
 }
 
 .feature-media {
   width: 100%;
   height: 250px;
-  border-radius: 10px;
+  border-radius: calc(2*var(--b)); 
   overflow: hidden;
   margin-bottom: 1rem;
 }
@@ -93,14 +159,14 @@ body {
 }
 
 .feature-card h3 {
-  color: #fc8019;
+  color: #fc8019; 
   font-size: 1.4rem;
   margin: 0.5rem 0;
 }
 
 .feature-card p {
   font-size: 1rem;
-  color: #444;
+  color: #444; 
 }
 
 .feature-explore-btn {
@@ -120,21 +186,19 @@ body {
   color: white;
 }
 
-/* Reviews Section */
+/* 🍊 REVIEWS SECTION STYLES - FINAL CORRECTIONS 🍊 */
 .reviews-section {
-    background: linear-gradient(135deg, #ff6600, #ff8533); /* same orange as hero/footer */
-    color: white; /* text will be visible on orange */
-    padding: 3rem 2rem;
-    text-align: center;
-    overflow: hidden;
-    border-radius: 20px;
+  background: #ff8533; 
+  color: white; 
+  padding: 3rem 2rem;
+  text-align: center;
+  overflow: hidden;
+  border-radius: 0; 
 }
 
-
-.reviews-section h2 {
+.reviews-section h1 {
   font-size: 2rem;
   margin-bottom: 40px;
-
 }
 
 .feedback-bubbles-row {
@@ -143,24 +207,23 @@ body {
   white-space: nowrap;
   will-change: transform;
   padding-bottom: 20px;
-  min-width: max-content; /* ensures continuous row for framer motion */
+  min-width: max-content; 
   overflow-x: visible;
 }
 
 
 .stars {
-  color: #ffb400; /* gold stars */
+  color: #ffb400; /* Yellow for stars */
   font-size: 2.0rem;
   margin-bottom: 12px;
 }
 
-
-
-/* Feedback Bubble - Gradient with Mustard and White */
 .feedback-bubble {
-  flex: 0 0 320px; /* Fixed width for each bubble */
-  background: linear-gradient(145deg, #FFDB58, #fff); /* Light mustard to white gradient */
-  border-radius: 50px;
+  flex: 0 0 320px; 
+  /* Added yellow border */
+  border: 4px solid #FFDB58;
+  border-radius: 20px; 
+  background: white; /* Solid white background */
   box-shadow: 0 8px 20px rgba(0, 0, 0, 0.12);
   padding: 20px;
   font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
@@ -168,46 +231,39 @@ body {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  transition: transform 0.3s ease, background 0.3s ease; /* Smooth transition */
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
 .feedback-bubble:hover {
-  transform: translateY(-5px) scale(1.03); /* Slight hover effect */
-  background: linear-gradient(145deg, #000000, #000000); /* Slightly darker mustard on hover */
-  box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.15), -5px -5px 15px rgba(255, 255, 255, 0.4); /* Stronger shadow on hover */
+  transform: translateY(-5px) scale(1.03); 
+  /* Slightly more pronounced shadow on hover */
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
 }
 
-/* Star styles */
 .star {
-  color: #FFDB58; /* Mustard color for stars */
+  color: #FFDB58;
   margin-right: 2px;
 }
 
-/* Text styles for feedback */
 .feedback-text {
   font-style: italic;
   font-size: 1rem;
   margin-bottom: 16px;
-  min-height: 100px;
-  color: #333;
+  /* ✅ INCREASED HEIGHT/FIXED OVERLAP: Use min-height to allow content to grow */
+  min-height: 100px; 
+  height: auto; 
+  color: #333; 
 }
 
-/* Name styles */
 .feedback-name {
   font-weight: bold;
-  color: #fc8019; /* Mustard color for the name */
+  color: #444; 
   font-size: 0.85rem;
   margin-top: 0.5rem;
+  font-style: normal;
 }
 
-/* Responsive Breakpoints for Mobile */
-@media (max-width: 600px) {
-  .feedback-bubbles-row {
-    overflow-x: auto; /* fallback scroll on small screens */
-  }
-}
-
-/* How it Works Video */
+/* Video Section */
 .video-section {
   padding: 3rem 2rem;
   text-align: center;
@@ -218,14 +274,6 @@ body {
   height: 400px;
   border-radius: 10px;
   box-shadow: 0 8px 20px rgba(0,0,0,0.2);
-}
-
-/* Footer */
-.footer {
-  background-color: #333;
-  color: white;
-  padding: 1rem;
-  text-align: center;
 }
 
 /* Responsive breakpoints */
@@ -239,95 +287,4 @@ body {
   .features {
     grid-template-columns: 1fr;
   }
-
-  .feedback-bubbles-row {
-    overflow-x: auto; /* fallback scroll on small screens */
-  }
 }
-.feedback-bubble {
-  border: 4px solid #ffc800; /* Mustard color */
-  padding: 15px;
-  margin: 10px;
-  border-radius: 40px;
-  background: linear-gradient(145deg, #fcfce0, #f4f4f4); /* Soft gradient for background */
-  box-shadow: 10px 3px 8px rgba(0, 0, 0, 0.1), -3px -3px 8px rgba(255, 255, 255, 0.3); /* Subtle shadow */
-  transition: all 0.3s ease; /* Smooth transition for hover effect */
-}
-
-.feedback-bubble:hover {
-  background: linear-gradient(145deg, #fff, #eaeaea); /* Slightly darker gradient on hover */
-  box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.15), -5px -5px 15px rgba(255, 255, 255, 0.4); /* Stronger shadow on hover */
-}
-
-.star {
-  color: #FFDB58; /* Mustard color for stars */
-}
-
-.feedback-text {
-  font-size: 14px;
-  font-weight: 500;
-  color: #333;
-}
-
-/* Add styles for the feedback name */
-.feedback-name {
-  font-family: 'Arial', sans-serif; /* Change the font family */
-  font-size: 1rem; /* Set the font size */
-  font-weight: bold; /* Make the font bold */
-  color: #333; /* Change the color */
-  margin-top: 5px; /* Add some spacing */
-  font-style: italic; /* Make the font italic */
-}
-
-/* Remove or comment out these lines */.feature-card {
-  position: relative;
-  padding: 20px;
-  background: #fff;
-  border-radius: 15px;
-  box-shadow: 0 6px 15px rgba(0,0,0,0.1);
-  overflow: hidden;
-  transition: transform 0.3s;
-}
-
-.feature-card:hover {
-  transform: translateY(-5px);
-}
-
-/* Left border - moves top → bottom */
-.feature-card::before {
-  content: "";
-  position: absolute;
-  top: -100%;    /* start off-screen */
-  left: 0;
-  width: 3px;    /* border thickness */
-  height: 200%;  /* double height for smooth animation */
-  background: linear-gradient(180deg, #ff6b6b, #ffd93d, #6bcfff, #ff6b6b);
-  animation: moveLeft 4s linear infinite;
-  pointer-events: none;
-}
-
-/* Right border - moves bottom → top */
-.feature-card::after {
-  content: "";
-  position: absolute;
-  top: -100%;
-  right: 0;
-  width: 3px;
-  height: 200%;
-  background: linear-gradient(180deg, #6bcfff, #ffd93d, #ff6b6b, #6bcfff);
-  animation: moveRight 4s linear infinite;
-  pointer-events: none;
-}
-
-/* Keyframes */
-@keyframes moveLeft {
-  0% { top: -100%; }
-  100% { top: 100%; }
-}
-
-@keyframes moveRight {
-  0% { top: 100%; }
-  100% { top: -100%; }
-}
-
-
