@@ -279,5 +279,55 @@ body {
   font-style: italic; /* Make the font italic */
 }
 
-/* Remove or comment out these lines */
+/* Remove or comment out these lines */.feature-card {
+  position: relative;
+  padding: 20px;
+  background: #fff;
+  border-radius: 15px;
+  box-shadow: 0 6px 15px rgba(0,0,0,0.1);
+  overflow: hidden;
+  transition: transform 0.3s;
+}
+
+.feature-card:hover {
+  transform: translateY(-5px);
+}
+
+/* Left border - moves top → bottom */
+.feature-card::before {
+  content: "";
+  position: absolute;
+  top: -100%;    /* start off-screen */
+  left: 0;
+  width: 3px;    /* border thickness */
+  height: 200%;  /* double height for smooth animation */
+  background: linear-gradient(180deg, #ff6b6b, #ffd93d, #6bcfff, #ff6b6b);
+  animation: moveLeft 4s linear infinite;
+  pointer-events: none;
+}
+
+/* Right border - moves bottom → top */
+.feature-card::after {
+  content: "";
+  position: absolute;
+  top: -100%;
+  right: 0;
+  width: 3px;
+  height: 200%;
+  background: linear-gradient(180deg, #6bcfff, #ffd93d, #ff6b6b, #6bcfff);
+  animation: moveRight 4s linear infinite;
+  pointer-events: none;
+}
+
+/* Keyframes */
+@keyframes moveLeft {
+  0% { top: -100%; }
+  100% { top: 100%; }
+}
+
+@keyframes moveRight {
+  0% { top: 100%; }
+  100% { top: -100%; }
+}
+
 
