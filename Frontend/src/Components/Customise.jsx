@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import Navbar from '../Components/Navbar';
-import Footer from "../components/Footer";
+import Navbar from './Navbar';
+import Footer from "./Footer";
+import "../styles/Customise.css";
 
 const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
 
@@ -165,13 +166,19 @@ const Customise = ({ userId }) => {
     };
 
     return (
-        <div className="bg-dark text-white font-sans" style={{ minHeight: '100vh' }}>
+        <div className=" customise-page bg-dark text-white font-sans" style={{ minHeight: '100vh' }}>
             <div style={{ position: 'fixed', top: 0, width: '100%', zIndex: 1030 }}>
                 <Navbar />
             </div>
             <div style={{ paddingTop: '80px' }}>
                 <div className="container mt-5">
-                    <h1 className="text-center mb-4">Customise Recipes</h1>
+                  <section className="hero-section">
+  <div className="hero-overlay">
+    <h1 className="text-center mb-4">Customise Recipes</h1>
+    <p className="text-center">Adjust ingredients, cooking time, and instructions to create recipes your way!</p>
+  </div>
+</section>
+
                     <div className="d-flex justify-content-center mb-4">
                         <button
                             onClick={handleToggleForm}
