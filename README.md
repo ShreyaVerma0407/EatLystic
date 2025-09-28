@@ -74,7 +74,7 @@ AI-Recipe-Project/
 1. **Clone the repository**
 
    ```bash
-   git clone https://github.com/yourusername/ai-recipe-project.git
+   git clone https://github.com/ShreyaVerma0407/EatLystic.git
    cd ai-recipe-project
    ```
 
