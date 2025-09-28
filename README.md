@@ -71,18 +71,25 @@ EatLystic/
 
 ## ⚙️ Installation & Setup
 
-1. **Clone the repository**
 
-   ```bash
- git clone https://github.com/ShreyaVerma0407/EatLystic.git
+---
+
+### 1. Clone the Repository
+
+```bash
+git clone https://github.com/ShreyaVerma0407/EatLystic.git
 cd EatLystic
-   ```
+```
 
-2. **Install dependencies**
+### 2. Install Dependencies
 
-   ```bash
-   npm install
-   ```
+```bash
+npm install
+```
+
+---
+
+
 
 3. **Run the project**
 
