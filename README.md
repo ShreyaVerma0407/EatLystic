@@ -103,7 +103,7 @@ npm install
 
      ```bash
      cd Backend
-     node start
+     npm start
      ```
 
    
