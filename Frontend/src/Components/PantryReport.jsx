@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import jsPDF from "jspdf";
 import autoTable from "jspdf-autotable";
 import Navbar from "./Navbar";
-import Footer from "../Components/Footer";
+import Footer from "./Footer";
 
 const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
 const EMAIL_BASE_URL = API_BASE_URL.replace("/api", "");
@@ -549,4 +549,5 @@ const PantryReport = ({ userId }) => {
 };
 
 export default PantryReport;
+
 
