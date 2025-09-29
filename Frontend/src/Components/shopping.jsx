@@ -3,7 +3,7 @@ import React, { useEffect, useState } from "react";
 import { FaShoppingCart, FaPlus } from "react-icons/fa";
 import { motion } from "framer-motion";
 import Navbar from "./Navbar";
-import Footer from "../Components/Footer";
+import Footer from "./Footer";
 import "../styles/ShoppingCartLayout.css";
 
 
@@ -730,4 +730,5 @@ useEffect(() => {
 };
 
 export default ShoppingCart;
+
 
