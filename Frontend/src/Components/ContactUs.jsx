@@ -4,7 +4,7 @@ import Footer from './Footer';
 import Navbar from './Navbar';
 // --- Placeholder Components (since they are not provided) ---
 
-<Navbar/>
+{/* <Navbar/> */}
 
 // Re-creating the icons with SVG paths to avoid external dependencies
 const ArrowLeft = (props) => (
