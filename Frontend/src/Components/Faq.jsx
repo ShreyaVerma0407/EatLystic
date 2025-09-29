@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import styles from '../styles/FAQ.module.css'; // Import the CSS module
 import Navbar from './Navbar';
 import Footer from './Footer';
+
 // --- MOCK COMPONENTS AND HOOKS FOR SINGLE-FILE MANDATE ---
 // Mocking react-router-dom's useNavigate
-const mockNavigate = (path) => console.log(`Navigating to ${path}`);
-const useNavigate = () => mockNavigate;
+
 
 
 
