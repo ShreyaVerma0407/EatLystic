@@ -1,12 +1,6 @@
 import "bootstrap/dist/css/bootstrap.min.css";
-import {
-  BrowserRouter,
-  Routes,
-  Route,
-  useNavigation,
-  Navigate,
-  Outlet,
-} from "react-router-dom";
+import { BrowserRouter, Routes, Route, Navigate, Outlet } from "react-router-dom";
+
 
 import Signup from "./signup";
 import Login from "./login";
@@ -126,7 +120,7 @@ function AppWithLoader() {
         <Route path="/recipe/macroschef/profile" element={<Profile />} />
         <Route path="/recipe/macroschef/nutrient" element={<Nutrient />} />
         <Route path="/recipe/macroschef/intake" element={<Macrosintake />} />
-        <Route path="recipe/macroschef/recipe" element={<MacrosRecipe />} />
+           <Route path="/recipe/macroschef/recipe" element={<MacrosRecipe />} />
         <Route path="/helpdesk" element={<HelpDesk />} />
         <Route path="/helpdesk/contactus" element={<ContactUs />} />
         <Route path="/helpdesk/feedback" element={<Feedback />} />
