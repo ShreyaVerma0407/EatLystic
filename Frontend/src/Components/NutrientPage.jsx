@@ -19,7 +19,7 @@ import Webcam from "react-webcam";
 import * as tf from "@tensorflow/tfjs";
 import Quagga from "@ericblade/quagga2";
 import "../styles/NutrientPage.css";
-import Footer from "../Components/Footer";
+import Footer from "./Footer";
 
 // -------------------- Error Boundary --------------------
 class ErrorBoundary extends React.Component {
