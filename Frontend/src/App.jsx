@@ -33,7 +33,7 @@ import MealChef from "./Components/MealChef.jsx";
 import Dishes_meal from "./Components/Dishes_meal.jsx";
 import HelpDesk from "./Components/HelpDesk.jsx";
 import ContactUs from "./Components/ContactUs.jsx";
-import Trending from "./Components/Trending.jsx";
+import Trending from "./Components/trending.jsx";
 import MacrosLanding from "./Components/MacrosLanding.jsx";
 import MacrosDash from "./Components/MacrosDash.jsx";
 import MacrosQuiz from "./Components/MacrosQuiz.jsx";
