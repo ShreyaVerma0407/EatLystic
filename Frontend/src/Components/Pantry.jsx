@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Navigate } from "react-router-dom";
 import "../styles/Pantry.css";
 import Navbar from "./Navbar"; // Added Navbar import
-import Footer from "../Components/Footer";
+import Footer from "./Footer";
 const CATEGORIES = [
   "Fruits",
   "Vegetables",
