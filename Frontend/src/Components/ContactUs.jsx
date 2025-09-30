@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Footer from './Footer';
 import Navbar from './Navbar';
+ const API_BASE_URL = import.meta.env.VITE_API_BASE_URL ;
 // --- Placeholder Components (since they are not provided) ---
 
 {/* <Navbar/> */}
@@ -115,20 +116,28 @@ export default function App() {
   });
 
   const [toastVisible, setToastVisible] = useState(false);
+const [errorMsg, setErrorMsg] = useState('');
 
-  const handleSubmit = async (e) => {
+   const handleSubmit = async (e) => {
     e.preventDefault();
+    setErrorMsg('');
     try {
-      // NOTE: Using a mock endpoint. This will likely fail in the Canvas environment.
-      // We will only mock success for the UI demonstration.
-      console.log('Form Submitted:', formData);
-      
-      // MOCK API SUCCESS for demonstration
-      await new Promise(resolve => setTimeout(resolve, 500)); 
+      const response = await fetch(`${API_BASE_URL}/contact`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(formData),
+      });
 
+      if (!response.ok) {
+        throw new Error(`Server responded with ${response.status}`);
+      }
+
+      // Show success toast
       setToastVisible(true);
-      setTimeout(() => setToastVisible(false), 5000); // Hide toast after 5 seconds
-      
+      setTimeout(() => setToastVisible(false), 5000);
+
       // Reset form
       setFormData({
         name: '',
@@ -136,9 +145,9 @@ export default function App() {
         subject: '',
         message: '',
       });
-      
     } catch (error) {
       console.error('Error submitting form:', error);
+      setErrorMsg('Failed to send message. Please try again later.');
     }
   };
 
@@ -149,7 +158,7 @@ export default function App() {
       [name]: value,
     }));
   };
-  
+
   // WARNING: 'useNavigate' only works if this component is wrapped in a React Router setup.
   // Assuming 'useNavigate' is available in the environment:
   let navigate;
@@ -316,7 +325,7 @@ export default function App() {
 
       <Toast visible={toastVisible} onClose={() => setToastVisible(false)} />
       <Footer />
-      
+
       {/* CSS-in-JS for styling */}
       <style jsx>{`
         /* --- Color Variables --- */
@@ -401,7 +410,7 @@ export default function App() {
           outline: none;
           border-color: #ff5500;
         }
-        
+
         /* Submit Button Style */
         .submit-button {
           width: 100%;
@@ -437,12 +446,12 @@ export default function App() {
         .mr-2 { margin-right: 8px; }
         .text-orange-medium { color: #ff5500; }
         .bg-pale-orange-darker { background-color: #ff9800; }
-        
+
         /* Footer Placeholder Styles */
-        .footer-placeholder { 
+        .footer-placeholder {
             font-family: 'Inter', sans-serif;
             font-size: 0.85rem;
-            color: #181824; 
+            color: #181824;
         }
         .navbar-placeholder {
             background-color: #ffe0b2;
