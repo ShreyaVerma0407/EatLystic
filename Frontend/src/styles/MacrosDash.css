@@ -750,3 +750,102 @@ body {
 .text-3xl {
   font-size: 1.875rem;
 }
+
+/* --------------------------------
+   Responsive adjustments for mobile
+--------------------------------- */
+
+/* General mobile breakpoint */
+@media (max-width: 768px) {
+  /* Page container padding for mobile */
+  .page-container {
+    padding: 1rem 1.5rem !important;
+  }
+
+  /* Header height and text sizing */
+  .header {
+    height: 180px !important; /* reduced for mobile */
+    margin-bottom: 20px !important;
+  }
+  .header-text-content h1 {
+    font-size: 2rem !important;
+    margin-bottom: 8px !important;
+  }
+  .header-description {
+    font-size: 1rem !important;
+    opacity: 0.9 !important;
+  }
+
+  /* Dashboard cards */
+  .dashboard-card {
+    padding: 1rem !important;
+    border-radius: 12px !important;
+  }
+  .dashboard-card h3 {
+    font-size: 1.2rem !important;
+  }
+  .dashboard-card p {
+    font-size: 0.8rem !important;
+  }
+
+  /* Adjust icon sizes */
+  .dashboard-card .icon-container {
+    width: 2rem !important;
+    height: 2rem !important;
+    font-size: 1rem !important;
+  }
+
+  /* Profile and nutrient grids stack */
+  .profile-grid, .nutrient-grid {
+    grid-template-columns: 1fr !important; /* single column */
+    gap: 1rem !important;
+  }
+
+  /* Profile and nutrient cards text size */
+  .profile-card h3 {
+    font-size: 1.2rem !important;
+  }
+  .profile-card p {
+    font-size: 1rem !important;
+  }
+
+  /* Summary and total calories cards */
+  .summary-card, .total-calories-card {
+    padding: 1.5rem !important;
+  }
+  .summary-card h3, .total-calories-card h3 {
+    font-size: 1.25rem !important;
+  }
+  .total-calories-card p {
+    font-size: 2.5rem !important;
+  }
+
+  /* Button sizes */
+  .back-to-dashboard-btn, .primary-button, .secondary-button {
+    width: 100% !important;
+    padding: 12px 0 !important;
+    font-size: 1.1rem !important;
+  }
+  
+  /* Quiz modal content full width mobile */
+  .quiz-modal-content {
+    max-width: 100% !important;
+    margin: 0 1rem !important;
+  }
+
+  /* Utility fixes */
+  .text-4xl { font-size: 2rem !important; }
+  .text-3xl { font-size: 1.5rem !important; }
+
+  /* Add more spacing if needed */
+  .mb-16 { margin-bottom: 2rem !important; }
+  .mb-12 { margin-bottom: 1.5rem !important; }
+}
+
+/* Fix text wrapping and visibility globally on mobile */
+@media (max-width: 600px) {
+  body, .page-container, .dashboard-card, .profile-card, .nutrient-card, .summary-card {
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+  }
+}

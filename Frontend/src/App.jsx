@@ -39,6 +39,7 @@ import Faq from "./Components/Faq.jsx";
 import Macrosintake from "./Components/Macrosintake.jsx";
 import MacrosRecipe from "./Components/MacrosRecipe.jsx";
 import Loader from "./Components/Loader";
+import Chatbot from "./Components/Chatbot";
 
 // Layout component for MacrosChef nested routes
 function MacrosChefLayout() {
@@ -55,10 +56,6 @@ function AppWithLoader() {
   const [currentUserId, setCurrentUserId] = useState(null);
   const [loading, setLoading] = useState(true);
 
-  // Check navigation state for loading (works only in data-router context)
-  // For pure SPA setups, fallback to manual handling as below
-  // const navigation = useNavigation();
-  // const isNavigating = navigation.state === "loading";
 
   useEffect(() => {
     const savedUserId = localStorage.getItem("userId");
@@ -71,11 +68,6 @@ function AppWithLoader() {
   if (loading) {
     return <Loader />;
   }
-
-  // Optionally, if you want a loader for code-split/lazy components or route transition:
-  // Use Suspense fallback:
-  // If you convert major routes to React.lazy, Suspense fallback works automatically.
-  // For now, show normal app content:
 
   return (
     <BrowserRouter>
@@ -106,6 +98,7 @@ function AppWithLoader() {
         <Route path="/nutrient" element={<NutrientPage />} />
         <Route path="/fitness" element={<FitnessTrackerPremium />} />
         <Route path="/recipe" element={<Recipe />} />
+        <Route path="/recipe/chatbot" element={<Chatbot/>}/>
         <Route
           path="/recipe/pantrychef"
           element={<PantryChef currentUserId={currentUserId} />}
@@ -121,6 +114,7 @@ function AppWithLoader() {
         <Route path="/recipe/macroschef/nutrient" element={<Nutrient />} />
         <Route path="/recipe/macroschef/intake" element={<Macrosintake />} />
            <Route path="/recipe/macroschef/recipe" element={<MacrosRecipe />} />
+           
         <Route path="/helpdesk" element={<HelpDesk />} />
         <Route path="/helpdesk/contactus" element={<ContactUs />} />
         <Route path="/helpdesk/feedback" element={<Feedback />} />
