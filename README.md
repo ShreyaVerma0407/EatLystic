@@ -48,7 +48,7 @@ Your **AI-powered personal cooking assistant** – generate recipes, track pantr
 
 * 📦 **Pantry Page** – Track available items
 * ➕ **Add Items with Calories & Nutrients**
-* 📜 **Pantry Report** – View expired & safe items and generates a proper report 
+* 📜 **Pantry Report** – View expired & safe items and generates a proper report for user
 * ✉️ **Email Notifications** for expired items
 * 📄 **Download Pantry Report as PDF**
 
