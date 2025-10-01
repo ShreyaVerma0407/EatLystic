@@ -288,3 +288,35 @@ body {
     grid-template-columns: 1fr;
   }
 }
+@media (max-width: 600px) {
+  .reviews-section {
+    padding: 1.5rem 0.5rem; /* Halve the padding */
+    border-radius: 0;
+  }
+  .reviews-section h1 {
+    font-size: 1.1rem;    /* About 55% of 2rem */
+    margin-bottom: 18px;
+  }
+  .feedback-bubbles-row {
+    gap: 10px;             /* Halve the gap between bubbles */
+    padding-bottom: 10px;
+  }
+  .feedback-bubble {
+    flex: 0 0 160px;       /* Half the width (from 320px) */
+    padding: 10px;
+    border-radius: 10px;
+    min-height: 50px;     /* Half the height */
+  }
+  .stars {
+    font-size: 1.0rem;    /* Half the original star size */
+    margin-bottom: 8px;
+  }
+  .feedback-text {
+    font-size: 0.5rem;
+    min-height: 45px;
+  }
+  .feedback-name {
+    font-size: 0.42rem;
+    margin-top: 0.25rem;
+  }
+}
