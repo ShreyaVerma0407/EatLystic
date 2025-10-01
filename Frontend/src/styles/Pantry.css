@@ -75,16 +75,16 @@
   box-sizing: border-box;
 }
 
+/* Remove existing blurry gradient effect */
 .pantry-header::after {
   content: "";
   position: absolute;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  height: 50px;
-  background: linear-gradient(to bottom, rgba(255,255,255,0) 0%, #fff 85%);
-  backdrop-filter: blur(3px);
-  z-index: 1;
+  top: 0; left: 0; right: 0; bottom: 0; /* cover entire container */
+  background-color: rgba(0, 0, 0, 0.4); /* Black transparent overlay, 40% opacity */
+  border-radius: 12px; /* match pantry-header rounding */
+  z-index: 1; /* place overlay behind text (which has z-index 2) */
+  backdrop-filter: none; /* remove blur */
+  pointer-events: none; /* let clicks pass through */
 }
 
 .pantry-header-text {
@@ -97,7 +97,7 @@
   max-width: 700px;
   font-family: 'Montserrat', sans-serif;
   user-select: none;
-  text-shadow: 0 0 6px rgba(255 255 255 / 0.85);
+  text-shadow: 0 0 6px rgba(255, 255, 255, 0.85);
 }
 
 .pantry-header-text .title {
@@ -528,6 +528,7 @@
   width: 100%;
   z-index: 1000; /* ensures it's on top */
 }
+
 /* Pantry Header Text */
 .pantry-header {
   background-size: cover;
@@ -577,5 +578,22 @@ text-shadow: 1px 1px 2px rgba(0,0,0,0.8); /* dark shadow for contrast */
     max-width: 90%; /* responsive width */
     line-height: 1.2;
     margin-top: 6px;
+
+@media (max-width: 768px) {
+  .pantry-header-text .subtitle {
+    font-size: 1.1rem !important;             /* Readable font size */
+    max-width: 95% !important;                /* Fit within screen width */
+    padding: 0 12px !important;               /* Horizontal padding for spacing */
+    color: #000 !important;                   /* Ensure high contrast */
+    white-space: normal !important;           /* Allow multiple lines */
+    overflow-wrap: break-word !important;    /* Break long words */
+    word-break: break-word !important;        /* Additional word break support */
+    margin: 0 auto !important;                /* Center horizontally */
+    display: block !important;                 /* Make sure it is shown */
+    text-align: center !important;            /* Centered text */
+    line-height: 1.4 !important;               /* Comfortable line height */
+    overflow: visible !important;              /* Prevent clipping */
+    box-sizing: border-box !important;        /* Include padding in width */
+
   }
 }

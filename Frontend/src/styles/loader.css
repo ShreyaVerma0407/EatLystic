@@ -384,7 +384,7 @@
   /* Adjusted for new sizes */
   .loader-container { 
     width: 280px; 
-    height: 250px; 
+    height: 300px; 
     padding: 5px;
   } 
   .logo-wrapper { height: 54px; margin-bottom: 2px;} 
