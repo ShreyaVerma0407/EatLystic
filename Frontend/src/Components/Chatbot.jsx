@@ -22,7 +22,7 @@ const Header = () => (
     <div className={styles['header-content']}>
       <h1 className={styles['header-title']}>EATSTIK</h1>
       <p className={styles['header-subtitle']}>
-        Your one-stop solution for all recipe, nutrition, and cooking queries—stylishly presented!
+      Your one-stop solution for all recipe, nutrition, and cooking queries—designed for mindful cooking.
       </p>
     </div>
   </div>
