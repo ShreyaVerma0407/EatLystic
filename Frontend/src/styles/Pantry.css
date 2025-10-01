@@ -528,6 +528,57 @@
   width: 100%;
   z-index: 1000; /* ensures it's on top */
 }
+
+/* Pantry Header Text */
+.pantry-header {
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  height: 250px; /* reduce height on mobile */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 0 20px; /* add padding so text doesn't touch edges */
+
+}
+
+.pantry-header-text .title {
+  font-size: 36px; /* desktop font */
+  font-weight: bold;
+ color: #ffffff; /* white text */
+text-shadow: 1px 1px 2px rgba(0,0,0,0.8); /* dark shadow for contrast */
+
+
+}
+
+.pantry-header-text .subtitle {
+  font-size: 18px; /* desktop subtitle */
+ color: #ffffff; /* white text */
+text-shadow: 1px 1px 2px rgba(0,0,0,0.8); /* dark shadow for contrast */
+
+  margin-top: 10px;
+  max-width: 800px; /* limit width on large screens */
+}
+
+/* Responsive for Mobile */
+@media (max-width: 768px) {
+  .pantry-header {
+    height: 180px; /* smaller header height */
+    padding: 0 10px;
+  }
+
+  .pantry-header-text .title {
+    font-size: 22px; /* smaller title */
+    line-height: 1.2;
+  }
+
+  .pantry-header-text .subtitle {
+    font-size: 14px; /* smaller subtitle */
+    max-width: 90%; /* responsive width */
+    line-height: 1.2;
+    margin-top: 6px;
+
 @media (max-width: 768px) {
   .pantry-header-text .subtitle {
     font-size: 1.1rem !important;             /* Readable font size */
@@ -543,5 +594,6 @@
     line-height: 1.4 !important;               /* Comfortable line height */
     overflow: visible !important;              /* Prevent clipping */
     box-sizing: border-box !important;        /* Include padding in width */
+
   }
 }

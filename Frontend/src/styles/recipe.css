@@ -31,3 +31,28 @@
 @media (max-width: 480px) {
   .hero-heading { font-size: clamp(2.5rem, 14vw, 10rem) !important; gap: 0.5rem !important; }
 }
+/* Mobile */
+@media (max-width: 768px) {
+  .hero-heading {
+    font-size: clamp(3rem, 12vw, 10rem) !important;
+    gap: 0.6rem !important;
+  }
+
+  .hero-heading span {
+    color: #ff5722 !important;               /* vibrant orange */
+    -webkit-text-stroke: 1px #fff !important; /* crisp white outline */
+  }
+}
+
+/* Small Mobile */
+@media (max-width: 480px) {
+  .hero-heading {
+    font-size: clamp(2.5rem, 14vw, 10rem) !important;
+    gap: 0.5rem !important;
+  }
+
+  .hero-heading span {
+    color:#ff5722!important;                /* vibrant orange */
+    -webkit-text-stroke: 1.2px #fff !important;
+  }
+}

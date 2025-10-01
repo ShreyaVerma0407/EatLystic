@@ -83,13 +83,10 @@ export default function Footer() {
       </div>
 
       {/* Footer Bottom */}
-      <div 
-  className={styles.footerBottom}
-  style={{ paddingLeft: '100px', paddingRight: '30px',fontWeight:'bolder' }} // Added left and right padding
->
-  <h5 style={{paddingLeft:'400px'}}>© 2025 Eatlystic. All rights reserved. Empowering healthier lifestyles through data.</h5>
- 
+    <div className={styles.footerBottom}>
+  <h5>© 2025 Eatlystic. All rights reserved. Empowering healthier lifestyles through data.</h5>
 </div>
+
     </footer>
   );
 }
