@@ -128,48 +128,97 @@
     gap: 1.5rem;
 }
 
-.customise-page .card.bg-secondary.text-white.w-100.d-flex.flex-column {
-    background: linear-gradient(145deg, #2a2f32, #1e2225) !important;
-    border: none !important;
-    border-radius: 20px !important;
-    transition: transform 0.3s, box-shadow 0.3s;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    flex: 1 1 300px;
-    min-height: 420px;
-    opacity: 0;
-    transform: translateY(20px);
-    animation: fadeInCard 0.6s forwards;
+/* Target only recipe display cards */
+.customise-page .row.g-4 .card.bg-secondary.text-white.w-100.d-flex.flex-column {
+    background-color: #ffffff !important;   /* white background */
+    color: #000 !important;                 /* black text */
+    border: 2px solid #ccc !important;
+    border-radius: 10px !important;
+    padding: 1.5rem !important;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.2) !important;
+
+    /* Ruled lines effect */
+    background-image: repeating-linear-gradient(
+        to bottom,
+        #ffffff 0px,
+        #ffffff 30px,
+        #e0e0e0 31px
+    );
+    background-size: 100% 31px;
+}
+
+/* Optional left margin line like notebook paper */
+.customise-page .row.g-4 .card.bg-secondary.text-white.w-100.d-flex.flex-column .card-body {
+    border-left: 4px solid #ff914d;
+    padding-left: 1rem;
+}
+
+/* Card titles & text */
+.customise-page .row.g-4 .card.bg-secondary.text-white.w-100.d-flex.flex-column .card-body h3 {
+    color: #ff914d !important;
+    text-align: left !important;
+    margin-bottom: 0.5rem;
+}
+
+.customise-page .row.g-4 .card.bg-secondary.text-white.w-100.d-flex.flex-column .card-body p {
+    color: #000 !important;
+    text-align: left !important;
+    line-height: 1.6;
+}
+
+
+/* Recipe cards - white ruled paper */
+.customise-page .row.g-4 .card.bg-secondary.text-white.w-100.d-flex.flex-column {
+    background-color: #ffffff !important;
+    color: #000 !important;
+    border: 2px solid #ccc !important;
+    border-radius: 10px !important;
+    padding: 1.5rem !important;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.2) !important;
+
+    /* Ruled lines */
+    background-image: repeating-linear-gradient(
+        to bottom,
+        #ffffff 0px,
+        #ffffff 30px,
+        #e0e0e0 31px
+    );
+    background-size: 100% 31px;
+    position: relative; /* needed for pseudo-elements */
+}
+
+/* Remove shine effect for white cards */
+.customise-page .row.g-4 .card.bg-secondary.text-white.w-100.d-flex.flex-column::after {
+    content: none !important;
+}
+/* Hover effect for white ruled-paper cards */
+/* Hover glow for ruled-paper cards */
+.customise-page .row.g-4 .card.bg-secondary.text-white.w-100.d-flex.flex-column:hover {
+    transform: translateY(-8px) scale(1.02);
+    box-shadow: 0 12px 25px rgba(0,0,0,0.25), 0 6px 15px rgba(0,0,0,0.15);
     position: relative;
-    overflow: hidden;
-    text-align: left; /* Align text inside cards */
-    padding: 1.5rem;
-}
+    transition: transform 0.3s ease, box-shadow 0.3s ease, background 0.3s ease;
 
-/* Glow & Tilt on hover */
-.customise-page .card.bg-secondary.text-white.w-100.d-flex.flex-column:hover {
-    transform: translateY(-6px) rotateX(1deg) rotateY(1deg);
-    box-shadow: 0 0 25px rgba(255, 145, 77, 0.6), 0 0 40px rgba(255, 200, 100, 0.4);
+    /* Glowing background using pseudo-element */
 }
-
-/* Shine effect */
-.customise-page .card.bg-secondary.text-white.w-100.d-flex.flex-column::after {
+.customise-page .row.g-4 .card.bg-secondary.text-white.w-100.d-flex.flex-column::before {
     content: '';
     position: absolute;
-    top: -50%;
-    left: -50%;
-    width: 200%;
-    height: 200%;
-    background: rgba(255, 255, 255, 0.05);
-    transform: rotate(25deg);
-    pointer-events: none;
-    transition: 0.7s;
+    top: -5px;
+    left: -5px;
+    width: calc(100% + 10px);
+    height: calc(100% + 10px);
+    background: radial-gradient(circle at center, rgba(255, 145, 77, 0.3), transparent 70%);
+    border-radius: 12px;  /* same as card radius + glow */
+    z-index: -1;  /* behind card content */
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+.customise-page .row.g-4 .card.bg-secondary.text-white.w-100.d-flex.flex-column:hover::before {
+    opacity: 1;
 }
 
-.customise-page .card.bg-secondary.text-white.w-100.d-flex.flex-column:hover::after {
-    transform: rotate(25deg) translateX(10px);
-}
+
 
 /* Card Titles */
 .customise-page .card-body h3 {
