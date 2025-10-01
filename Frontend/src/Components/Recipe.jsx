@@ -8,7 +8,7 @@ import Navbar from "./Navbar";
 const FILTERS = [
   { name: "All", key: "" },
   { name: "Chef", key: "chef" },
-  { name: "Plan", key: "plan" },
+  { name: "Ask", key: "ask" },
   { name: "Liked", key: "liked" },
   { name: "Favorite", key: "favorite" },
   { name: "Customise", key: "customise" },
@@ -19,10 +19,10 @@ const CARD_SETS = {
     { name: "PantryChef", route: "/recipe/pantrychef", img: "/images/pantrychef.jpg" },
     { name: "MealChef", route: "/recipe/mealchef", img: "/images/mealchef.png" },
     { name: "MacrosChef", route: "/recipe/macroschef", img: "/images/macroschef.jpg" },
-    { name: "PlanChef", route: "/recipe/mealplan", img: "/images/mealplanchef.jpg" },
+    { name: "EatStik", route: "/recipe/chatbot", img: "/images/chatbot.png" },
     { name: "Trending", route: "/recipe/trending", img: "/images/trending.png" },
   ],
-  plan: [{ name: "PlanChef", route: "/recipe/mealplan", img: "/images/mealplan.png" }],
+  ask: [{ name: "EatStik", route: "/recipe/chatbot", img: "/images/chatbot.png" }],
   liked: [{ name: "Likes", route: "/recipe/liked", img: "/images/liked.jpg" }],
   favorite: [
     { name: "Likes", route: "/recipe/liked", img: "/images/liked.jpg" },
