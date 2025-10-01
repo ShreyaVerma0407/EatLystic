@@ -1,29 +1,23 @@
 /* ---------------- Navbar ---------------- */
 /* Essential fix to remove bullets, padding, and margin from the <ul> element */
 .nav-links {
-  /* This is the key line to remove the list markers (bullets) */
   list-style: none;
-  /* Remove default browser padding and margin on <ul> */
   padding: 0;
   margin: 0;
-
-  /* Your existing layout styles for the navigation links go here, e.g.: */
   display: flex; /* For a horizontal desktop menu */
   gap: 20px;
 }
 
 /* Ensure list items don't have residual spacing or block display issues */
 .nav-links li {
-  /* This often makes horizontal navigation easier */
   display: inline-block;
 }
 
-/* When the menu is open (mobile view) - ensure vertical display without bullets */
 .nav-links.open {
-  /* Your existing mobile menu styles, e.g.: */
   flex-direction: column;
-  /* ... other styles for mobile positioning ... */
 }
+
+/* Main Navbar */
 .navbar {
   display: flex;
   align-items: center;
@@ -61,12 +55,12 @@
 .nav-links {
   display: flex;
   align-items: center;
-  gap: 1.5rem; /* adjust to fit */
+  gap: 1.5rem;
   flex-wrap: nowrap;
   white-space: nowrap;
-  overflow-x: visible; /* desktop: no scroll */
-  list-style: none;   /* removes bullets */
-  margin: 0;          /* remove default margin */
+  overflow-x: visible;
+  list-style: none;
+  margin: 0;
   padding: 0;
 }
 
@@ -117,10 +111,10 @@
 /* Tablets: iPad */
 @media (max-width: 1024px) and (min-width: 769px) {
   .nav-links {
-    gap: 1rem;           /* reduce gap to fit */
-    flex-wrap: nowrap;    /* keep in one row */
+    gap: 1rem;
+    flex-wrap: nowrap;
     justify-content: flex-start;
-    overflow-x: auto;     /* allow horizontal scroll if needed */
+    overflow-x: auto;
     padding-right: 1rem;
   }
 
@@ -131,10 +125,18 @@
 
 /* Mobile: smaller than 768px */
 @media (max-width: 768px) {
+  .navbar {
+    justify-content: space-between; /* logo left, hamburger right */
+    padding: 1rem 1rem;
+  }
+  .logo-cluster {
+    margin-right: auto;   /* move to far left */
+  }
   .hamburger {
     display: flex;
+    margin-left: auto;    /* move to far right */
+    order: 2;
   }
-
   .nav-links {
     position: fixed;
     top: 0;
@@ -151,11 +153,9 @@
     box-shadow: -4px 0 8px rgba(0, 0, 0, 0.2);
     z-index: 1100;
   }
-
   .nav-links.open {
     transform: translateX(0);
   }
-
   .nav-overlay {
     position: fixed;
     top: 0;
@@ -166,7 +166,6 @@
     z-index: 1000;
     display: none;
   }
-
   .nav-overlay.active {
     display: block;
   }
@@ -177,12 +176,10 @@
   .logo-text {
     font-size: 1.6rem;
   }
-
   .nav-links li a {
     font-size: 1rem;
     padding: 0.4rem 0.8rem;
   }
-
   .nav-links {
     width: 200px;
     padding: 1.5rem;
