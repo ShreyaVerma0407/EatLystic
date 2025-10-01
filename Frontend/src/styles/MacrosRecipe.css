@@ -471,3 +471,39 @@ body {
         flex-direction: column;
     }
 }
+@media (max-width: 768px) {
+  .recipe-cards-grid {
+    display: grid !important;
+    /* Instead of auto-fit, use auto-fill plus fixed max width for centering */
+    grid-template-columns: repeat(auto-fill, minmax(260px, max-content)) !important;
+    justify-content: center !important; /* Center the grid columns */
+    gap: 20px !important;
+    max-width: 700px;    /* Limit max width so grid shrinks */
+    width: 100%;
+    padding: 0 10px;
+    margin-left: auto !important;
+    margin-right: auto !important;
+    box-sizing: border-box;
+  }
+}
+
+
+
+
+  /* Make filter section full width but with side padding */
+  .filter-section {
+    width: 100% !important;  /* Override fixed width */
+    max-width: 100%;         /* Ensures it doesn't exceed screen */
+    padding: 20px 15px;      /* Reduced padding for mobile */
+    margin: 0 auto 40px;     /* Center with margin bottom */
+    border-radius: 12px;     /* Keep round corners */
+  }
+@media (max-width: 768px) {
+  .section-title,
+  .section-subtitle {
+    text-align: center !important;
+    margin-left: auto !important;
+    margin-right: auto !important;
+    width: 100%;
+  }
+}
