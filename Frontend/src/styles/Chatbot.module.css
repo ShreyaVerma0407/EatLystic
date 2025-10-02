@@ -213,12 +213,12 @@
   border-radius: 16px 16px 0 16px;
   padding: 12px 18px;
 
+
   white-space: normal;
   word-break: normal;
   overflow-wrap: break-word;
   hyphens: none;
-
-  max-width: 100%;
+  max-width: 100%;           
   position: relative;
   z-index: 1;
 }
