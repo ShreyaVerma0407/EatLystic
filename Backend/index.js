@@ -50,9 +50,7 @@ app.use(bodyParser.json());
 // MongoDB Connection
 // --------------------
 mongoose
-  .connect(
-    "mongodb+srv://shera1:pass1234@testd.uaa1xum.mongodb.net/employee?retryWrites=true&w=majority&appName=testd"
-  )
+   .connect( process.env.MONGO_URI)
   .then(() => console.log("✅ MongoDB connected"))
   .catch((err) => console.error("❌ MongoDB connection error:", err));
 
