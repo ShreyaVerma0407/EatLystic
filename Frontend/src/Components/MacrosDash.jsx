@@ -1298,10 +1298,10 @@ const App = () => {
               <Navbar />
             </div>
             <div className="page-container">
-     <NutritionComparisonTable
-          recommended={recommendedData}
-          consumed={consumedData}
-         onBack={() => setRoute("dashboard")} />
+     <NutrientDetails nutrient={nutrient} />
+              <button className={`${secondaryButtonStyle} mt-8`} onClick={() => setRoute("dashboard")}>
+                ← Go Back
+              </button>
 
             </div>
           </>
