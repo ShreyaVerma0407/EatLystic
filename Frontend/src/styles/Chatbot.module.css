@@ -1,351 +1,331 @@
 /* =================================================================
    BASE STYLES: Background, Container, and Typography
-   ================================================================= */
+   ================================================================== */
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap');
-/* In Navbar.module.css or global styles */
-/* Example Navbar styles for full width */
+
+/* Navbar: dark background with orange text */
 .navbar {
   width: 100vw;
   margin: 0;
-  padding: 0 20px; /* optional padding */
+  padding: 0 20px;
   box-sizing: border-box;
-  position: relative; /* or fixed/sticky if desired */
+  position: relative;
   left: 0;
   right: 0;
-  background-color: #fff; /* or whatever background */
-  z-index: 1000; /* to keep it above other content */
+  background-color: #1a1a1a; /* very dark gray/black */
+  color: #ffb74d; /* light orange text */
+  z-index: 1000;
 }
 
-
+/* Main app container with black background */
 .app-container {
-    min-height: 100vh;
-    /* Plain black background as requested */
-    background-color: #000000;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    font-family: 'Inter', sans-serif;
-    color: #ddd;
-    padding-bottom: 90px; /* Space for the fixed input area */
+  min-height: 100vh;
+  background-color: #000000; /* black background */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  font-family: 'Inter', sans-serif;
+  color: #f3bc70; /* warm orange text */
+  padding-bottom: 90px;
 }
 
-/* Header (No background image) */
+/* Header styling with orange gradient text and warm shadows */
 .header {
-    width: 100%;
-    background-color: #000000; /* Plain black header background */
-    position: relative;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    padding: 40px 0 20px 0;
+  width: 100%;
+  background-color: #000000; /* black header background */
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 40px 0 20px 0;
 }
 
 .header-content {
-    text-align: center;
+  text-align: center;
 }
 
 .header-title {
-    font-size: 4.5em;
-    font-weight: 700;
-    text-transform: uppercase;
-    /* Gradient for text, matching the image (Neon) */
-    background: linear-gradient(90deg, #ff00ff, #00ffff);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    color: #fff; /* Fallback color */
-    margin: 0;
-    text-shadow: 0 0 10px rgba(255, 0, 255, 0.5), 0 0 20px rgba(0, 255, 255, 0.5); /* Neon glow */
+  font-size: 4.5em;
+  font-weight: 700;
+  text-transform: uppercase;
+  background: linear-gradient(90deg, #ffc86f, #ff6f00);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: #ffaa33;
+  margin: 0;
+  text-shadow: 0 0 10px rgba(249, 168, 37, 0.9), 0 0 20px rgba(255, 111, 0, 0.9);
 }
 
 .header-subtitle {
   font-size: 1.25rem;
-  color: #61ffff;
+  color: #ffb84d;
   font-weight: 600;
   font-style: italic;
   margin-top: 0.25rem;
-  text-shadow: 1px 1px 2px rgba(255,111,97,0.7);
+  text-shadow: 1px 1px 2px rgb(252, 148, 21);
 }
 
 /* =================================================================
-   CHAT BOX WRAPPER (The main bordered container - Neon border)
-   ================================================================= */
+   CHAT BOX WRAPPER with dark background and orange border glows
+   ================================================================== */
 .chat-box-wrapper {
-    width: 95%;
-    max-width: 900px;
-    margin: 20px auto;
-    border-radius: 25px;
-    background-color: #0d0c1d; /* Inner dark background */
-    /* Neon glow effect for the box border (as requested) */
-    box-shadow:
-        0 0 10px rgba(0, 255, 255, 0.4), /* Cyan glow */
-        0 0 20px rgba(255, 0, 255, 0.2), /* Magenta glow */
-        0 0 0 2px #00ffff; /* Thin cyan outer border */
-    padding: 20px;
-    box-sizing: border-box;
-    flex-grow: 1;
+  width: 95%;
+  max-width: 900px;
+  margin: 20px auto;
+  border-radius: 25px;
+  background-color: #1a1a1a; /* dark gray background */
+  box-shadow:
+    0 0 10px rgba(249, 168, 37, 0.7),
+    0 0 20px rgba(255, 255, 255, 0.4),
+    0 0 0 2px #ffb74d;
+  padding: 20px;
+  box-sizing: border-box;
+  flex-grow: 1;
 }
 
 .chat-window {
-    width: 100%;
-    padding: 0 20px 10px 20px;
-    overflow-y: auto;
-    height: 100%;
-    min-height: 300px;
-    box-sizing: border-box;
+  width: 100%;
+  padding: 0 20px 10px 20px;
+  overflow-y: auto;
+  height: 100%;
+  min-height: 300px;
+  box-sizing: border-box;
 }
 
-/* Ensures all chat components align correctly within the window */
-.bot-card-wrapper, .message-user-container {
-    max-width: 100%;
-    width: 100%;
-    margin-bottom: 20px;
+.bot-card-wrapper,
+.message-user-container {
+  max-width: 100%;
+  width: 100%;
+  margin-bottom: 20px;
 }
 
 /* =================================================================
-   BOT CARDS (Unified Yellow/White Gradient Card)
-   ================================================================= */
+   BOT CARDS styling - warm orange gradient and shadows, on dark bg
+   ================================================================== */
 .bot-card-wrapper {
-    /* This is a structural wrapper, no padding/border logic here */
-    padding: 0;
-    box-shadow: none;
-    display: flex;
-    justify-content: flex-start;
+  padding: 0;
+  box-shadow: none;
+  display: flex;
+  justify-content: flex-start;
 }
 
 .bot-card {
-    background: linear-gradient(135deg, #ffffff 0%, #fffccc 100%); /* White and Yellow Gradient (Card) */
-    border-radius: 15px;
-    padding: 15px;
-    max-width: 70%;
-    width: 100%;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
-    color: #333;
-    border: 1px solid #f0e68c; /* Khaki border for definition */
+  background: linear-gradient(135deg, #f0c49b 0%, #ff6f09 100%);
+  border-radius: 15px;
+  padding: 15px;
+  max-width: 70%;
+  width: 100%;
+  box-shadow: 0 4px 15px rgb(255, 200, 118);
+  color: #fff0d1;
+  border: 1px solid #ffb347;
 }
 
-/* Styling for the Initial Greeting Card (ID 1) */
 .main-intro-card-wrapper {
-    /* Make it wider than normal replies */
-    max-width: 90%;
-    width: 100%;
+  max-width: 90%;
+  width: 100%;
 }
 
 .main-intro-card {
-    padding: 20px;
+  padding: 20px;
 }
 
 .card-header-content {
-    display: flex;
-    align-items: center;
-    margin-bottom: 10px;
-    padding-bottom: 8px;
-    border-bottom: 1px solid #eee;
+  display: flex;
+  align-items: center;
+  margin-bottom: 10px;
+  padding-bottom: 8px;
+  border-bottom: 1px solid #554100;
 }
 
 .avatar {
-    border-radius: 50%;
-    background-color: #000000;
-    color: #00ffff; /* Neon Cyan text color */
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    font-weight: 600;
-    margin-right: 15px;
+  border-radius: 50%;
+  background-color: #fa8900;
+  color: #5d2600;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-weight: 600;
+  margin-right: 15px;
 }
 
 .avatar.large {
-    width: 45px;
-    height: 45px;
-    font-size: 1.5em;
+  width: 45px;
+  height: 45px;
+  font-size: 1.5em;
 }
 
 .avatar.small {
-    width: 30px;
-    height: 30px;
-    font-size: 1em;
+  width: 30px;
+  height: 30px;
+  font-size: 1em;
 }
 
 .info-name {
-    font-weight: 700;
-    font-size: 1.1em;
-    color: #444;
-    margin: 0;
+  font-weight: 700;
+  font-size: 1.1em;
+  color: #522a01;
+  margin: 0;
 }
 
 .info-role {
-    font-size: 0.85em;
-    color: #666;
-    margin: 0;
+  font-size: 0.85em;
+  color: #2e2108;
+  margin: 0;
 }
 
 .card-content {
-    color: #555;
+  color: #000000;
 }
 
 .card-content ul {
-    list-style-type: disc;
-    margin: 10px 0 0 20px;
-    padding: 0;
-    color: #555;
-    font-size: 0.95em;
-}
-
-/* Class for the main text inside the card content, used for consistency */
-.answer-text-intro {
-    /* Placeholder */
+  list-style-type: disc;
+  margin: 10px 0 0 20px;
+  padding: 0;
+  color: #000000;
+  font-size: 0.95em;
 }
 
 /* =================================================================
-   USER MESSAGES (Bubbles - remains Cyan bubble)
-   ================================================================= */
-
+   USER MESSAGES (Orange themed bubbles) on dark bg
+   ================================================================== */
 .message-user-container {
-    display: flex;
-    align-items: flex-end;
-    justify-content: flex-end;
-    /* Tightens the space between the bubble and the avatar */
-    gap: 5px;
+  display: flex;
+  align-items: flex-end;
+  justify-content: flex-end;
+  gap: 5px;
 }
+
 .message-user-bubble-wrapper {
   display: inline-block;
-  max-width: 30vw;             /* max width ~30% viewport */
+  max-width: 30vw;
   padding: 2px;
   border-radius: 18px 18px 0 18px;
-  background: linear-gradient(135deg, #00ffff, #00bfff);
+  background: linear-gradient(135deg, #fbc02d, #ef6c00);
   -webkit-background-clip: padding-box;
   background-clip: padding-box;
   position: relative;
 }
 
 .message-user-bubble {
-  background-color: #0d0c1d;
-  color: #fff;
+  background-color: #f9bb89;
+  color: #2e1500;
   font-weight: 500;
   border-radius: 16px 16px 0 16px;
   padding: 12px 18px;
 
-  /* Prevent breaking inside words but allow wrapping at spaces */
+
   white-space: normal;
   word-break: normal;
   overflow-wrap: break-word;
   hyphens: none;
-
-  max-width: 100%;             /* fill wrapper width */
+  max-width: 100%;           
   position: relative;
   z-index: 1;
 }
 
-
-
 .message-bubble {
-    padding: 10px 15px;
-    max-width: 75%;
-    line-height: 1.4;
-    word-wrap: break-word;
-    font-size: 0.95em;
+  padding: 10px 15px;
+  max-width: 75%;
+  line-height: 1.4;
+  word-wrap: break-word;
+  font-size: 0.95em;
 }
-
 
 .user-avatar {
-    width: 30px;
-    height: 30px;
-    border-radius: 50%;
-    background-color: #2b2b3d;
-    color: #aaa;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    font-size: 0.9em;
-    margin-bottom: 5px;
-    box-shadow: 0 0 0 1px #444;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  background-color: #bf5700;
+  color: #fff3e0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 0.9em;
+  margin-bottom: 5px;
+  box-shadow: 0 0 0 1px #a35200;
 }
 
-
 /* =================================================================
-   INPUT AREA (Fixed to bottom)
-   ================================================================= */
-
+   INPUT AREA at bottom with orange gradient on black bg
+   ================================================================== */
 .input-area-wrapper {
-    position: fixed;
-    bottom: 0;
-    width: 100%;
-    background-color: #000000;
-    padding: 15px 0 20px 0;
-    display: flex;
-    justify-content: center;
-    box-shadow: 0 -5px 15px rgba(0, 0, 0, 0.7);
-    z-index: 10;
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  background-color: #1a1a1a;
+  padding: 15px 0 20px 0;
+  display: flex;
+  justify-content: center;
+  box-shadow: 0 -5px 15px rgba(255, 140, 0, 0.7);
+  z-index: 10;
 }
 
 .input-area {
-    width: 95%;
-    max-width: 900px;
-    display: flex;
-    align-items: center;
-    /* Neon border effect for input area */
-    padding: 1px;
-    border-radius: 30px;
-    background: linear-gradient(90deg, #ff00ff, #00ffff); /* Pink/Cyan Gradient */
-    box-shadow: 0 0 10px rgba(0, 255, 255, 0.5);
+  width: 95%;
+  max-width: 900px;
+  display: flex;
+  align-items: center;
+  padding: 1px;
+  border-radius: 30px;
+  background: linear-gradient(90deg, #edc17a, #ef6c00);
+  box-shadow: 0 0 10px rgba(249, 168, 37, 0.8);
 }
 
 .input-field {
-    flex-grow: 1;
-    padding: 15px 20px;
-    border-radius: 30px;
-    border: none;
-    background-color: #0d0c1d;
-    color: #fff;
-    font-size: 1em;
-    outline: none;
+  flex-grow: 1;
+  padding: 15px 20px;
+  border-radius: 30px;
+  border: none;
+  background-color: #1a1a1a;
+  color: #ffaa33;
+  font-size: 1em;
+  outline: none;
 }
 
 .input-field::placeholder {
-    color: #777;
+  color: #ff933b;
 }
 
 .send-button {
-    /* Send button is a simple gradient circle */
-    background: linear-gradient(45deg, #ff00ff, #00ffff);
-    border: none;
-    border-radius: 50%;
-    width: 45px;
-    height: 45px;
-    margin-left: 10px;
-    margin-right: 2px;
-    cursor: pointer;
-    color: white;
-    padding: 0;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    box-shadow: 0 0 10px rgba(0, 255, 255, 0.5);
-    transition: transform 0.1s;
+  background: linear-gradient(45deg, #ef6c00, #f9a825);
+  border: none;
+  border-radius: 50%;
+  width: 45px;
+  height: 45px;
+  margin-left: 10px;
+  margin-right: 2px;
+  cursor: pointer;
+  color: white;
+  padding: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  box-shadow: 0 0 10px rgba(249, 168, 37, 0.8);
+  transition: transform 0.1s;
 }
 
 /* =================================================================
-   MEDIA QUERIES for mobile responsiveness
-   ================================================================= */
+   MEDIA QUERIES for responsiveness
+   ================================================================== */
 @media (max-width: 600px) {
+  .header-title {
+    font-size: 2.5em;
+  }
 
-    .header-title {
-        font-size: 2.5em;
-    }
+  .chat-box-wrapper {
+    padding: 10px;
+    border-radius: 15px;
+  }
 
-    .chat-box-wrapper {
-        padding: 10px;
-        border-radius: 15px;
-    }
+  .chat-window {
+    padding: 0 10px 10px 10px;
+  }
 
-    .chat-window {
-        padding: 0 10px 10px 10px;
-    }
+  .bot-card {
+    max-width: 100%;
+  }
 
-    .bot-card {
-        max-width: 100%;
-    }
-
-    .main-intro-card-wrapper {
-        max-width: 100%;
-    }
+  .main-intro-card-wrapper {
+    max-width: 100%;
+  }
 }
