@@ -223,13 +223,13 @@
   font-weight: 500;
   border-radius: 16px 16px 0 16px;
   padding: 12px 18px;
-  
+
   /* Prevent breaking inside words but allow wrapping at spaces */
   white-space: normal;
   word-break: normal;
   overflow-wrap: break-word;
   hyphens: none;
-  
+
   max-width: 100%;             /* fill wrapper width */
   position: relative;
   z-index: 1;
