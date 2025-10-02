@@ -100,6 +100,7 @@ With EatLystic, you can **manage what you eat**, **maintain your health goals**,
   <img src="Frontend/src/assets/screenshot1.png" alt="Home Page" width="300"/>  
   <img src="Frontend/src/assets/screenshot2.png" alt="Pantry Page" width="300"/>  
   <img src="Frontend/src/assets/screenshot3.png" alt="Calorify Page" width="300"/>
+  <img src="Frontend/src/assets/screenshot4.png" alt="Calorify Page" width="300"/>
 </p>
 
 ---
