@@ -1444,3 +1444,27 @@ body,
     background-color: transparent !important;
   }
 }
+
+@media (max-width: 767px) {
+  .bars-container {
+    flex-direction: row;       /* keep bars side by side */
+    flex-wrap: nowrap;         /* prevent vertical stacking */
+    overflow-x: auto;          /* allow horizontal scroll if needed */
+    gap: 6px;                  /* smaller gap for mobile */
+    padding: 0 5px;
+  }
+
+  .bar-set-container {
+    width: auto;               /* flexible width */
+    flex: 0 0 50px;            /* each bar set gets 50px width */
+  }
+
+  .vertical-bar {
+    width: 12px;               /* thinner bars for mobile */
+  }
+
+  .x-axis-label {
+    font-size: 0.65rem;        /* smaller labels */
+    white-space: nowrap;       /* prevent wrapping of labels */
+  }
+}
