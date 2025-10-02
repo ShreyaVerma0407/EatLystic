@@ -314,22 +314,27 @@ const PantryReport = ({ userId }) => {
   }
 
   if (loading) {
-    return (
-      <>
-        <Navbar />
-        <div className="center-message loading">Loading pantry items...</div>
-      </>
-    );
-  }
+  return (
+    <>
+      <Navbar />
+      <div className="center-message loading" style={{ color: '#333' }}>
+        Loading pantry items...
+      </div>
+    </>
+  );
+}
 
-  if (!pantryItems.length) {
-    return (
-      <>
-        <Navbar />
-        <div className="center-message empty">🥫 Your pantry is empty! Start adding items to track expiry dates.</div>
-      </>
-    );
-  }
+if (!pantryItems.length) {
+  return (
+    <>
+      <Navbar />
+      <div className="center-message empty" style={{ color: '#FF6B6B' }}>
+        🥫 Your pantry is empty! Start adding items to track expiry dates.
+      </div>
+    </>
+  );
+}
+
 
   const renderItem = (item) => {
     const days = calculateDays(item.expiry);
@@ -407,6 +412,7 @@ const PantryReport = ({ userId }) => {
     background: linear-gradient(to right, #fffaf5, #fff);
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     color: #333;
+
   }
 
   .center-message {
@@ -415,8 +421,9 @@ const PantryReport = ({ userId }) => {
     color: #e67e22;
     font-size: 18px;
   }
-  .loading { color: #d35400; }
-  .empty { color: #f39c12; }
+  .loading { color: black; }
+  .empty { color: red; }
+
 
   .report-container {
     min-height: 100vh;
