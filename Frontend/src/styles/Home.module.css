@@ -1,0 +1,656 @@
+/* Color Palette */
+:root {
+  --color-purple: #9370db;
+  --color-bright-purple: #ae8bfa;
+  --color-pink: #d85bff;
+  --color-blue: #55b7ff;
+  --color-dark-text: #e0e0e0;
+  --color-box-bg: rgba(255, 255, 255, 0.05);
+  --color-black: #000000; /* Pure Black Background */
+  --color-white: #ffffff;
+  --color-orange: #ff9800;
+  --glow-shadow: 0 0 10px var(--color-bright-purple), 0 0 20px var(--color-blue);
+  --inset-shadow: inset 0 0 5px rgba(255, 255, 255, 0.2);
+}
+
+/* --- Global & Main Layout --- */
+
+.mainContainer {
+  background-color: var(--color-black); /* Ensures the content below the header is black */
+  min-height: 100vh;
+  width: 100vw;
+  position: relative;
+  overflow-x: hidden;
+  color: var(--color-white);
+  font-family: 'Inter', sans-serif;
+  line-height: 1.6;
+}
+
+/* --- 1. Full-Screen Image Header Section --- */
+
+.fullScreenHeader {
+  width: 100vw;
+  height: 100vh; /* Takes up the full viewport height */
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  position: relative;
+  z-index: 2; 
+}
+
+.headerOverlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  /* Dark overlay for text readability */
+  background: rgba(0, 0, 0, 0.5); 
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.headerContent {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    z-index: 3;
+    padding: 20px;
+}
+
+/* Original Heading Styles */
+.text {
+  color: #fff;
+  font-size: clamp(3rem, 5vw, 6rem); /* Responsive font size */
+  font-family: 'Arial Black', sans-serif;
+  text-shadow: 0 8px 32px rgba(0,0,0,0.8), 0 2px 8px var(--color-orange); 
+  letter-spacing: 0.1em;
+  font-weight: 900;
+  text-transform: uppercase;
+  transition: text-shadow 0.4s, transform 0.4s;
+  margin-bottom: 30px; /* Space above button */
+}
+
+.text:hover {
+  text-shadow: 0 8px 48px var(--color-orange), 0 2px 16px var(--color-white);
+  transform: scale(1.05);
+}
+
+.year {
+  display: inline-block;
+  color: var(--color-orange);
+  margin-left: 16px;
+  font-size: 1.2em;
+  text-shadow: 0 8px 32px rgba(0,0,0,0.7), 0 2px 8px #222;
+}
+
+/* Register Now Button */
+.registerButton {
+    padding: 12px 30px;
+    font-size: 1.1rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    color: var(--color-white);
+    background: linear-gradient(90deg, var(--color-bright-purple) 0%, var(--color-blue) 100%);
+    box-shadow: 0 0 15px rgba(174, 139, 250, 0.6);
+    transition: transform 0.3s ease, box-shadow 0.3s ease, background 0.3s ease;
+}
+
+.registerButton:hover {
+    transform: translateY(-3px) scale(1.02);
+    box-shadow: 0 0 30px rgba(174, 139, 250, 0.9), 0 0 5px rgba(85, 183, 255, 0.8);
+    background: linear-gradient(90deg, var(--color-pink) 0%, var(--color-bright-purple) 100%);
+}
+
+/* --- 2. Scrollable Content Section --- */
+
+.contentSection {
+    position: relative;
+    z-index: 1;
+    min-height: 100vh;
+    padding-bottom: 100px; /* Space at the bottom */
+}
+
+.contentWrapper {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 80px 20px 0;
+  position: relative;
+  z-index: 5;
+}
+
+/* --- Marquee Section Styles --- */
+
+.marqueeContainer {
+  background-color: #2f0a59;
+  width: 100%;
+  padding: 10px 0;
+  overflow: hidden; /* Hide content that flows outside */
+  position: sticky;
+  top: 0;
+  z-index: 100; /* Always visible at the top when scrolling */
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
+  white-space: nowrap;
+}
+
+/* Animation Keyframes */
+@keyframes marqueeScroll {
+    from {
+        transform: translateX(0);
+    }
+    to {
+        /* Translate the content by one full set of the duplicated content */
+        transform: translateX(-50%); 
+    }
+}
+
+.marqueeText {
+  display: flex;
+  justify-content: space-around;
+  margin: 0;
+  padding: 0;
+  animation: marqueeScroll 30s linear infinite; /* Apply the scrolling animation */
+  font-weight: 600;
+  font-size: 1rem;
+  color: var(--color-white);
+  white-space: nowrap; /* Crucial: ensures text stays on a single line */
+  min-width: 200%; /* Ensures enough width for the content and its duplicate */
+  align-items: center;
+  gap: 60px; /* Space between duplicated sets of content */
+}
+
+.marqueeText span {
+    display: inline-block;
+    padding: 0 30px; /* Add padding to space out elements within the text */
+}
+
+.marqueeText span:first-child {
+  color: var(--color-bright-purple);
+}
+
+.separator {
+  color: var(--color-pink);
+}
+
+.marqueeText span:last-child {
+  color: #ffcc66;
+}
+
+/* --- Section Headings (Global Style) --- */
+
+.aboutUsHeading, .ctaHeading, .brochureHeading, .contactHeading {
+  font-size: clamp(2.5rem, 5vw, 4.5rem);
+  font-weight: 900;
+  background: linear-gradient(90deg, var(--color-bright-purple) 0%, var(--color-blue) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: #fff;
+  margin: 80px 0 40px 0;
+  letter-spacing: 3px;
+  text-align: center;
+}
+
+/* --- About Us Section Styles --- */
+
+.aboutUsSection {
+  text-align: center;
+  padding-top: 50px;
+}
+
+.aboutUsContentBox {
+  background: var(--color-box-bg); 
+  border-radius: 15px;
+  padding: 40px 60px;
+  text-align: left;
+  line-height: 1.8;
+  font-size: 1.1rem;
+  color: var(--color-dark-text);
+  border: 1px solid rgba(255, 255, 255, 0.1); 
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+/* Hover effect for About Us Box */
+.aboutUsContentBox:hover {
+    border-color: var(--color-bright-purple);
+    box-shadow: 0 0 20px rgba(174, 139, 250, 0.4);
+}
+
+/* Text highlights inside the box */
+.boldText {
+  font-weight: bold;
+}
+
+.highlightText {
+  color: var(--color-bright-purple);
+  font-weight: bold;
+}
+
+.secondaryHighlightText {
+  color: var(--color-blue);
+  font-weight: bold;
+}
+
+.tertiaryHighlightText {
+  color: var(--color-pink);
+  font-weight: bold;
+}
+
+/* --- Registration CTA Section Styles --- */
+
+.registrationCtaSection {
+    padding: 80px 0;
+    display: flex;
+    justify-content: center;
+    text-align: center;
+}
+
+.ctaBox {
+    background: var(--color-box-bg); 
+    border-radius: 20px;
+    padding: 60px 40px;
+    text-align: center;
+    width: 100%;
+    max-width: 800px;
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    position: relative;
+    box-shadow: 0 0 30px rgba(0, 0, 0, 0.5);
+    margin: 40px 0;
+}
+
+.ctaIconCircle {
+    position: absolute;
+    top: -30px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, var(--color-bright-purple), var(--color-blue));
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 3px solid var(--color-black); /* Gap effect */
+    box-shadow: 0 0 15px rgba(174, 139, 250, 0.8);
+}
+
+.ctaIcon {
+    width: 28px;
+    height: 28px;
+    color: var(--color-white);
+    stroke-width: 3;
+}
+
+.ctaHeading {
+    margin-top: 10px;
+    font-size: clamp(2rem, 4vw, 3rem);
+    letter-spacing: 5px;
+    text-shadow: 0 0 10px rgba(174, 139, 250, 0.5);
+}
+
+.ctaSubtext {
+    font-size: 1.05rem;
+    color: var(--color-dark-text);
+    margin: 20px auto 40px;
+    max-width: 90%;
+}
+
+.ctaButton {
+    display: inline-flex;
+    align-items: center;
+    padding: 15px 35px;
+    font-size: 1.1rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    text-decoration: none;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    color: var(--color-white);
+    background: linear-gradient(90deg, var(--color-pink) 0%, var(--color-blue) 100%);
+    box-shadow: 0 5px 20px rgba(216, 91, 255, 0.4);
+    transition: transform 0.3s ease, box-shadow 0.3s ease, opacity 0.3s ease;
+}
+
+.ctaButton:hover {
+    transform: translateY(-2px) scale(1.01);
+    box-shadow: 0 8px 25px rgba(216, 91, 255, 0.8);
+    opacity: 0.9;
+}
+
+/* --- Brochure Section Styles --- */
+
+.brochureSection {
+    padding: 80px 0;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+}
+
+.brochureBox {
+    background: var(--color-box-bg);
+    border-radius: 20px;
+    padding: 60px 40px;
+    width: 100%;
+    max-width: 600px;
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    position: relative;
+    box-shadow: 0 0 30px rgba(0, 0, 0, 0.5);
+    margin-bottom: 40px;
+}
+
+.brochureIconCircle {
+    width: 70px;
+    height: 70px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, var(--color-pink), var(--color-purple));
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 20px;
+    box-shadow: 0 0 15px rgba(216, 91, 255, 0.6);
+}
+
+.brochureIcon {
+    width: 32px;
+    height: 32px;
+    color: var(--color-white);
+    stroke-width: 2;
+}
+
+.brochureTitle {
+    font-size: 1.8rem;
+    font-weight: 700;
+    margin-bottom: 15px;
+    color: var(--color-white);
+}
+
+.brochureSubtext {
+    font-size: 1rem;
+    color: var(--color-dark-text);
+    margin-bottom: 30px;
+}
+
+.brochureButton {
+    display: inline-flex;
+    align-items: center;
+    padding: 12px 30px;
+    font-size: 1rem;
+    font-weight: 600;
+    text-decoration: none;
+    border: 2px solid var(--color-white);
+    border-radius: 8px;
+    cursor: pointer;
+    color: var(--color-white);
+    background-color: transparent;
+    transition: background-color 0.3s ease, border-color 0.3s ease, transform 0.3s ease;
+}
+
+.brochureButton:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+    border-color: var(--color-pink);
+    transform: translateY(-1px);
+}
+
+/* --- Contact Section Styles (Updated) --- */
+
+.contactSection {
+    padding: 80px 0 150px; /* Extra bottom padding */
+    text-align: center;
+}
+
+.contactBox {
+    /* Updated: Removed card styling; this now acts purely as a flexible wrapper */
+    display: flex;
+    flex-wrap: wrap; /* Allows wrapping on smaller screens */
+    gap: 30px;
+    /* Resetting previous card styles */
+    background: none;
+    border-radius: 0;
+    padding: 0;
+    border: none;
+    box-shadow: none;
+}
+
+/* Contact Details Card (Left Div) */
+.contactDetails {
+    flex: 1 1 350px; /* Takes up space, but allows shrinking */
+    display: flex;
+    flex-direction: column;
+    gap: 25px;
+    /* Added Card Styling */
+    padding: 40px; 
+    background: var(--color-box-bg);
+    border-radius: 20px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.3);
+    transition: all 0.3s ease;
+}
+
+/* Added Hover Effect for Contact Details Card */
+.contactDetails:hover {
+    border-color: var(--color-bright-purple);
+    box-shadow: 0 0 25px rgba(174, 139, 250, 0.4);
+    transform: translateY(-2px);
+}
+
+.contactItem {
+    display: flex;
+    align-items: flex-start; /* Align icon to the top of text block */
+    text-align: left;
+    gap: 15px;
+}
+
+.contactIconCircle {
+    width: 45px;
+    height: 45px;
+    border-radius: 50%;
+    background: rgba(174, 139, 250, 0.15); /* Light, subtle background */
+    border: 1px solid var(--color-bright-purple);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0; /* Prevents icon circle from shrinking */
+}
+
+.contactIcon {
+    width: 20px;
+    height: 20px;
+    color: var(--color-bright-purple);
+    stroke-width: 2;
+}
+
+.contactLabel {
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: var(--color-dark-text);
+    margin-bottom: 2px;
+}
+
+.contactValue {
+    font-size: 1.1rem;
+    color: var(--color-white);
+    margin: 0;
+    line-height: 1.3;
+}
+
+/* Map Container Card (Right Div) */
+.mapContainer {
+    flex: 2 1 450px; /* Takes more space, but ensures map is large */
+    border-radius: 20px; /* Matched radius to contactDetails */
+    overflow: hidden;
+    height: 450px; /* Fixed height for the map container */
+    /* Added Card Styling */
+    padding: 15px; /* Internal padding to offset map from border */
+    background: var(--color-box-bg);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.3);
+    transition: all 0.3s ease;
+}
+
+/* Added Hover Effect for Map Card */
+.mapContainer:hover {
+    border-color: var(--color-blue);
+    box-shadow: 0 0 25px rgba(85, 183, 255, 0.4);
+    transform: translateY(-2px);
+}
+
+.googleMap {
+    width: 100%;
+    height: 100%;
+    border-radius: 10px; /* Rounded corners for the actual map iframe */
+    border: 0;
+}
+
+/* --- Decorative Elements (Glow Circles) --- */
+
+.decorativeOverlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  min-height: 100%;
+  pointer-events: none;
+  overflow: hidden;
+  opacity: 0.5; /* Reduce opacity for subtlety */
+}
+
+.glowingCircleLargeLeft,
+.glowingCircleSmallLeft,
+.glowingCircleMediumRight,
+.glowingCircleSmallTopRight {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(120px); /* Increased blur */
+  opacity: 0.4;
+  z-index: 1;
+  animation: pulse 10s infinite alternate ease-in-out;
+}
+
+@keyframes pulse {
+    from {
+        transform: scale(0.95) translate(0, 0);
+    }
+    to {
+        transform: scale(1.05) translate(10px, 10px);
+    }
+}
+
+/* Adjusting positions relative to the contentSection */
+.glowingCircleLargeLeft {
+  width: 350px;
+  height: 350px;
+  background-color: var(--color-bright-purple);
+  top: 150px; 
+  left: -150px;
+}
+
+.glowingCircleSmallLeft {
+  width: 200px;
+  height: 200px;
+  background-color: var(--color-pink);
+  top: 700px;
+  left: 100px;
+  animation-delay: 2s;
+}
+
+.glowingCircleMediumRight {
+  width: 250px;
+  height: 250px;
+  background-color: var(--color-blue);
+  bottom: 500px;
+  right: -100px;
+  animation-delay: 4s;
+}
+
+.glowingCircleSmallTopRight {
+  width: 150px;
+  height: 150px;
+  background-color: var(--color-bright-purple);
+  top: 50px;
+  right: 50px;
+  animation-delay: 6s;
+}
+
+/* --- Media Queries for Responsiveness --- */
+
+@media (max-width: 1024px) {
+    .contentWrapper {
+        padding: 50px 20px 0;
+    }
+    .aboutUsContentBox {
+        padding: 30px;
+    }
+    .contactBox {
+        flex-direction: column;
+        gap: 20px; /* Reduced gap */
+        padding: 0; /* contactBox wrapper is now padding-less */
+    }
+    .contactDetails {
+        padding: 30px;
+    }
+    .mapContainer {
+        height: 350px;
+        padding: 10px;
+    }
+    .contactDetails, .mapContainer {
+        flex: 1 1 100%;
+    }
+}
+
+@media (max-width: 768px) {
+    .text {
+        font-size: 8vw;
+    }
+    .year {
+        font-size: 1em;
+        margin-left: 10px;
+    }
+    .registerButton {
+        padding: 10px 25px;
+        font-size: 1rem;
+    }
+    .aboutUsHeading, .ctaHeading, .brochureHeading, .contactHeading {
+        font-size: 3rem;
+        margin: 60px 0 30px 0;
+    }
+    .marqueeText {
+        font-size: 0.9rem;
+    }
+    .ctaBox, .brochureBox {
+        padding: 40px 20px;
+    }
+}
+
+@media (max-width: 480px) {
+    .text {
+        font-size: 10vw;
+    }
+    .aboutUsContentBox {
+        padding: 20px;
+        font-size: 1rem;
+    }
+    .marqueeText span {
+        padding: 0 15px;
+    }
+    .ctaSubtext, .brochureSubtext {
+        font-size: 0.95rem;
+    }
+    .contactDetails {
+        padding: 25px;
+    }
+    .mapContainer {
+        height: 250px;
+    }
+    .contactValue {
+        font-size: 1rem;
+    }
+}
