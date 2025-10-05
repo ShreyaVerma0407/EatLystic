@@ -585,7 +585,7 @@ const VerticalBarChart = ({ comparisonData }) => {
 
 
 // New Component for the comparison table
-const NutritionComparisonTable = ({ recommended, consumed }) => {
+const NutritionComparisonTable = ({ recommended, consumed, onBack }) => {
   const dataKeys = ['energy_kcal', 'protein_g', 'carbs_g', 'fat_g'];
   const dataLabels = {
     // Note: The 'color' key here refers to the table's progress bar color, not the chart bar color
@@ -718,6 +718,32 @@ const NutritionComparisonTable = ({ recommended, consumed }) => {
       {/* VERTICAL BAR CHART MOVED HERE - Below the table */}
       <VerticalBarChart comparisonData={comparisonData} />
       {/* END VERTICAL BAR CHART */}
+  {/* ✅ Go Back Button here */}
+    <button
+          onClick={onBack}
+          style={{
+            padding: "0.55rem 1.3rem",
+            background: "transparent",
+            color: "#f97316",
+            border: "2px solid #f97316",
+            borderRadius: "0.75rem",
+            fontWeight: "bold",
+            cursor: "pointer",
+            transition: "background-color 0.2s, color 0.2s",
+            display: "block",
+            margin: "2.3em auto 0 0",
+          }}
+          onMouseEnter={(e) => {
+            e.currentTarget.style.backgroundColor = "#f97316";
+            e.currentTarget.style.color = "#000";
+          }}
+          onMouseLeave={(e) => {
+            e.currentTarget.style.backgroundColor = "transparent";
+            e.currentTarget.style.color = "#f97316";
+          }}
+        >
+          ← Go Back to Dashboard
+        </button>
     </div>
   );
 };
@@ -777,6 +803,7 @@ const NutrientDetails = ({ nutrient }) => {
           healthy lifestyle.
         </p>
       </div>
+
     </div>
   );
 };
@@ -850,7 +877,12 @@ const CombinedNutritionPlanView = ({ nutrient, onBack }) => {
 
       <div style={{paddingTop: '2rem'}}>
         {/* Nutritional Comparison Table and VerticalBarChart */}
-        <NutritionComparisonTable recommended={nutrient} consumed={consumedTotals} />
+       <NutritionComparisonTable
+  recommended={nutrient}
+  consumed={consumedTotals}
+  onBack={onBack}
+/>
+
         {/* TodaysIntakeView component is intentionally removed */}
       </div>
     </div>
@@ -1266,10 +1298,11 @@ const App = () => {
               <Navbar />
             </div>
             <div className="page-container">
-              <NutrientDetails nutrient={nutrient} />
+     <NutrientDetails nutrient={nutrient} />
               <button className={`${secondaryButtonStyle} mt-8`} onClick={() => setRoute("dashboard")}>
                 ← Go Back
               </button>
+
             </div>
           </>
         );

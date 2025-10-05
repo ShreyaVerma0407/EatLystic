@@ -232,7 +232,7 @@ const CaloriePage = ({ currentUserId }) => {
             </button>
           </form>
           {searchCalories !== null && (
-            <p style={{ fontWeight: "bold", fontSize: 16 }}>
+            <p style={{ fontWeight: "bold", fontSize: 16,color:"#fc8019" }}>
               Calories in{" "}
               <span style={{ color: "#fc8019" }}>{searchTerm}</span>:{" "}
               {searchCalories} kcal

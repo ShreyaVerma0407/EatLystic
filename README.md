@@ -158,7 +158,7 @@ npm install
 
 Make sure to create `.env` files for **both frontend and backend** with the following variables.
 
----
+
 
 ### ⚡ Frontend (`frontend/.env`)
 
@@ -198,6 +198,7 @@ EDAMAM_APP_ID=your_edamam_app_id_here
 EDAMAM_APP_KEY=your_edamam_app_key_here
 
 ```
+---
 
 ## 🤝 Contributing
 
