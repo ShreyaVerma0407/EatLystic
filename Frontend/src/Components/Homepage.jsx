@@ -284,18 +284,19 @@ const Homepage = ({ onExploreFeature }) => {
       </section>
 
       {/* How It Works */}
-      <section className="video-section">
-        <h2 style={{ color: "black" }}>How the Website Works</h2>
+<section className="video-section">
+<h2 >How the Website Works</h2>
 
-        <div className="video-container">
-          <iframe
-            src="https://www.youtube.com/embed/1O8qAzyH7m4"
-            title="How our website works"
-            frameBorder="0"
-            allowFullScreen
-          ></iframe>
-        </div>
-      </section>
+  <video
+  src="/images/home.mp4"
+  controls
+  autoPlay
+  loop
+  muted
+  style={{ width: "500px", height: "300px", objectFit: "cover" }}
+/>
+</section>
+
 
       {/* Footer */}
       <Footer />

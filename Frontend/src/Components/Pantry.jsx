@@ -76,6 +76,7 @@ function Pantry({ currentUserId }) {
   const [pantry, setPantry] = useState(INITIAL);
   const [showForm, setShowForm] = useState(false);
   const [editingId, setEditingId] = useState(null);
+
   const [newItem, setNewItem] = useState({
     name: "",
     quantity: 1,
@@ -97,6 +98,10 @@ function Pantry({ currentUserId }) {
       return acc;
     }, {})
   );
+
+ const [scannedItems, setScannedItems] = useState([]);
+  const [uploading, setUploading] = useState(false);
+const [editableItems, setEditableItems] = useState([]);
 
   if (!currentUserId) {
     return <Navigate to="/login" replace />;
@@ -293,22 +298,136 @@ function Pantry({ currentUserId }) {
   };
 
   const handleDelete = (id) => {
-    if (window.confirm("Are you sure you want to delete this item?")) {
-      fetch(`${API_BASE_URL}/pantry/${id}`, {
-        method: "DELETE",
+  if (!id) {
+    console.error("Delete failed: missing id");
+    return;
+  }
+
+  if (window.confirm("Are you sure you want to delete this item?")) {
+    fetch(`${API_BASE_URL}/pantry/${id}`, {
+      method: "DELETE",
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        if (data.status === "success") {
+          setPantry((p) => p.filter((item) => item._id !== id));
+        } else {
+          alert("Failed to delete item");
+        }
       })
-        .then((res) => res.json())
-        .then((data) => {
-          if (data.status === "success") {
-            setPantry((p) => p.filter((item) => item._id !== id));
-          } else {
-            alert("Failed to delete item");
-          }
-        })
-        .catch(() => alert("Error deleting pantry item"));
-    }
+      .catch(() => alert("Error deleting pantry item"));
+  }
+};
+const normalizeCategory = (cat = "") => {
+  const map = {
+    vegetables: "Vegetables",
+    vegetable: "Vegetables",
+    fruits: "Fruits",
+    fruit: "Fruits",
+    dairy: "Dairy",
+    snacks: "Snacks",
+    bakery: "Bakery",
+    beverages: "Beverages",
+    beverage: "Beverages",
+    others: "Others",
+    other: "Others",
   };
 
+  const key = cat.toLowerCase();
+  return map[key] || "Others";
+};
+const scanBill = async (file) => {
+  const formData = new FormData();
+  formData.append("image", file);
+
+  setUploading(true);
+
+  try {
+    const res = await fetch(`${API_BASE_URL}/bill/scan-bill`, {
+      method: "POST",
+      body: formData,
+    });
+
+    const data = await res.json();
+    console.log("SCAN RESPONSE:", data);
+
+    const enrichWithImages = async (items) => {
+      const enriched = await Promise.all(
+        items.map(async (item) => {
+          let imageUrl = "";
+
+          const query = encodeURIComponent(item.name);
+
+          try {
+            const unsplashRes = await fetch(
+              `https://api.unsplash.com/search/photos?query=${query}&client_id=${UNSPLASH_ACCESS_KEY}&per_page=1`
+            );
+
+            const unsplashData = await unsplashRes.json();
+
+            if (unsplashData.results?.length > 0) {
+              imageUrl = unsplashData.results[0].urls.small;
+            } else {
+              const edamamRes = await fetch(
+                `https://api.edamam.com/api/food-database/v2/parser?ingr=${query}&app_id=${EDAMAM_APP_ID}&app_key=${EDAMAM_APP_KEY}`
+              );
+
+              const edamamData = await edamamRes.json();
+
+              imageUrl =
+                edamamData?.parsed?.[0]?.food?.image ||
+                edamamData?.hints?.[0]?.food?.image ||
+                "";
+            }
+          } catch (err) {
+            console.error("Image fetch error:", err);
+          }
+
+          return {
+            ...item,
+            category: normalizeCategory(item.category),
+            imageUrl,
+          };
+        })
+      );
+
+      setEditableItems(enriched);
+    };
+
+    await enrichWithImages(data.items || []);
+
+  } catch (err) {
+    console.error("Scan error:", err);
+    setEditableItems([]);
+  } finally {
+    setUploading(false);
+  }
+};
+const addToPantry = async (item) => {
+  try {
+    const res = await fetch(`${API_BASE_URL}/pantry`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        userId: currentUserId,
+        name: item.name,
+        quantity: item.quantity,
+        category: item.category || "Other",
+        expiry: item.expiry_date || "",
+        consumed: 0,
+        imageUrl: ""
+      }),
+    });
+
+    const data = await res.json();
+
+    if (data.status === "success") {
+      setPantry((prev) => [data.data, ...prev]);
+    }
+  } catch (err) {
+    console.error("Add error:", err);
+  }
+};
   return (
     <div
       className={`pantry-page ${
@@ -340,7 +459,17 @@ function Pantry({ currentUserId }) {
         >
           {showForm ? "Close Form" : editingId ? "Edit Item" : "+ Add Item"}
         </button>
+<div style={{ marginTop: "10px" }}>
+  <input
+    type="file"
+    accept="image/*"
+    onChange={(e) => {
+      if (e.target.files?.[0]) scanBill(e.target.files[0]);
+    }}
+  />
 
+  {uploading && <p style={{ color: "black" }}>Scanning bill...</p>}
+</div>
         <div className="global-filters">
           <select
             value={globalFilters.category}
@@ -390,7 +519,176 @@ function Pantry({ currentUserId }) {
           </select>
         </div>
       </div>
+     {scannedItems.length > 0 && (
+  <div className="scanned-box">
+    <h3>Scanned Items</h3>
 
+    {scannedItems.map((item, idx) => (
+      <div key={idx} className="scanned-item">
+        <span>{item.name}</span>
+        <span>{item.quantity}</span>
+
+        <button
+          onClick={() => {
+            fetch(`${API_BASE_URL}/pantry`, {
+              method: "POST",
+              headers: { "Content-Type": "application/json" },
+              body: JSON.stringify({
+                userId: currentUserId,
+                name: item.name,
+                quantity: item.quantity,
+                category: item.category || "Other",
+                expiry: item.expiry_date || "",
+                consumed: 0,
+                imageUrl: "",
+              }),
+            }).then((res) => res.json())
+              .then((data) => {
+                if (data.status === "success") {
+                  setPantry((prev) => [data.data, ...prev]);
+                }
+              });
+          }}
+        >
+          Add
+        </button>
+      </div>
+    ))}
+  </div>
+)}
+{editableItems.length > 0 && (
+  <div className="scanned-box">
+    <h3 className="text-black">✏️ Review & Edit Items</h3>
+
+    <table className="editable-table">
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Qty</th>
+          <th>Category</th>
+          <th>Expiry</th>
+          <th>Action</th>
+        </tr>
+      </thead>
+
+      <tbody>
+  {editableItems.map((item, index) => (
+    <tr key={index}>
+      {/* Name */}
+      <td>
+        <input
+          value={item.name}
+          onChange={(e) => {
+            const updated = [...editableItems];
+            updated[index].name = e.target.value;
+            setEditableItems(updated);
+          }}
+        />
+      </td>
+
+      {/* Qty */}
+      <td>
+        <input
+          type="number"
+          value={item.quantity}
+          onChange={(e) => {
+            const updated = [...editableItems];
+            updated[index].quantity = e.target.value;
+            setEditableItems(updated);
+          }}
+        />
+      </td>
+
+      {/* Category FIXED */}
+      <td>
+        <select
+          value={item.category || "Other"}
+          onChange={(e) => {
+            const updated = [...editableItems];
+            updated[index].category = e.target.value;
+            setEditableItems(updated);
+          }}
+        >
+          <option value="Other">Other</option>
+
+          {CATEGORIES.map((c) => (
+            <option key={c} value={c}>
+              {c}
+            </option>
+          ))}
+        </select>
+      </td>
+
+      {/* Expiry */}
+      <td>
+        <input
+          type="date"
+          value={item.expiry_date || ""}
+          onChange={(e) => {
+            const updated = [...editableItems];
+            updated[index].expiry_date = e.target.value;
+            setEditableItems(updated);
+          }}
+        />
+      </td>
+
+      {/* Action */}
+      <td>
+        <button
+          onClick={() => {
+            setEditableItems(editableItems.filter((_, i) => i !== index));
+          }}
+        >
+          ❌
+        </button>
+      </td>
+    </tr>
+  ))}
+</tbody>
+</table>
+
+    <button
+      className="btn-add"
+      onClick={() => {
+        const newRow = {
+          name: "",
+          quantity: 1,
+          category: "Other",
+          expiry_date: "",
+        };
+        setEditableItems([...editableItems, newRow]);
+      }}
+    >
+      ➕ Add Item
+    </button>
+
+    <button
+      className="btn-add"
+      onClick={async () => {
+        for (const item of editableItems) {
+          await fetch(`${API_BASE_URL}/pantry`, {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+              userId: currentUserId,
+              name: item.name,
+              quantity: Number(item.quantity || 1),
+              category: item.category || "Other",
+              expiry: item.expiry_date || "",
+              consumed: 0,
+              imageUrl: "",
+            }),
+          });
+        }
+
+        setPantry((prev) => [...editableItems, ...prev]);
+        setEditableItems([]);
+      }}
+    >
+      💾 Save All to Pantry
+    </button>
+  </div>
+)}
       {showForm && (
         <form className="add-item-form" onSubmit={handleSubmit}>
           <label>
@@ -528,16 +826,14 @@ function Pantry({ currentUserId }) {
                       >
                         <div className="flip-card-front">
                           <div className="image-wrapper">
-                            <img
-                              src={
-                                item.imageUrl ||
-                                `https://via.placeholder.com/110?text=${encodeURIComponent(
-                                  item.name
-                                )}`
-                              }
-                              alt={item.name}
-                              className="item-image"
-                            />
+                           <img
+  src={
+    item.imageUrl ||
+    `https://source.unsplash.com/300x300/?${encodeURIComponent(item.name || "food")}`
+  }
+  alt={item.name}
+  className="item-image"
+/>
                           </div>
                           <div
                             className="item-info"
