@@ -40,7 +40,7 @@ import Macrosintake from "./Components/Macrosintake.jsx";
 import MacrosRecipe from "./Components/MacrosRecipe.jsx";
 import Loader from "./Components/Loader";
 import Chatbot from "./Components/Chatbot";
-import Home from "./Components/Home";
+// import Home from "./Components/Home";
 // Layout component for MacrosChef nested routes
 function MacrosChefLayout() {
   return (
@@ -86,7 +86,7 @@ function AppWithLoader() {
         <Route path="/home" element={<Homepage />} />
         <Route path="/" element={<LandingPage />} />
         
-<Route path ="/ahome" element={<Home/>}/>
+{/* <Route path ="/ahome" element={<Home/>}/> */}
         {/* Routes requiring userId */}
         <Route
           path="/pantry"

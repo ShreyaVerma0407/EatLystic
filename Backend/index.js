@@ -38,6 +38,7 @@ import logoutRouter from "./server/routes/logout.js";
 // ✅ ADDED: Import Review Model and Review Routes
 import ReviewModel from "./server/models/Review.js";
 import reviewRoutes from "./server/routes/reviewRoutes.js";
+import billRoutes from "./server/routes/billRoutes.js";
 
 
 
@@ -141,6 +142,7 @@ app.use("/api/logout", logoutRouter);
 
 // ✅ ADDED: Mount review routes
 app.use("/api/reviews", reviewRoutes);
+app.use("/api/bill", billRoutes);
 
 
 // --------------------
