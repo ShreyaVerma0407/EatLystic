@@ -476,30 +476,67 @@ def render_json_export(results: list[dict]):
 def main():
     mode = render_sidebar()
 
+    # ── Read items from React via URL (?items=milk,bread,eggs&t=timestamp) ──
+    query_items_raw = st.query_params.get("items", "")
+    suggested_items = parse_input(query_items_raw) if query_items_raw else []
+
+    # ── Session state: track which chips have been added to the search bar ──
+    if "selected_items" not in st.session_state:
+        st.session_state.selected_items = []
+
     # Hero
     st.markdown('<div class="hero-title">🛒 PriceHunt</div>', unsafe_allow_html=True)
     st.markdown('<div class="hero-sub">Real-time grocery price comparison · Best deals · Instant buy links</div>', unsafe_allow_html=True)
 
-    # Input area
+    # ── Suggested chips from React cart (shown ABOVE search bar) ──
+    if suggested_items:
+        st.markdown(
+            '<div style="font-size:0.8rem; font-weight:700; color:#a78bfa; '
+            'text-transform:uppercase; letter-spacing:0.1em; margin-bottom:0.5rem;">'
+            '🛒 Items from your cart — click to add to search</div>',
+            unsafe_allow_html=True,
+        )
+        chip_cols = st.columns(min(len(suggested_items), 4))
+        for i, item in enumerate(suggested_items):
+            col = chip_cols[i % 4]
+            with col:
+                already_added = item in st.session_state.selected_items
+                label = f"✓ {item}" if already_added else f"+ {item}"
+                if st.button(
+                    label,
+                    key=f"chip_{item}",
+                    disabled=already_added,
+                    use_container_width=True,
+                ):
+                    st.session_state.selected_items.append(item)
+                    st.rerun()
+
+        st.markdown("<br>", unsafe_allow_html=True)
+
+    # ── Search bar (pre-filled with clicked chips) ──
+    prefilled = ", ".join(st.session_state.selected_items) if st.session_state.selected_items else ""
+
     col_input, col_btn = st.columns([5, 1])
     with col_input:
         raw_input = st.text_input(
             label="Items",
             label_visibility="collapsed",
             placeholder="milk, bread, eggs, rice, butter ...",
-            value="milk, bread, eggs",
+            value=prefilled,
         )
     with col_btn:
         search_clicked = st.button("Search", type="primary", use_container_width=True)
 
-    # Example pills
-    st.markdown(
-        '<div style="margin-top:-0.5rem; margin-bottom:1rem;">'
-        '<span style="font-size:0.75rem; color:#8892a4;">Try: </span>'
-        '<span style="font-size:0.75rem; color:#a78bfa;">milk, bread, eggs &nbsp;·&nbsp; rice, oil, sugar &nbsp;·&nbsp; butter, cheese</span>'
-        '</div>',
-        unsafe_allow_html=True,
-    )
+    # Example pills (only shown when no cart items suggested)
+    if not suggested_items:
+        st.markdown(
+            '<div style="margin-top:-0.5rem; margin-bottom:1rem;">'
+            '<span style="font-size:0.75rem; color:#8892a4;">Try: </span>'
+            '<span style="font-size:0.75rem; color:#a78bfa;">'
+            'milk, bread, eggs &nbsp;·&nbsp; rice, oil, sugar &nbsp;·&nbsp; butter, cheese'
+            '</span></div>',
+            unsafe_allow_html=True,
+        )
 
     # ── Run Search ──
     if search_clicked and raw_input.strip():
@@ -561,25 +598,43 @@ def main():
         render_json_export(ranked_results)
 
     elif not search_clicked:
-        # Landing placeholder
-        st.markdown("""
-        <div style="
-          background: #161b2e;
-          border: 1px dashed #2e3347;
-          border-radius: 16px;
-          padding: 3rem 2rem;
-          text-align: center;
-          margin-top: 1rem;
-        ">
-          <div style="font-size: 3rem; margin-bottom: 1rem;">🔍</div>
-          <div style="font-size: 1.1rem; font-weight: 700; color: #c4ccdb;">
-            Enter items above and click Search
-          </div>
-          <div style="font-size: 0.85rem; color: #8892a4; margin-top: 0.5rem;">
-            Fetches live prices · Ranks by best value · Shows alternatives with buy links
-          </div>
-        </div>
-        """, unsafe_allow_html=True)
+        if not suggested_items:
+            # Landing placeholder (only when no cart items)
+            st.markdown("""
+            <div style="
+              background: #161b2e;
+              border: 1px dashed #2e3347;
+              border-radius: 16px;
+              padding: 3rem 2rem;
+              text-align: center;
+              margin-top: 1rem;
+            ">
+              <div style="font-size: 3rem; margin-bottom: 1rem;">🔍</div>
+              <div style="font-size: 1.1rem; font-weight: 700; color: #c4ccdb;">
+                Enter items above and click Search
+              </div>
+              <div style="font-size: 0.85rem; color: #8892a4; margin-top: 0.5rem;">
+                Fetches live prices · Ranks by best value · Shows alternatives with buy links
+              </div>
+            </div>
+            """, unsafe_allow_html=True)
+        else:
+            # Prompt user to click chips and search
+            st.markdown("""
+            <div style="
+              background: #161b2e;
+              border: 1px dashed #a78bfa55;
+              border-radius: 16px;
+              padding: 2rem;
+              text-align: center;
+              margin-top: 1rem;
+            ">
+              <div style="font-size: 2rem; margin-bottom: 0.5rem;">👆</div>
+              <div style="font-size: 1rem; font-weight: 700; color: #c4ccdb;">
+                Click items above to add them to the search bar, then hit Search
+              </div>
+            </div>
+            """, unsafe_allow_html=True)
 
 
 if __name__ == "__main__":
