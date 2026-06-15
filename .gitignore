@@ -50,3 +50,4 @@ Dockerfile
 *.orig
 *.sublime-workspace
 *.sublime-project
+Backend/uploads/
