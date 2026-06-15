@@ -22,6 +22,8 @@ const ShoppingCart = () => {
   const [ingredientImages, setIngredientImages] = useState({});
   const [isCartOpen, setIsCartOpen] = useState(false);
 
+  // --- Price comparison addition ---
+
 
 
   // Fetch pantry
@@ -77,6 +79,31 @@ const ShoppingCart = () => {
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ userId, itemName: item.name }),
     }).catch((err) => console.error("Error removing cart item:", err));
+  };
+
+  // --- Price comparison helper: open Streamlit with cleaned cart item names ---
+  const cleanItemName = (name) => {
+    // Remove leading quantities like "1 ", "2 ", "100g ", "1 tbsp ", "1/2 cup " etc.
+    let cleaned = name
+      .replace(/^\d+[\d./]*\s*(g|kg|ml|l|tbsp|tsp|cup|cups|oz|lb|tbsp)?\s+/i, "") // strip leading quantity+unit
+      .replace(/,.*$/, "")        // remove everything after a comma e.g. "chopped", "boiled"
+      .replace(/\(.*?\)/g, "")    // remove parentheticals e.g. "(cod or haddock)"
+      .replace(/\bfor\s+\w+/gi, "") // remove "for frying", "for cooking"
+      .trim();
+    return cleaned;
+  };
+
+  const comparePrices = () => {
+    if (cartItems.length === 0) return;
+    const cleaned = cartItems
+      .map((i) => cleanItemName(i.name))
+      .filter((name) => name.length > 1)          // drop empty/single-char results
+      .filter((name, idx, arr) => arr.indexOf(name) === idx) // deduplicate
+      .slice(0, 8);                                // Streamlit max 8
+    const itemNames = cleaned.join(",");
+    // Add timestamp so Streamlit never sees a stale cached session
+    const streamlitUrl = `http://localhost:8501/?items=${encodeURIComponent(itemNames)}&t=${Date.now()}`;
+    window.open(streamlitUrl, "_blank");
   };
 
   // Pantry suggestions
@@ -601,20 +628,37 @@ useEffect(() => {
         <h2 style={{ color: "#FF6B00", fontWeight: "800", fontSize: "22px" }}>
           Your Cart ({cartItems.length})
         </h2>
-        <button
-          onClick={() => setIsCartOpen(false)}
-          style={{
-            background: "#FF3B3B",
-            color: "#fff",
-            border: "none",
-            padding: "6px 12px",
-            borderRadius: "10px",
-            cursor: "pointer",
-            fontWeight: "600",
-          }}
-        >
-          Close
-        </button>
+        <div style={{ display: "flex", alignItems: "center" }}>
+          <button
+            onClick={comparePrices}
+            style={{
+              background: "linear-gradient(135deg, #FF6B00, #FF914D)",
+              color: "#fff",
+              border: "none",
+              padding: "6px 12px",
+              borderRadius: "10px",
+              cursor: "pointer",
+              fontWeight: "600",
+              marginRight: "8px",
+            }}
+          >
+            Compare Prices
+          </button>
+          <button
+            onClick={() => setIsCartOpen(false)}
+            style={{
+              background: "#FF3B3B",
+              color: "#fff",
+              border: "none",
+              padding: "6px 12px",
+              borderRadius: "10px",
+              cursor: "pointer",
+              fontWeight: "600",
+            }}
+          >
+            Close
+          </button>
+        </div>
       </div>
 
       {/* Cart Items */}
@@ -716,8 +760,6 @@ useEffect(() => {
         </div>
       )}
 
-
-
     </div>
   </>
 )}
@@ -730,5 +772,3 @@ useEffect(() => {
 };
 
 export default ShoppingCart;
-
-
