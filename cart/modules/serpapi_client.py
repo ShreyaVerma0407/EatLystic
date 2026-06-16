@@ -9,6 +9,7 @@ import random
 import logging
 from typing import Optional
 from dotenv import load_dotenv
+from typing import List, Dict
 
 load_dotenv()
 logger = logging.getLogger(__name__)
@@ -35,7 +36,7 @@ def parse_price(raw: str) -> Optional[float]:
 
 # ─── SerpAPI Live Fetch ──────────────────────────────────────────────────────
 
-def fetch_serpapi(query: str) -> list[dict]:
+def fetch_serpapi(query: str) -> List[Dict]:
     """Fetch Google Shopping results via SerpAPI."""
     if not SERPAPI_KEY:
         logger.warning("No SERPAPI_KEY set — using fallback data.")
@@ -151,7 +152,7 @@ MERCHANT_LOGOS = {
 }
 
 
-def fetch_fallback(query: str) -> list[dict]:
+def fetch_fallback(query: str) -> List[Dict]:
     """Simulate product data for demo/dev mode."""
     query_lower = query.lower().strip()
     results = []
@@ -178,7 +179,7 @@ def fetch_fallback(query: str) -> list[dict]:
 
 # ─── Main Fetch Orchestrator ─────────────────────────────────────────────────
 
-def fetch_products(query: str) -> list[dict]:
+def fetch_products(query: str) -> List[Dict]:
     """
     Primary fetch: try SerpAPI first, fall back to simulation if needed.
     Returns list of raw product dicts.
