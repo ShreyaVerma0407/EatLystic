@@ -1,6 +1,7 @@
 import React from 'react';
 import Navbar from './Navbar';
 import Footer from './Footer';
+import { useNavigate } from 'react-router-dom';
 
 // --- Icon components (lucide-react equivalents) ---
 const MessageCircle = (props) => (
@@ -29,14 +30,12 @@ const FileText = (props) => (
 
 // Main Component
 const HelpDesk = () => {
-    // 💡 FIX: Changed the 'navigate' placeholder function to actually change the URL.
-    const navigate = (to) => { 
-        console.log(`Navigating to: ${to}`);
-        // This line forces the browser to navigate, simulating a link click.
-        window.location.href = to; 
-    }; 
 
-    const Card = ({ title, description, icon: Icon, to }) => {
+const navigate = useNavigate();
+
+
+
+const Card = ({ title, description, icon: Icon, to }) => {
         const handleClick = () => {
             navigate(to); 
         };

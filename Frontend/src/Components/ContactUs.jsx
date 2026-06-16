@@ -60,7 +60,7 @@ const Toast = ({ visible, onClose }) => {
         &times;
       </button>
       {/* Toast specific styles */}
-      <style jsx>{`
+      <style>{`
         .toast-container {
           position: fixed;
           bottom: 20px;
@@ -93,7 +93,7 @@ const Card = ({ children, className }) => {
     <div className={`card ${className}`}>
       {children}
       {/* Card specific styles */}
-      <style jsx>{`
+      <style>{`
         .card {
           max-width: 500px;
           background-color: #fff7e6; /* Pale orange/Near white (REPLACING GREY/DARK) */
@@ -117,7 +117,7 @@ export default function App() {
 
   const [toastVisible, setToastVisible] = useState(false);
 const [errorMsg, setErrorMsg] = useState('');
-
+console.log(API_BASE_URL);
    const handleSubmit = async (e) => {
     e.preventDefault();
     setErrorMsg('');
@@ -327,7 +327,7 @@ const [errorMsg, setErrorMsg] = useState('');
       <Footer />
 
       {/* CSS-in-JS for styling */}
-      <style jsx>{`
+     <style>{`
         /* --- Color Variables --- */
         .bg-background { background-color: #ffe0b2; } /* Light Orange BG (REPLACING BLACK) */
         .text-foreground { color: #181824; } /* Deep Brown/Black Text (REPLACING GREY/F0F0F0) */
