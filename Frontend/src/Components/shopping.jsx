@@ -94,17 +94,22 @@ const ShoppingCart = () => {
   };
 
   const comparePrices = () => {
-    if (cartItems.length === 0) return;
-    const cleaned = cartItems
-      .map((i) => cleanItemName(i.name))
-      .filter((name) => name.length > 1)          // drop empty/single-char results
-      .filter((name, idx, arr) => arr.indexOf(name) === idx) // deduplicate
-      .slice(0, 8);                                // Streamlit max 8
-    const itemNames = cleaned.join(",");
-    // Add timestamp so Streamlit never sees a stale cached session
-    const streamlitUrl = `http://localhost:8501/?items=${encodeURIComponent(itemNames)}&t=${Date.now()}`;
-    window.open(streamlitUrl, "_blank");
-  };
+  if (cartItems.length === 0) return;
+
+  const cleaned = cartItems
+    .map((i) => cleanItemName(i.name))
+    .filter((name) => name.length > 1)
+    .filter((name, idx, arr) => arr.indexOf(name) === idx)
+    .slice(0, 8);
+
+  const itemNames = cleaned.join(",");
+
+  const streamlitUrl = `${
+    import.meta.env.VITE_CART_URL
+  }/?items=${encodeURIComponent(itemNames)}&t=${Date.now()}`;
+
+  window.open(streamlitUrl, "_blank");
+};
 
   // Pantry suggestions
   const getPantrySuggestions = () =>
