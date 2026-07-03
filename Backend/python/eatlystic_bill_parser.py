@@ -1,14 +1,12 @@
 
 from __future__ import annotations   # MUST be line 1
 import requests
-
-from dotenv import load_dotenv
-import os
-
-load_dotenv()
+import pytesseract
+pytesseract.pytesseract.tesseract_cmd = r"C:\Program Files\Tesseract-OCR\tesseract.exe"
 
 
-API_KEY = os.getenv("OCR_API_KEY")
+
+
 import re
 import json
 import logging
@@ -313,29 +311,9 @@ def preprocess_image_for_ocr(image_path: str | Path) -> np.ndarray:
     return cv2.fastNlMeansDenoising(binary, h=10)
 
 
-def extract_text_from_image(image_path):
-    processed = preprocess_image_for_ocr(image_path)
-
-    _, buffer = cv2.imencode(".png", processed)
-
-    response = requests.post(
-        "https://api.ocr.space/parse/image",
-        files={
-            "filename": ("bill.png", buffer.tobytes(), "image/png")
-        },
-        data={
-            "apikey": API_KEY,
-            "language": "eng",
-            "OCREngine": 2
-        }
-    )
-
-    response.raise_for_status()
-
-    result = response.json()
-
-    raw = result["ParsedResults"][0]["ParsedText"]
-
+def extract_text_from_image(image_path: str | Path) -> str:
+    pil_img = Image.fromarray(preprocess_image_for_ocr(image_path))
+    raw = pytesseract.image_to_string(pil_img, config=r"--oem 3 --psm 6")
     logger.info("OCR extracted %d characters.", len(raw))
     return raw
 # ══════════════════════════════════════════════
