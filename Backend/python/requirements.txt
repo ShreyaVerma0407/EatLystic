@@ -1,17 +1,1 @@
-streamlit
 
-opencv-python-headless
-
-numpy
-
-pandas
-
-Pillow
-
-rapidfuzz
-
-requests
-
-flask
-
-python-dotenv
