@@ -27,6 +27,7 @@ With EatLystic, you can **manage what you eat**, **maintain your health goals**,
 
 ---
 
+
 ## 🚀 Tech Stack
 
 ### 💻 Frontend Frameworks
@@ -181,6 +182,7 @@ Make sure to create `.env` files for **both frontend and backend** with the foll
 ```env
 # API base URL (backend server)
 VITE_API_BASE_URL=http://localhost:3001/api
+VITE_STREAMLIT_URL=http://localhost:8501
 
 # Default values for theme, language, etc. (non-secret stuff)
 VITE_DEFAULT_THEME=light
@@ -212,7 +214,7 @@ EMAIL_PASS=your_email_password_here
 # Third-party API keys (replace with your own)
 EDAMAM_APP_ID=your_edamam_app_id_here
 EDAMAM_APP_KEY=your_edamam_app_key_here
-
+OCR_API_KEY=your_ocr_api_key_here
 ```
 ---
 
