@@ -1,5 +1,5 @@
 
-from __future__ import annotations   
+from __future__ import annotations   # MUST be line 1
 import requests
 
 from dotenv import load_dotenv
