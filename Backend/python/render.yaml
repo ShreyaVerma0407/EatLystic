@@ -1,8 +1,0 @@
-services:
-  - type: web
-    name: eatlystic-backend
-    env: node
-    buildCommand: npm install && pip install -r Backend/python/requirements.txt
-    startCommand: node index.js
-    aptPackages:
-      - tesseract-ocr

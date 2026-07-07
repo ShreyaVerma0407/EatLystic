@@ -67,6 +67,7 @@ const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
 const UNSPLASH_ACCESS_KEY =  import.meta.env.VITE_UNSPLASH_KEY;
 const EDAMAM_APP_ID = import.meta.env.VITE_EDAMAM_APP_ID;
 const EDAMAM_APP_KEY = import.meta.env.VITE_EDAMAM_APP_KEY;
+const STREAMLIT_URL = import.meta.env.VITE_STREAMLIT_URL;
 
 const defaultImage = "/images/pantry.png";
 const vegImage = "/images/pantrygreen.png";
@@ -329,12 +330,14 @@ const normalizeCategory = (cat = "") => {
     bakery: "Bakery",
     beverages: "Beverages",
     beverage: "Beverages",
-    others: "Others",
-    other: "Others",
+    condiments: "Condiments",
+    condiment: "Condiments",
+    others: "Other",
+    other: "Other",
   };
 
   const key = cat.toLowerCase();
-  return map[key] || "Others";
+  return map[key] || "Other";
 };
 const scanBill = async (file) => {
   const formData = new FormData();
@@ -460,17 +463,24 @@ const addToPantry = async (item) => {
           {showForm ? "Close Form" : editingId ? "Edit Item" : "+ Add Item"}
         </button>
 <div style={{ marginTop: "10px" }}>
-  <input
-    type="file"
-    accept="image/*"
-    onChange={(e) => {
-      if (e.target.files?.[0]) scanBill(e.target.files[0]);
+  <button
+    className="btn-add"
+    onClick={() => {
+      if (!currentUserId) {
+        alert("Please log in first.");
+        return;
+      }
+      const streamlitUrl = `${STREAMLIT_URL}/?userId=${encodeURIComponent(currentUserId)}`;
+      window.open(streamlitUrl, "_blank");
     }}
-  />
+  >
+    📷 Scan Bill
+  </button>
 
   {uploading && <p style={{ color: "black" }}>Scanning bill...</p>}
 </div>
-        <div className="global-filters">
+
+    <div className="global-filters">
           <select
             value={globalFilters.category}
             onChange={(e) =>
