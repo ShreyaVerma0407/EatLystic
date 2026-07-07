@@ -149,7 +149,11 @@ npm install
 ```bash
 cd cart
 pip install -r requirements.txt
+
+cd Backend/python
+pip install -r requirements.txt
 ```
+
 
 ## 🚀 Running the Project
 
@@ -168,6 +172,10 @@ pip install -r requirements.txt
      ```bash
      cd cart
      streamlit run app.py
+     ```
+      ```bash
+     cd Backend/python
+     streamlit run camera.py
      ```
 
 ---
@@ -214,7 +222,6 @@ EMAIL_PASS=your_email_password_here
 # Third-party API keys (replace with your own)
 EDAMAM_APP_ID=your_edamam_app_id_here
 EDAMAM_APP_KEY=your_edamam_app_key_here
-OCR_API_KEY=your_ocr_api_key_here
 ```
 ---
 
@@ -223,6 +230,14 @@ OCR_API_KEY=your_ocr_api_key_here
 ```env
 #SERPAPI
 SERPAPI_KEY=YOUR_API_KEY
+```
+---
+
+### ⚡ python (Backend/python/.env)
+
+```env
+#OCR_API_KEY
+OCR_API_KEY=YOUR_API_KEY
 ```
 ---
 
